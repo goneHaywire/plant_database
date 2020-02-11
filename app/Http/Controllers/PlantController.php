@@ -14,7 +14,14 @@ class PlantController extends Controller
      */
     public function index()
     {
-        //
+        $plants = Plant::paginate(20);
+        return view('dashboard.plants.index')->with(['plants' => $plants, 'pagination' => $plants]);
+    }
+
+    public function albanian_plants()
+    {
+        $plants = Plant::where('in_albania', 1)->paginate(20);
+        return view('dashboard.albanian.index')->with(['plants' => $plants, 'pagination' => $plants]);
     }
 
     /**

@@ -14,7 +14,8 @@ class GeneraController extends Controller
      */
     public function index()
     {
-        //
+        $genera = Genera::paginate(20);
+        return view('dashboard.genera.index')->with(['genera' => $genera, 'pagination' => $genera]);
     }
 
     /**

@@ -21,8 +21,8 @@ class CreatePlantsTable extends Migration
             $table->bigInteger('ipni')->unique();
             $table->bigInteger('year')->nullable();
             $table->string('authorship')->nullable();
-            $table->unsignedBigInteger('family_id')->nullable();
-            $table->unsignedBigInteger('genera_id')->nullable();
+            $table->unsignedBigInteger('family_id');
+            $table->unsignedBigInteger('genera_id');
             $table->foreign('family_id')->references('id')->on('families');
             $table->foreign('genera_id')->references('id')->on('generas');
             $table->timestamps();

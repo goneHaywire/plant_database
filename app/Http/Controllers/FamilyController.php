@@ -14,7 +14,8 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        //
+        $families = Family::paginate(20);
+        return view('dashboard.families.index')->with(['families' => $families, 'pagination' => $families]);
     }
 
     /**

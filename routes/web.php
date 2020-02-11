@@ -11,11 +11,17 @@
 |
 */
 
+Route::resource('families', 'FamilyController');
+Route::resource('genera', 'GeneraController');
+Route::resource('favourites', 'FavouritesController');
+Route::resource('plants', 'PlantController');
+Route::resource('users', 'UserController');
+
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/index', 'HomeController@index')->name('index');
-Route::get('/families', 'HomeController@families')->name('families');
-Route::get('/genera', 'HomeController@genera')->name('genera');
-Route::get('/favourites', 'HomeController@favourites')->name('favourites');
-Route::get('/albanian', 'HomeController@albanian_plants')->name('albanian_plants');
-Route::get('/users', 'HomeController@users')->name('users');
+//Route::get('/families', 'HomeController@families')->name('families');
+//Route::get('/genera', 'HomeController@genera')->name('genera');
+//Route::get('/favourites', 'HomeController@favourites')->name('favourites');
+Route::get('/albanian', 'PlantController@albanian_plants')->name('albanian_plants');
+//Route::get('/users', 'HomeController@users')->name('users');
 Auth::routes(['register' => false]);
