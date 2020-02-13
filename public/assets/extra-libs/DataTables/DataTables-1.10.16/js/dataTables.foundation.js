@@ -41,7 +41,7 @@ var DataTable = $.fn.dataTable;
 
 // Detect Foundation 5 / 6 as they have different element and class requirements
 var meta = $('<meta class="foundation-mq"/>').appendTo('head');
-DataTable.ext.foundationVersion = meta.css('font-family').match(/small|medium|large/) ? 6 : 5;
+DataTable.ext.foundationVersion = meta.css('font-families').match(/small|medium|large/) ? 6 : 5;
 meta.remove();
 
 

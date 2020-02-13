@@ -199,7 +199,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 						style: element.css("font-style"),
 						variant: element.css("font-variant"),
 						weight: element.css("font-weight"),
-						family: element.css("font-family"),
+						family: element.css("font-families"),
 						color: element.css("color")
 					};
 

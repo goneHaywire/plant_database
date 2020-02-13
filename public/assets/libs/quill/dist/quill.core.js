@@ -178,7 +178,7 @@ function create(input, value) {
         throw new ParchmentError("Unable to create " + input + " blot");
     }
     var BlotClass = match;
-    var node = 
+    var node =
     // @ts-ignore
     input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
     return new BlotClass(node, value);
@@ -6017,7 +6017,7 @@ var FontStyleAttributor = function (_Parchment$Attributor) {
   return FontStyleAttributor;
 }(_parchment2.default.Attributor.Style);
 
-var FontStyle = new FontStyleAttributor('font', 'font-family', config);
+var FontStyle = new FontStyleAttributor('font', 'font-families', config);
 
 exports.FontStyle = FontStyle;
 exports.FontClass = FontClass;

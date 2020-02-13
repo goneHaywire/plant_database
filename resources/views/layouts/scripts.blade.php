@@ -15,3 +15,4 @@
 <script src="../../assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="../../assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="../../assets/extra-libs/DataTables/datatables.min.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>

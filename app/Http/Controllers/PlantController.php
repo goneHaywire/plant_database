@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Genera;
 use App\Plant;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,24 @@ class PlantController extends Controller
      */
     public function index()
     {
-        $plants = Plant::paginate(20);
-        return view('dashboard.plants.index')->with(['plants' => $plants, 'pagination' => $plants]);
+        $plants = Plant::with(['genera', 'genera.family'])->paginate(20);
+        $response = [
+            'pagination' => [
+                'total' => $plants->total(),
+                'per_page' => $plants->perPage(),
+                'current_page' => $plants->currentPage(),
+                'last_page' => $plants->lastPage(),
+                'from' => $plants->firstItem(),
+                'to' => $plants->lastItem()
+            ],
+            'data' => $plants
+        ];
+        return response()->json($response);
+    }
+
+    public function speciesOfGenera(Genera $genera){
+//        dd($genera->plants);
+        return response()->json($genera->plants);
     }
 
     public function albanian_plants()
@@ -31,7 +48,7 @@ class PlantController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.plants.create');
     }
 
     /**
@@ -42,7 +59,25 @@ class PlantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->plant_id){
+//            dd($request->all());
+            $plant = new Plant();
+            $plant->specie_name = $request->name;
+            $plant->common_name = $request->cname;
+            $plant->in_albania = $request->in_albania == "on" ? 1 : 0;
+            $plant->genera_id = $request->genera_id;
+            $plant->family_id = $request->family_id;
+            $plant->save();
+            return redirect()->route('plants');
+        } else {
+            $plant = Plant::find($request->plant_id);
+            $plant->name = $request->name;
+            $plant->cname = $request->cname;
+            $plant->in_albania = $request->in_albania == "on" ? 1 : 0;
+            $plant->genera_id = $request->genera_id;
+            $plant->family_id = $request->family_id;
+            $plant->save();
+        }
     }
 
     /**

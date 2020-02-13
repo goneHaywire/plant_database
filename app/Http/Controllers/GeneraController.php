@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Family;
 use App\Genera;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,24 @@ class GeneraController extends Controller
      */
     public function index()
     {
-        $genera = Genera::paginate(20);
-        return view('dashboard.genera.index')->with(['genera' => $genera, 'pagination' => $genera]);
+        $genera = Genera::with(['family'])->paginate(20);
+        $response = [
+            'pagination' => [
+                'total' => $genera->total(),
+                'per_page' => $genera->perPage(),
+                'current_page' => $genera->currentPage(),
+                'last_page' => $genera->lastPage(),
+                'from' => $genera->firstItem(),
+                'to' => $genera->lastItem()
+            ],
+            'data' => $genera
+        ];
+        return response()->json($response);
+    }
+
+    public function generaOfFamily(Family $family){
+//        dd($family->genera);
+        return response()->json($family->genera);
     }
 
     /**
@@ -25,7 +42,8 @@ class GeneraController extends Controller
      */
     public function create()
     {
-        //
+        $families = Family::all();
+        return view('dashboard.genera.create')->with('families', $families);
     }
 
     /**
@@ -36,7 +54,18 @@ class GeneraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->genera_id){
+            $genera = new Genera();
+            $genera->name = $request->name;
+            $genera->family_id = $request->family;
+            $genera->save();
+            return redirect()->route('genera');
+        } else {
+            $genera = Genera::find($request->genera_id);
+            $genera->name = $request->name;
+            $genera->family_id = $request->family;
+            $genera->save();
+        }
     }
 
     /**
@@ -47,7 +76,7 @@ class GeneraController extends Controller
      */
     public function show(Genera $genera)
     {
-        //
+        return view('dashboard.genera.show')->with('genus', $genera);
     }
 
     /**

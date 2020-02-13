@@ -20,6 +20,14 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('pagination', require('./components/Pagination.vue').default);
+
+Vue.component('families-index', require('./components/families/index.vue').default);
+Vue.component('plants-index', require('./components/plants/index.vue').default);
+Vue.component('genera-index', require('./components/genera/index.vue').default);
+Vue.component('genera-for-family', require('./components/genera_for_family.vue').default);
+Vue.component('genera-for-family-table', require('./components/genera_for_family_table.vue').default);
+Vue.component('species-for-genera-table', require('./components/species_for_genera_table.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

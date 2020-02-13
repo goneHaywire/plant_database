@@ -15,7 +15,22 @@ class FamilyController extends Controller
     public function index()
     {
         $families = Family::paginate(20);
-        return view('dashboard.families.index')->with(['families' => $families, 'pagination' => $families]);
+        $response = [
+            'pagination' => [
+                'total' => $families->total(),
+                'per_page' => $families->perPage(),
+                'current_page' => $families->currentPage(),
+                'last_page' => $families->lastPage(),
+                'from' => $families->firstItem(),
+                'to' => $families->lastItem()
+            ],
+            'data' => $families
+        ];
+        return response()->json($response);
+    }
+
+    public function all_families(){
+        return response()->json(Family::all());
     }
 
     /**
@@ -25,7 +40,7 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.families.create');
     }
 
     /**
@@ -36,7 +51,27 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        if (!$request->family_id){
+            $family = new Family();
+            $family->name = $request->name;
+            $family->description = $request->desc;
+            $family->leaves = $request->leaves;
+            $family->flowers = $request->flowers;
+            $family->seeds = $request->seeds;
+            $family->characteristics = $request->characteristics;
+            $family->save();
+            return redirect()->route('families');
+        } else {
+            $family = Family::find($request->family_id);
+            $family->name = $request->name;
+            $family->description = $request->desc;
+            $family->leaves = $request->leaves;
+            $family->flowers = $request->flowers;
+            $family->seeds = $request->seeds;
+            $family->characteristics = $request->characteristics;
+            $family->save();
+        }
     }
 
     /**
@@ -47,7 +82,7 @@ class FamilyController extends Controller
      */
     public function show(Family $family)
     {
-        //
+        return view('dashboard.families.show')->with(['family' => $family]);
     }
 
     /**

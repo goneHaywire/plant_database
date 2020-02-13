@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class NavigationController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,9 +31,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function plants()
+    {
+        return view('dashboard.plants.index');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function favourites()
     {
-        return view('dashboard.favourites');
+        return view('dashboard.favourites.index');
     }
 
     /**
@@ -43,7 +53,7 @@ class HomeController extends Controller
      */
     public function families()
     {
-        return view('dashboard.families');
+        return view('dashboard.families.index');
     }
 
     /**
@@ -53,7 +63,7 @@ class HomeController extends Controller
      */
     public function genera()
     {
-        return view('dashboard.genera');
+        return view('dashboard.genera.index');
     }
 
     /**
@@ -63,7 +73,7 @@ class HomeController extends Controller
      */
     public function albanian_plants()
     {
-        return view('dashboard.albanian_plants');
+        return view('dashboard.albanian_plants.index');
     }
 
     /**
@@ -73,6 +83,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.all_plants');
+        return view('dashboard.plants.index');
     }
 }
