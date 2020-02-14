@@ -61,14 +61,6 @@ class PlantController extends Controller
         return view('dashboard.albanian.index');
     }
 
-    public function filter(){
-        return view('dashboard.filter.form');
-    }
-
-    public function filterSubmit(){
-        return view('dashboard.filter.index');
-    }
-
     /**
      * Show the form for creating a new resource.
      *

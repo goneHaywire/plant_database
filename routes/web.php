@@ -36,8 +36,8 @@ Route::group(['prefix' => '/dashboard'], function (){
 
     Route::get('/albanian', 'PlantController@albanian')->name('albanian_plants');
 
-    Route::get('/filter', 'PlantController@filter')->name('filter');
-    Route::post('/filter/submit', 'PlantController@filterSubmit')->name('filterSubmit');
+    Route::get('/filter', 'FilterController@filter')->name('filter');
+    Route::post('/filter/submit', 'FilterController@filterSubmit')->name('filterSubmit');
 
 //    Route::get('/plants', 'NavigationController@plants')->name('plants');
 //    Route::get('/plants/create', 'PlantController@create')->name('plants.create');
