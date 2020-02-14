@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Favourite;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class FavouriteController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +14,21 @@ class FavouriteController extends Controller
      */
     public function index()
     {
-        $user = User::find(1);
-        return view('dashboard.favourites.index')->with('user', $user);
+        return view('dashboard.users.index');
     }
 
     public function indexApi(){
-//        $favourites = Favourite::with(['plant', 'plant.genera', 'plant.genera.family'])->where('user_id', Auth::id())->paginate(20);
-        $favourites = Favourite::with(['plant', 'plant.genera', 'plant.genera.family'])->where('user_id', 1)->paginate(20);
+        $users = User::paginate(20);
         $response = [
             'pagination' => [
-                'total' => $favourites->total(),
-                'per_page' => $favourites->perPage(),
-                'current_page' => $favourites->currentPage(),
-                'last_page' => $favourites->lastPage(),
-                'from' => $favourites->firstItem(),
-                'to' => $favourites->lastItem()
+                'total' => $users->total(),
+                'per_page' => $users->perPage(),
+                'current_page' => $users->currentPage(),
+                'last_page' => $users->lastPage(),
+                'from' => $users->firstItem(),
+                'to' => $users->lastItem()
             ],
-            'data' => $favourites
+            'data' => $users
         ];
         return response()->json($response);
     }
@@ -61,10 +57,10 @@ class FavouriteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Favourite  $favourite
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Favourite $favourite)
+    public function show($id)
     {
         //
     }
@@ -72,10 +68,10 @@ class FavouriteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Favourite  $favourite
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Favourite $favourite)
+    public function edit($id)
     {
         //
     }
@@ -84,10 +80,10 @@ class FavouriteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Favourite  $favourite
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Favourite $favourite)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -95,10 +91,10 @@ class FavouriteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Favourite  $favourite
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favourite $favourite)
+    public function destroy($id)
     {
         //
     }

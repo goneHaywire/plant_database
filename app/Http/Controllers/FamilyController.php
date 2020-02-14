@@ -12,7 +12,11 @@ class FamilyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() {
+        return view('dashboard.families.index');
+    }
+
+    public function indexApi()
     {
         $families = Family::paginate(20);
         $response = [
@@ -61,7 +65,7 @@ class FamilyController extends Controller
             $family->seeds = $request->seeds;
             $family->characteristics = $request->characteristics;
             $family->save();
-            return redirect()->route('families');
+            return redirect()->route('families.index');
         } else {
             $family = Family::find($request->family_id);
             $family->name = $request->name;
@@ -71,6 +75,7 @@ class FamilyController extends Controller
             $family->seeds = $request->seeds;
             $family->characteristics = $request->characteristics;
             $family->save();
+            return redirect()->route('families.show', $request->family_id);
         }
     }
 

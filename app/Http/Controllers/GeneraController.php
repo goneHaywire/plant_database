@@ -13,7 +13,11 @@ class GeneraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() {
+        return view('dashboard.genera.index');
+    }
+
+    public function indexApi()
     {
         $genera = Genera::with(['family'])->paginate(20);
         $response = [
@@ -59,12 +63,13 @@ class GeneraController extends Controller
             $genera->name = $request->name;
             $genera->family_id = $request->family;
             $genera->save();
-            return redirect()->route('genera');
+            return redirect()->route('genera.index');
         } else {
             $genera = Genera::find($request->genera_id);
             $genera->name = $request->name;
             $genera->family_id = $request->family;
             $genera->save();
+            return redirect()->route('genera.show', $request->genera_id);
         }
     }
 
@@ -74,8 +79,13 @@ class GeneraController extends Controller
      * @param  \App\Genera  $genera
      * @return \Illuminate\Http\Response
      */
-    public function show(Genera $genera)
+    public function show($genera)
     {
+
+//        dd($genera);
+//        $genera->load('family');
+        $genera = Genera::with('family')->find(intval($genera));
+//        dd($genera->toArray());
         return view('dashboard.genera.show')->with('genus', $genera);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class NavigationController extends Controller
@@ -31,10 +32,10 @@ class NavigationController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function plants()
-    {
-        return view('dashboard.plants.index');
-    }
+//    public function plants()
+//    {
+//        return view('dashboard.plants.index');
+//    }
 
     /**
      * Show the application dashboard.
@@ -51,10 +52,10 @@ class NavigationController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function families()
-    {
-        return view('dashboard.families.index');
-    }
+//    public function families()
+//    {
+//        return view('dashboard.families.index');
+//    }
 
     /**
      * Show the application dashboard.
@@ -73,7 +74,7 @@ class NavigationController extends Controller
      */
     public function albanian_plants()
     {
-        return view('dashboard.albanian_plants.index');
+        return view('dashboard.albanian.index');
     }
 
     /**

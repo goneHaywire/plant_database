@@ -4,12 +4,12 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Add Species</h4>
+                <h4 class="page-title">Filter</h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Species</li>
+                            <li class="breadcrumb-item active" aria-current="page">Filter</li>
                         </ol>
                     </nav>
                 </div>
@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form class="form-horizontal" method="post" action="{{ route('plants.store') }}">
+                    <form class="form-horizontal" method="post" action="{{ route('filterSubmit') }}">
                         @csrf
                         <div class="card-body">
                             <h4 class="card-title">Species Data</h4>

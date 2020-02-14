@@ -12,7 +12,7 @@
                 <tbody>
                 <tr v-for="genus in genera" :key="genus.id">
                     <td>{{ genus.id }}</td>
-                    <td>{{ genus.name }}</td>
+                    <td><a :href="'/dashboard/genera/'+genus.id">{{ genus.name }}</a></td>
                 </tr>
                 </tbody>
                 <tfoot>

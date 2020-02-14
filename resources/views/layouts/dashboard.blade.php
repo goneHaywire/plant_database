@@ -241,23 +241,27 @@
                                                     href="{{ route('home') }}" aria-expanded="false"><i
                                     class="mdi mdi-view-dashboard"></i><span class="hide-menu">Home</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('families') }}" aria-expanded="false"><i
+                                                    href="{{ route('families.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-chart-bar"></i><span class="hide-menu">Families</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('genera') }}" aria-expanded="false"><i
+                                                    href="{{ route('genera.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-chart-bubble"></i><span class="hide-menu">Genera</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('favourites') }}" aria-expanded="false"><i
+                                                    href="{{ route('favourites.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-border-inside"></i><span class="hide-menu">Favourites</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('plants') }}" aria-expanded="false"><i
+                                                    href="{{ route('plants.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-blur-linear"></i><span class="hide-menu">All species</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('users') }}" aria-expanded="false"><i
+                                                    href="{{ route('users.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-relative-scale"></i><span class="hide-menu">Users</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('albanian_plants') }}" aria-expanded="false"><i
                                     class="mdi mdi-pencil"></i><span class="hide-menu">Albanian species</span></a></li>
+                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                    href="{{ route('filter') }}" aria-expanded="false"><i
+                                        class="mdi mdi-pencil"></i><span class="hide-menu">Filter</span></a></li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

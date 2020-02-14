@@ -15,11 +15,11 @@
             <tbody>
             <tr v-for="plant in plants">
                 <td>{{ plant.id }}</td>
-                <td>{{ plant.genera.name }} {{ plant.specie_name }}</td>
-                <td>{{ plant.genera.name }}</td>
-                <td>{{ plant.genera.family.name }}</td>
+                <td><a :href="'/dashboard/plants/'+plant.id">{{ plant.genera.name }} {{ plant.specie_name }}</a></td>
+                <td><a :href="'/dashboard/genera/'+plant.genera.id">{{ plant.genera.name }}</a></td>
+                <td><a :href="'/dashboard/families/'+plant.genera.family.id">{{ plant.genera.family.name }}</a></td>
                 <td>{{ plant.common_name }}</td>
-                <td>{{ plant.in_albania }}</td>
+                <td>{{ plant.in_albania ? "True" : "False" }}</td>
             </tr>
             </tbody>
             <tfoot>

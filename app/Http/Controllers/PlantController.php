@@ -13,7 +13,12 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(){
+        return view('dashboard.plants.index');
+    }
+
+    public function indexApi()
     {
         $plants = Plant::with(['genera', 'genera.family'])->paginate(20);
         $response = [
@@ -30,15 +35,38 @@ class PlantController extends Controller
         return response()->json($response);
     }
 
-    public function speciesOfGenera(Genera $genera){
+    public function plantsOfGenera(Genera $genera){
 //        dd($genera->plants);
         return response()->json($genera->plants);
     }
 
-    public function albanian_plants()
+    public function albanianApi(){
+        $plants = Plant::with(['genera', 'genera.family'])->where('in_albania', 1)->paginate(20);
+        $response = [
+            'pagination' => [
+                'total' => $plants->total(),
+                'per_page' => $plants->perPage(),
+                'current_page' => $plants->currentPage(),
+                'last_page' => $plants->lastPage(),
+                'from' => $plants->firstItem(),
+                'to' => $plants->lastItem()
+            ],
+            'data' => $plants
+        ];
+        return response()->json($response);
+    }
+
+    public function albanian()
     {
-        $plants = Plant::where('in_albania', 1)->paginate(20);
-        return view('dashboard.albanian.index')->with(['plants' => $plants, 'pagination' => $plants]);
+        return view('dashboard.albanian.index');
+    }
+
+    public function filter(){
+        return view('dashboard.filter.form');
+    }
+
+    public function filterSubmit(){
+        return view('dashboard.filter.index');
     }
 
     /**
@@ -68,7 +96,7 @@ class PlantController extends Controller
             $plant->genera_id = $request->genera_id;
             $plant->family_id = $request->family_id;
             $plant->save();
-            return redirect()->route('plants');
+            return redirect()->route('plants.index');
         } else {
             $plant = Plant::find($request->plant_id);
             $plant->name = $request->name;
@@ -77,6 +105,7 @@ class PlantController extends Controller
             $plant->genera_id = $request->genera_id;
             $plant->family_id = $request->family_id;
             $plant->save();
+            return redirect()->route('plants.show', $request->plant_id);
         }
     }
 

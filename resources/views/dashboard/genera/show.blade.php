@@ -30,7 +30,7 @@
                         <p>{{ $genus->family->name }}</p>
 
                         <h6>Species for {{ $genus->name }}</h6>
-                        <species-for-genera-table genus="{{ $genus->id }}" genus_name="{{ $genus->name }}"></species-for-genera-table>
+                        <plants-for-genera-table genus="{{ $genus->id }}" genus_name="{{ $genus->name }}"></plants-for-genera-table>
                     </div>
                 </div>
             </div>

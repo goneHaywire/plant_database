@@ -14,7 +14,7 @@
                 <tbody>
                 <tr v-for="specie in species" :key="specie.id">
                     <td>{{ specie.id }}</td>
-                    <td>{{ genus_name+' '+specie.specie_name }}</td>
+                    <td><a :href="'/dashboard/plants/'+specie.id">{{ genus_name+' '+specie.specie_name }}</a></td>
                     <td>{{ specie.common_name }}</td>
                     <td>{{ specie.in_albania ? "True" : "False" }}</td>
                 </tr>
@@ -34,7 +34,7 @@
 
 <script>
     export default {
-        name: "species-for-genera-table",
+        name: "plants-for-genera-table",
         slots: {
             genus: {
                 required: true
@@ -45,7 +45,7 @@
         },
         methods: {
             fetchSpecies(){
-                axios.get(`/species_of_genera/${this.$attrs.genus}`)
+                axios.get(`/plants_of_genera/${this.$attrs.genus}`)
                     .then(response => {
                         console.log(response)
                         this.species = response.data;
