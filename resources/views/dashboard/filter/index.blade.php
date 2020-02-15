@@ -22,8 +22,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">All Genera</h5>
-                        <plants-index></plants-index>
+                        <h5 class="card-title">Filter Results</h5>
+
+                        @if (json_decode($response)->pagination->total > 0)
+                            <h6>{{ json_decode($response)->pagination->total }} species found.</h6>
+                            <hr>
+                            <filter-index results="{{ $response }}"></filter-index>
+                        @else
+                            <hr>
+                            <h3>No species found.</h3>
+                        @endif
                     </div>
                 </div>
             </div>

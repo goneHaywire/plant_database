@@ -259,7 +259,7 @@
                                                     href="{{ route('albanian_plants') }}" aria-expanded="false"><i
                                     class="mdi mdi-pencil"></i><span class="hide-menu">Albanian species</span></a></li>
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('filter') }}" aria-expanded="false"><i
+                                                    href="{{ route('filter.form') }}" aria-expanded="false"><i
                                         class="mdi mdi-pencil"></i><span class="hide-menu">Filter</span></a></li>
 
                     </ul>

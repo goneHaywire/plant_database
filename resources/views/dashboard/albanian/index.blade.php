@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">All Species</h5>
+                        <h5 class="card-title">Albanian Species</h5>
                         <albanian-index></albanian-index>
                     </div>
                 </div>

@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::get('families', 'FamilyController@indexApi');
 Route::get('/all_families', 'FamilyController@all_families');
 
@@ -21,6 +19,8 @@ Route::get('/genera_of_family/{family}', 'GeneraController@generaOfFamily');
 
 Route::get('plants', 'PlantController@indexApi');
 Route::get('/plants_of_genera/{genera}', 'PlantController@plantsOfGenera');
+
+Route::get('/filter', 'FilterController@indexApi');
 
 Route::get('users', 'UserController@indexApi');
 Route::get('favourites', 'FavouriteController@indexApi');
@@ -36,8 +36,8 @@ Route::group(['prefix' => '/dashboard'], function (){
 
     Route::get('/albanian', 'PlantController@albanian')->name('albanian_plants');
 
-    Route::get('/filter', 'FilterController@filter')->name('filter');
-    Route::post('/filter/submit', 'FilterController@filterSubmit')->name('filterSubmit');
+    Route::get('/filter/form', 'FilterController@form')->name('filter.form');
+    Route::get('/filter', 'FilterController@index')->name('filter.index');
 
 //    Route::get('/plants', 'NavigationController@plants')->name('plants');
 //    Route::get('/plants/create', 'PlantController@create')->name('plants.create');

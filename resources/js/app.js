@@ -27,6 +27,7 @@ Vue.component('genera-index', require('./components/genera/index.vue').default);
 Vue.component('albanian-index', require('./components/plants/albanian_only.vue').default);
 Vue.component('users-index', require('./components/users/index.vue').default);
 Vue.component('favourites-index', require('./components/favourites/index.vue').default);
+Vue.component('filter-index', require('./components/filter/index.vue').default);
 
 Vue.component('genera-for-family', require('./components/genera_for_family.vue').default);
 Vue.component('genera-for-family-table', require('./components/genera_for_family_table.vue').default);
