@@ -29,6 +29,12 @@ Vue.component('users-index', require('./components/users/index.vue').default);
 Vue.component('favourites-index', require('./components/favourites/index.vue').default);
 Vue.component('filter-index', require('./components/filter/index.vue').default);
 
+Vue.component('plants-show', require('./components/plants/show.vue').default);
+
+Vue.component('test', require('./components/test.vue').default);
+
+
+
 Vue.component('genera-for-family', require('./components/genera_for_family.vue').default);
 Vue.component('genera-for-family-table', require('./components/genera_for_family_table.vue').default);
 Vue.component('plants-for-genera-table', require('./components/plants_for_genera_table.vue').default);
@@ -43,3 +49,9 @@ Vue.component('plants-for-genera-table', require('./components/plants_for_genera
 const app = new Vue({
     el: '#app',
 });
+
+// var cors = require('cors')
+// const puppeteer = require('puppeteer')
+//
+// app.use(cors())
+// app.use(puppeteer)

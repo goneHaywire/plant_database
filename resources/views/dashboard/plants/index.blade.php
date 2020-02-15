@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">All Genera</h5>
+                        <h5 class="card-title">All Plants</h5>
                         <plants-index></plants-index>
                     </div>
                 </div>

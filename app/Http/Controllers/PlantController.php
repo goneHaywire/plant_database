@@ -107,9 +107,10 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function show(Plant $plant)
+    public function show($plant)
     {
-        //
+        $plant = Plant::with('genera', 'genera.family')->find(intval($plant));
+        return view('dashboard.plants.show')->with('plant', $plant);
     }
 
     /**
