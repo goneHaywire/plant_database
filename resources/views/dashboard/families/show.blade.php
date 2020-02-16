@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
                 <h4 class="page-title">Family {{ $family->name }}</h4>
-                <a href="{{ route('plants.create') }}" class="btn btn-info ml-4">Update Family</a>
+{{--                <a href="{{ route('plants.create') }}" class="btn btn-info ml-4">Update Family</a>--}}
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">

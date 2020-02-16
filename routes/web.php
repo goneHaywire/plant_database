@@ -40,27 +40,8 @@ Route::group(['prefix' => '/dashboard'], function (){
     Route::get('/filter/form', 'FilterController@form')->name('filter.form');
     Route::get('/filter', 'FilterController@index')->name('filter.index');
 
-//    Route::get('/plants', 'NavigationController@plants')->name('plants');
-//    Route::get('/plants/create', 'PlantController@create')->name('plants.create');
-//    Route::get('/plants/{plant}', 'PlantController@show')->name('plants.show');
-
-//    Route::get('/families', 'NavigationController@families')->name('families');
-//    Route::get('/families/create', 'FamilyController@create')->name('families.create');
-//    Route::get('/families/{family}', 'FamilyController@show')->name('families.show');
-
-//    Route::get('/genera', 'NavigationController@genera')->name('genera');
-//    Route::get('/genera/create', 'GeneraController@create')->name('genera.create');
-//    Route::get('/genera/{genera}', 'GeneraController@show')->name('genera.show');
-
-//    Route::get('/favourites', 'NavigationController@favourites')->name('favourites');
-//    Route::get('/users', 'NavigationController@users')->name('users');
-//    Route::get('/albanian', 'NavigationController@albanian_plants')->name('albanian');
+    Route::get('/', 'NavigationController@home')->name('home');
+//    Route::get('/stats', 'NavigationController@stats')->name('stats');
 });
-
-Route::get('/', 'NavigationController@home')->name('home');
-
-
-
-
 
 Auth::routes(['register' => false]);

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
                 <h4 class="page-title">Genus {{ $genus->name }}</h4>
-                <a href="{{ route('plants.create') }}" class="btn btn-info ml-4">Update Genus</a>
+{{--                <a href="{{ route('plants.create') }}" class="btn btn-info ml-4">Update Genus</a>--}}
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">

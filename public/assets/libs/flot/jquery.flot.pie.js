@@ -160,8 +160,14 @@ More detail and specific examples can be found in the included HTML file.
 			}
 		}
 
-		function combine(data) {
-
+		 function combine(data) {
+            // await fetch('/dashboard/stats')
+            //     .then((response) => response.json())
+            //     .then((myJson) => {
+            //         data = myJson;
+            //         console.log({test: myJson});
+            //     })
+            var data = [{"label":"Amaranthaceae","data":150},{"label":"Cupressaceae","data":75},{"label":"Boraginaceae","data":62},{"label":"Compositae","data":10},{"label":"Lamiaceae","data":8},{"label":"Apiaceae","data":6},{"label":"Pinaceae","data":5},{"label":"Leguminosae","data":5},{"label":"Gentianaceae","data":4},{"label":"Papaveraceae","data":3},{"label":"Ranunculaceae","data":3},{"label":"Solanaceae","data":3},{"label":"Capparaceae","data":2},{"label":"Fagaceae","data":2},{"label":"Plantaginaceae","data":2},{"label":"Cucurbitaceae","data":2},{"label":"Oleaceae","data":2},{"label":"Poaceae","data":2},{"label":"Lauraceae","data":2},{"label":"Paeoniaceae","data":2},{"label":"Ericaceae","data":2},{"label":"Cannabaceae","data":2},{"label":"Acanthaceae","data":1},{"label":"Acoraceae","data":1},{"label":"Pteridaceae","data":1},{"label":"Amaryllidaceae","data":1},{"label":"Primulaceae","data":1},{"label":"Sapindaceae","data":1},{"label":"Urticaceae","data":1},{"label":"Brassicaceae","data":1}];
 			var total = 0,
 				combined = 0,
 				numCombined = 0,

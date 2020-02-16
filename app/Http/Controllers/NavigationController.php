@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Family;
+use App\Favourite;
+use App\Genera;
+use App\Plant;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NavigationController extends Controller
 {
@@ -24,7 +29,28 @@ class NavigationController extends Controller
      */
     public function home()
     {
-        return view('dashboard.home');
+        $family_count = count(Family::get());
+        $genera_count = count(Genera::get());
+        $species_count = count(Plant::get());
+        $albanian_count = count(Plant::where('in_albania', 1)->get());
+        $user_count = count(User::get());
+        $favourites_count = count(Favourite::where('user_id', 1)->get());
+        return view('dashboard.home')->with(compact([
+            'family_count', 'genera_count', 'species_count', 'albanian_count', 'user_count', 'favourites_count'
+        ]));
+    }
+
+    public function stats(Request $request)
+    {
+        $stats = DB::table('plants')
+            ->select(DB::raw('families.name as label, count(*) as data'))
+            ->join('families', 'plants.family_id', '=', 'families.id')
+            ->where('in_albania', 1)
+            ->groupBy('families.name')
+            ->orderBy(DB::raw('count(*)'), 'DESC')
+            ->limit(30)
+            ->get();
+        return $stats;
     }
 
     /**
