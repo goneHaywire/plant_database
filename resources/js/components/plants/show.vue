@@ -15,8 +15,8 @@
                 <div class="photo-box-container">
                     <div class="photo-box" @click="showMultiple">
                         <p v-if="images_loaded === 'loading'">Searching for Images...</p>
-                        <p v-else-if="images_loaded">Images Found</p>
-                        <p v-else>No Images Found</p>
+                        <p v-else-if="!images_loaded">No Images Found</p>
+<!--                        <p v-else>No Images Found</p>-->
                     </div>
                     <div class="photo-box-behind"></div>
                 </div>
@@ -55,7 +55,12 @@
                         const rows = doc.querySelectorAll("table.table-results tbody tr");
                         if (rows.length > 0){
                             this.images_loaded = true;
+                            document.querySelector(".photo-box").classList.add('photo-box-image');
+                            document.querySelector(".photo-box").style.backgroundImage = `url(${rows[0].querySelector('img').src.replace(/.thumb/, '')})`
+                            document.querySelector(".photo-box-behind").classList.add('photo-box-image');
+
                             rows.forEach(row => {
+                                console.log(row.querySelector('img').src);
                                 this.images.push(row.querySelector('img').src.replace(/.thumb/, ''));
                             })
                         } else {
@@ -119,6 +124,12 @@
         padding: 0 1rem;
         text-align: center;
         cursor: pointer;
+    }
+
+    .photo-box-image{
+        background-repeat: no-repeat;
+        background-size: 150px 200px;
+        background-position: center;
     }
 
     .photo-box-behind{

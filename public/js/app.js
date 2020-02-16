@@ -2819,7 +2819,12 @@ __webpack_require__.r(__webpack_exports__);
 
         if (rows.length > 0) {
           _this.images_loaded = true;
+          document.querySelector(".photo-box").classList.add('photo-box-image');
+          document.querySelector(".photo-box").style.backgroundImage = "url(".concat(rows[0].querySelector('img').src.replace(/.thumb/, ''), ")");
+          document.querySelector(".photo-box-behind").classList.add('photo-box-image');
           rows.forEach(function (row) {
+            console.log(row.querySelector('img').src);
+
             _this.images.push(row.querySelector('img').src.replace(/.thumb/, ''));
           });
         } else {
@@ -7602,7 +7607,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".photo-box-container[data-v-72e0cb6e] {\n  position: relative;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.photo-box-container p[data-v-72e0cb6e] {\n  font-size: 20px;\n}\n.photo-box-container .photo-box[data-v-72e0cb6e] {\n  width: 150px;\n  height: 200px;\n  border: 2px solid #282828;\n  z-index: 2;\n  background: #fff;\n  position: relative;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n  padding: 0 1rem;\n  text-align: center;\n  cursor: pointer;\n}\n.photo-box-container .photo-box-behind[data-v-72e0cb6e] {\n  width: 150px;\n  height: 200px;\n  border: 2px solid #696969;\n  z-index: 1;\n  position: absolute;\n  top: -55%;\n  left: 53%;\n  background: #fff;\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}", ""]);
+exports.push([module.i, ".photo-box-container[data-v-72e0cb6e] {\n  position: relative;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.photo-box-container p[data-v-72e0cb6e] {\n  font-size: 20px;\n}\n.photo-box-container .photo-box[data-v-72e0cb6e] {\n  width: 150px;\n  height: 200px;\n  border: 2px solid #282828;\n  z-index: 2;\n  background: #fff;\n  position: relative;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n  padding: 0 1rem;\n  text-align: center;\n  cursor: pointer;\n}\n.photo-box-container .photo-box-image[data-v-72e0cb6e] {\n  background-repeat: no-repeat;\n  background-size: 150px 200px;\n  background-position: center;\n}\n.photo-box-container .photo-box-behind[data-v-72e0cb6e] {\n  width: 150px;\n  height: 200px;\n  border: 2px solid #696969;\n  z-index: 1;\n  position: absolute;\n  top: -55%;\n  left: 53%;\n  background: #fff;\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}", ""]);
 
 // exports
 
@@ -40440,9 +40445,9 @@ var render = function() {
               [
                 _vm.images_loaded === "loading"
                   ? _c("p", [_vm._v("Searching for Images...")])
-                  : _vm.images_loaded
-                  ? _c("p", [_vm._v("Images Found")])
-                  : _c("p", [_vm._v("No Images Found")])
+                  : !_vm.images_loaded
+                  ? _c("p", [_vm._v("No Images Found")])
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
