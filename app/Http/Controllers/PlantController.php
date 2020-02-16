@@ -20,7 +20,7 @@ class PlantController extends Controller
 
     public function indexApi()
     {
-        $plants = Plant::with(['genera', 'genera.family'])->paginate(20);
+        $plants = Plant::with(['genera', 'genera.family', 'favourites'])->paginate(20);
         $response = [
             'pagination' => [
                 'total' => $plants->total(),
@@ -41,7 +41,7 @@ class PlantController extends Controller
     }
 
     public function albanianApi(){
-        $plants = Plant::with(['genera', 'genera.family'])->where('in_albania', 1)->paginate(20);
+        $plants = Plant::with(['genera', 'genera.family', 'favourites'])->where('in_albania', 1)->paginate(20);
         $response = [
             'pagination' => [
                 'total' => $plants->total(),

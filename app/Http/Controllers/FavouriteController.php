@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Favourite;
+use App\Plant;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class FavouriteController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -53,9 +54,21 @@ class FavouriteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Plant $plant)
     {
-        //
+        $user = 1;
+        $fav = Favourite::where(['plant_id' => $plant->id, 'user_id' => $user])->first();
+
+        if ($fav) {
+            $fav->delete();
+        } else {
+            $fav = new Favourite();
+            $fav->user_id = $user;
+            $fav->plant_id = $plant->id;
+            $fav->save();
+        }
+
+        return response()->json($fav->toJson());
     }
 
     /**

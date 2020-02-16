@@ -10,6 +10,7 @@
                     <th>Family</th>
                     <th>Common Name</th>
                     <th>In Albania</th>
+                    <th>Favourite</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,13 @@
                     <td><a :href="'/dashboard/families/'+favourite.plant.genera.family.id">{{ favourite.plant.genera.family.name }}</a></td>
                     <td>{{ favourite.plant.common_name }}</td>
                     <td>{{ favourite.plant.in_albania ? "True" : "False" }}</td>
+                    <td>
+                        <div class="star-container">
+                            <div class="stary" @click="Favourite(favourite.plant.id)">
+                                <inline-svg name="star-solid"></inline-svg>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -30,6 +38,7 @@
                     <th>Family</th>
                     <th>Common Name</th>
                     <th>In Albania</th>
+                    <th>Favourite</th>
                 </tr>
                 </tfoot>
             </table>
@@ -48,12 +57,25 @@
             fetchFavourites() {
                 axios.get('/favourites?page=' + this.pagination.current_page)
                     .then(response => {
+                        console.log(response)
                         this.favourites = response.data.data.data;
                         this.pagination = response.data.pagination;
                     })
                     .catch(error => {
                         console.log(error.response.data);
                     });
+            },
+            Favourite(plant_id){
+                axios.post(`/dashboard/favourites/${plant_id}`)
+                    .then(data => {
+                        console.log(data)
+                        for (let i = 0; i<this.favourites.length; i++) {
+                            if (this.favourites[i].plant_id === plant_id){
+                                this.favourites.splice(this.favourites.indexOf(this.favourites[i]), 1);
+                                break;
+                            }
+                        }
+                    })
             }
         },
         data() {
@@ -67,7 +89,10 @@
         mounted() {
             this.fetchFavourites();
         },
-        components: {pagination}
+        components: {
+            pagination,
+            // svgIcon
+        }
     }
 </script>
 

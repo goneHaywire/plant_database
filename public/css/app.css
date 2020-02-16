@@ -11356,3 +11356,24 @@ a.text-dark:focus {
   }
 }
 
+.star-container {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.star-container .star,
+.star-container .fa-star {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.star-container .star path,
+.star-container .fa-star path {
+  fill: #f1cc39;
+}
+

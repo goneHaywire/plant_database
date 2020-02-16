@@ -6,3 +6,20 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.star-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .star,
+    .fa-star{
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+
+        path{
+            fill: #f1cc39;
+        }
+    }
+}

@@ -10,6 +10,7 @@
                     <th>Family</th>
                     <th>Common Name</th>
                     <th>In Albania</th>
+                    <th>Favourite</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,14 @@
                     <td><a :href="'/dashboard/families/'+plant.genera.family.id">{{ plant.genera.family.name }}</a></td>
                     <td>{{ plant.common_name }}</td>
                     <td>{{ plant.in_albania ? "True" : "False" }}</td>
+                    <td>
+                        <div class="star-container">
+                            <div class="stary" @click="Favourite(plant.id)">
+                                <inline-svg v-if="plant.favourites.length > 0" name="star-solid"></inline-svg>
+                                <inline-svg v-else name="star-regular"></inline-svg>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -30,6 +39,7 @@
                     <th>Family</th>
                     <th>Common Name</th>
                     <th>In Albania</th>
+                    <th>Favourite</th>
                 </tr>
                 </tfoot>
             </table>
@@ -55,6 +65,21 @@
                         console.log(error.response.data);
                     });
             },
+            Favourite(plant_id){
+                axios.post(`/dashboard/favourites/${plant_id}`)
+                    .then(data => {
+                        console.log(data)
+                        for (let i = 0; i<this.plants.length; i++) {
+                            if (this.plants[i].id === plant_id){
+                                if (this.plants[i].favourites.length)
+                                    this.plants[i].favourites = [];
+                                else
+                                    this.plants[i].favourites.push(1);
+                                break;
+                            }
+                        }
+                    })
+            }
         },
         data() {
             return {

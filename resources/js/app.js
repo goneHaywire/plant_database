@@ -33,7 +33,7 @@ Vue.component('plants-show', require('./components/plants/show.vue').default);
 
 Vue.component('test', require('./components/test.vue').default);
 
-
+Vue.component('inline-svg', require('./components/InlineSvg.js').default);
 
 Vue.component('genera-for-family', require('./components/genera_for_family.vue').default);
 Vue.component('genera-for-family-table', require('./components/genera_for_family_table.vue').default);

@@ -2142,6 +2142,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "favourites-index",
@@ -2150,10 +2159,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/favourites?page=' + this.pagination.current_page).then(function (response) {
+        console.log(response);
         _this.favourites = response.data.data.data;
         _this.pagination = response.data.pagination;
       })["catch"](function (error) {
         console.log(error.response.data);
+      });
+    },
+    Favourite: function Favourite(plant_id) {
+      var _this2 = this;
+
+      axios.post("/dashboard/favourites/".concat(plant_id)).then(function (data) {
+        console.log(data);
+
+        for (var i = 0; i < _this2.favourites.length; i++) {
+          if (_this2.favourites[i].plant_id === plant_id) {
+            _this2.favourites.splice(_this2.favourites.indexOf(_this2.favourites[i]), 1);
+
+            break;
+          }
+        }
       });
     }
   },
@@ -2169,7 +2194,8 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchFavourites();
   },
   components: {
-    pagination: _Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
+    pagination: _Pagination__WEBPACK_IMPORTED_MODULE_0__["default"] // svgIcon
+
   }
 });
 
@@ -2185,6 +2211,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../Pagination */ "./resources/js/components/Pagination.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2247,6 +2283,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.url = response.data.url;
       })["catch"](function (error) {
         console.log(error.response.data);
+      });
+    },
+    Favourite: function Favourite(plant_id) {
+      var _this2 = this;
+
+      axios.post("/dashboard/favourites/".concat(plant_id)).then(function (data) {
+        console.log(data);
+
+        for (var i = 0; i < _this2.plants.length; i++) {
+          if (_this2.plants[i].id === plant_id) {
+            if (_this2.plants[i].favourites.length) _this2.plants[i].favourites = [];else _this2.plants[i].favourites.push(1);
+            break;
+          }
+        }
       });
     }
   },
@@ -2538,6 +2588,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "albanian-index",
@@ -2550,6 +2610,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination = response.data.pagination;
       })["catch"](function (error) {
         console.log(error.response.data);
+      });
+    },
+    Favourite: function Favourite(plant_id) {
+      var _this2 = this;
+
+      axios.post("/dashboard/favourites/".concat(plant_id)).then(function (data) {
+        console.log(data);
+
+        for (var i = 0; i < _this2.plants.length; i++) {
+          if (_this2.plants[i].id === plant_id) {
+            if (_this2.plants[i].favourites.length) _this2.plants[i].favourites = [];else _this2.plants[i].favourites.push(1);
+            break;
+          }
+        }
       });
     }
   },
@@ -2622,6 +2696,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "plants-index",
@@ -2634,6 +2718,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.pagination = response.data.pagination;
       })["catch"](function (error) {
         console.log(error.response.data);
+      });
+    },
+    Favourite: function Favourite(plant_id) {
+      var _this2 = this;
+
+      axios.post("/dashboard/favourites/".concat(plant_id)).then(function (data) {
+        console.log(data);
+
+        for (var i = 0; i < _this2.plants.length; i++) {
+          if (_this2.plants[i].id === plant_id) {
+            if (_this2.plants[i].favourites.length) _this2.plants[i].favourites = [];else _this2.plants[i].favourites.push(1);
+            break;
+          }
+        }
       });
     }
   },
@@ -39361,6 +39459,24 @@ var render = function() {
                     _vm._v(
                       _vm._s(favourite.plant.in_albania ? "True" : "False")
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "star-container" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "stary",
+                          on: {
+                            click: function($event) {
+                              return _vm.Favourite(favourite.plant.id)
+                            }
+                          }
+                        },
+                        [_c("inline-svg", { attrs: { name: "star-solid" } })],
+                        1
+                      )
+                    ])
                   ])
                 ])
               }),
@@ -39403,7 +39519,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   },
@@ -39423,7 +39541,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   }
@@ -39508,6 +39628,32 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [
                     _vm._v(_vm._s(plant.in_albania ? "True" : "False"))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "star-container" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "stary",
+                          on: {
+                            click: function($event) {
+                              return _vm.Favourite(plant.id)
+                            }
+                          }
+                        },
+                        [
+                          plant.favourites.length > 0
+                            ? _c("inline-svg", {
+                                attrs: { name: "star-solid" }
+                              })
+                            : _c("inline-svg", {
+                                attrs: { name: "star-regular" }
+                              })
+                        ],
+                        1
+                      )
+                    ])
                   ])
                 ])
               }),
@@ -39550,7 +39696,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   },
@@ -39570,7 +39718,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   }
@@ -39972,7 +40122,33 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(plant.common_name))])
+                  _c("td", [_vm._v(_vm._s(plant.common_name))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "star-container" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "stary",
+                          on: {
+                            click: function($event) {
+                              return _vm.Favourite(plant.id)
+                            }
+                          }
+                        },
+                        [
+                          plant.favourites.length > 0
+                            ? _c("inline-svg", {
+                                attrs: { name: "star-solid" }
+                              })
+                            : _c("inline-svg", {
+                                attrs: { name: "star-regular" }
+                              })
+                        ],
+                        1
+                      )
+                    ])
+                  ])
                 ])
               }),
               0
@@ -40012,7 +40188,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Family")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Common Name")])
+        _c("th", [_vm._v("Common Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   },
@@ -40030,7 +40208,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Family")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Common Name")])
+        _c("th", [_vm._v("Common Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   }
@@ -40115,6 +40295,32 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [
                     _vm._v(_vm._s(plant.in_albania ? "True" : "False"))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "star-container" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "stary",
+                          on: {
+                            click: function($event) {
+                              return _vm.Favourite(plant.id)
+                            }
+                          }
+                        },
+                        [
+                          plant.favourites.length > 0
+                            ? _c("inline-svg", {
+                                attrs: { name: "star-solid" }
+                              })
+                            : _c("inline-svg", {
+                                attrs: { name: "star-regular" }
+                              })
+                        ],
+                        1
+                      )
+                    ])
                   ])
                 ])
               }),
@@ -40157,7 +40363,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   },
@@ -40177,7 +40385,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Albania")])
+        _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")])
       ])
     ])
   }
@@ -52632,6 +52842,62 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./public/assets/images sync recursive ^\\.\\/.*\\.svg$":
+/*!*************************************************!*\
+  !*** ./public/assets/images sync ^\.\/.*\.svg$ ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./star-regular.svg": "./public/assets/images/star-regular.svg",
+	"./star-solid.svg": "./public/assets/images/star-solid.svg"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./public/assets/images sync recursive ^\\.\\/.*\\.svg$";
+
+/***/ }),
+
+/***/ "./public/assets/images/star-regular.svg":
+/*!***********************************************!*\
+  !*** ./public/assets/images/star-regular.svg ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"far\" data-icon=\"star\" class=\"svg-inline--fa fa-star fa-w-18\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path fill=\"currentColor\" d=\"M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z\"></path></svg>";
+
+/***/ }),
+
+/***/ "./public/assets/images/star-solid.svg":
+/*!*********************************************!*\
+  !*** ./public/assets/images/star-solid.svg ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"star\" class=\"svg-inline--fa fa-star fa-w-18\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\"><path fill=\"currentColor\" d=\"M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z\"></path></svg>";
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -52667,6 +52933,7 @@ Vue.component('favourites-index', __webpack_require__(/*! ./components/favourite
 Vue.component('filter-index', __webpack_require__(/*! ./components/filter/index.vue */ "./resources/js/components/filter/index.vue")["default"]);
 Vue.component('plants-show', __webpack_require__(/*! ./components/plants/show.vue */ "./resources/js/components/plants/show.vue")["default"]);
 Vue.component('test', __webpack_require__(/*! ./components/test.vue */ "./resources/js/components/test.vue")["default"]);
+Vue.component('inline-svg', __webpack_require__(/*! ./components/InlineSvg.js */ "./resources/js/components/InlineSvg.js")["default"]);
 Vue.component('genera-for-family', __webpack_require__(/*! ./components/genera_for_family.vue */ "./resources/js/components/genera_for_family.vue")["default"]);
 Vue.component('genera-for-family-table', __webpack_require__(/*! ./components/genera_for_family_table.vue */ "./resources/js/components/genera_for_family_table.vue")["default"]);
 Vue.component('plants-for-genera-table', __webpack_require__(/*! ./components/plants_for_genera_table.vue */ "./resources/js/components/plants_for_genera_table.vue")["default"]);
@@ -52728,6 +52995,92 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/InlineSvg.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/InlineSvg.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Svg =
+/*#__PURE__*/
+function () {
+  function Svg(name) {
+    _classCallCheck(this, Svg);
+
+    var div = document.createElement('div');
+    div.innerHTML = __webpack_require__("./public/assets/images sync recursive ^\\.\\/.*\\.svg$")("./" + name + ".svg"); // change to wherever your svg files are
+
+    var fragment = document.createDocumentFragment();
+    fragment.appendChild(div);
+    this.svg = fragment.querySelector('svg');
+  }
+
+  _createClass(Svg, [{
+    key: "classes",
+    value: function classes(_classes) {
+      var _this = this;
+
+      if (_classes) {
+        this.svg.classList = '';
+
+        _classes.split(' ').forEach(function (className) {
+          _this.svg.classList.add(className);
+        });
+      }
+
+      return this;
+    }
+  }, {
+    key: "width",
+    value: function width(_width) {
+      if (_width) {
+        this.svg.setAttribute('width', _width);
+      }
+
+      return this;
+    }
+  }, {
+    key: "height",
+    value: function height(_height) {
+      if (_height) {
+        this.svg.setAttribute('height', _height);
+      }
+
+      return this;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return this.svg.outerHTML;
+    }
+  }]);
+
+  return Svg;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['name', 'classes', 'width', 'height'],
+  render: function render(h) {
+    return h('div', {
+      domProps: {
+        classList: 'flex items-center',
+        innerHTML: new Svg(this.name).classes(this.classes).width(this.width).height(this.height)
+      }
+    });
+  }
+});
 
 /***/ }),
 

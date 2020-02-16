@@ -34,7 +34,7 @@ class FilterController extends Controller
 //        return json_decode(json_encode($request->all()), true);
 //        return array($request->all());
 
-        $plants = Plant::with('genera', 'genera.family');
+        $plants = Plant::with('genera', 'genera.family', 'favourites');
 
         $plants->when(!(is_null($name)), function($query) use ($name) {
             return $query->where('specie_name', 'like', '%'.$name.'%');

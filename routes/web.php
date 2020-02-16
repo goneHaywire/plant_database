@@ -32,6 +32,7 @@ Route::group(['prefix' => '/dashboard'], function (){
     Route::resource('genera', 'GeneraController');
     Route::resource('plants', 'PlantController');
     Route::resource('favourites', 'FavouriteController');
+    Route::post('/favourites/{plant}', 'FavouriteController@store');
     Route::resource('users', 'UserController');
 
     Route::get('/albanian', 'PlantController@albanian')->name('albanian_plants');
