@@ -43,5 +43,6 @@ Route::group(['prefix' => '/dashboard'], function (){
     Route::get('/', 'NavigationController@home')->name('home');
 //    Route::get('/stats', 'NavigationController@stats')->name('stats');
 });
+Route::get('/', 'NavigationController@home');
 
 Auth::routes(['register' => false]);

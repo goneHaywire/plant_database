@@ -240,27 +240,34 @@
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('home') }}" aria-expanded="false"><i
                                     class="mdi mdi-view-dashboard"></i><span class="hide-menu">Home</span></a></li>
+
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('families.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-chart-bar"></i><span class="hide-menu">Families</span></a></li>
+                                    class="fas fa-tree"></i><span class="hide-menu">Families</span></a></li>
+
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('genera.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-chart-bubble"></i><span class="hide-menu">Genera</span></a></li>
-                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('favourites.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-border-inside"></i><span class="hide-menu">Favourites</span></a></li>
+                                    class="far fa-list-alt"></i><span class="hide-menu">Genera</span></a></li>
+
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('plants.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-blur-linear"></i><span class="hide-menu">All species</span></a></li>
-                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('users.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-relative-scale"></i><span class="hide-menu">Users</span></a></li>
+                                    class="fas fa-leaf"></i><span class="hide-menu">Species</span></a></li>
+
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('albanian_plants') }}" aria-expanded="false"><i
-                                    class="mdi mdi-pencil"></i><span class="hide-menu">Albanian species</span></a></li>
+                                    class="fas fa-map-marker-alt"></i><span class="hide-menu">Albanian species</span></a></li>
+
+                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                    href="{{ route('favourites.index') }}" aria-expanded="false"><i
+                                    class="far fa-star"></i><span class="hide-menu">Favourites</span></a></li>
+
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                     href="{{ route('filter.form') }}" aria-expanded="false"><i
-                                        class="mdi mdi-pencil"></i><span class="hide-menu">Filter</span></a></li>
+                                    class="fas fa-search"></i><span class="hide-menu">Filter</span></a></li>
+
+                        <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                                    href="{{ route('users.index') }}" aria-expanded="false"><i
+                                    class="fas fa-user"></i><span class="hide-menu">Users</span></a></li>
 
                     </ul>
                 </nav>

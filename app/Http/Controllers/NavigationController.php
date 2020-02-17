@@ -34,7 +34,7 @@ class NavigationController extends Controller
         $species_count = count(Plant::get());
         $albanian_count = count(Plant::where('in_albania', 1)->get());
         $user_count = count(User::get());
-        $favourites_count = count(Favourite::where('user_id', 1)->get());
+        $favourites_count = count(User::find(1)->favourites()->get());
         return view('dashboard.home')->with(compact([
             'family_count', 'genera_count', 'species_count', 'albanian_count', 'user_count', 'favourites_count'
         ]));

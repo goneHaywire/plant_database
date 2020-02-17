@@ -35,7 +35,7 @@
             <div class="col-md-6 col-lg-4 col-xlg-3">
                 <a class="card card-hover" href="{{ route('families.index') }}">
                     <div class="box bg-success text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
+                        <h1 class="font-light text-white"><i class="fas fa-tree"></i></h1>
                         <h6 class="text-white">Families</h6>
                     </div>
                 </a>
@@ -44,35 +44,37 @@
             <div class="col-md-6 col-lg-2 col-xlg-3">
                 <a class="card card-hover" href="{{ route('genera.index') }}">
                     <div class="box bg-warning text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
+                        <h1 class="font-light text-white"><i class="far fa-list-alt"></i></h1>
                         <h6 class="text-white">Genera</h6>
                     </div>
                 </a>
             </div>
-            <!-- Column -->
+
+            <div class="col-md-6 col-lg-4 col-xlg-3">
+                <a class="card card-hover" href="{{ route('plants.index') }}">
+                    <div class="box bg-danger text-center">
+                        <h1 class="font-light text-white"><i class="fas fa-leaf"></i></h1>
+                        <h6 class="text-white">Species</h6>
+                    </div>
+                </a>
+            </div>
+
             <div class="col-md-6 col-lg-4 col-xlg-3">
                 <a class="card card-hover" href="{{ route('favourites.index') }}">
-                    <div class="box bg-danger text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                    <div class="box bg-info text-center">
+                        <h1 class="font-light text-white"><i class="far fa-star"></i></h1>
                         <h6 class="text-white">Favourites</h6>
                     </div>
                 </a>
             </div>
             <!-- Column -->
-            <div class="col-md-6 col-lg-4 col-xlg-3">
-                <a class="card card-hover" href="{{ route('plants.index') }}">
-                    <div class="box bg-info text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
-                        <h6 class="text-white">Species</h6>
-                    </div>
-                </a>
-            </div>
+
             <!-- Column -->
             <!-- Column -->
             <div class="col-md-6 col-lg-2 col-xlg-3">
                 <a class="card card-hover" href="{{ route('users.index') }}">
                     <div class="box bg-danger text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
+                        <h1 class="font-light text-white"><i class="fas fa-user"></i></h1>
                         <h6 class="text-white">Users</h6>
                     </div>
                 </a>
@@ -81,7 +83,7 @@
             <div class="col-md-6 col-lg-4 col-xlg-3">
                 <a class="card card-hover" href="{{ route('albanian_plants') }}">
                     <div class="box bg-info text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
+                        <h1 class="font-light text-white"><i class="fas fa-map-marker-alt"></i></h1>
                         <h6 class="text-white">Albanian Species</h6>
                     </div>
                 </a>
@@ -90,7 +92,7 @@
             <div class="col-md-6 col-lg-2 col-xlg-3">
                 <a class="card card-hover" href="{{ route('filter.form') }}">
                     <div class="box bg-cyan text-center">
-                        <h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
+                        <h1 class="font-light text-white"><i class="fas fa-search"></i></h1>
                         <h6 class="text-white">Filter</h6>
                     </div>
                 </a>
