@@ -17,25 +17,25 @@ Route::get('/all_families', 'FamilyController@all_families');
 Route::get('genera', 'GeneraController@indexApi');
 Route::get('/genera_of_family/{family}', 'GeneraController@generaOfFamily');
 
-Route::get('plants', 'PlantController@indexApi');
-Route::get('/plants_of_genera/{genera}', 'PlantController@plantsOfGenera');
+Route::get('species', 'SpecieController@indexApi');
+Route::get('/species_of_genera/{genera}', 'SpecieController@speciesOfGenera');
 
 Route::get('/filter', 'FilterController@indexApi');
 
 Route::get('users', 'UserController@indexApi');
 Route::get('favourites', 'FavouriteController@indexApi');
-Route::get('/albanian', 'PlantController@albanianApi');
+Route::get('/albanian', 'SpecieController@albanianApi');
 
 
 Route::group(['prefix' => '/dashboard'], function (){
     Route::resource('families', 'FamilyController');
     Route::resource('genera', 'GeneraController');
-    Route::resource('plants', 'PlantController');
+    Route::resource('species', 'SpecieController');
     Route::resource('favourites', 'FavouriteController');
-    Route::post('/favourites/{plant}', 'FavouriteController@store');
+    Route::post('/favourites/{specie}', 'FavouriteController@store');
     Route::resource('users', 'UserController');
 
-    Route::get('/albanian', 'PlantController@albanian')->name('albanian_plants');
+    Route::get('/albanian', 'SpecieController@albanian')->name('albanian_species');
 
     Route::get('/filter/form', 'FilterController@form')->name('filter.form');
     Route::get('/filter', 'FilterController@index')->name('filter.index');

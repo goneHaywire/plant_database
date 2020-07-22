@@ -15,8 +15,8 @@ class CreateGalleriesTable extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('plant_id');
-            $table->foreign('plant_id')->references('id')->on('plants');
+            $table->unsignedBigInteger('specie_id');
+            $table->foreign('specie_id')->references('id')->on('species');
             $table->string('photo');
             $table->timestamps();
         });

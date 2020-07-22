@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form class="form-horizontal" method="post" action="{{ route('plants.store') }}">
+                    <form class="form-horizontal" method="post" action="{{ route('species.store') }}">
                         @csrf
                         <div class="card-body">
                             <h4 class="card-title">Species Data</h4>

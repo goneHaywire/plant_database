@@ -250,11 +250,11 @@
                                     class="far fa-list-alt"></i><span class="hide-menu">Genera</span></a></li>
 
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('plants.index') }}" aria-expanded="false"><i
+                                                    href="{{ route('species.index') }}" aria-expanded="false"><i
                                     class="fas fa-leaf"></i><span class="hide-menu">Species</span></a></li>
 
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                    href="{{ route('albanian_plants') }}" aria-expanded="false"><i
+                                                    href="{{ route('albanian_species') }}" aria-expanded="false"><i
                                     class="fas fa-map-marker-alt"></i><span class="hide-menu">Albanian species</span></a></li>
 
                         <li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link"

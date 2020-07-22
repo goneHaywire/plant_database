@@ -9,7 +9,7 @@
                 <p>{{ genus }}</p>
 
                 <h6>Full Name:</h6>
-                <p>{{ genus }} {{ plant }}</p>
+                <p>{{ genus }} {{ specie }}</p>
             </div>
             <div class="col-md-4">
                 <div class="photo-box-container">
@@ -35,7 +35,7 @@
     import VueEasyLightbox from 'vue-easy-lightbox';
 
     export default {
-        name: "plants-show",
+        name: "species-show",
         data() {
             return {
                 images: [],
@@ -47,7 +47,7 @@
         methods: {
             fetchImages() {
                 const proxyurl = "https://cors-anywhere.herokuapp.com/";
-                let url = `http://sweetgum.nybg.org/science/vh/specimen-list/?DarFamily=${this.family}&DetGenusLocal_tab=${this.genus}&DetSpeciesLocal_tab=${this.plant}&ImagesOnly=yes`
+                let url = `http://sweetgum.nybg.org/science/vh/specimen-list/?DarFamily=${this.family}&DetGenusLocal_tab=${this.genus}&DetSpeciesLocal_tab=${this.specie}&ImagesOnly=yes`
 
                 axios.get(proxyurl + url)
                     .then(data => {
@@ -87,7 +87,7 @@
             VueEasyLightbox,
         },
         props: {
-            plant: {
+            specie: {
                 required: true
             },
             genus: {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlantsTable extends Migration
+class CreateSpeciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePlantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plants', function (Blueprint $table) {
+        Schema::create('species', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->String('common_name')->nullable();
             $table->String('specie_name')->nullable();
@@ -36,6 +36,6 @@ class CreatePlantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plants');
+        Schema::dropIfExists('species');
     }
 }

@@ -9,7 +9,6 @@
             <th>Genus</th>
             <th>Family</th>
             <th>Common Name</th>
-            <th>In Albania</th>
             <th>Favourite</th>
           </tr>
         </thead>
@@ -30,7 +29,6 @@
               >{{ specie.genera.family.name }}</a>
             </td>
             <td>{{ specie.common_name }}</td>
-            <td>{{ specie.in_albania ? "True" : "False" }}</td>
             <td>
               <div class="star-container">
                 <div class="stary" @click="Favourite(specie.id)">
@@ -48,7 +46,6 @@
             <th>Genus</th>
             <th>Family</th>
             <th>Common Name</th>
-            <th>In Albania</th>
             <th>Favourite</th>
           </tr>
         </tfoot>
@@ -59,7 +56,7 @@
       v-if="pagination.last_page > 1"
       :pagination="pagination"
       :offset="5"
-      @paginate="fetchResults()"
+      @paginate="fetchPlants()"
     ></pagination>
   </div>
 </template>
@@ -68,23 +65,14 @@
 import pagination from "./../Pagination";
 
 export default {
-  name: "filter-index",
-  props: {
-    results: {
-      required: true
-    }
-    // pagination: {
-    //     required: true
-    // }
-  },
+  name: "albanian-index",
   methods: {
-    fetchResults() {
+    fetchPlants() {
       axios
-        .get(this.url + "&page=" + this.pagination.current_page)
+        .get("/albanian?page=" + this.pagination.current_page)
         .then(response => {
           this.species = response.data.data.data;
           this.pagination = response.data.pagination;
-          this.url = response.data.url;
         })
         .catch(error => {
           console.log(error.response.data);
@@ -106,14 +94,14 @@ export default {
   },
   data() {
     return {
-      url: JSON.parse(this.results).url,
-      species: JSON.parse(this.results).data.data,
-      pagination: JSON.parse(this.results).pagination
+      species: {},
+      pagination: {
+        current_page: 1
+      }
     };
   },
   mounted() {
-    console.log(this.results.url);
-    // this.fetchResults();
+    this.fetchPlants();
   },
   components: { pagination }
 };

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Plant;
+use App\Specie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,58 +37,58 @@ class FilterController extends Controller
 //        return json_decode(json_encode($request->all()), true);
 //        return array($request->all());
 
-        $plants = Plant::with('genera', 'genera.family', 'favourites');
+        $species = Specie::with('genera', 'genera.family', 'favourites');
 //       whereHas('permissions', $function($q) {
 //        $q->where('name', $value)->orWhere('name', $value2);
 //    });
-        $plants->when(!(is_null($name)), function ($query) use ($name) {
+        $species->when(!(is_null($name)), function ($query) use ($name) {
             $query->whereHas('genera', function ($test) use ($name) {
                 return $test->where(DB::raw('CONCAT(generas.name, " ", specie_name)'), 'like', '%' . $name . '%')
                     ->orWhere(DB::raw('CONCAT(specie_name, " ", generas.name)'), 'like', '%' . $name . '%');
             });
         });
 
-        $plants->when(!(is_null($common_name)), function ($query) use ($common_name) {
+        $species->when(!(is_null($common_name)), function ($query) use ($common_name) {
             return $query->where('common_name', 'like', '%' . $common_name . '%');
         });
 
-        $plants->when($in_albania === "1", function ($query) {
+        $species->when($in_albania === "1", function ($query) {
             return $query->where('in_albania', "1");
         });
 
-        $plants->when($in_albania === "2", function ($query) {
+        $species->when($in_albania === "2", function ($query) {
             return $query->whereNull('in_albania');
         });
 
-        $plants->when($family !== "*", function ($query) use ($family) {
+        $species->when($family !== "*", function ($query) use ($family) {
             return $query->where('family_id', $family);
         });
 
-        $plants->when($genera !== "*", function ($query) use ($genera) {
+        $species->when($genera !== "*", function ($query) use ($genera) {
             return $query->where('genera_id', $genera);
         });
-//        dd($plants->toSql());
-        $plants = $plants->paginate(20);
+//        dd($species->toSql());
+        $species = $species->paginate(20);
 
 //        return url(route('filter.index'), $request->all());
 
         $response = [
             'pagination' => [
-                'total' => $plants->total(),
-                'per_page' => $plants->perPage(),
-                'current_page' => $plants->currentPage(),
-                'last_page' => $plants->lastPage(),
-                'from' => $plants->firstItem(),
-                'to' => $plants->lastItem()
+                'total' => $species->total(),
+                'per_page' => $species->perPage(),
+                'current_page' => $species->currentPage(),
+                'last_page' => $species->lastPage(),
+                'from' => $species->firstItem(),
+                'to' => $species->lastItem()
             ],
-            'data' => $plants,
+            'data' => $species,
             'url' => route('filter.index') . $url
         ];
 
         if ($request->ajax()) {
             return response()->json($response);
         } else {
-//            return $plants;
+//            return $species;
             return view('dashboard.filter.index')->with('response', json_encode($response));
         }
     }

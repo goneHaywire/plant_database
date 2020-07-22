@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-md-6 col-lg-4 col-xlg-3">
-                <a class="card card-hover" href="{{ route('plants.index') }}">
+                <a class="card card-hover" href="{{ route('species.index') }}">
                     <div class="box bg-danger text-center">
                         <h1 class="font-light text-white"><i class="fas fa-leaf"></i></h1>
                         <h6 class="text-white">Species</h6>
@@ -81,7 +81,7 @@
             </div>
             <!-- Column -->
             <div class="col-md-6 col-lg-4 col-xlg-3">
-                <a class="card card-hover" href="{{ route('albanian_plants') }}">
+                <a class="card card-hover" href="{{ route('albanian_species') }}">
                     <div class="box bg-info text-center">
                         <h1 class="font-light text-white"><i class="fas fa-map-marker-alt"></i></h1>
                         <h6 class="text-white">Albanian Species</h6>

@@ -15,15 +15,15 @@
                 </thead>
                 <tbody>
                 <tr v-for="favourite in favourites">
-                    <td>{{ favourite.plant.id }}</td>
-                    <td><a :href="'/dashboard/plants/'+favourite.plant.id">{{ favourite.plant.genera.name }} {{ favourite.plant.specie_name }}</a></td>
-                    <td><a :href="'/dashboard/genera/'+favourite.plant.genera.id">{{ favourite.plant.genera.name }}</a></td>
-                    <td><a :href="'/dashboard/families/'+favourite.plant.genera.family.id">{{ favourite.plant.genera.family.name }}</a></td>
-                    <td>{{ favourite.plant.common_name }}</td>
-                    <td>{{ favourite.plant.in_albania ? "True" : "False" }}</td>
+                    <td>{{ favourite.specie.id }}</td>
+                    <td><a :href="'/dashboard/species/'+favourite.specie.id">{{ favourite.specie.genera.name }} {{ favourite.specie.specie_name }}</a></td>
+                    <td><a :href="'/dashboard/genera/'+favourite.specie.genera.id">{{ favourite.specie.genera.name }}</a></td>
+                    <td><a :href="'/dashboard/families/'+favourite.specie.genera.family.id">{{ favourite.specie.genera.family.name }}</a></td>
+                    <td>{{ favourite.specie.common_name }}</td>
+                    <td>{{ favourite.specie.in_albania ? "True" : "False" }}</td>
                     <td>
                         <div class="star-container">
-                            <div class="stary" @click="Favourite(favourite.plant.id)">
+                            <div class="stary" @click="Favourite(favourite.specie.id)">
                                 <inline-svg name="star-solid"></inline-svg>
                             </div>
                         </div>
@@ -65,12 +65,12 @@
                         console.log(error.response.data);
                     });
             },
-            Favourite(plant_id){
-                axios.post(`/dashboard/favourites/${plant_id}`)
+            Favourite(specie_id){
+                axios.post(`/dashboard/favourites/${specie_id}`)
                     .then(data => {
                         console.log(data)
                         for (let i = 0; i<this.favourites.length; i++) {
-                            if (this.favourites[i].plant_id === plant_id){
+                            if (this.favourites[i].specie_id === specie_id){
                                 this.favourites.splice(this.favourites.indexOf(this.favourites[i]), 1);
                                 break;
                             }

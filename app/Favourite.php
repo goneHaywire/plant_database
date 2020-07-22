@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Favourite extends Model
 {
-    public function plant(){
-        return $this->belongsTo('App\Plant');
+    public function specie(){
+        return $this->belongsTo('App\Specie');
     }
 
     public function user(){

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Plant extends Model
+class Specie extends Model
 {
     public function genera(){
         return $this->belongsTo('App\Genera');
