@@ -73,16 +73,16 @@ export default {
     fetchPlants() {
       axios
         .get("/species?page=" + this.pagination.current_page)
-        .then(response => {
+        .then((response) => {
           this.species = response.data.data.data;
           this.pagination = response.data.pagination;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response.data);
         });
     },
     Favourite(specie_id) {
-      axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
+      axios.post(`/dashboard/favourites/${specie_id}`).then((data) => {
         console.log(data);
         for (let i = 0; i < this.species.length; i++) {
           if (this.species[i].id === specie_id) {
@@ -93,22 +93,22 @@ export default {
           }
         }
       });
-    }
+    },
   },
   data() {
     return {
       species: {},
       pagination: {
-        current_page: 1
-      }
+        current_page: 1,
+      },
     };
   },
   mounted() {
     this.fetchPlants();
   },
   components: {
-    pagination
-  }
+    pagination,
+  },
 };
 </script>
 

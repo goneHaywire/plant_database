@@ -1,7 +1,7 @@
 class Svg {
     constructor(name) {
         let div = document.createElement('div');
-        div.innerHTML = require('../../../public/assets/images/' + name + '.svg'); // change to wherever your svg files are
+        div.innerHTML = require('../../../../public/assets/images/' + name + '.svg'); // change to wherever your svg files are
 
         let fragment = document.createDocumentFragment();
         fragment.appendChild(div);

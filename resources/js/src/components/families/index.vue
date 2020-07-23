@@ -6,17 +6,13 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Family</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="genus in genera" :key="genus.id">
-            <td>{{ genus.id }}</td>
+          <tr v-for="family in families" :key="family.id">
+            <td>{{ family.id }}</td>
             <td>
-              <a :href="'/dashboard/genera/'+genus.id">{{ genus.name }}</a>
-            </td>
-            <td>
-              <a :href="'/dashboard/families/'+genus.family.id">{{ genus.family.name }}</a>
+              <a :href="'/dashboard/families/'+family.id">{{ family.name }}</a>
             </td>
           </tr>
         </tbody>
@@ -24,7 +20,6 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Family</th>
           </tr>
         </tfoot>
       </table>
@@ -34,7 +29,7 @@
       v-if="pagination.last_page > 1"
       :pagination="pagination"
       :offset="5"
-      @paginate="fetchGenera()"
+      @paginate="fetchFamilies()"
     ></pagination>
   </div>
 </template>
@@ -43,32 +38,32 @@
 import pagination from "./../Pagination";
 
 export default {
-  name: "genera-index",
+  name: "families-index",
   methods: {
-    fetchGenera() {
+    fetchFamilies() {
       axios
-        .get("/genera?page=" + this.pagination.current_page)
-        .then(response => {
-          this.genera = response.data.data.data;
+        .get("/families?page=" + this.pagination.current_page)
+        .then((response) => {
+          this.families = response.data.data.data;
           this.pagination = response.data.pagination;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response.data);
         });
-    }
+    },
   },
   data() {
     return {
-      genera: {},
+      families: {},
       pagination: {
-        current_page: 1
-      }
+        current_page: 1,
+      },
     };
   },
   mounted() {
-    this.fetchGenera();
+    this.fetchFamilies();
   },
-  components: { pagination }
+  components: { pagination },
 };
 </script>
 

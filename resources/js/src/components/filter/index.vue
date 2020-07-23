@@ -71,8 +71,8 @@ export default {
   name: "filter-index",
   props: {
     results: {
-      required: true
-    }
+      required: true,
+    },
     // pagination: {
     //     required: true
     // }
@@ -81,17 +81,17 @@ export default {
     fetchResults() {
       axios
         .get(this.url + "&page=" + this.pagination.current_page)
-        .then(response => {
+        .then((response) => {
           this.species = response.data.data.data;
           this.pagination = response.data.pagination;
           this.url = response.data.url;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response.data);
         });
     },
     Favourite(specie_id) {
-      axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
+      axios.post(`/dashboard/favourites/${specie_id}`).then((data) => {
         console.log(data);
         for (let i = 0; i < this.species.length; i++) {
           if (this.species[i].id === specie_id) {
@@ -102,20 +102,20 @@ export default {
           }
         }
       });
-    }
+    },
   },
   data() {
     return {
       url: JSON.parse(this.results).url,
       species: JSON.parse(this.results).data.data,
-      pagination: JSON.parse(this.results).pagination
+      pagination: JSON.parse(this.results).pagination,
     };
   },
   mounted() {
     console.log(this.results.url);
     // this.fetchResults();
   },
-  components: { pagination }
+  components: { pagination },
 };
 </script>
 
