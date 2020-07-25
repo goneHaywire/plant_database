@@ -13,17 +13,3 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
-
-
-// Hande .svgs with html-loader instead
-mix.webpackConfig({})
-    .override(config => {
-        config.module.rules.find(rule =>
-            rule.test.test('.svg')
-        ).exclude = /\.svg$/;
-
-        config.module.rules.push({
-            test: /\.svg$/,
-            use: [{ loader: 'html-loader' }]
-        })
-    });

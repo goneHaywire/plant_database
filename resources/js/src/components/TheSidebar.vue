@@ -1,0 +1,106 @@
+<template>
+  <aside class="left-sidebar" data-sidebarbg="skin5">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+      <!-- Sidebar navigation-->
+      <nav class="sidebar-nav">
+        <ul id="sidebarnav" class="p-t-30">
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Home'}"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-view-dashboard"></i>
+              <span class="hide-menu">Home</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Families'}"
+              aria-expanded="false"
+            >
+              <i class="fas fa-tree"></i>
+              <span class="hide-menu">Families</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Genera'}"
+              aria-expanded="false"
+            >
+              <i class="far fa-list-alt"></i>
+              <span class="hide-menu">Genera</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Species'}"
+              aria-expanded="false"
+            >
+              <i class="fas fa-leaf"></i>
+              <span class="hide-menu">Species</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Albanian'}"
+              aria-expanded="false"
+            >
+              <i class="fas fa-map-marker-alt"></i>
+              <span class="hide-menu">Albanian species</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Favourites'}"
+              aria-expanded="false"
+            >
+              <i class="far fa-star"></i>
+              <span class="hide-menu">Favourites</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link class="sidebar-link waves-effect waves-dark sidebar-link" :to="{name: 'Filter'}" aria-expanded="false">
+              <i class="fas fa-search"></i>
+              <span class="hide-menu">Filter</span>
+            </router-link>
+          </li>
+
+          <li class="sidebar-item">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'Users'}"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user"></i>
+              <span class="hide-menu">Users</span>
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+      <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+  </aside>
+</template>
+
+<script>
+export default {
+  name: "MainMenu",
+};
+</script>
+
+<style>
+</style>

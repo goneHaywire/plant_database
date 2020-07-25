@@ -14,25 +14,27 @@
         "bootstrap": "^4.0.0",
         "cross-env": "^6.0",
         "html-loader": "^0.5.5",
-        "jquery": "^3.5.1",
-        "laravel-mix": "^5.0.1",
+        "jquery": "^3.2",
+        "laravel-mix": "^5.0.4",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
-        "sass-loader": "7.*",
-        "vue": "^2.6.11",
+        "sass-loader": "^8.0.0",
+        "vue": "^2.5.17",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@types/leaflet": "^1.5.17",
         "@vue/composition-api": "^1.0.0-beta.6",
         "cors": "^2.8.5",
         "leaflet": "^1.6.0",
+        "nprogress": "^0.2.0",
         "puppeteer": "^2.1.1",
-        "vue-easy-lightbox": "^0.10.2",
+        "vue-easy-lightbox": "^0.10.3",
         "vue-router": "^3.3.4",
         "vue2-leaflet": "^2.5.2",
-        "vuetify": "^2.2.12"
+        "vuetify": "^2.3.6"
     }
 }
