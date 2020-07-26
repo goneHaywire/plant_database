@@ -8,7 +8,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Home'}"
+              :to="{name: 'home'}"
               aria-expanded="false"
             >
               <i class="mdi mdi-view-dashboard"></i>
@@ -19,7 +19,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Families'}"
+              :to="{name: 'families'}"
               aria-expanded="false"
             >
               <i class="fas fa-tree"></i>
@@ -30,7 +30,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Genera'}"
+              :to="{name: 'genera'}"
               aria-expanded="false"
             >
               <i class="far fa-list-alt"></i>
@@ -41,7 +41,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Species'}"
+              :to="{name: 'species'}"
               aria-expanded="false"
             >
               <i class="fas fa-leaf"></i>
@@ -52,7 +52,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Albanian'}"
+              :to="{name: 'albanian'}"
               aria-expanded="false"
             >
               <i class="fas fa-map-marker-alt"></i>
@@ -63,7 +63,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Favourites'}"
+              :to="{name: 'favourites'}"
               aria-expanded="false"
             >
               <i class="far fa-star"></i>
@@ -72,7 +72,11 @@
           </li>
 
           <li class="sidebar-item">
-            <router-link class="sidebar-link waves-effect waves-dark sidebar-link" :to="{name: 'Filter'}" aria-expanded="false">
+            <router-link
+              class="sidebar-link waves-effect waves-dark sidebar-link"
+              :to="{name: 'filter'}"
+              aria-expanded="false"
+            >
               <i class="fas fa-search"></i>
               <span class="hide-menu">Filter</span>
             </router-link>
@@ -81,7 +85,7 @@
           <li class="sidebar-item">
             <router-link
               class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'Users'}"
+              :to="{name: 'users'}"
               aria-expanded="false"
             >
               <i class="fas fa-user"></i>
@@ -98,7 +102,7 @@
 
 <script>
 export default {
-  name: "MainMenu",
+  name: "TheSidebar",
 };
 </script>
 
