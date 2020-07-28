@@ -23,7 +23,7 @@ const routes = [{
                 }
             },
             {
-                name: "families",
+                name: "families.index",
                 path: "families",
                 component: () => import("../views/Families/FamiliesIndex.vue"),
                 meta: {
@@ -47,7 +47,7 @@ const routes = [{
                 }
             },
             {
-                name: "genera",
+                name: "genera.index",
                 path: "genera",
                 component: () => import("../views/Genera/GeneraIndex.vue"),
                 meta: {
@@ -71,7 +71,7 @@ const routes = [{
                 }
             },
             {
-                name: "species",
+                name: "species.index",
                 path: "species",
                 component: () => import("../views/Species/SpeciesIndex.vue"),
                 meta: {
@@ -95,7 +95,7 @@ const routes = [{
                 }
             },
             {
-                name: "albanian",
+                name: "albanian.index",
                 path: "albanian",
                 component: () => import("../views/AlbanianIndex.vue"),
                 meta: {
@@ -103,7 +103,7 @@ const routes = [{
                 }
             },
             {
-                name: "favourites",
+                name: "favourites.index",
                 path: "favourites",
                 component: () => import("../views/FavouritesView.vue"),
                 meta: {
@@ -111,7 +111,7 @@ const routes = [{
                 }
             },
             {
-                name: "users",
+                name: "users.index",
                 path: "users",
                 component: () => import("../views/Users/UsersIndex.vue"),
                 meta: {
@@ -127,7 +127,7 @@ const routes = [{
                 }
             },
             {
-                name: "filter",
+                name: "filter.index",
                 path: "filter",
                 component: () => import("../views/FilterView.vue"),
                 meta: {

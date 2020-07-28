@@ -1,110 +1,60 @@
 <template>
-  <aside class="left-sidebar" data-sidebarbg="skin5">
-    <!-- Sidebar scroll-->
-    <div class="scroll-sidebar">
-      <!-- Sidebar navigation-->
-      <nav class="sidebar-nav">
-        <ul id="sidebarnav" class="p-t-30">
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'home'}"
-              aria-expanded="false"
-            >
-              <i class="mdi mdi-view-dashboard"></i>
-              <span class="hide-menu">Home</span>
-            </router-link>
-          </li>
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav" class="p-t-30">
+                    <sidebar-link route-name="home" icon="home"
+                        >Home</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'families'}"
-              aria-expanded="false"
-            >
-              <i class="fas fa-tree"></i>
-              <span class="hide-menu">Families</span>
-            </router-link>
-          </li>
+                    <sidebar-link route-name="families.index" icon="tree"
+                        >Families</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'genera'}"
-              aria-expanded="false"
-            >
-              <i class="far fa-list-alt"></i>
-              <span class="hide-menu">Genera</span>
-            </router-link>
-          </li>
+                    <sidebar-link route-name="genera.index" icon="list-alt"
+                        >Genera</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'species'}"
-              aria-expanded="false"
-            >
-              <i class="fas fa-leaf"></i>
-              <span class="hide-menu">Species</span>
-            </router-link>
-          </li>
+                    <sidebar-link route-name="species.index" icon="leaf"
+                        >Species</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'albanian'}"
-              aria-expanded="false"
-            >
-              <i class="fas fa-map-marker-alt"></i>
-              <span class="hide-menu">Albanian species</span>
-            </router-link>
-          </li>
+                    <sidebar-link
+                        route-name="albanian.index"
+                        icon="map-marker-alt"
+                        >Albanian Species</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'favourites'}"
-              aria-expanded="false"
-            >
-              <i class="far fa-star"></i>
-              <span class="hide-menu">Favourites</span>
-            </router-link>
-          </li>
+                    <sidebar-link route-name="favourites.index" icon="star"
+                        >Favourites</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'filter'}"
-              aria-expanded="false"
-            >
-              <i class="fas fa-search"></i>
-              <span class="hide-menu">Filter</span>
-            </router-link>
-          </li>
+                    <sidebar-link route-name="filter.index" icon="search"
+                        >Filter</sidebar-link
+                    >
 
-          <li class="sidebar-item">
-            <router-link
-              class="sidebar-link waves-effect waves-dark sidebar-link"
-              :to="{name: 'users'}"
-              aria-expanded="false"
-            >
-              <i class="fas fa-user"></i>
-              <span class="hide-menu">Users</span>
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-      <!-- End Sidebar navigation -->
-    </div>
-    <!-- End Sidebar scroll-->
-  </aside>
+                    <sidebar-link route-name="users.index" icon="user"
+                        >Users</sidebar-link
+                    >
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
 </template>
 
 <script>
+import SidebarLink from "./SidebarLink";
+
 export default {
-  name: "TheSidebar",
+    name: "TheSidebar",
+    components: {
+        SidebarLink
+    }
 };
 </script>
 
-<style>
-</style>
+<style></style>

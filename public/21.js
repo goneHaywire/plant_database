@@ -106,6 +106,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FavouritesView",
@@ -171,185 +211,166 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c(
-              "div",
-              { staticClass: "card-body" },
-              [
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass: "table table-striped table-bordered",
-                      attrs: { id: "zero_config" }
-                    },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.favourites, function(favourite) {
-                          return _c("tr", { key: favourite.specie.id }, [
-                            _c("td", [_vm._v(_vm._s(favourite.specie.id))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href:
-                                      "/dashboard/species/" +
-                                      favourite.specie.id
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(favourite.specie.genera.name) +
-                                      " " +
-                                      _vm._s(favourite.specie.specie_name)
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href:
-                                      "/dashboard/genera/" +
-                                      favourite.specie.genera.id
-                                  }
-                                },
-                                [_vm._v(_vm._s(favourite.specie.genera.name))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href:
-                                      "/dashboard/families/" +
-                                      favourite.specie.genera.family.id
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(favourite.specie.genera.family.name)
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(favourite.specie.common_name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  favourite.specie.in_albania ? "True" : "False"
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("div", { staticClass: "star-container" }, [
+  return _c(
+    "div",
+    [
+      _c("the-breadcrumbs", {
+        attrs: { paths: [{ name: "Favourites", route: "favourites.index" }] }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass: "table table-striped table-bordered",
+                        attrs: { id: "zero_config" }
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.favourites, function(favourite) {
+                            return _c("tr", { key: favourite.specie.id }, [
+                              _c("td", [_vm._v(_vm._s(favourite.specie.id))]),
+                              _vm._v(" "),
+                              _c("td", [
                                 _c(
-                                  "div",
+                                  "a",
                                   {
-                                    staticClass: "stary",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.Favourite(
-                                          favourite.specie.id
-                                        )
-                                      }
+                                    attrs: {
+                                      href:
+                                        "/dashboard/species/" +
+                                        favourite.specie.id
                                     }
                                   },
                                   [
-                                    _c("inline-svg", {
-                                      attrs: { name: "star-solid" }
-                                    })
-                                  ],
-                                  1
+                                    _vm._v(
+                                      _vm._s(favourite.specie.genera.name) +
+                                        "\n                                                " +
+                                        _vm._s(favourite.specie.specie_name)
+                                    )
+                                  ]
                                 )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href:
+                                        "/dashboard/genera/" +
+                                        favourite.specie.genera.id
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(favourite.specie.genera.name))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href:
+                                        "/dashboard/families/" +
+                                        favourite.specie.genera.family.id
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        favourite.specie.genera.family.name
+                                      )
+                                    )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                                            " +
+                                    _vm._s(favourite.specie.common_name) +
+                                    "\n                                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                                            " +
+                                    _vm._s(
+                                      favourite.specie.in_albania
+                                        ? "True"
+                                        : "False"
+                                    ) +
+                                    "\n                                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("div", { staticClass: "star-container" }, [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "stary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.Favourite(
+                                            favourite.specie.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("inline-svg", {
+                                        attrs: { name: "star-solid" }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ])
                               ])
                             ])
-                          ])
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _vm._m(2)
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.pagination.last_page > 1
-                  ? _c("pagination", {
-                      attrs: { pagination: _vm.pagination, offset: 5 },
-                      on: {
-                        paginate: function($event) {
-                          return _vm.fetchFavourites()
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.pagination.last_page > 1
+                    ? _c("pagination", {
+                        attrs: { pagination: _vm.pagination, offset: 5 },
+                        on: {
+                          paginate: function($event) {
+                            return _vm.fetchFavourites()
+                          }
                         }
-                      }
-                    })
-                  : _vm._e()
-              ],
-              1
-            )
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-breadcrumb" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-12 d-flex no-block align-items-center" },
-          [
-            _c("h4", { staticClass: "page-title" }, [_vm._v("Favourites")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "ml-auto text-right" }, [
-              _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-                _c("ol", { staticClass: "breadcrumb" }, [
-                  _c("li", { staticClass: "breadcrumb-item" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticClass: "breadcrumb-item active",
-                      attrs: { "aria-current": "page" }
-                    },
-                    [_vm._v("Favourites")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

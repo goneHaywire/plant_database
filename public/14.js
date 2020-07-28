@@ -265,25 +265,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeView",
@@ -314,383 +295,355 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "div",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return _vm.callapi()
-            }
-          }
-        },
-        [_vm._v("click me")]
-      ),
+  return _c(
+    "div",
+    [
+      _c("the-breadcrumbs", {
+        attrs: { paths: [{ name: "Home", route: "home" }] }
+      }),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 col-lg-2 col-xlg-3" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                return _vm.callapi()
+              }
+            }
+          },
+          [_vm._v("click me")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-6 col-lg-2 col-xlg-3" }, [
+            _c(
+              "a",
+              {
+                staticClass: "card card-hover",
+                attrs: { to: { name: "home" } }
+              },
+              [_vm._m(0)]
+            )
+          ]),
+          _vm._v(" "),
           _c(
-            "a",
-            { staticClass: "card card-hover", attrs: { to: { name: "home" } } },
-            [_vm._m(1)]
+            "div",
+            { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "families.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-success text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "fas fa-tree" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [
+                      _vm._v("Families")
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "genera.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-warning text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "far fa-list-alt" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [_vm._v("Genera")])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "species.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-danger text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "fas fa-leaf" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [_vm._v("Species")])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "favourites.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-info text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "far fa-star" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [
+                      _vm._v("Favourites")
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "users.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-danger text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "fas fa-user" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [_vm._v("Users")])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "albanian.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-info text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "fas fa-map-marker-alt" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [
+                      _vm._v("Albanian Species")
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "card card-hover",
+                  attrs: { to: { name: "filter.index" } }
+                },
+                [
+                  _c("div", { staticClass: "box bg-cyan text-center" }, [
+                    _c("h1", { staticClass: "font-light text-white" }, [
+                      _c("i", { staticClass: "fas fa-search" })
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "text-white" }, [_vm._v("Filter")])
+                  ])
+                ]
+              )
+            ],
+            1
           )
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "families" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-success text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "fas fa-tree" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [_vm._v("Families")])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "genera" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-warning text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "far fa-list-alt" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [_vm._v("Genera")])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "species" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-danger text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "fas fa-leaf" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [_vm._v("Species")])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "favourites" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-info text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "far fa-star" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [
-                    _vm._v("Favourites")
-                  ])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "users" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-danger text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "fas fa-user" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [_vm._v("Users")])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "albanian" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-info text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "fas fa-map-marker-alt" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [
-                    _vm._v("Albanian Species")
-                  ])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "card card-hover",
-                attrs: { to: { name: "filter" } }
-              },
-              [
-                _c("div", { staticClass: "box bg-cyan text-center" }, [
-                  _c("h1", { staticClass: "font-light text-white" }, [
-                    _c("i", { staticClass: "fas fa-search" })
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticClass: "text-white" }, [_vm._v("Filter")])
-                ])
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$family_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$genera_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$species_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(5),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$albanian_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(6),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$user_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "card m-t-0" }, [
-            _c("div", { staticClass: "row py-2 align-items-center" }, [
-              _vm._m(7),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-6 border-left text-center p-t-10" },
-                [
-                  _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(
-                      "\n                                " +
-                        _vm._s(_vm.$favourites_count) +
-                        "\n                            "
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(8)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-breadcrumb" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-12 d-flex no-block align-items-center" },
-          [
-            _c("h4", { staticClass: "page-title" }, [_vm._v("Home")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "ml-auto text-right" }, [
-              _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-                _c("ol", { staticClass: "breadcrumb" }, [
-                  _c("li", { staticClass: "breadcrumb-item" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticClass: "breadcrumb-item active",
-                      attrs: { "aria-current": "page" }
-                    },
-                    [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
-                        "\n                                Library\n                            "
+                        "\n                                " +
+                          _vm._s(_vm.$family_count) +
+                          "\n                            "
                       )
-                    ]
-                  )
-                ])
+                    ])
+                  ]
+                )
               ])
             ])
-          ]
-        )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$genera_count) +
+                          "\n                            "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$species_count) +
+                          "\n                            "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$albanian_count) +
+                          "\n                            "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$user_count) +
+                          "\n                            "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "card m-t-0" }, [
+              _c("div", { staticClass: "row py-2 align-items-center" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-6 border-left text-center p-t-10" },
+                  [
+                    _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$favourites_count) +
+                          "\n                            "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(7)
       ])
-    ])
-  },
+    ],
+    1
+  )
+}
+var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -77,10 +77,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -100,117 +96,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("the-breadcrumbs", {
+        attrs: {
+          paths: [
+            { name: "Genera", route: "genera.index" },
+            { name: "Create Genre", route: "genera.create" }
+          ]
+        }
+      }),
+      _vm._v(" "),
+      _vm._m(0)
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "page-breadcrumb" }, [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-12 d-flex no-block align-items-center" },
-            [
-              _c("h4", { staticClass: "page-title" }, [_vm._v("Add Genera")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "ml-auto text-right" }, [
-                _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-                  _c("ol", { staticClass: "breadcrumb" }, [
-                    _c("li", { staticClass: "breadcrumb-item" }, [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-                    ]),
-                    _vm._v(" "),
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "form",
+              {
+                staticClass: "form-horizontal",
+                attrs: { method: "post", action: "" }
+              },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _vm._v("Genera Data")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
                     _c(
-                      "li",
+                      "label",
                       {
-                        staticClass: "breadcrumb-item active",
-                        attrs: { "aria-current": "page" }
+                        staticClass:
+                          "col-sm-3 text-right control-label col-form-label",
+                        attrs: { for: "fname" }
                       },
-                      [_vm._v("Add Genera")]
-                    )
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "card" }, [
-              _c(
-                "form",
-                {
-                  staticClass: "form-horizontal",
-                  attrs: { method: "post", action: "" }
-                },
-                [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h4", { staticClass: "card-title" }, [
-                      _vm._v("Genera Data")
-                    ]),
+                      [_vm._v("Genera Name")]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "fname" }
-                        },
-                        [_vm._v("Genera Name")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "name",
-                            name: "name",
-                            required: "",
-                            placeholder: "Genera Name Here"
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label"
-                        },
-                        [_vm._v("Family Name")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("select", {
-                          staticClass: "select2 form-control custom-select",
-                          staticStyle: { width: "100%", height: "36px" },
-                          attrs: { name: "family", required: "" }
-                        })
-                      ])
+                    _c("div", { staticClass: "col-sm-9" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          required: "",
+                          placeholder: "Genera Name Here"
+                        }
+                      })
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "border-top" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("input", {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit", value: "Create" }
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "col-sm-3 text-right control-label col-form-label"
+                      },
+                      [_vm._v("Family Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-9" }, [
+                      _c("select", {
+                        staticClass: "select2 form-control custom-select",
+                        staticStyle: { width: "100%", height: "36px" },
+                        attrs: { name: "family", required: "" }
                       })
                     ])
                   ])
-                ]
-              )
-            ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "border-top" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("input", {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit", value: "Create" }
+                    })
+                  ])
+                ])
+              ]
+            )
           ])
         ])
       ])

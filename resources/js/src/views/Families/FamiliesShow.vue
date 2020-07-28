@@ -1,30 +1,18 @@
 <template>
-  <div>
-    <div class="page-breadcrumb">
-      <div class="row">
-        <div class="col-12 d-flex no-block align-items-center">
-          <!-- <h4 class="page-title">Family {{ $family->name }}</h4> -->
-          <!-- {{--                <a href="{{ route('plants.create') }}" class="btn btn-info ml-4">Update Family</a>--}} -->
-          <div class="ml-auto text-right">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="#">Families</a>
-                </li>
-                <!-- <li class="breadcrumb-item active" aria-current="page">{{ $family->name }}</li> -->
-              </ol>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div>
+        <the-breadcrumbs
+            :paths="[
+                { name: 'Families', route: 'families.index' },
+                { name: 'Display Family', route: 'families.show' }
+            ]"
+        ></the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <!-- <h5 class="card-title">{{ $family->name }} Information</h5>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- <h5 class="card-title">{{ $family->name }} Information</h5>
                         <hr>
                         <h6>Family Description:</h6>
                         @isset( $family->description )
@@ -63,17 +51,16 @@
 
                         <h6>Genera for {{ $family->name }}</h6>
               <genera-for-family-table family="{{ $family->id }}"></genera-for-family-table>-->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style>
-</style>
+<style></style>

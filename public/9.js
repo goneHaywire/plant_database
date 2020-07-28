@@ -124,6 +124,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -143,84 +158,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c(
-              "form",
-              {
-                staticClass: "form-horizontal",
-                attrs: { method: "get", action: "" }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "card-body" },
-                  [
-                    _c("h4", { staticClass: "card-title" }, [
-                      _vm._v("Filter Species")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("genera-for-family", { attrs: { filter: "true" } })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm._m(4)
-              ]
-            )
+  return _c(
+    "div",
+    [
+      _c("the-breadcrumbs", {
+        attrs: {
+          paths: [
+            { name: "Filter Species", route: "filter.index" },
+            { name: "Filter Form", route: "filter.form" }
+          ]
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "form-horizontal",
+                  attrs: { method: "get", action: "" }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "card-body" },
+                    [
+                      _c("h4", { staticClass: "card-title" }, [
+                        _vm._v("Filter Species")
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("genera-for-family", { attrs: { filter: "true" } })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]
+              )
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-breadcrumb" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-12 d-flex no-block align-items-center" },
-          [
-            _c("h4", { staticClass: "page-title" }, [_vm._v("Filter")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "ml-auto text-right" }, [
-              _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
-                _c("ol", { staticClass: "breadcrumb" }, [
-                  _c("li", { staticClass: "breadcrumb-item" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticClass: "breadcrumb-item active",
-                      attrs: { "aria-current": "page" }
-                    },
-                    [_vm._v("Filter")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -234,7 +225,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                  Species\n                  Name\n                "
+            "\n                                    Species Name\n                                "
           )
         ]
       ),
@@ -265,7 +256,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                  Common\n                  Name\n                "
+            "\n                                    Common Name\n                                "
           )
         ]
       ),
@@ -292,7 +283,11 @@ var staticRenderFns = [
         _c(
           "legend",
           { staticClass: "col-sm-3 text-right control-label col-form-label" },
-          [_vm._v("Albania")]
+          [
+            _vm._v(
+              "\n                                        Albania\n                                    "
+            )
+          ]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-9" }, [

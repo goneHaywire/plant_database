@@ -1,27 +1,8 @@
 <template>
     <div>
-        <div class="page-breadcrumb">
-            <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Home</h4>
-                    <div class="ml-auto text-right">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#">Home</a>
-                                </li>
-                                <li
-                                    class="breadcrumb-item active"
-                                    aria-current="page"
-                                >
-                                    Library
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <the-breadcrumbs
+            :paths="[{ name: 'Home', route: 'home' }]"
+        ></the-breadcrumbs>
 
         <div class="container-fluid">
             <div class="btn btn-primary" @click="callapi()">click me</div>
@@ -43,7 +24,7 @@
                 <!-- Column -->
                 <div class="col-md-6 col-lg-4 col-xlg-3">
                     <router-link
-                        :to="{ name: 'families' }"
+                        :to="{ name: 'families.index' }"
                         class="card card-hover"
                     >
                         <div class="box bg-success text-center">
@@ -58,7 +39,7 @@
                 <div class="col-md-6 col-lg-2 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'genera' }"
+                        :to="{ name: 'genera.index' }"
                     >
                         <div class="box bg-warning text-center">
                             <h1 class="font-light text-white">
@@ -72,7 +53,7 @@
                 <div class="col-md-6 col-lg-4 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'species' }"
+                        :to="{ name: 'species.index' }"
                     >
                         <div class="box bg-danger text-center">
                             <h1 class="font-light text-white">
@@ -86,7 +67,7 @@
                 <div class="col-md-6 col-lg-4 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'favourites' }"
+                        :to="{ name: 'favourites.index' }"
                     >
                         <div class="box bg-info text-center">
                             <h1 class="font-light text-white">
@@ -100,7 +81,7 @@
                 <div class="col-md-6 col-lg-2 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'users' }"
+                        :to="{ name: 'users.index' }"
                     >
                         <div class="box bg-danger text-center">
                             <h1 class="font-light text-white">
@@ -114,7 +95,7 @@
                 <div class="col-md-6 col-lg-4 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'albanian' }"
+                        :to="{ name: 'albanian.index' }"
                     >
                         <div class="box bg-info text-center">
                             <h1 class="font-light text-white">
@@ -128,7 +109,7 @@
                 <div class="col-md-6 col-lg-2 col-xlg-3">
                     <router-link
                         class="card card-hover"
-                        :to="{ name: 'filter' }"
+                        :to="{ name: 'filter.index' }"
                     >
                         <div class="box bg-cyan text-center">
                             <h1 class="font-light text-white">
