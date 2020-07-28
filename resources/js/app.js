@@ -7,6 +7,8 @@
 require('./bootstrap');
 import router from './src/router/router.js'
 import store from './src/store/store.js';
+import apiClient from './src/services/Api.js'
+import authService from './src/services/AuthService.js';
 
 window.Vue = require('vue');
 
@@ -32,14 +34,32 @@ Vue.component('AppPage', require('./src/pages/AppPage.vue').default);
 const app = new Vue({
     el: '#app',
     router,
-    // store,
+    store,
     created() {
-        const user = localStorage.getItem('user')
+        const userData = JSON.parse(localStorage.getItem('user'))
 
-        if (user)
-            router.push('/dashboard')
-        else
+        if (userData) {
+            authService.verifyToken(userData.access_token)
+                .then(data => {
+                    this.$store.commit('SET_USER_DATA', userData)
+                    router.push('/dashboard')
+                })
+                .catch(error => {
+                    if (error.response.status === 401) {
+                        this.$store.dispatch('logout')
+                    }
+                })
+        } else {
             router.push('/login')
-    }
+        }
 
+        apiClient.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response.status === 401) {
+                    this.$store.dispatch('logout')
+                    return Promise.reject(error)
+                }
+            })
+    }
 });

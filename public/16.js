@@ -144,23 +144,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesIndex",
@@ -236,9 +219,9 @@ var render = function() {
               "router-link",
               {
                 staticClass: "btn btn-success ml-4",
-                attrs: { to: "/add_specie" }
+                attrs: { to: { name: "species.create" } }
               },
-              [_vm._v("Add Species\n                ")]
+              [_vm._v("Add Species")]
             ),
             _vm._v(" "),
             _vm._m(0)
@@ -284,9 +267,11 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    _vm._s(specie.genera.name) +
-                                      "\n                                                " +
-                                      _vm._s(specie.specie_name)
+                                    "\n                        " +
+                                      _vm._s(specie.genera.name) +
+                                      "\n                        " +
+                                      _vm._s(specie.specie_name) +
+                                      "\n                      "
                                   )
                                 ]
                               )
@@ -315,7 +300,13 @@ var render = function() {
                                       specie.genera.family.id
                                   }
                                 },
-                                [_vm._v(_vm._s(specie.genera.family.name))]
+                                [
+                                  _vm._v(
+                                    "\n                        " +
+                                      _vm._s(specie.genera.family.name) +
+                                      "\n                      "
+                                  )
+                                ]
                               )
                             ]),
                             _vm._v(" "),
@@ -323,9 +314,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                "\n                                            " +
+                                "\n                      " +
                                   _vm._s(specie.in_albania ? "True" : "False") +
-                                  "\n                                        "
+                                  "\n                    "
                               )
                             ]),
                             _vm._v(" "),
@@ -401,11 +392,7 @@ var staticRenderFns = [
               staticClass: "breadcrumb-item active",
               attrs: { "aria-current": "page" }
             },
-            [
-              _vm._v(
-                "\n                                All Species\n                            "
-              )
-            ]
+            [_vm._v("All Species")]
           )
         ])
       ])

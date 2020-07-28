@@ -1,12 +1,15 @@
 import VueRouter from "vue-router";
 import Vue from "vue";
 import NProgress from "nprogress";
+import AuthService from '../services/AuthService'
+import authService from "../services/AuthService";
+
 Vue.use(VueRouter);
 
 const routes = [{
         path: "/login",
-        name: "Login",
-        component: () => import("../pages/LoginPage.vue")
+        name: "login",
+        component: () => import("../pages/LoginPage.vue"),
     },
     {
         path: "/dashboard",
@@ -14,82 +17,130 @@ const routes = [{
         children: [{
                 name: "home",
                 path: "/",
-                component: () => import("../views/HomeView.vue")
+                component: () => import("../views/HomeView.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "families",
                 path: "families",
-                component: () => import("../views/Families/FamiliesIndex.vue")
+                component: () => import("../views/Families/FamiliesIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "families.create",
                 path: "families/create",
-                component: () => import("../views/Families/FamiliesCreate.vue")
+                component: () => import("../views/Families/FamiliesCreate.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "families.show",
                 path: "families/show",
-                component: () => import("../views/Families/FamiliesShow.vue")
+                component: () => import("../views/Families/FamiliesShow.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "genera",
                 path: "genera",
-                component: () => import("../views/Genera/GeneraIndex.vue")
+                component: () => import("../views/Genera/GeneraIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "genera.create",
                 path: "genera/create",
-                component: () => import("../views/Genera/GeneraCreate.vue")
+                component: () => import("../views/Genera/GeneraCreate.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "genera.show",
                 path: "genera/show",
-                component: () => import("../views/Genera/GeneraShow.vue")
+                component: () => import("../views/Genera/GeneraShow.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "species",
                 path: "species",
-                component: () => import("../views/Species/SpeciesIndex.vue")
+                component: () => import("../views/Species/SpeciesIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "species.create",
                 path: "species/create",
-                component: () => import("../views/Species/SpeciesCreate.vue")
+                component: () => import("../views/Species/SpeciesCreate.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "species.show",
                 path: "species/show",
-                component: () => import("../views/Species/SpeciesShow.vue")
+                component: () => import("../views/Species/SpeciesShow.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "albanian",
                 path: "albanian",
-                component: () => import("../views/AlbanianIndex.vue")
+                component: () => import("../views/AlbanianIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "favourites",
                 path: "favourites",
-                component: () => import("../views/FavouritesView.vue")
+                component: () => import("../views/FavouritesView.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "users",
                 path: "users",
-                component: () => import("../views/Users/UsersIndex.vue")
+                component: () => import("../views/Users/UsersIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "users.create",
                 path: "users/create",
-                component: () => import("../views/Users/UsersIndex.vue")
+                component: () => import("../views/Users/UsersIndex.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "filter",
                 path: "filter",
-                component: () => import("../views/FilterView.vue")
+                component: () => import("../views/FilterView.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: "filter.form",
                 path: "/filter/form",
-                component: () => import("../views/FilterForm.vue")
+                component: () => import("../views/FilterForm.vue"),
+                meta: {
+                    requiresAuth: true
+                }
             }
         ]
     }
@@ -101,8 +152,52 @@ const router = new VueRouter({
     // base: process.env.BASE_URL
 });
 
-router.beforeEach((routeTo, routeFrom, next) => {
+router.beforeEach((to, from, next) => {
     NProgress.start();
+
+    // const loggedIn = localStorage.getItem('user')
+
+    // if (!loggedIn) {
+    //     next('/login')
+    // }
+
+    // if (to.meta.requiresAuth) {
+    //     const userData = localStorage.getItem('user');
+    //     authService.verifyToken(userData.access_token)
+    //         .then(data => console.log(data))
+    // } else {
+    //     if (!to.meta.requiresAuth)
+    //         next()
+    //     next('/login')
+    // }
+    // const loggedIn = localStorage.getItem('user');
+    // console.log(loggedIn)
+
+    // console.log(to)
+
+    // if (!loggedIn)
+    //     next({
+    //         name: 'login'
+    //     })
+    // else {
+    //     if (to.matched.some(route => route.meta.requiresAuth)) {
+    //         authService.verifyToken()
+    //             .then(data => console.log(data))
+    //     } else {
+    //         next()
+    // }
+    // }
+    // console.log({
+    //     auth: loggedIn
+    // })
+    // if (to.matched.some(route => route.meta.requiresAuth)) {
+    //     if (!loggedIn)
+    //         next({
+    //             name: 'login'
+    //         })
+    //     else
+    //         next()
+    // }
     next();
 });
 router.afterEach(() => NProgress.done());

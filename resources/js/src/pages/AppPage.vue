@@ -1,16 +1,13 @@
 <template>
-  <div id="app">
-    <router-link :to="'/login'">Login</router-link>
-    <router-link :to="'/dashboard'">Dashboard</router-link>
-    <router-view></router-view>
-  </div>
+    <div id="app">
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "AppPage",
+    name: "AppPage"
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -9,6 +9,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _services_AuthService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/AuthService.js */ "./resources/js/src/services/AuthService.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -120,8 +128,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "LoginPage"
+  name: "LoginPage",
+  data: function data() {
+    return {
+      email: undefined,
+      password: undefined
+    };
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["login"])), {}, {
+    handleLogin: function handleLogin() {
+      var _this = this;
+
+      var payload = {
+        email: this.email,
+        password: this.password
+      };
+      var user = {};
+      _services_AuthService_js__WEBPACK_IMPORTED_MODULE_1__["default"].login(payload).then(function (data) {
+        var user = {
+          access_token: data.data.access_token,
+          id: data.data.user.id,
+          name: data.data.user.name,
+          email: data.data.user.email
+        };
+
+        _this.login(user);
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -141,205 +221,261 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass:
+          "auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark"
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "auth-box bg-dark border-top border-secondary" },
+          [
+            _c("div", { attrs: { id: "loginform" } }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  staticClass: "form-horizontal m-t-20",
+                  attrs: { id: "loginform", action: "index.html" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.handleLogin()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "row p-b-30" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "input-group mb-3" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.email,
+                              expression: "email"
+                            }
+                          ],
+                          staticClass: "form-control form-control-lg",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Username",
+                            "aria-label": "Username",
+                            "aria-describedby": "basic-addon1",
+                            required: ""
+                          },
+                          domProps: { value: _vm.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.email = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group mb-3" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password,
+                              expression: "password"
+                            }
+                          ],
+                          staticClass: "form-control form-control-lg",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Password",
+                            "aria-label": "Password",
+                            "aria-describedby": "basic-addon1",
+                            required: ""
+                          },
+                          domProps: { value: _vm.password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.password = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "text-center p-t-20 p-b-20" }, [
+      _c("span", { staticClass: "db" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
       _c(
-        "div",
+        "span",
         {
-          staticClass:
-            "auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark"
+          staticClass: "input-group-text bg-success text-white",
+          attrs: { id: "basic-addon1" }
         },
-        [
+        [_c("i", { staticClass: "ti-user" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "span",
+        {
+          staticClass: "input-group-text bg-warning text-white",
+          attrs: { id: "basic-addon2" }
+        },
+        [_c("i", { staticClass: "ti-pencil" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row border-top border-secondary" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "p-t-20" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { id: "to-recover", type: "button" }
+              },
+              [
+                _c("i", { staticClass: "fa fa-lock m-r-5" }),
+                _vm._v(
+                  "\n                                        Lost password?\n                                    "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success float-right",
+                attrs: { type: "submit" }
+              },
+              [
+                _vm._v(
+                  "\n                                        Login\n                                    "
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "recoverform" } }, [
+      _c("div", { staticClass: "text-center" }, [
+        _c("span", { staticClass: "text-white" }, [
+          _vm._v(
+            "Enter your e-mail address below and we will send\n                        you instructions how to recover a password."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row m-t-20" }, [
+        _c("form", { staticClass: "col-12", attrs: { action: "index.html" } }, [
+          _c("div", { staticClass: "input-group mb-3" }, [
+            _c("div", { staticClass: "input-group-prepend" }, [
+              _c(
+                "span",
+                {
+                  staticClass: "input-group-text bg-danger text-white",
+                  attrs: { id: "basic-addon1" }
+                },
+                [_c("i", { staticClass: "ti-email" })]
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control form-control-lg",
+              attrs: {
+                type: "text",
+                placeholder: "Email Address",
+                "aria-label": "Username",
+                "aria-describedby": "basic-addon1"
+              }
+            })
+          ]),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "auth-box bg-dark border-top border-secondary" },
+            { staticClass: "row m-t-20 p-t-20 border-top border-secondary" },
             [
-              _c("div", { attrs: { id: "loginform" } }, [
-                _c("div", { staticClass: "text-center p-t-20 p-b-20" }, [
-                  _c("span", { staticClass: "db" })
-                ]),
+              _c("div", { staticClass: "col-12" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { href: "#", id: "to-login", name: "action" }
+                  },
+                  [_vm._v("Back To Login")]
+                ),
                 _vm._v(" "),
                 _c(
-                  "form",
+                  "button",
                   {
-                    staticClass: "form-horizontal m-t-20",
-                    attrs: { id: "loginform", action: "index.html" }
+                    staticClass: "btn btn-info float-right",
+                    attrs: { type: "button", name: "action" }
                   },
                   [
-                    _c("div", { staticClass: "row p-b-30" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "input-group mb-3" }, [
-                          _c("div", { staticClass: "input-group-prepend" }, [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "input-group-text bg-success text-white",
-                                attrs: { id: "basic-addon1" }
-                              },
-                              [_c("i", { staticClass: "ti-user" })]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control form-control-lg",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Username",
-                              "aria-label": "Username",
-                              "aria-describedby": "basic-addon1",
-                              required: ""
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group mb-3" }, [
-                          _c("div", { staticClass: "input-group-prepend" }, [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "input-group-text bg-warning text-white",
-                                attrs: { id: "basic-addon2" }
-                              },
-                              [_c("i", { staticClass: "ti-pencil" })]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control form-control-lg",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Password",
-                              "aria-label": "Password",
-                              "aria-describedby": "basic-addon1",
-                              required: ""
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "row border-top border-secondary" },
-                      [
-                        _c("div", { staticClass: "col-12" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("div", { staticClass: "p-t-20" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info",
-                                  attrs: { id: "to-recover", type: "button" }
-                                },
-                                [
-                                  _c("i", { staticClass: "fa fa-lock m-r-5" }),
-                                  _vm._v(" Lost password?\n                  ")
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-success float-right",
-                                  attrs: { type: "submit" }
-                                },
-                                [_vm._v("Login")]
-                              )
-                            ])
-                          ])
-                        ])
-                      ]
+                    _vm._v(
+                      "\n                                    Recover\n                                "
                     )
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { attrs: { id: "recoverform" } }, [
-                _c("div", { staticClass: "text-center" }, [
-                  _c("span", { staticClass: "text-white" }, [
-                    _vm._v(
-                      "Enter your e-mail address below and we will send you instructions how to recover a password."
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row m-t-20" }, [
-                  _c(
-                    "form",
-                    { staticClass: "col-12", attrs: { action: "index.html" } },
-                    [
-                      _c("div", { staticClass: "input-group mb-3" }, [
-                        _c("div", { staticClass: "input-group-prepend" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "input-group-text bg-danger text-white",
-                              attrs: { id: "basic-addon1" }
-                            },
-                            [_c("i", { staticClass: "ti-email" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control form-control-lg",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Email Address",
-                            "aria-label": "Username",
-                            "aria-describedby": "basic-addon1"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "row m-t-20 p-t-20 border-top border-secondary"
-                        },
-                        [
-                          _c("div", { staticClass: "col-12" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-success",
-                                attrs: {
-                                  href: "#",
-                                  id: "to-login",
-                                  name: "action"
-                                }
-                              },
-                              [_vm._v("Back To Login")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-info float-right",
-                                attrs: { type: "button", name: "action" }
-                              },
-                              [_vm._v("Recover")]
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                ])
               ])
             ]
           )
-        ]
-      )
+        ])
+      ])
     ])
   }
 ]

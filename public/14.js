@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/Api */ "./resources/js/src/services/Api.js");
 //
 //
 //
@@ -218,8 +219,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "HomeView"
+  name: "HomeView",
+  methods: {
+    callapi: function callapi() {
+      console.log("call api!!!!");
+      _services_Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("families").then(function (data) {
+        return console.log(data);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -243,6 +318,19 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "div",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              return _vm.callapi()
+            }
+          }
+        },
+        [_vm._v("click me")]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6 col-lg-2 col-xlg-3" }, [
           _c(
@@ -436,7 +524,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$family_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$family_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -454,7 +546,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$genera_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$genera_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -472,7 +568,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$species_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$species_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -490,7 +590,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$albanian_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$albanian_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -508,7 +612,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$user_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$user_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -526,7 +634,11 @@ var render = function() {
                 { staticClass: "col-md-6 border-left text-center p-t-10" },
                 [
                   _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.$favourites_count))
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$favourites_count) +
+                        "\n                            "
+                    )
                   ])
                 ]
               )
@@ -565,7 +677,11 @@ var staticRenderFns = [
                       staticClass: "breadcrumb-item active",
                       attrs: { "aria-current": "page" }
                     },
-                    [_vm._v("Library")]
+                    [
+                      _vm._v(
+                        "\n                                Library\n                            "
+                      )
+                    ]
                   )
                 ])
               ])
@@ -668,7 +784,9 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Families with most species in Albania")
+              _vm._v(
+                "\n                            Families with most species in Albania\n                        "
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "pie", staticStyle: { height: "800px" } })
