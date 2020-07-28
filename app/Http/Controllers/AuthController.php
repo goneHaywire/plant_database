@@ -26,23 +26,23 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
+    // public function login(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'password' => 'required|string|min:6',
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(), 422);
+    //     }
 
-        if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+    //     if (!$token = auth()->attempt($validator->validated())) {
+    //         return response()->json(['error' => 'Unauthorized'], 401);
+    //     }
 
-        return $this->respondWithToken($token);
-    }
+    //     return $this->respondWithToken($token);
+    // }
 
     /**
      * Register a User.
@@ -113,8 +113,6 @@ class AuthController extends Controller
      */
     public function respondWithToken($token)
     {
-        // $token = $request->get('token');
-        // $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU5NTg2MjU2NywiZXhwIjoxNTk1ODYyNjI3LCJuYmYiOjE1OTU4NjI1NjcsImp0aSI6IjdwbkpyeDQyU1A4cmJEWE0iLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.VAjNHGXij_aihs-wvXWaTZ_37qv3j_riIA_2GaUItxU";
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -127,7 +125,6 @@ class AuthController extends Controller
     {
         $token = $request->get('token');
 
-        // return 'lesh';
         try {
             $user = JWTAuth::setToken($token)->toUser();
             if ($user !== null) {
