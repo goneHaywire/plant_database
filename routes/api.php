@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth',
@@ -19,11 +17,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', function () {
         return 'lesh';
     });
-    Route::get('families', 'FamilyController@indexApi');
+    // Route::apiResource('families', 'API\FamilyController');
+    Route::apiResources([
+        'families' => 'API\FamilyController',
+        'genera' => 'API\GeneraController',
+        'species' => 'API\SpeciesController',
+        'users' => 'API\UserController',
+    ]);
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // Route::get('/test', 'AuthController@test');
