@@ -6,9 +6,9 @@ var familyService = {
     fetchFamily: id =>
         ApiClient.get(`/families/${id}`),
     createFamily: family =>
-        ApiClient.post(`/families`, family),
+        ApiClient.post(`/families`, JSON.stringify(family)),
     updateFamily: family =>
-        ApiClient.put('/families', family),
+        ApiClient.put(`/families/${family.id}`, JSON.stringify(family)),
     deleteFamily: id =>
         ApiClient.delete(`/family/${id}`),
 }

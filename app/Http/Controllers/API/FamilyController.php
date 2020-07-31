@@ -26,7 +26,11 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $family = Family::create(
+            $request->only(['name', 'description', 'leaves', 'flowers', 'seeds', 'characteristics'])
+        );
+
+        return $family;
     }
 
     /**
@@ -49,7 +53,8 @@ class FamilyController extends Controller
      */
     public function update(Request $request, Family $family)
     {
-        //
+        $family->update($request->only(['name', 'description', 'leaves', 'flowers', 'seeds', 'characteristics']));
+        return $family;
     }
 
     /**

@@ -3,7 +3,7 @@
         <the-breadcrumbs
             :paths="[
                 { name: 'Species', route: 'species.index' },
-                { name: 'Create Species', route: 'species.create' }
+                { name: 'Create Species', route: 'species.form' }
             ]"
         ></the-breadcrumbs>
 
@@ -11,8 +11,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form class="form-horizontal" method="post" action>
-                            <!-- @csrf -->
+                        <form
+                            class="form-horizontal"
+                            @submit.prevent="postSpecie()"
+                        >
                             <div class="card-body">
                                 <h4 class="card-title">Species Data</h4>
                                 <div class="form-group row">
@@ -95,7 +97,38 @@
 </template>
 
 <script>
-export default {};
+import speciesService from "../../services/SpeciesService";
+
+export default {
+    name: "SpeciesForm",
+    props: {
+        specie: {
+            type: Object,
+            default: () => {
+                return {};
+            }
+        },
+        editing: {
+            type: Boolean,
+            default: () => false
+        }
+    },
+    methods: {
+        postSpecie() {
+            if (!this.editing) {
+                speciesService
+                    .createSpecie(this.specie)
+                    .then(resp => console.log(resp))
+                    .catch(err => console.log(err));
+            } else {
+                speciesService
+                    .updateSpecie(this.specie)
+                    .then(resp => console.log(resp))
+                    .catch(err => console.log(err));
+            }
+        }
+    }
+};
 </script>
 
 <style></style>

@@ -2570,6 +2570,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2928,6 +2947,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2986,6 +3024,25 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -41208,7 +41265,7 @@ var render = function() {
       _c("the-breadcrumbs", {
         attrs: {
           paths: [{ name: "Families", route: "families.index" }],
-          createBtn: { name: "Create Family", route: "families.create" }
+          createBtn: { name: "Create Family", route: "families.form" }
         }
       }),
       _vm._v(" "),
@@ -41266,6 +41323,39 @@ var render = function() {
                                   )
                                 ],
                                 1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "families.form",
+                                          params: {
+                                            editing: true,
+                                            family: family
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Update\n                                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "btn btn-danger" }, [
+                                    _vm._v(
+                                      "\n                                                Delete\n                                            "
+                                    )
+                                  ])
+                                ],
+                                1
                               )
                             ])
                           }),
@@ -41307,7 +41397,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   },
@@ -41319,7 +41411,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
@@ -41610,7 +41704,7 @@ var render = function() {
       _c("the-breadcrumbs", {
         attrs: {
           paths: [{ name: "Genera", route: "genera.index" }],
-          createBtn: { name: "Create Genre", route: "genera.create" }
+          createBtn: { name: "Create Genre", route: "genera.form" }
         }
       }),
       _vm._v(" "),
@@ -41696,6 +41790,39 @@ var render = function() {
                                   )
                                 ],
                                 1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "genera.form",
+                                          params: {
+                                            editing: true,
+                                            genus: genus
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Update\n                                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "btn btn-danger" }, [
+                                    _vm._v(
+                                      "\n                                                Delete\n                                            "
+                                    )
+                                  ])
+                                ],
+                                1
                               )
                             ])
                           }),
@@ -41739,7 +41866,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Family")])
+        _c("th", [_vm._v("Family")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   },
@@ -41753,7 +41882,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Family")])
+        _c("th", [_vm._v("Family")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
@@ -41785,7 +41916,7 @@ var render = function() {
       _c("the-breadcrumbs", {
         attrs: {
           paths: [{ name: "Species", route: "species.index" }],
-          createBtn: { name: "Create Species", route: "species.create" }
+          createBtn: { name: "Create Species", route: "species.form" }
         }
       }),
       _vm._v(" "),
@@ -41938,7 +42069,40 @@ var render = function() {
                                     1
                                   )
                                 ])
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        to: {
+                                          name: "species.form",
+                                          params: {
+                                            editing: true,
+                                            specie: specie
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Update\n                                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "btn btn-danger" }, [
+                                    _vm._v(
+                                      "\n                                                Delete\n                                            "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
                             ])
                           }),
                           0
@@ -41989,7 +42153,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Favourite")])
+        _c("th", [_vm._v("Favourite")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   },
@@ -42011,7 +42177,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Favourite")])
+        _c("th", [_vm._v("Favourite")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
@@ -58916,14 +59084,15 @@ var routes = [{
     },
     props: true
   }, {
-    name: "families.create",
-    path: "families/create",
+    name: "families.form",
+    path: "families/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesCreate.vue */ "./resources/js/src/views/Families/FamiliesCreate.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
     },
     meta: {
       requiresAuth: true
-    }
+    },
+    props: true
   }, {
     name: "families.show",
     path: "families/:id",
@@ -58943,10 +59112,10 @@ var routes = [{
     },
     props: true
   }, {
-    name: "genera.create",
-    path: "genera/create",
+    name: "genera.form",
+    path: "genera/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraCreate.vue */ "./resources/js/src/views/Genera/GeneraCreate.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
     },
     meta: {
       requiresAuth: true
@@ -58970,10 +59139,10 @@ var routes = [{
     },
     props: true
   }, {
-    name: "species.create",
-    path: "species/create",
+    name: "species.form",
+    path: "species/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesCreate.vue */ "./resources/js/src/views/Species/SpeciesCreate.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
     },
     meta: {
       requiresAuth: true
@@ -59170,10 +59339,10 @@ var familyService = {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/families/".concat(id));
   },
   createFamily: function createFamily(family) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/families", family);
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/families", JSON.stringify(family));
   },
   updateFamily: function updateFamily(family) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put('/families', family);
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/families/".concat(family.id), JSON.stringify(family));
   },
   deleteFamily: function deleteFamily(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/family/".concat(id));

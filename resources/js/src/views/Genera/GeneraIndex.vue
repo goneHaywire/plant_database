@@ -2,7 +2,7 @@
     <div>
         <the-breadcrumbs
             :paths="[{ name: 'Genera', route: 'genera.index' }]"
-            :createBtn="{ name: 'Create Genre', route: 'genera.create' }"
+            :createBtn="{ name: 'Create Genre', route: 'genera.form' }"
         ></the-breadcrumbs>
 
         <div class="container-fluid">
@@ -21,6 +21,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Family</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +56,23 @@
                                                     {{ genus.family.name }}
                                                 </router-link>
                                             </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'genera.form',
+                                                        params: {
+                                                            editing: true,
+                                                            genus
+                                                        }
+                                                    }"
+                                                    class="btn btn-primary"
+                                                >
+                                                    Update
+                                                </router-link>
+                                                <div class="btn btn-danger">
+                                                    Delete
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -62,6 +80,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Family</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </tfoot>
                                 </table>

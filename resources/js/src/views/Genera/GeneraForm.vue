@@ -3,15 +3,17 @@
         <the-breadcrumbs
             :paths="[
                 { name: 'Genera', route: 'genera.index' },
-                { name: 'Create Genre', route: 'genera.create' }
+                { name: 'Create Genre', route: 'genera.form' }
             ]"
         ></the-breadcrumbs>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form class="form-horizontal" method="post" action>
-                            <!-- @csrf -->
+                        <form
+                            class="form-horizontal"
+                            @submit.prevent="postGenus()"
+                        >
                             <div class="card-body">
                                 <h4 class="card-title">Genera Data</h4>
                                 <div class="form-group row">
@@ -67,7 +69,37 @@
 </template>
 
 <script>
-export default {};
+import generaService from "../../services/GeneraService";
+export default {
+    name: "GeneraForm",
+    props: {
+        genus: {
+            type: Object,
+            default: () => {
+                return {};
+            }
+        },
+        editing: {
+            type: Boolean,
+            default: () => false
+        }
+    },
+    methods: {
+        postGenus() {
+            if (!this.editing) {
+                generaService
+                    .createGenre(this.genus)
+                    .then(resp => console.log(resp))
+                    .catch(err => console.log(err));
+            } else {
+                generaService
+                    .updateGenera(this.genus)
+                    .then(resp => console.log(resp))
+                    .catch(err => console.log(err));
+            }
+        }
+    }
+};
 </script>
 
 <style></style>

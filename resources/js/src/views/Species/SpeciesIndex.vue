@@ -2,7 +2,7 @@
     <div>
         <the-breadcrumbs
             :paths="[{ name: 'Species', route: 'species.index' }]"
-            :createBtn="{ name: 'Create Species', route: 'species.create' }"
+            :createBtn="{ name: 'Create Species', route: 'species.form' }"
         ></the-breadcrumbs>
 
         <div class="container-fluid">
@@ -25,6 +25,7 @@
                                             <th>Common Name</th>
                                             <th>In Albania</th>
                                             <th>Favourite</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,6 +114,23 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'species.form',
+                                                        params: {
+                                                            editing: true,
+                                                            specie
+                                                        }
+                                                    }"
+                                                    class="btn btn-primary"
+                                                >
+                                                    Update
+                                                </router-link>
+                                                <div class="btn btn-danger">
+                                                    Delete
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -124,6 +142,7 @@
                                             <th>Common Name</th>
                                             <th>In Albania</th>
                                             <th>Favourite</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </tfoot>
                                 </table>

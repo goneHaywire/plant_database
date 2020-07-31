@@ -37,12 +37,13 @@ const routes = [{
                 props: true,
             },
             {
-                name: "families.create",
-                path: "families/create",
-                component: () => import("../views/Families/FamiliesCreate.vue"),
+                name: "families.form",
+                path: "families/form",
+                component: () => import("../views/Families/FamiliesForm.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "families.show",
@@ -63,9 +64,9 @@ const routes = [{
                 props: true,
             },
             {
-                name: "genera.create",
-                path: "genera/create",
-                component: () => import("../views/Genera/GeneraCreate.vue"),
+                name: "genera.form",
+                path: "genera/form",
+                component: () => import("../views/Genera/GeneraForm.vue"),
                 meta: {
                     requiresAuth: true
                 }
@@ -89,9 +90,9 @@ const routes = [{
                 props: true,
             },
             {
-                name: "species.create",
-                path: "species/create",
-                component: () => import("../views/Species/SpeciesCreate.vue"),
+                name: "species.form",
+                path: "species/form",
+                component: () => import("../views/Species/SpeciesForm.vue"),
                 meta: {
                     requiresAuth: true
                 }

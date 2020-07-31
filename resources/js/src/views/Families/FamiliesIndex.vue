@@ -2,7 +2,7 @@
     <div>
         <the-breadcrumbs
             :paths="[{ name: 'Families', route: 'families.index' }]"
-            :createBtn="{ name: 'Create Family', route: 'families.create' }"
+            :createBtn="{ name: 'Create Family', route: 'families.form' }"
         ></the-breadcrumbs>
 
         <div class="container-fluid">
@@ -21,6 +21,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,12 +43,30 @@
                                                     {{ family.name }}
                                                 </router-link>
                                             </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'families.form',
+                                                        params: {
+                                                            editing: true,
+                                                            family
+                                                        }
+                                                    }"
+                                                    class="btn btn-primary"
+                                                >
+                                                    Update
+                                                </router-link>
+                                                <div class="btn btn-danger">
+                                                    Delete
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </tfoot>
                                 </table>
