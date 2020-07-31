@@ -2,7 +2,10 @@
 
 // Auth::Routes(['register' => false]);
 // Route::middleware('auth')->group(function() {
-    Route::view('{any}', 'layouts.dashboard')->name('home')->where('any', '.*');
+Route::view('/', 'layouts.dashboard')->name('home')->where('any', '.*');
+Route::get('{any}', function () {
+    return redirect('/');
+})->name('any')->where('any', '.*');
 // });
 
 // Route::get('families', 'FamilyController@indexApi');
@@ -19,7 +22,6 @@
 // Route::get('users', 'UserController@indexApi');
 // Route::get('favourites', 'FavouriteController@indexApi');
 // Route::get('/albanian', 'SpecieController@albanianApi');
-
 
 // Route::group(['prefix' => '/dashboard'], function (){
 //     Route::resource('families', 'FamilyController');

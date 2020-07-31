@@ -32,36 +32,51 @@
                                         >
                                             <td>{{ specie.id }}</td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/species/' +
-                                                            specie.id
-                                                    "
+                                                <router-link
+                                                    :to="{
+                                                        name: 'species.show',
+                                                        params: {
+                                                            specie,
+                                                            id: specie.id
+                                                        }
+                                                    }"
+                                                >
+                                                    {{ specie.genera.name }}
+                                                    {{ specie.specie_name }}
+                                                </router-link>
+                                            </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'genera.show',
+                                                        params: {
+                                                            genus:
+                                                                specie.genera,
+                                                            id: specie.genera.id
+                                                        }
+                                                    }"
                                                     >{{ specie.genera.name }}
-                                                    {{ specie.specie_name }}</a
-                                                >
+                                                </router-link>
                                             </td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/genera/' +
-                                                            specie.genera.id
-                                                    "
-                                                    >{{ specie.genera.name }}</a
+                                                <router-link
+                                                    :to="{
+                                                        name: 'families.show',
+                                                        params: {
+                                                            family:
+                                                                specie.genera
+                                                                    .family,
+                                                            id:
+                                                                specie.genera
+                                                                    .family.id
+                                                        }
+                                                    }"
                                                 >
-                                            </td>
-                                            <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/families/' +
-                                                            specie.genera.family
-                                                                .id
-                                                    "
-                                                    >{{
+                                                    {{
                                                         specie.genera.family
                                                             .name
-                                                    }}</a
-                                                >
+                                                    }}
+                                                </router-link>
                                             </td>
                                             <td>{{ specie.common_name }}</td>
                                             <td>
@@ -118,6 +133,7 @@
 
 <script>
 import Pagination from "../components/Pagination";
+import speciesService from "../services/SpeciesService";
 export default {
     name: "AlbanianIndex",
     methods: {
@@ -148,14 +164,29 @@ export default {
     },
     data() {
         return {
-            species: {},
+            species: [],
             pagination: {
                 current_page: 1
             }
         };
     },
-    mounted() {
-        this.fetchPlants();
+    props: {
+        speciesProp: {
+            type: Array,
+            required: true
+        }
+    },
+    created() {
+        this.species = this.speciesProp;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        speciesService
+            .fetchAlbanianSpecies(1)
+            .then(resp => {
+                to.params.speciesProp = resp.data.data;
+                next();
+            })
+            .catch(err => console.log(err));
     },
     components: { Pagination }
 };

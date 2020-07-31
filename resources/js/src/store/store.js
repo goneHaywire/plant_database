@@ -13,37 +13,28 @@ const store = new Vuex.Store({
         getUser: (state) => state.user
     },
     mutations: {
-        // SET_USER_DATA(state, user) {
-        //     state.user = user
-        // },
         SET_USER_DATA: (state, user) => {
             state.user = user
+            apiClient.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
+            localStorage.setItem('user', JSON.stringify(user))
         },
         CLEAR_USER_DATA: (state) => {
             state.user = null
+            apiClient.defaults.headers.common['Authorization'] = `j`
+            localStorage.removeItem('user')
         }
     },
     actions: {
         login: function ({
             commit
         }, user) {
-
-            console.log(user)
-            console.log(this.state.user)
-            // this.state.user = user
-            console.log('testttt')
-            console.log(user.name)
-            console.log(user.access_token)
             commit('SET_USER_DATA', user)
-            apiClient.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
-            localStorage.setItem('user', JSON.stringify(user))
             router.push('/dashboard')
         },
         logout: ({
             commit
         }) => {
             commit('CLEAR_USER_DATA')
-            localStorage.removeItem('user')
             router.push('/login')
         }
     }

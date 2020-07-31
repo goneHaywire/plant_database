@@ -10,6 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
+/* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
 //
 //
 //
@@ -140,21 +141,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesIndex",
   methods: {
-    fetchPlants: function fetchPlants() {
+    fetchSpecies: function fetchSpecies() {
       var _this = this;
 
-      axios.get("/species?page=" + this.pagination.current_page).then(function (response) {
-        _this.species = response.data.data.data;
-        _this.pagination = response.data.pagination;
-      })["catch"](function (error) {
-        console.log(error.response.data);
-      });
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(this.pagination.current_page).then(function (data) {
+        return _this.species = data.data.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      }); // axios
+      //     .get("/species?page=" + this.pagination.current_page)
+      //     .then(response => {
+      //         this.species = response.data.data.data;
+      //         this.pagination = response.data.pagination;
+      //     })
+      //     .catch(error => {
+      //         console.log(error.response.data);
+      //     });
     },
-    Favourite: function Favourite(specie_id) {
+    favSpecies: function favSpecies(specie_id) {
       var _this2 = this;
 
       axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
@@ -171,14 +181,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      species: {},
+      species: [],
       pagination: {
         current_page: 1
       }
     };
   },
-  mounted: function mounted() {
-    this.fetchPlants();
+  props: {
+    speciesProp: {
+      type: Array,
+      required: true
+    }
+  },
+  created: function created() {
+    this.species = this.speciesProp;
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(1).then(function (resp) {
+      to.params.speciesProp = resp.data.data;
+      next();
+    });
   },
   components: {
     Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -313,7 +335,7 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.Favourite(specie.id)
+                                          return _vm.favSpecies(specie.id)
                                         }
                                       }
                                     },

@@ -4,13 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-import router from './src/router/router.js'
-import store from './src/store/store.js';
-import apiClient from './src/services/Api.js'
-import authService from './src/services/AuthService.js';
+require("./bootstrap");
+import router from "./src/router/router.js";
+import store from "./src/store/store.js";
+import apiClient from "./src/services/Api.js";
+import authService from "./src/services/AuthService.js";
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,8 +23,11 @@ window.Vue = require('vue');
 // const files = require.context('./src/pages', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('AppPage', require('./src/pages/AppPage.vue').default);
-Vue.component('TheBreadcrumbs', require('./src/components/TheBreadcrumbs.vue').default);
+Vue.component("AppPage", require("./src/pages/AppPage.vue").default);
+Vue.component(
+    "TheBreadcrumbs",
+    require("./src/components/TheBreadcrumbs.vue").default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -32,34 +35,37 @@ Vue.component('TheBreadcrumbs', require('./src/components/TheBreadcrumbs.vue').d
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     router,
     store,
-    created() {
-        const userData = JSON.parse(localStorage.getItem('user'))
+    async created() {
+        const userData = JSON.parse(localStorage.getItem("user"));
 
         if (userData) {
-            authService.verifyToken(userData.access_token)
+            console.log("ka ne storage");
+            await authService
+                .verifyToken(userData.access_token)
                 .then(data => {
-                    this.$store.commit('SET_USER_DATA', userData)
-                    router.push('/dashboard')
+                    this.$store.dispatch("login", userData);
                 })
                 .catch(error => {
                     if (error.response.status === 401) {
-                        this.$store.dispatch('logout')
+                        this.$store.dispatch("logout");
                     }
-                })
+                });
         } else {
-            router.push('/login')
+            router.push("/login");
         }
 
+        console.log('u vu kushti')
         apiClient.interceptors.response.use(
             response => response,
             error => {
                 if (error.response.status === 401) {
-                    this.$store.dispatch('logout')
-                    return Promise.reject(error)
+                    this.$store.dispatch("logout");
+                    return Promise.reject(error);
                 }
-            })
+            }
+        );
     }
 });

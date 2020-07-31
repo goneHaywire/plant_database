@@ -30,22 +30,30 @@
                                         >
                                             <td>{{ genus.id }}</td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/genera/' +
-                                                            genus.id
-                                                    "
-                                                    >{{ genus.name }}</a
+                                                <router-link
+                                                    :to="{
+                                                        name: 'genera.show',
+                                                        params: {
+                                                            id: genus.id,
+                                                            genus: genus
+                                                        }
+                                                    }"
                                                 >
+                                                    {{ genus.name }}
+                                                </router-link>
                                             </td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/families/' +
-                                                            genus.family.id
-                                                    "
-                                                    >{{ genus.family.name }}</a
+                                                <router-link
+                                                    :to="{
+                                                        name: 'families.show',
+                                                        params: {
+                                                            id: genus.family.id,
+                                                            family: genus.family
+                                                        }
+                                                    }"
                                                 >
+                                                    {{ genus.family.name }}
+                                                </router-link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -75,32 +83,43 @@
 
 <script>
 import Pagination from "./../../components/Pagination";
+import generaService from "../../services/GeneraService";
 
 export default {
     name: "GeneraIndex",
     methods: {
         fetchGenera() {
-            axios
-                .get("/genera?page=" + this.pagination.current_page)
-                .then(response => {
-                    this.genera = response.data.data.data;
-                    this.pagination = response.data.pagination;
-                })
-                .catch(error => {
-                    console.log(error.response.data);
-                });
+            generaService
+                .fetchGenera(this.pagination.current_page)
+                .then(data => (this.genera = data.data.data))
+                .catch(err => console.log(err));
         }
     },
     data() {
         return {
-            genera: {},
+            genera: [],
             pagination: {
                 current_page: 1
             }
         };
     },
-    mounted() {
-        this.fetchGenera();
+    props: {
+        generaProp: {
+            type: Array,
+            required: true
+        }
+    },
+    created() {
+        this.genera = this.generaProp;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        generaService
+            .fetchGenera(1)
+            .then(resp => {
+                to.params.generaProp = resp.data.data;
+                next();
+            })
+            .catch(err => console.log(err));
     },
     components: { Pagination }
 };

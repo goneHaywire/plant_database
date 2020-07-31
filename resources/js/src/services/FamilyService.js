@@ -1,24 +1,15 @@
 import ApiClient from './Api'
 
-const familyService = {
-    getFamilies: () => {
-        ApiClient.get('/families')
-    },
-    getFamily: id => {
-        ApiClient.get(`/families/${id}`)
-    },
-    createFamily: family => {
-        ApiClient.post(`/families`, family)
-    },
-    updateFamily: family => {
-        ApiClient.put('/families', family)
-    },
-    deleteFamily: id => {
-        ApiClient.delete(`/family/${id}`)
-    },
-    getFamilyCount: () => {
-        ApiClient.get('/family/count')
-    }
+var familyService = {
+    fetchFamilies: (page = 1) =>
+        ApiClient.get(`/families?page=${page}`),
+    fetchFamily: id =>
+        ApiClient.get(`/families/${id}`),
+    createFamily: family =>
+        ApiClient.post(`/families`, family),
+    updateFamily: family =>
+        ApiClient.put('/families', family),
+    deleteFamily: id =>
+        ApiClient.delete(`/family/${id}`),
 }
-
 export default familyService

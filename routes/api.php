@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         'species' => 'API\SpeciesController',
         'users' => 'API\UserController',
     ]);
+    Route::get('/stats', 'API\HomeController@stats');
+    Route::get('/favourites', 'API\UserController@favouritesIndex');
+    Route::get('/albanian', 'API\SpeciesController@albanianIndex');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

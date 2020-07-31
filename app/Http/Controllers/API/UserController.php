@@ -15,7 +15,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all()->toJson();
+        return User::paginate(20);
+    }
+
+    public function favouritesIndex()
+    {
+        return Auth()->user()->favourites()->paginate(20);
     }
 
     /**

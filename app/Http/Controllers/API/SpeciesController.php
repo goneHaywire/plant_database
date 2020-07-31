@@ -15,7 +15,21 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        return Specie::all()->toJson();
+        return Specie::with(['genera', 'genera.family', 'favourites'])->paginate(20);
+    }
+
+    // public function favouritesIndex()
+    // {
+    //     return Specie::with(['genera', 'genera.family', 'favourites'])
+    //         ->where('in_albania', 1)
+    //         ->paginate(20);
+    // }
+
+    public function albanianIndex()
+    {
+        return Specie::with(['genera', 'genera.family', 'favourites'])
+            ->where('in_albania', 1)
+            ->paginate(20);
     }
 
     /**

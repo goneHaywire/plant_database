@@ -15,7 +15,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        return Family::all()->toJson();
+        return Family::paginate(20);
     }
 
     /**

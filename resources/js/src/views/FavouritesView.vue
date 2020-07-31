@@ -33,47 +33,51 @@
                                         >
                                             <td>{{ favourite.specie.id }}</td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/species/' +
-                                                            favourite.specie.id
-                                                    "
-                                                    >{{
-                                                        favourite.specie.genera
+                                                <router-link
+                                                    :to="{
+                                                        name: 'species.show',
+                                                        params: {
+                                                            specie,
+                                                            id: specie.id
+                                                        }
+                                                    }"
+                                                >
+                                                    {{ specie.genera.name }}
+                                                    {{ specie.specie_name }}
+                                                </router-link>
+                                            </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'genera.show',
+                                                        params: {
+                                                            genus:
+                                                                specie.genera,
+                                                            id: specie.genera.id
+                                                        }
+                                                    }"
+                                                    >{{ specie.genera.name }}
+                                                </router-link>
+                                            </td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'families.show',
+                                                        params: {
+                                                            family:
+                                                                specie.genera
+                                                                    .family,
+                                                            id:
+                                                                specie.genera
+                                                                    .family.id
+                                                        }
+                                                    }"
+                                                >
+                                                    {{
+                                                        specie.genera.family
                                                             .name
                                                     }}
-                                                    {{
-                                                        favourite.specie
-                                                            .specie_name
-                                                    }}</a
-                                                >
-                                            </td>
-                                            <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/genera/' +
-                                                            favourite.specie
-                                                                .genera.id
-                                                    "
-                                                    >{{
-                                                        favourite.specie.genera
-                                                            .name
-                                                    }}</a
-                                                >
-                                            </td>
-                                            <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/families/' +
-                                                            favourite.specie
-                                                                .genera.family
-                                                                .id
-                                                    "
-                                                    >{{
-                                                        favourite.specie.genera
-                                                            .family.name
-                                                    }}</a
-                                                >
+                                                </router-link>
                                             </td>
                                             <td>
                                                 {{
@@ -136,6 +140,7 @@
 
 <script>
 import pagination from "../components/Pagination";
+import speciesService from "../services/SpeciesService";
 
 export default {
     name: "FavouritesView",
@@ -169,14 +174,29 @@ export default {
     },
     data() {
         return {
-            favourites: {},
+            favourites: [],
             pagination: {
                 current_page: 1
             }
         };
     },
-    mounted() {
-        this.fetchFavourites();
+    props: {
+        favouritesProp: {
+            type: Array,
+            required: true
+        }
+    },
+    created() {
+        this.favourites = this.favouritesProp;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        speciesService
+            .fetchFavourites(1)
+            .then(resp => {
+                to.params.favouritesProp = resp.data.data;
+                next();
+            })
+            .catch(err => console.log(err));
     },
     components: {
         pagination

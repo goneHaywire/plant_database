@@ -11,6 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">All Families</h5>
+                            <!-- <button @click="getFamilies()">tesg</button> -->
                             <div class="table-responsive">
                                 <table
                                     id="zero_config"
@@ -29,13 +30,17 @@
                                         >
                                             <td>{{ family.id }}</td>
                                             <td>
-                                                <a
-                                                    :href="
-                                                        '/dashboard/families/' +
-                                                            family.id
-                                                    "
-                                                    >{{ family.name }}</a
+                                                <router-link
+                                                    :to="{
+                                                        name: 'families.show',
+                                                        params: {
+                                                            family: family,
+                                                            id: family.id
+                                                        }
+                                                    }"
                                                 >
+                                                    {{ family.name }}
+                                                </router-link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -63,35 +68,49 @@
 </template>
 
 <script>
-import pagination from "../../components/Pagination";
+import Pagination from "../../components/Pagination";
+import familyService from "../../services/FamilyService.js";
 
 export default {
     name: "FamiliesIndex",
     methods: {
         fetchFamilies() {
-            axios
-                .get("/families?page=" + this.pagination.current_page)
-                .then(response => {
-                    this.families = response.data.data.data;
-                    this.pagination = response.data.pagination;
+            familyService
+                .fetchFamilies(this.pagination.current_page)
+                .then(data => {
+                    console.log(data);
+                    this.families = data.data.data;
                 })
-                .catch(error => {
-                    console.log(error.response.data);
-                });
+                .catch(err => console.log(err));
         }
     },
     data() {
         return {
-            families: {},
+            families: [],
             pagination: {
                 current_page: 1
             }
         };
     },
-    mounted() {
-        this.fetchFamilies();
+    props: {
+        familiesProp: {
+            type: Array,
+            required: true
+        }
     },
-    components: { pagination }
+    created() {
+        this.families = this.familiesProp;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        familyService
+            .fetchFamilies(1)
+            .then(resp => {
+                to.params.familiesProp = resp.data.data;
+                next();
+            })
+            .catch(err => console.log(err));
+    },
+    components: { Pagination }
 };
 </script>
 

@@ -48,8 +48,7 @@ export default {
             required: true
         },
         createBtn: {
-            type: Object,
-            required: true
+            type: Object
         }
     },
     data() {

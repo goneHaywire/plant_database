@@ -59,6 +59,7 @@
 
 <script>
 import pagination from "../../components/Pagination";
+import userService from "../../services/UserService";
 
 export default {
     name: "users-index",
@@ -83,8 +84,23 @@ export default {
             }
         };
     },
-    mounted() {
-        this.fetchUsers();
+    props: {
+        usersProp: {
+            type: Array,
+            required: true
+        }
+    },
+    created() {
+        this.users = this.usersProp;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        userService
+            .fetchUsers(1)
+            .then(resp => {
+                to.params.usersProp = resp.data.data;
+                next();
+            })
+            .catch(err => console.log(err));
     },
     components: { pagination }
 };

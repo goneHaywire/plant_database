@@ -11,13 +11,15 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <!-- <h5 class="card-title">{{ $genus->name }} Information</h5> -->
+                            <h5 class="card-title">
+                                {{ genus.name }} Information
+                            </h5>
                             <hr />
 
                             <h6>Family Name:</h6>
-                            <!-- <p>{{ $genus->family->name }}</p> -->
+                            <p>{{ genus.family.name }}</p>
 
-                            <!-- <h6>Species for {{ $genus->name }}</h6> -->
+                            <h6>Species for {{ genus.name }}</h6>
                             <!-- <plants-for-genera-table genus="{{ $genus->id }}" genus_name="{{ $genus->name }}"></plants-for-genera-table> -->
                         </div>
                     </div>
@@ -28,7 +30,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name: "GeneraShow",
+    props: {
+        genus: {
+            type: Object,
+            required: true
+        }
+    }
+};
 </script>
 
 <style></style>

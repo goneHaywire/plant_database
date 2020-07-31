@@ -15,7 +15,7 @@ class GeneraController extends Controller
      */
     public function index()
     {
-        return Genera::all()->toJson();
+        return Genera::with('family')->paginate(20);
     }
 
     /**

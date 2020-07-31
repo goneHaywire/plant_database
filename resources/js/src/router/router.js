@@ -3,6 +3,11 @@ import Vue from "vue";
 import NProgress from "nprogress";
 import AuthService from '../services/AuthService'
 import authService from "../services/AuthService";
+import FamiliesIndex from '../views/Families/FamiliesIndex.vue'
+import GeneraIndex from '../views/Genera/GeneraIndex.vue'
+import SpeciesIndex from '../views/Species/SpeciesIndex.vue'
+import AlbanianIndex from '../views/AlbanianIndex.vue'
+import FavouritesIndex from '../views/FavouritesView.vue'
 
 Vue.use(VueRouter);
 
@@ -25,10 +30,11 @@ const routes = [{
             {
                 name: "families.index",
                 path: "families",
-                component: () => import("../views/Families/FamiliesIndex.vue"),
+                component: FamiliesIndex,
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true,
             },
             {
                 name: "families.create",
@@ -40,19 +46,21 @@ const routes = [{
             },
             {
                 name: "families.show",
-                path: "families/show",
+                path: "families/:id",
                 component: () => import("../views/Families/FamiliesShow.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "genera.index",
                 path: "genera",
-                component: () => import("../views/Genera/GeneraIndex.vue"),
+                component: GeneraIndex,
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true,
             },
             {
                 name: "genera.create",
@@ -64,19 +72,21 @@ const routes = [{
             },
             {
                 name: "genera.show",
-                path: "genera/show",
+                path: "genera/:id",
                 component: () => import("../views/Genera/GeneraShow.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "species.index",
                 path: "species",
-                component: () => import("../views/Species/SpeciesIndex.vue"),
+                component: SpeciesIndex,
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true,
             },
             {
                 name: "species.create",
@@ -88,27 +98,30 @@ const routes = [{
             },
             {
                 name: "species.show",
-                path: "species/show",
+                path: "species/:id",
                 component: () => import("../views/Species/SpeciesShow.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "albanian.index",
                 path: "albanian",
-                component: () => import("../views/AlbanianIndex.vue"),
+                component: AlbanianIndex,
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "favourites.index",
                 path: "favourites",
-                component: () => import("../views/FavouritesView.vue"),
+                component: FavouritesIndex,
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "users.index",
@@ -116,7 +129,8 @@ const routes = [{
                 component: () => import("../views/Users/UsersIndex.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "users.create",

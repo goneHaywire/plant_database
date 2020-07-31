@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Family extends Model
 {
-    public function genera(){
+    protected $hidden = ['created_at', 'updated_at'];
+
+    public function genera()
+    {
         return $this->hasMany('App\Genera');
     }
 }

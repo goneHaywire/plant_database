@@ -6,11 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specie extends Model
 {
-    public function genera(){
+    protected $hidden = ['created_at', 'updated_at'];
+    protected $casts = [
+        'in_albania' => 'boolean',
+    ];
+
+    public function genera()
+    {
         return $this->belongsTo('App\Genera');
     }
 
-    public function favourites(){
+    public function favourites()
+    {
         return $this->hasMany('App\Favourite');
     }
 }

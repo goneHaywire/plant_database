@@ -6,6 +6,7 @@
 
         <div class="container-fluid">
             <div class="btn btn-primary" @click="callapi()">click me</div>
+            <p>{{ token }}</p>
             <!-- ============================================================== -->
             <!-- Sales Cards  -->
             <!-- ============================================================== -->
@@ -263,6 +264,15 @@ export default {
             console.log("call api!!!!");
             clientApi.get("families").then(data => console.log(data));
         }
+    },
+    data() {
+        return {
+            token: ""
+        };
+    },
+    created() {
+        console.log("token!!!");
+        this.token = JSON.parse(localStorage.getItem("user")).access_token;
     }
 };
 </script>

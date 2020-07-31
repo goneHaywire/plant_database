@@ -265,6 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeView",
@@ -275,6 +276,15 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(data);
       });
     }
+  },
+  data: function data() {
+    return {
+      token: ""
+    };
+  },
+  created: function created() {
+    console.log("token!!!");
+    this.token = JSON.parse(localStorage.getItem("user")).access_token;
   }
 });
 
@@ -315,6 +325,8 @@ var render = function() {
           },
           [_vm._v("click me")]
         ),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.token))]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-6 col-lg-2 col-xlg-3" }, [

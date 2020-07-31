@@ -12,7 +12,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <!-- <h5 class="card-title">{{ $specie->genera->name }} {{ $specie->specie_name }} Information</h5> -->
+                            <h5 class="card-title">
+                                {{ specie.genera.name }}
+                                {{ specie.specie_name }} Information
+                            </h5>
                             <hr />
                             <!-- {{--                        <test></test>--}} -->
                             <!-- <species-show specie="{{ $specie->specie_name }}" genus="{{ $specie->genera->name }}" family="{{ $specie->genera->family->name }}"></species-show> -->
@@ -25,7 +28,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name: "SpeciesShow",
+    props: {
+        specie: {
+            type: Object,
+            required: true
+        }
+    }
+};
 </script>
 
 <style></style>

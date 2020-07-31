@@ -1,15 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[21],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Pagination */ "./resources/js/src/components/Pagination.vue");
+/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
+/* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
 //
 //
 //
@@ -141,36 +142,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "FavouritesView",
+  name: "SpeciesIndex",
   methods: {
-    fetchFavourites: function fetchFavourites() {
+    fetchSpecies: function fetchSpecies() {
       var _this = this;
 
-      axios.get("/favourites?page=" + this.pagination.current_page).then(function (response) {
-        console.log(response);
-        _this.favourites = response.data.data.data;
-        _this.pagination = response.data.pagination;
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(this.pagination.current_page).then(function (data) {
+        return _this.species = data.data.data;
       })["catch"](function (err) {
-        console.log(error.response.data);
-      });
+        return console.log(err);
+      }); // axios
+      //     .get("/species?page=" + this.pagination.current_page)
+      //     .then(response => {
+      //         this.species = response.data.data.data;
+      //         this.pagination = response.data.pagination;
+      //     })
+      //     .catch(error => {
+      //         console.log(error.response.data);
+      //     });
     },
-    Favourite: function Favourite(specie_id) {
+    favSpecies: function favSpecies(specie_id) {
       var _this2 = this;
 
       axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
         console.log(data);
 
-        for (var i = 0; i < _this2.favourites.length; i++) {
-          if (_this2.favourites[i].specie_id === specie_id) {
-            _this2.favourites.splice(_this2.favourites.indexOf(_this2.favourites[i]), 1);
-
+        for (var i = 0; i < _this2.species.length; i++) {
+          if (_this2.species[i].id === specie_id) {
+            if (_this2.species[i].favourites.length) _this2.species[i].favourites = [];else _this2.species[i].favourites.push(1);
             break;
           }
         }
@@ -179,27 +181,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      favourites: {},
+      species: [],
       pagination: {
         current_page: 1
       }
     };
   },
-  mounted: function mounted() {
-    this.fetchFavourites();
+  props: {
+    speciesProp: {
+      type: Array,
+      required: true
+    }
+  },
+  created: function created() {
+    this.species = this.speciesProp;
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(1).then(function (resp) {
+      to.params.speciesProp = resp.data.data;
+      next();
+    });
   },
   components: {
-    pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"] // svgIcon
-
+    Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -215,7 +228,10 @@ var render = function() {
     "div",
     [
       _c("the-breadcrumbs", {
-        attrs: { paths: [{ name: "Favourites", route: "favourites.index" }] }
+        attrs: {
+          paths: [{ name: "Species", route: "species.index" }],
+          createBtn: { name: "Create Species", route: "species.create" }
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
@@ -226,6 +242,10 @@ var render = function() {
                 "div",
                 { staticClass: "card-body" },
                 [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v("All Plants")
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "table-responsive" }, [
                     _c(
                       "table",
@@ -238,25 +258,25 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.favourites, function(favourite) {
-                            return _c("tr", { key: favourite.specie.id }, [
-                              _c("td", [_vm._v(_vm._s(favourite.specie.id))]),
+                          _vm._l(_vm.species, function(specie) {
+                            return _c("tr", { key: specie.id }, [
+                              _c("td", [_vm._v(_vm._s(specie.id))]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(
                                   "a",
                                   {
                                     attrs: {
-                                      href:
-                                        "/dashboard/species/" +
-                                        favourite.specie.id
+                                      href: "/dashboard/species/" + specie.id
                                     }
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(favourite.specie.genera.name) +
+                                      "\n                                                " +
+                                        _vm._s(specie.genera.name) +
                                         "\n                                                " +
-                                        _vm._s(favourite.specie.specie_name)
+                                        _vm._s(specie.specie_name) +
+                                        "\n                                            "
                                     )
                                   ]
                                 )
@@ -268,11 +288,10 @@ var render = function() {
                                   {
                                     attrs: {
                                       href:
-                                        "/dashboard/genera/" +
-                                        favourite.specie.genera.id
+                                        "/dashboard/genera/" + specie.genera.id
                                     }
                                   },
-                                  [_vm._v(_vm._s(favourite.specie.genera.name))]
+                                  [_vm._v(_vm._s(specie.genera.name))]
                                 )
                               ]),
                               _vm._v(" "),
@@ -283,34 +302,26 @@ var render = function() {
                                     attrs: {
                                       href:
                                         "/dashboard/families/" +
-                                        favourite.specie.genera.family.id
+                                        specie.genera.family.id
                                     }
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(
-                                        favourite.specie.genera.family.name
-                                      )
+                                      "\n                                                " +
+                                        _vm._s(specie.genera.family.name) +
+                                        "\n                                            "
                                     )
                                   ]
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  "\n                                            " +
-                                    _vm._s(favourite.specie.common_name) +
-                                    "\n                                        "
-                                )
-                              ]),
+                              _c("td", [_vm._v(_vm._s(specie.common_name))]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
                                   "\n                                            " +
                                     _vm._s(
-                                      favourite.specie.in_albania
-                                        ? "True"
-                                        : "False"
+                                      specie.in_albania ? "True" : "False"
                                     ) +
                                     "\n                                        "
                                 )
@@ -324,16 +335,18 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.Favourite(
-                                            favourite.specie.id
-                                          )
+                                          return _vm.favSpecies(specie.id)
                                         }
                                       }
                                     },
                                     [
-                                      _c("inline-svg", {
-                                        attrs: { name: "star-solid" }
-                                      })
+                                      specie.favourites.length > 0
+                                        ? _c("inline-svg", {
+                                            attrs: { name: "star-solid" }
+                                          })
+                                        : _c("inline-svg", {
+                                            attrs: { name: "star-regular" }
+                                          })
                                     ],
                                     1
                                   )
@@ -354,7 +367,7 @@ var render = function() {
                         attrs: { pagination: _vm.pagination, offset: 5 },
                         on: {
                           paginate: function($event) {
-                            return _vm.fetchFavourites()
+                            return _vm.fetchPlants()
                           }
                         }
                       })
@@ -422,18 +435,51 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FavouritesView.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/src/views/FavouritesView.vue ***!
-  \***************************************************/
+/***/ "./resources/js/src/services/SpeciesService.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/src/services/SpeciesService.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FavouritesView.vue?vue&type=template&id=14c5464e& */ "./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e&");
-/* harmony import */ var _FavouritesView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FavouritesView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./resources/js/src/services/Api.js");
+
+var speciesService = {
+  fetchSpecies: function fetchSpecies() {
+    var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/species?page=".concat(page));
+  },
+  fetchSpecie: function fetchSpecie(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/species/".concat(id));
+  },
+  createSpecie: function createSpecie(specie) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/species', specie);
+  },
+  updateSpecie: function updateSpecie(specie) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put('/species', specie);
+  },
+  deleteSpecie: function deleteSpecie(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/specie/".concat(id));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (speciesService);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/Species/SpeciesIndex.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/src/views/Species/SpeciesIndex.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SpeciesIndex.vue?vue&type=template&id=32786eb3& */ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&");
+/* harmony import */ var _SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpeciesIndex.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -442,9 +488,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FavouritesView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -454,38 +500,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/FavouritesView.vue"
+component.options.__file = "resources/js/src/views/Species/SpeciesIndex.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
+/***/ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavouritesView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FavouritesView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FavouritesView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FavouritesView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SpeciesIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3& ***!
+  \****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FavouritesView.vue?vue&type=template&id=14c5464e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FavouritesView.vue?vue&type=template&id=14c5464e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SpeciesIndex.vue?vue&type=template&id=32786eb3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavouritesView_vue_vue_type_template_id_14c5464e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

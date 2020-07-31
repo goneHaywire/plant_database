@@ -17,7 +17,8 @@ class UserController extends Controller
         return view('dashboard.users.index');
     }
 
-    public function indexApi(){
+    public function indexApi()
+    {
         $users = User::paginate(20);
         $response = [
             'pagination' => [
@@ -26,9 +27,9 @@ class UserController extends Controller
                 'current_page' => $users->currentPage(),
                 'last_page' => $users->lastPage(),
                 'from' => $users->firstItem(),
-                'to' => $users->lastItem()
+                'to' => $users->lastItem(),
             ],
-            'data' => $users
+            'data' => $users,
         ];
         return response()->json($response);
     }
