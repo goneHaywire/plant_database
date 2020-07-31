@@ -83,8 +83,13 @@
                                 <div class="card-body">
                                     <input
                                         type="submit"
-                                        class="btn btn-primary"
-                                        value="Create"
+                                        class="btn"
+                                        :class="
+                                            editing
+                                                ? 'btn-primary'
+                                                : 'btn-success'
+                                        "
+                                        :value="editing ? 'Update' : 'Create'"
                                     />
                                 </div>
                             </div>

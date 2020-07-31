@@ -2501,6 +2501,12 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/FamilyService.js */ "./resources/js/src/services/FamilyService.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2597,9 +2603,12 @@ __webpack_require__.r(__webpack_exports__);
     fetchFamilies: function fetchFamilies() {
       var _this = this;
 
-      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies(this.pagination.current_page).then(function (data) {
-        console.log(data);
-        _this.families = data.data.data;
+      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies(this.pagination.current_page).then(function (resp) {
+        console.log(resp);
+        _this.families = resp.data.data;
+        _this.pagination = _objectSpread(_objectSpread({}, _this.pagination), {}, {
+          last_page: resp.data.last_page
+        });
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2608,30 +2617,37 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       families: [],
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
     familiesProp: {
       type: Array,
       required: true
+    },
+    paginationProp: {
+      type: Object,
+      required: true
     }
   },
   created: function created() {
+    this.pagination = this.paginationProp;
     this.families = this.familiesProp;
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies(1).then(function (resp) {
       to.params.familiesProp = resp.data.data;
+      to.params.paginationProp = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     })["catch"](function (err) {
       return console.log(err);
     });
   },
   components: {
-    Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
+    pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -2974,8 +2990,12 @@ __webpack_require__.r(__webpack_exports__);
     fetchGenera: function fetchGenera() {
       var _this = this;
 
-      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera(this.pagination.current_page).then(function (data) {
-        return _this.genera = data.data.data;
+      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera(this.pagination.current_page).then(function (resp) {
+        _this.genera = resp.data.data;
+        _this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2984,23 +3004,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       genera: [],
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
     generaProp: {
       type: Array,
       required: true
+    },
+    paginationProp: {
+      type: Object,
+      required: true
     }
   },
   created: function created() {
     this.genera = this.generaProp;
+    this.pagination = this.paginationProp;
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera(1).then(function (resp) {
       to.params.generaProp = resp.data.data;
+      to.params.paginationProp = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     })["catch"](function (err) {
       return console.log(err);
@@ -3196,19 +3223,15 @@ __webpack_require__.r(__webpack_exports__);
     fetchSpecies: function fetchSpecies() {
       var _this = this;
 
-      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(this.pagination.current_page).then(function (data) {
-        return _this.species = data.data.data;
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(this.pagination.current_page).then(function (resp) {
+        _this.species = resp.data.data;
+        _this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
       })["catch"](function (err) {
         return console.log(err);
-      }); // axios
-      //     .get("/species?page=" + this.pagination.current_page)
-      //     .then(response => {
-      //         this.species = response.data.data.data;
-      //         this.pagination = response.data.pagination;
-      //     })
-      //     .catch(error => {
-      //         console.log(error.response.data);
-      //     });
+      });
     },
     favSpecies: function favSpecies(specie_id) {
       var _this2 = this;
@@ -3228,23 +3251,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       species: [],
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
     speciesProp: {
       type: Array,
       required: true
+    },
+    paginationProp: {
+      type: Object,
+      required: true
     }
   },
   created: function created() {
     this.species = this.speciesProp;
+    this.pagination = this.paginationProp;
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(1).then(function (resp) {
       to.params.speciesProp = resp.data.data;
+      to.params.paginationProp = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     });
   },
@@ -42047,27 +42077,14 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 _c("div", { staticClass: "star-container" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "stary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.favSpecies(specie.id)
-                                        }
+                                  _c("div", {
+                                    staticClass: "stary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.favSpecies(specie.id)
                                       }
-                                    },
-                                    [
-                                      specie.favourites.length > 0
-                                        ? _c("inline-svg", {
-                                            attrs: { name: "star-solid" }
-                                          })
-                                        : _c("inline-svg", {
-                                            attrs: { name: "star-regular" }
-                                          })
-                                    ],
-                                    1
-                                  )
+                                    }
+                                  })
                                 ])
                               ]),
                               _vm._v(" "),
@@ -42118,7 +42135,7 @@ var render = function() {
                         attrs: { pagination: _vm.pagination, offset: 5 },
                         on: {
                           paginate: function($event) {
-                            return _vm.fetchPlants()
+                            return _vm.fetchSpecies()
                           }
                         }
                       })
@@ -59119,7 +59136,8 @@ var routes = [{
     },
     meta: {
       requiresAuth: true
-    }
+    },
+    props: true
   }, {
     name: "genera.show",
     path: "genera/:id",
@@ -59146,7 +59164,8 @@ var routes = [{
     },
     meta: {
       requiresAuth: true
-    }
+    },
+    props: true
   }, {
     name: "species.show",
     path: "species/:id",

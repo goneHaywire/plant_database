@@ -99,18 +99,18 @@
                                                             )
                                                         "
                                                     >
-                                                        <inline-svg
+                                                        <!-- <inline-svg
                                                             v-if="
                                                                 specie
                                                                     .favourites
                                                                     .length > 0
                                                             "
                                                             name="star-solid"
-                                                        ></inline-svg>
-                                                        <inline-svg
+                                                        ></inline-svg> -->
+                                                        <!-- <inline-svg
                                                             v-else
                                                             name="star-regular"
-                                                        ></inline-svg>
+                                                        ></inline-svg> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -152,7 +152,7 @@
                                 v-if="pagination.last_page > 1"
                                 :pagination="pagination"
                                 :offset="5"
-                                @paginate="fetchPlants()"
+                                @paginate="fetchSpecies()"
                             ></pagination>
                         </div>
                     </div>
@@ -172,17 +172,14 @@ export default {
         fetchSpecies() {
             speciesService
                 .fetchSpecies(this.pagination.current_page)
-                .then(data => (this.species = data.data.data))
+                .then(resp => {
+                    this.species = resp.data.data;
+                    this.pagination = {
+                        current_page: resp.data.current_page,
+                        last_page: resp.data.last_page
+                    };
+                })
                 .catch(err => console.log(err));
-            // axios
-            //     .get("/species?page=" + this.pagination.current_page)
-            //     .then(response => {
-            //         this.species = response.data.data.data;
-            //         this.pagination = response.data.pagination;
-            //     })
-            //     .catch(error => {
-            //         console.log(error.response.data);
-            //     });
         },
         favSpecies(specie_id) {
             axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
@@ -201,23 +198,30 @@ export default {
     data() {
         return {
             species: [],
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
         speciesProp: {
             type: Array,
             required: true
+        },
+        paginationProp: {
+            type: Object,
+            required: true
         }
     },
     created() {
         this.species = this.speciesProp;
+        this.pagination = this.paginationProp;
     },
     beforeRouteEnter: (to, from, next) => {
         speciesService.fetchSpecies(1).then(resp => {
             to.params.speciesProp = resp.data.data;
+            to.params.paginationProp = {
+                current_page: resp.data.current_page,
+                last_page: resp.data.last_page
+            };
             next();
         });
     },

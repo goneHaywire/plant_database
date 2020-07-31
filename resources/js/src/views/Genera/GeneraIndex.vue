@@ -110,32 +110,45 @@ export default {
         fetchGenera() {
             generaService
                 .fetchGenera(this.pagination.current_page)
-                .then(data => (this.genera = data.data.data))
+                .then(resp => {
+                    this.genera = resp.data.data;
+                    this.pagination = {
+                        current_page: resp.data.current_page,
+                        last_page: resp.data.last_page
+                    };
+                })
                 .catch(err => console.log(err));
         }
     },
     data() {
         return {
             genera: [],
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
         generaProp: {
             type: Array,
             required: true
+        },
+        paginationProp: {
+            type: Object,
+            required: true
         }
     },
     created() {
         this.genera = this.generaProp;
+        this.pagination = this.paginationProp;
     },
     beforeRouteEnter: (to, from, next) => {
         generaService
             .fetchGenera(1)
             .then(resp => {
                 to.params.generaProp = resp.data.data;
+                to.params.paginationProp = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
                 next();
             })
             .catch(err => console.log(err));

@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import Pagination from "../../components/Pagination";
+import pagination from "../../components/Pagination";
 import familyService from "../../services/FamilyService.js";
 
 export default {
@@ -96,9 +96,13 @@ export default {
         fetchFamilies() {
             familyService
                 .fetchFamilies(this.pagination.current_page)
-                .then(data => {
-                    console.log(data);
-                    this.families = data.data.data;
+                .then(resp => {
+                    console.log(resp);
+                    this.families = resp.data.data;
+                    this.pagination = {
+                        ...this.pagination,
+                        last_page: resp.data.last_page
+                    };
                 })
                 .catch(err => console.log(err));
         }
@@ -106,18 +110,21 @@ export default {
     data() {
         return {
             families: [],
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
         familiesProp: {
             type: Array,
             required: true
+        },
+        paginationProp: {
+            type: Object,
+            required: true
         }
     },
     created() {
+        this.pagination = this.paginationProp;
         this.families = this.familiesProp;
     },
     beforeRouteEnter: (to, from, next) => {
@@ -125,11 +132,15 @@ export default {
             .fetchFamilies(1)
             .then(resp => {
                 to.params.familiesProp = resp.data.data;
+                to.params.paginationProp = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
                 next();
             })
             .catch(err => console.log(err));
     },
-    components: { Pagination }
+    components: { pagination }
 };
 </script>
 

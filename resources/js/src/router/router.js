@@ -69,7 +69,8 @@ const routes = [{
                 component: () => import("../views/Genera/GeneraForm.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "genera.show",
@@ -95,7 +96,8 @@ const routes = [{
                 component: () => import("../views/Species/SpeciesForm.vue"),
                 meta: {
                     requiresAuth: true
-                }
+                },
+                props: true
             },
             {
                 name: "species.show",

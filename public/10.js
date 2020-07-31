@@ -80,6 +80,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GeneraForm",
@@ -160,7 +166,68 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._m(0), _vm._v(" "), _vm._m(1)]
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Genera Data")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "fname" }
+                        },
+                        [_vm._v("Genera Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.genus.name,
+                              expression: "genus.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "name",
+                            name: "name",
+                            required: "",
+                            placeholder: "Genera Name Here"
+                          },
+                          domProps: { value: _vm.genus.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.genus, "name", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "border-top" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("input", {
+                        staticClass: "btn",
+                        class: _vm.editing ? "btn-primary" : "btn-success",
+                        attrs: { type: "submit" },
+                        domProps: { value: _vm.editing ? "Update" : "Create" }
+                      })
+                    ])
+                  ])
+                ]
               )
             ])
           ])
@@ -175,59 +242,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("h4", { staticClass: "card-title" }, [_vm._v("Genera Data")]),
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-sm-3 text-right control-label col-form-label" },
+        [_vm._v("Family Name")]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-sm-3 text-right control-label col-form-label",
-            attrs: { for: "fname" }
-          },
-          [_vm._v("Genera Name")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-9" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "name",
-              name: "name",
-              required: "",
-              placeholder: "Genera Name Here"
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          { staticClass: "col-sm-3 text-right control-label col-form-label" },
-          [_vm._v("Family Name")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-9" }, [
-          _c("select", {
-            staticClass: "select2 form-control custom-select",
-            staticStyle: { width: "100%", height: "36px" },
-            attrs: { name: "family", required: "" }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-top" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("input", {
-          staticClass: "btn btn-primary",
-          attrs: { type: "submit", value: "Create" }
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("select", {
+          staticClass: "select2 form-control custom-select",
+          staticStyle: { width: "100%", height: "36px" },
+          attrs: { name: "family", required: "" }
         })
       ])
     ])
