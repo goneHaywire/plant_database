@@ -65,39 +65,53 @@ export default {
     name: "users-index",
     methods: {
         fetchUsers() {
-            axios
-                .get("/users?page=" + this.pagination.current_page)
-                .then(response => {
-                    this.users = response.data.data.data;
-                    this.pagination = response.data.pagination;
-                })
-                .catch(error => {
-                    console.log(error.response.data);
-                });
+            userService.fetchUsers().then(resp => {
+                this.users = resp.data.data;
+                this.pagination = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
+            });
         }
+        //     axios
+        //         .get("/users?page=" + this.pagination.current_page)
+        //         .then(response => {
+        //             this.users = response.data.data.data;
+        //             this.pagination = response.data.pagination;
+        //         })
+        //         .catch(error => {
+        //             console.log(error.response.data);
+        //         });
+        // }
     },
     data() {
         return {
             users: {},
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
-        usersProp: {
+        users: {
+            type: Array,
+            required: true
+        },
+        pagination: {
             type: Array,
             required: true
         }
     },
-    created() {
-        this.users = this.usersProp;
-    },
+    // created() {
+    //     this.users = this.usersProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
         userService
-            .fetchUsers(1)
+            .fetchUsers()
             .then(resp => {
-                to.params.usersProp = resp.data.data;
+                to.params.users = resp.data.data;
+                to.params.pagination = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
                 next();
             })
             .catch(err => console.log(err));

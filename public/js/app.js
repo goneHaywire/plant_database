@@ -2436,12 +2436,26 @@ __webpack_require__.r(__webpack_exports__);
     fetchPlants: function fetchPlants() {
       var _this = this;
 
-      axios.get("/albanian?page=" + this.pagination.current_page).then(function (response) {
-        _this.species = response.data.data.data;
-        _this.pagination = response.data.pagination;
-      })["catch"](function (error) {
-        console.log(error.response.data);
-      });
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchAlbanianSpecies(this.pagination.current_page).then(function (resp) {
+        _this.species = resp.data.data;
+        _this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      })["catch"](function (err) {
+        return console.log(err);
+      }); // axios
+      //     .get("/albanian?page=" + this.pagination.current_page)
+      //     .then(response => {
+      //         this.species = response.data.data.data;
+      //         this.pagination = {
+      //             ...this.pagination,
+      //             last_page: resp.data.last_page
+      //         };
+      //     })
+      //     .catch(error => {
+      //         console.log(error);
+      //     });
     },
     Favourite: function Favourite(specie_id) {
       var _this2 = this;
@@ -2461,23 +2475,29 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       species: [],
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
-    speciesProp: {
+    species: {
       type: Array,
+      required: true
+    },
+    pagination: {
+      type: Object,
       required: true
     }
   },
-  created: function created() {
-    this.species = this.speciesProp;
-  },
+  // created() {
+  //     this.species = this.speciesProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchAlbanianSpecies(1).then(function (resp) {
-      to.params.speciesProp = resp.data.data;
+    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchAlbanianSpecies().then(function (resp) {
+      to.params.species = resp.data.data;
+      to.params.pagination = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     })["catch"](function (err) {
       return console.log(err);
@@ -2621,23 +2641,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    familiesProp: {
+    families: {
       type: Array,
       required: true
     },
-    paginationProp: {
+    pagination: {
       type: Object,
       required: true
     }
   },
-  created: function created() {
-    this.pagination = this.paginationProp;
-    this.families = this.familiesProp;
-  },
+  // created() {
+  //     this.pagination = this.paginationProp;
+  //     this.families = this.familiesProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies(1).then(function (resp) {
-      to.params.familiesProp = resp.data.data;
-      to.params.paginationProp = {
+    _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies().then(function (resp) {
+      to.params.families = resp.data.data;
+      to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
       };
@@ -2812,13 +2832,22 @@ __webpack_require__.r(__webpack_exports__);
     fetchFavourites: function fetchFavourites() {
       var _this = this;
 
-      axios.get("/favourites?page=" + this.pagination.current_page).then(function (response) {
-        console.log(response);
-        _this.favourites = response.data.data.data;
-        _this.pagination = response.data.pagination;
-      })["catch"](function (err) {
-        console.log(error.response.data);
-      });
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFavourites().then(function (resp) {
+        _this.favourites = resp.data.data;
+        _this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      }); //     axios
+      //         .get("/favourites?page=" + this.pagination.current_page)
+      //         .then(response => {
+      //             console.log(response);
+      //             this.favourites = response.data.data.data;
+      //             this.pagination = response.data.pagination;
+      //         })
+      //         .catch(err => {
+      //             console.log(error.response.data);
+      //         });
     },
     Favourite: function Favourite(specie_id) {
       var _this2 = this;
@@ -2839,23 +2868,29 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       favourites: [],
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
-    favouritesProp: {
+    favourites: {
       type: Array,
+      required: true
+    },
+    pagination: {
+      type: Object,
       required: true
     }
   },
-  created: function created() {
-    this.favourites = this.favouritesProp;
-  },
+  // created() {
+  //     this.favourites = this.favouritesProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFavourites(1).then(function (resp) {
-      to.params.favouritesProp = resp.data.data;
+    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFavourites().then(function (resp) {
+      to.params.favourites = resp.data.data;
+      to.params.pagination = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     })["catch"](function (err) {
       return console.log(err);
@@ -3008,23 +3043,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    generaProp: {
+    genera: {
       type: Array,
       required: true
     },
-    paginationProp: {
+    pagination: {
       type: Object,
       required: true
     }
   },
-  created: function created() {
-    this.genera = this.generaProp;
-    this.pagination = this.paginationProp;
-  },
+  // created() {
+  //     this.genera = this.generaProp;
+  //     this.pagination = this.paginationProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera(1).then(function (resp) {
-      to.params.generaProp = resp.data.data;
-      to.params.paginationProp = {
+    _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera().then(function (resp) {
+      to.params.genera = resp.data.data;
+      to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
       };
@@ -3267,23 +3302,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    speciesProp: {
+    species: {
       type: Array,
       required: true
     },
-    paginationProp: {
+    pagination: {
       type: Object,
       required: true
     }
   },
-  created: function created() {
-    this.species = this.speciesProp;
-    this.pagination = this.paginationProp;
-  },
+  // created() {
+  //     this.species = this.speciesProp;
+  //     this.pagination = this.paginationProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies(1).then(function (resp) {
-      to.params.speciesProp = resp.data.data;
-      to.params.paginationProp = {
+    _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies().then(function (resp) {
+      to.params.species = resp.data.data;
+      to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
       };
@@ -7723,6 +7758,25 @@ __webpack_require__.r(__webpack_exports__);
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/nprogress/nprogress.css":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/nprogress/nprogress.css ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* Make clicks pass-through */\n#nprogress {\n  pointer-events: none;\n}\n\n#nprogress .bar {\n  background: #29d;\n\n  position: fixed;\n  z-index: 1031;\n  top: 0;\n  left: 0;\n\n  width: 100%;\n  height: 2px;\n}\n\n/* Fancy blur effect */\n#nprogress .peg {\n  display: block;\n  position: absolute;\n  right: 0px;\n  width: 100px;\n  height: 100%;\n  box-shadow: 0 0 10px #29d, 0 0 5px #29d;\n  opacity: 1.0;\n  transform: rotate(3deg) translate(0px, -4px);\n}\n\n/* Remove these to get rid of the spinner */\n#nprogress .spinner {\n  display: block;\n  position: fixed;\n  z-index: 1031;\n  top: 15px;\n  right: 15px;\n}\n\n#nprogress .spinner-icon {\n  width: 18px;\n  height: 18px;\n  box-sizing: border-box;\n\n  border: solid 2px transparent;\n  border-top-color: #29d;\n  border-left-color: #29d;\n  border-radius: 50%;\n\n  -webkit-animation: nprogress-spinner 400ms linear infinite;\n          animation: nprogress-spinner 400ms linear infinite;\n}\n\n.nprogress-custom-parent {\n  overflow: hidden;\n  position: relative;\n}\n\n.nprogress-custom-parent #nprogress .spinner,\n.nprogress-custom-parent #nprogress .bar {\n  position: absolute;\n}\n\n@-webkit-keyframes nprogress-spinner {\n  0%   { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n@keyframes nprogress-spinner {\n  0%   { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -35882,6 +35936,36 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/nprogress/nprogress.css":
+/*!**********************************************!*\
+  !*** ./node_modules/nprogress/nprogress.css ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../css-loader??ref--6-1!../postcss-loader/src??ref--6-2!./nprogress.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/nprogress/nprogress.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/nprogress/nprogress.js":
 /*!*********************************************!*\
   !*** ./node_modules/nprogress/nprogress.js ***!
@@ -59078,12 +59162,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _services_AuthService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/AuthService */ "./resources/js/src/services/AuthService.js");
-/* harmony import */ var _views_Families_FamiliesIndex_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/Families/FamiliesIndex.vue */ "./resources/js/src/views/Families/FamiliesIndex.vue");
-/* harmony import */ var _views_Genera_GeneraIndex_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/Genera/GeneraIndex.vue */ "./resources/js/src/views/Genera/GeneraIndex.vue");
-/* harmony import */ var _views_Species_SpeciesIndex_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/Species/SpeciesIndex.vue */ "./resources/js/src/views/Species/SpeciesIndex.vue");
-/* harmony import */ var _views_AlbanianIndex_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/AlbanianIndex.vue */ "./resources/js/src/views/AlbanianIndex.vue");
-/* harmony import */ var _views_FavouritesView_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../views/FavouritesView.vue */ "./resources/js/src/views/FavouritesView.vue");
+/* harmony import */ var nprogress_nprogress_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nprogress/nprogress.css */ "./node_modules/nprogress/nprogress.css");
+/* harmony import */ var nprogress_nprogress_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nprogress_nprogress_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _services_AuthService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/AuthService */ "./resources/js/src/services/AuthService.js");
+/* harmony import */ var _views_Families_FamiliesIndex_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/Families/FamiliesIndex.vue */ "./resources/js/src/views/Families/FamiliesIndex.vue");
+/* harmony import */ var _views_Genera_GeneraIndex_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/Genera/GeneraIndex.vue */ "./resources/js/src/views/Genera/GeneraIndex.vue");
+/* harmony import */ var _views_Species_SpeciesIndex_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/Species/SpeciesIndex.vue */ "./resources/js/src/views/Species/SpeciesIndex.vue");
+/* harmony import */ var _views_AlbanianIndex_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../views/AlbanianIndex.vue */ "./resources/js/src/views/AlbanianIndex.vue");
+/* harmony import */ var _views_FavouritesView_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../views/FavouritesView.vue */ "./resources/js/src/views/FavouritesView.vue");
+
 
 
 
@@ -59111,26 +59198,17 @@ var routes = [{
     path: "/",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/HomeView.vue */ "./resources/js/src/views/HomeView.vue"));
-    },
-    meta: {
-      requiresAuth: true
     }
   }, {
     name: "families.index",
     path: "families",
-    component: _views_Families_FamiliesIndex_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    meta: {
-      requiresAuth: true
-    },
+    component: _views_Families_FamiliesIndex_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     props: true
   }, {
     name: "families.form",
     path: "families/form",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
-    },
-    meta: {
-      requiresAuth: true
     },
     props: true
   }, {
@@ -59139,26 +59217,17 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesShow.vue */ "./resources/js/src/views/Families/FamiliesShow.vue"));
     },
-    meta: {
-      requiresAuth: true
-    },
     props: true
   }, {
     name: "genera.index",
     path: "genera",
-    component: _views_Genera_GeneraIndex_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    meta: {
-      requiresAuth: true
-    },
+    component: _views_Genera_GeneraIndex_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     props: true
   }, {
     name: "genera.form",
     path: "genera/form",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
-    },
-    meta: {
-      requiresAuth: true
     },
     props: true
   }, {
@@ -59167,26 +59236,17 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraShow.vue */ "./resources/js/src/views/Genera/GeneraShow.vue"));
     },
-    meta: {
-      requiresAuth: true
-    },
     props: true
   }, {
     name: "species.index",
     path: "species",
-    component: _views_Species_SpeciesIndex_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    meta: {
-      requiresAuth: true
-    },
+    component: _views_Species_SpeciesIndex_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
     name: "species.form",
     path: "species/form",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
-    },
-    meta: {
-      requiresAuth: true
     },
     props: true
   }, {
@@ -59195,25 +59255,16 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesShow.vue */ "./resources/js/src/views/Species/SpeciesShow.vue"));
     },
-    meta: {
-      requiresAuth: true
-    },
     props: true
   }, {
     name: "albanian.index",
     path: "albanian",
-    component: _views_AlbanianIndex_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    meta: {
-      requiresAuth: true
-    },
+    component: _views_AlbanianIndex_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     props: true
   }, {
     name: "favourites.index",
     path: "favourites",
-    component: _views_FavouritesView_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    meta: {
-      requiresAuth: true
-    },
+    component: _views_FavouritesView_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
     props: true
   }, {
     name: "users.index",
@@ -59221,36 +59272,24 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
     },
-    meta: {
-      requiresAuth: true
-    },
     props: true
   }, {
     name: "users.create",
     path: "users/create",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
-    },
-    meta: {
-      requiresAuth: true
     }
   }, {
     name: "filter.index",
     path: "filter",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/FilterView.vue */ "./resources/js/src/views/FilterView.vue"));
-    },
-    meta: {
-      requiresAuth: true
     }
   }, {
     name: "filter.form",
     path: "/filter/form",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/FilterForm.vue */ "./resources/js/src/views/FilterForm.vue"));
-    },
-    meta: {
-      requiresAuth: true
     }
   }]
 }];
@@ -59260,46 +59299,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
 });
 router.beforeEach(function (to, from, next) {
-  nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start(); // const loggedIn = localStorage.getItem('user')
-  // if (!loggedIn) {
-  //     next('/login')
-  // }
-  // if (to.meta.requiresAuth) {
-  //     const userData = localStorage.getItem('user');
-  //     authService.verifyToken(userData.access_token)
-  //         .then(data => console.log(data))
-  // } else {
-  //     if (!to.meta.requiresAuth)
-  //         next()
-  //     next('/login')
-  // }
-  // const loggedIn = localStorage.getItem('user');
-  // console.log(loggedIn)
-  // console.log(to)
-  // if (!loggedIn)
-  //     next({
-  //         name: 'login'
-  //     })
-  // else {
-  //     if (to.matched.some(route => route.meta.requiresAuth)) {
-  //         authService.verifyToken()
-  //             .then(data => console.log(data))
-  //     } else {
-  //         next()
-  // }
-  // }
-  // console.log({
-  //     auth: loggedIn
-  // })
-  // if (to.matched.some(route => route.meta.requiresAuth)) {
-  //     if (!loggedIn)
-  //         next({
-  //             name: 'login'
-  //         })
-  //     else
-  //         next()
-  // }
-
+  nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
   next();
 });
 router.afterEach(function () {

@@ -213,23 +213,23 @@ export default {
         };
     },
     props: {
-        speciesProp: {
+        species: {
             type: Array,
             required: true
         },
-        paginationProp: {
+        pagination: {
             type: Object,
             required: true
         }
     },
-    created() {
-        this.species = this.speciesProp;
-        this.pagination = this.paginationProp;
-    },
+    // created() {
+    //     this.species = this.speciesProp;
+    //     this.pagination = this.paginationProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
-        speciesService.fetchSpecies(1).then(resp => {
-            to.params.speciesProp = resp.data.data;
-            to.params.paginationProp = {
+        speciesService.fetchSpecies().then(resp => {
+            to.params.species = resp.data.data;
+            to.params.pagination = {
                 current_page: resp.data.current_page,
                 last_page: resp.data.last_page
             };

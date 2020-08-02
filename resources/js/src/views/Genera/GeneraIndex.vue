@@ -127,25 +127,25 @@ export default {
         };
     },
     props: {
-        generaProp: {
+        genera: {
             type: Array,
             required: true
         },
-        paginationProp: {
+        pagination: {
             type: Object,
             required: true
         }
     },
-    created() {
-        this.genera = this.generaProp;
-        this.pagination = this.paginationProp;
-    },
+    // created() {
+    //     this.genera = this.generaProp;
+    //     this.pagination = this.paginationProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
         generaService
-            .fetchGenera(1)
+            .fetchGenera()
             .then(resp => {
-                to.params.generaProp = resp.data.data;
-                to.params.paginationProp = {
+                to.params.genera = resp.data.data;
+                to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page
                 };

@@ -138,15 +138,28 @@ export default {
     name: "AlbanianIndex",
     methods: {
         fetchPlants() {
-            axios
-                .get("/albanian?page=" + this.pagination.current_page)
-                .then(response => {
-                    this.species = response.data.data.data;
-                    this.pagination = response.data.pagination;
+            speciesService
+                .fetchAlbanianSpecies(this.pagination.current_page)
+                .then(resp => {
+                    this.species = resp.data.data;
+                    this.pagination = {
+                        current_page: resp.data.current_page,
+                        last_page: resp.data.last_page
+                    };
                 })
-                .catch(error => {
-                    console.log(error.response.data);
-                });
+                .catch(err => console.log(err));
+            // axios
+            //     .get("/albanian?page=" + this.pagination.current_page)
+            //     .then(response => {
+            //         this.species = response.data.data.data;
+            //         this.pagination = {
+            //             ...this.pagination,
+            //             last_page: resp.data.last_page
+            //         };
+            //     })
+            //     .catch(error => {
+            //         console.log(error);
+            //     });
         },
         Favourite(specie_id) {
             axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
@@ -165,25 +178,31 @@ export default {
     data() {
         return {
             species: [],
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
-        speciesProp: {
+        species: {
             type: Array,
+            required: true
+        },
+        pagination: {
+            type: Object,
             required: true
         }
     },
-    created() {
-        this.species = this.speciesProp;
-    },
+    // created() {
+    //     this.species = this.speciesProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
         speciesService
-            .fetchAlbanianSpecies(1)
+            .fetchAlbanianSpecies()
             .then(resp => {
-                to.params.speciesProp = resp.data.data;
+                to.params.species = resp.data.data;
+                to.params.pagination = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
                 next();
             })
             .catch(err => console.log(err));

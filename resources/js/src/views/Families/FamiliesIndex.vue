@@ -114,25 +114,25 @@ export default {
         };
     },
     props: {
-        familiesProp: {
+        families: {
             type: Array,
             required: true
         },
-        paginationProp: {
+        pagination: {
             type: Object,
             required: true
         }
     },
-    created() {
-        this.pagination = this.paginationProp;
-        this.families = this.familiesProp;
-    },
+    // created() {
+    //     this.pagination = this.paginationProp;
+    //     this.families = this.familiesProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
         familyService
-            .fetchFamilies(1)
+            .fetchFamilies()
             .then(resp => {
-                to.params.familiesProp = resp.data.data;
-                to.params.paginationProp = {
+                to.params.families = resp.data.data;
+                to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page
                 };

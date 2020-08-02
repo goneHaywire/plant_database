@@ -78,34 +78,51 @@ __webpack_require__.r(__webpack_exports__);
     fetchUsers: function fetchUsers() {
       var _this = this;
 
-      axios.get("/users?page=" + this.pagination.current_page).then(function (response) {
-        _this.users = response.data.data.data;
-        _this.pagination = response.data.pagination;
-      })["catch"](function (error) {
-        console.log(error.response.data);
+      _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchUsers().then(function (resp) {
+        _this.users = resp.data.data;
+        _this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
       });
-    }
+    } //     axios
+    //         .get("/users?page=" + this.pagination.current_page)
+    //         .then(response => {
+    //             this.users = response.data.data.data;
+    //             this.pagination = response.data.pagination;
+    //         })
+    //         .catch(error => {
+    //             console.log(error.response.data);
+    //         });
+    // }
+
   },
   data: function data() {
     return {
       users: {},
-      pagination: {
-        current_page: 1
-      }
+      pagination: {}
     };
   },
   props: {
-    usersProp: {
+    users: {
+      type: Array,
+      required: true
+    },
+    pagination: {
       type: Array,
       required: true
     }
   },
-  created: function created() {
-    this.users = this.usersProp;
-  },
+  // created() {
+  //     this.users = this.usersProp;
+  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchUsers(1).then(function (resp) {
-      to.params.usersProp = resp.data.data;
+    _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchUsers().then(function (resp) {
+      to.params.users = resp.data.data;
+      to.params.pagination = {
+        current_page: resp.data.current_page,
+        last_page: resp.data.last_page
+      };
       next();
     })["catch"](function (err) {
       return console.log(err);

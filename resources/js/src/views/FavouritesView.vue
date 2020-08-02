@@ -146,16 +146,24 @@ export default {
     name: "FavouritesView",
     methods: {
         fetchFavourites() {
-            axios
-                .get("/favourites?page=" + this.pagination.current_page)
-                .then(response => {
-                    console.log(response);
-                    this.favourites = response.data.data.data;
-                    this.pagination = response.data.pagination;
-                })
-                .catch(err => {
-                    console.log(error.response.data);
-                });
+            speciesService.fetchFavourites().then(resp => {
+                this.favourites = resp.data.data;
+                this.pagination = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
+            });
+
+            //     axios
+            //         .get("/favourites?page=" + this.pagination.current_page)
+            //         .then(response => {
+            //             console.log(response);
+            //             this.favourites = response.data.data.data;
+            //             this.pagination = response.data.pagination;
+            //         })
+            //         .catch(err => {
+            //             console.log(error.response.data);
+            //         });
         },
         Favourite(specie_id) {
             axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
@@ -175,25 +183,31 @@ export default {
     data() {
         return {
             favourites: [],
-            pagination: {
-                current_page: 1
-            }
+            pagination: {}
         };
     },
     props: {
-        favouritesProp: {
+        favourites: {
             type: Array,
+            required: true
+        },
+        pagination: {
+            type: Object,
             required: true
         }
     },
-    created() {
-        this.favourites = this.favouritesProp;
-    },
+    // created() {
+    //     this.favourites = this.favouritesProp;
+    // },
     beforeRouteEnter: (to, from, next) => {
         speciesService
-            .fetchFavourites(1)
+            .fetchFavourites()
             .then(resp => {
-                to.params.favouritesProp = resp.data.data;
+                to.params.favourites = resp.data.data;
+                to.params.pagination = {
+                    current_page: resp.data.current_page,
+                    last_page: resp.data.last_page
+                };
                 next();
             })
             .catch(err => console.log(err));
