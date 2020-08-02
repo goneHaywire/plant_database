@@ -18,7 +18,7 @@
             <td>
               <a
                 :href="'/dashboard/species/'+specie.id"
-              >{{ specie.genera.name }} {{ specie.specie_name }}</a>
+              >{{ specie.genera.name }} {{ specie.name }}</a>
             </td>
             <td>
               <a :href="'/dashboard/genera/'+specie.genera.id">{{ specie.genera.name }}</a>

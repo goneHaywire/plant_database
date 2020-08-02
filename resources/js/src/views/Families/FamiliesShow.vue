@@ -57,7 +57,12 @@
                                 This family has no characteristics information.
                             </p>
 
-                            <h6>Genera for {{ family.name }}</h6>
+                            <h6>
+                                Genera for {{ family.name }} ({{ generaCount }})
+                            </h6>
+                            <li v-for="genus in genera" :key="genus.id">
+                                {{ genus.name }}
+                            </li>
                             <!-- <genera-for-family-table
                                 family="{{ $family->id }}"
                             ></genera-for-family-table -->
@@ -70,13 +75,33 @@
 </template>
 
 <script>
+import familyService from "../../services/FamilyService";
+
 export default {
     name: "FamiliesShow",
     props: {
         family: {
             type: Object,
             required: true
+        },
+        genera: {
+            type: Array,
+            required: true
         }
+    },
+    computed: {
+        generaCount() {
+            return this.genera.length;
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        familyService
+            .getGeneraOfFamily(to.params.id)
+            .then(resp => {
+                to.params.genera = resp.data;
+                next();
+            })
+            .catch(err => console.log(err));
     }
 };
 </script>

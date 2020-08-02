@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Family;
 use App\Genera;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,6 +19,11 @@ class GeneraController extends Controller
         return Genera::with('family')->paginate(20);
     }
 
+    public function speciesOfGenera(Genera $genera)
+    {
+        return $genera->load('species')->species;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,18 +32,13 @@ class GeneraController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $genus = Genera::create($request->only(['name']));
+        $family = Family::find($request->get('family_id'));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Genera  $genera
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Genera $genera)
-    {
-        //
+        $genus->family()->associate($family);
+        $genus->save();
+
+        return $genus;
     }
 
     /**
@@ -49,7 +50,13 @@ class GeneraController extends Controller
      */
     public function update(Request $request, Genera $genera)
     {
-        //
+        $genera = Genera::find($request->get('id'));
+
+        $genera->name = $request->get('name');
+        $genera->family_id = $request->get('family_id');
+        $genera->save();
+
+        return $genera;
     }
 
     /**
@@ -58,8 +65,9 @@ class GeneraController extends Controller
      * @param  \App\Genera  $genera
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genera $genera)
+    public function destroy($id)
     {
-        //
+        $genera = Genera::find($id)->delete();
+        return 'Genera deleted';
     }
 }

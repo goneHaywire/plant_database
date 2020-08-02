@@ -264,7 +264,7 @@ var render = function() {
                                     _vm._v(
                                       _vm._s(specie.genera.name) +
                                         "\n                                                " +
-                                        _vm._s(specie.specie_name)
+                                        _vm._s(specie.name)
                                     )
                                   ]
                                 )

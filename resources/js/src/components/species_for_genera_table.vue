@@ -15,7 +15,7 @@
           <tr v-for="specie in species" :key="specie.id">
             <td>{{ specie.id }}</td>
             <td>
-              <a :href="'/dashboard/species/'+specie.id">{{ genus_name+' '+specie.specie_name }}</a>
+              <a :href="'/dashboard/species/'+specie.id">{{ genus_name+' '+specie.name }}</a>
             </td>
             <td>{{ specie.common_name }}</td>
             <td>{{ specie.in_albania ? "True" : "False" }}</td>

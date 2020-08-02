@@ -19,7 +19,14 @@
                             <h6>Family Name:</h6>
                             <p>{{ genus.family.name }}</p>
 
-                            <h6>Species for {{ genus.name }}</h6>
+                            <h6>
+                                Species for {{ genus.name }} ({{
+                                    speciesCount
+                                }})
+                            </h6>
+                            <li v-for="specie in species" :key="specie.id">
+                                {{ specie.name }}
+                            </li>
                             <!-- <plants-for-genera-table genus="{{ $genus->id }}" genus_name="{{ $genus->name }}"></plants-for-genera-table> -->
                         </div>
                     </div>
@@ -30,13 +37,33 @@
 </template>
 
 <script>
+import generaService from "../../services/GeneraService";
+
 export default {
     name: "GeneraShow",
     props: {
         genus: {
             type: Object,
             required: true
+        },
+        species: {
+            type: Array,
+            required: true
         }
+    },
+    computed: {
+        speciesCount() {
+            return this.species.length;
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        generaService
+            .getSpeciesOfGenera(to.params.id)
+            .then(resp => {
+                to.params.species = resp.data;
+                next();
+            })
+            .catch(err => console.log(err));
     }
 };
 </script>

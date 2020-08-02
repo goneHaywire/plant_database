@@ -14,11 +14,11 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ specie.genera.name }}
-                                {{ specie.specie_name }} Information
+                                {{ specie.name }} Information
                             </h5>
                             <hr />
                             <!-- {{--                        <test></test>--}} -->
-                            <!-- <species-show specie="{{ $specie->specie_name }}" genus="{{ $specie->genera->name }}" family="{{ $specie->genera->family->name }}"></species-show> -->
+                            <!-- <species-show specie="{{ $specie->name }}" genus="{{ $specie->genera->name }}" family="{{ $specie->genera->family->name }}"></species-show> -->
                         </div>
                     </div>
                 </div>

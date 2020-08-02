@@ -18,6 +18,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         return 'lesh';
     });
     // Route::apiResource('families', 'API\FamilyController');
+    Route::get('/families/all', 'API\FamilyController@allFamilies');
+    Route::get('/families/{family}/genera', 'API\FamilyController@generaOfFamily');
+    Route::get('/genera/{genera}/species', 'API\GeneraController@speciesOfGenera');
     Route::apiResources([
         'families' => 'API\FamilyController',
         'genera' => 'API\GeneraController',

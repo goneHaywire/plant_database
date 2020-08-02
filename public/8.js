@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/GeneraService */ "./resources/js/src/services/GeneraService.js");
 //
 //
 //
@@ -40,13 +41,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GeneraShow",
   props: {
     genus: {
       type: Object,
       required: true
+    },
+    species: {
+      type: Array,
+      required: true
     }
+  },
+  computed: {
+    speciesCount: function speciesCount() {
+      return this.species.length;
+    }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].getSpeciesOfGenera(to.params.id).then(function (resp) {
+      to.params.species = resp.data;
+      next();
+    })["catch"](function (err) {
+      return console.log(err);
+    });
   }
 });
 
@@ -83,23 +109,46 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.genus.name) +
-                      " Information\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("h6", [_vm._v("Family Name:")]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.genus.family.name))]),
-                _vm._v(" "),
-                _c("h6", [_vm._v("Species for " + _vm._s(_vm.genus.name))])
-              ])
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.genus.name) +
+                        " Information\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("h6", [_vm._v("Family Name:")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.genus.family.name))]),
+                  _vm._v(" "),
+                  _c("h6", [
+                    _vm._v(
+                      "\n                            Species for " +
+                        _vm._s(_vm.genus.name) +
+                        " (" +
+                        _vm._s(_vm.speciesCount) +
+                        ")\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.species, function(specie) {
+                    return _c("li", { key: specie.id }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(specie.name) +
+                          "\n                        "
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
             ])
           ])
         ])

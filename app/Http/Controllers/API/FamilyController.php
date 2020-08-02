@@ -18,6 +18,16 @@ class FamilyController extends Controller
         return Family::paginate(20);
     }
 
+    public function allFamilies()
+    {
+        return Family::get()->toJson();
+    }
+
+    public function generaOfFamily(Family $family)
+    {
+        return $family->load('genera')->genera;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -31,17 +41,6 @@ class FamilyController extends Controller
         );
 
         return $family;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Family  $family
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Family $family)
-    {
-        //
     }
 
     /**
@@ -63,8 +62,9 @@ class FamilyController extends Controller
      * @param  \App\Family  $family
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Family $family)
+    public function destroy($id)
     {
-        //
+        $family = Family::find($id)->delete();
+        return 'Family deleted';
     }
 }

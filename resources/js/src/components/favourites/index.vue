@@ -19,7 +19,7 @@
             <td>
               <a
                 :href="'/dashboard/species/'+favourite.specie.id"
-              >{{ favourite.specie.genera.name }} {{ favourite.specie.specie_name }}</a>
+              >{{ favourite.specie.genera.name }} {{ favourite.specie.name }}</a>
             </td>
             <td>
               <a

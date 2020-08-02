@@ -8,8 +8,10 @@ const generaService = {
     createGenre: genre =>
         apiClient.post('/genera', genre),
     updateGenera: genre =>
-        apiClient.put('/genera', genera),
+        apiClient.put(`/genera/${genre.id}`, genre),
     deleteGenre: id =>
         apiClient.delete(`/genera/${id}`),
+    getSpeciesOfGenera: id =>
+        apiClient.get(`/genera/${id}/species`),
 }
 export default generaService

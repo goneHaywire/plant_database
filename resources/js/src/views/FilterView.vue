@@ -41,7 +41,7 @@
                                                             specie.id
                                                     "
                                                     >{{ specie.genera.name }}
-                                                    {{ specie.specie_name }}</a
+                                                    {{ specie.name }}</a
                                                 >
                                             </td>
                                             <td>

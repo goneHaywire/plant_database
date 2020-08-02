@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
 //
 //
 //
@@ -80,13 +81,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FamiliesShow",
   props: {
     family: {
       type: Object,
       required: true
+    },
+    genera: {
+      type: Array,
+      required: true
     }
+  },
+  computed: {
+    generaCount: function generaCount() {
+      return this.genera.length;
+    }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].getGeneraOfFamily(to.params.id).then(function (resp) {
+      to.params.genera = resp.data;
+      next();
+    })["catch"](function (err) {
+      return console.log(err);
+    });
   }
 });
 
@@ -197,7 +221,25 @@ var render = function() {
                         )
                       ]),
                   _vm._v(" "),
-                  _c("h6", [_vm._v("Genera for " + _vm._s(_vm.family.name))])
+                  _c("h6", [
+                    _vm._v(
+                      "\n                            Genera for " +
+                        _vm._s(_vm.family.name) +
+                        " (" +
+                        _vm._s(_vm.generaCount) +
+                        ")\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.genera, function(genus) {
+                    return _c("li", { key: genus.id }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(genus.name) +
+                          "\n                        "
+                      )
+                    ])
+                  })
                 ],
                 2
               )

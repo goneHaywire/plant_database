@@ -45,9 +45,33 @@
                                             class="select2 form-control custom-select"
                                             style="width: 100%; height:36px;"
                                             required
+                                            v-model="genus.family_id"
                                         >
-                                            <!-- <option selected disabled>Select Family</option>@foreach($families as $family) -->
-                                            <!-- <option value="{{ $family->id }}">{{ $family->name }}</option>@endforeach -->
+                                            <option selected disabled>
+                                                Select Family
+                                            </option>
+                                            <template v-if="editing">
+                                                <option
+                                                    :value="family.id"
+                                                    v-for="family in families"
+                                                    :key="family.id"
+                                                    :selected="
+                                                        family.id ===
+                                                            genus.family_id
+                                                    "
+                                                >
+                                                    {{ family.name }}
+                                                </option>
+                                            </template>
+                                            <template v-else>
+                                                <option
+                                                    :value="family.id"
+                                                    v-for="family in families"
+                                                    :key="family.id"
+                                                >
+                                                    {{ family.name }}
+                                                </option>
+                                            </template>
                                         </select>
                                     </div>
                                 </div>
@@ -76,6 +100,8 @@
 
 <script>
 import generaService from "../../services/GeneraService";
+import familyService from "../../services/FamilyService";
+
 export default {
     name: "GeneraForm",
     props: {
@@ -89,6 +115,11 @@ export default {
             type: Boolean,
             default: () => false
         }
+    },
+    data() {
+        return {
+            families: []
+        };
     },
     methods: {
         postGenus() {
@@ -104,6 +135,11 @@ export default {
                     .catch(err => console.log(err));
             }
         }
+    },
+    created() {
+        familyService.getAllFamilies().then(resp => {
+            this.families = resp.data;
+        });
     }
 };
 </script>

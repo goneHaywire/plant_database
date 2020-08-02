@@ -43,7 +43,7 @@
                                                     }"
                                                 >
                                                     {{ specie.genera.name }}
-                                                    {{ specie.specie_name }}
+                                                    {{ specie.name }}
                                                 </router-link>
                                             </td>
                                             <td>

@@ -87,7 +87,7 @@ var render = function() {
                     "\n                            " +
                       _vm._s(_vm.specie.genera.name) +
                       "\n                            " +
-                      _vm._s(_vm.specie.specie_name) +
+                      _vm._s(_vm.specie.name) +
                       " Information\n                        "
                   )
                 ]),

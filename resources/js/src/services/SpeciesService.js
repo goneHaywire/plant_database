@@ -8,9 +8,9 @@ const speciesService = {
     createSpecie: specie =>
         apiClient.post('/species', specie),
     updateSpecie: specie =>
-        apiClient.put('/species', specie),
+        apiClient.put(`/species/${specie.id}`, specie),
     deleteSpecie: id =>
-        apiClient.delete(`/specie/${id}`),
+        apiClient.delete(`/species/${id}`),
     fetchAlbanianSpecies: (page = 1) =>
         apiClient.get(`/albanian?page=${page}`),
     fetchFavourites: (page = 1) =>

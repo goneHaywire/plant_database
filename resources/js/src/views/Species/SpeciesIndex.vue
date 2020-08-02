@@ -45,7 +45,7 @@
                                                     }"
                                                 >
                                                     {{ specie.genera.name }}
-                                                    {{ specie.specie_name }}
+                                                    {{ specie.name }}
                                                 </router-link>
                                             </td>
                                             <td>
@@ -127,7 +127,12 @@
                                                 >
                                                     Update
                                                 </router-link>
-                                                <div class="btn btn-danger">
+                                                <div
+                                                    @click="
+                                                        deleteSpecie(specie.id)
+                                                    "
+                                                    class="btn btn-danger"
+                                                >
                                                     Delete
                                                 </div>
                                             </td>
@@ -193,6 +198,12 @@ export default {
                     }
                 }
             });
+        },
+        deleteSpecie(id) {
+            speciesService
+                .deleteSpecie(id)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err));
         }
     },
     data() {

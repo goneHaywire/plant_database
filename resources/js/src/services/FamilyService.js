@@ -11,5 +11,9 @@ var familyService = {
         ApiClient.put(`/families/${family.id}`, JSON.stringify(family)),
     deleteFamily: id =>
         ApiClient.delete(`/family/${id}`),
+    getAllFamilies: () =>
+        ApiClient.get('/families/all'),
+    getGeneraOfFamily: id =>
+        ApiClient.get(`/families/${id}/genera`)
 }
 export default familyService

@@ -3215,6 +3215,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3245,6 +3250,13 @@ __webpack_require__.r(__webpack_exports__);
             break;
           }
         }
+      });
+    },
+    deleteSpecie: function deleteSpecie(id) {
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteSpecie(id).then(function (resp) {
+        return console.log(resp);
+      })["catch"](function (err) {
+        return console.log(err);
       });
     }
   },
@@ -41104,7 +41116,7 @@ var render = function() {
                                         "\n                                                " +
                                           _vm._s(specie.genera.name) +
                                           "\n                                                " +
-                                          _vm._s(specie.specie_name) +
+                                          _vm._s(specie.name) +
                                           "\n                                            "
                                       )
                                     ]
@@ -41521,7 +41533,7 @@ var render = function() {
                                         "\n                                                " +
                                           _vm._s(_vm.specie.genera.name) +
                                           "\n                                                " +
-                                          _vm._s(_vm.specie.specie_name) +
+                                          _vm._s(_vm.specie.name) +
                                           "\n                                            "
                                       )
                                     ]
@@ -41999,7 +42011,7 @@ var render = function() {
                                         "\n                                                " +
                                           _vm._s(specie.genera.name) +
                                           "\n                                                " +
-                                          _vm._s(specie.specie_name) +
+                                          _vm._s(specie.name) +
                                           "\n                                            "
                                       )
                                     ]
@@ -42112,11 +42124,22 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "btn btn-danger" }, [
-                                    _vm._v(
-                                      "\n                                                Delete\n                                            "
-                                    )
-                                  ])
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteSpecie(specie.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Delete\n                                            "
+                                      )
+                                    ]
+                                  )
                                 ],
                                 1
                               )
@@ -59104,7 +59127,7 @@ var routes = [{
     name: "families.form",
     path: "families/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
     },
     meta: {
       requiresAuth: true
@@ -59132,7 +59155,7 @@ var routes = [{
     name: "genera.form",
     path: "genera/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
     },
     meta: {
       requiresAuth: true
@@ -59160,7 +59183,7 @@ var routes = [{
     name: "species.form",
     path: "species/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
     },
     meta: {
       requiresAuth: true
@@ -59365,6 +59388,12 @@ var familyService = {
   },
   deleteFamily: function deleteFamily(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/family/".concat(id));
+  },
+  getAllFamilies: function getAllFamilies() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/families/all');
+  },
+  getGeneraOfFamily: function getGeneraOfFamily(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/families/".concat(id, "/genera"));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (familyService);
@@ -59394,10 +59423,13 @@ var generaService = {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/genera', genre);
   },
   updateGenera: function updateGenera(genre) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put('/genera', genera);
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/genera/".concat(genre.id), genre);
   },
   deleteGenre: function deleteGenre(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/genera/".concat(id));
+  },
+  getSpeciesOfGenera: function getSpeciesOfGenera(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/genera/".concat(id, "/species"));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (generaService);
@@ -59427,10 +59459,10 @@ var speciesService = {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/species', specie);
   },
   updateSpecie: function updateSpecie(specie) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put('/species', specie);
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/species/".concat(specie.id), specie);
   },
   deleteSpecie: function deleteSpecie(id) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/specie/".concat(id));
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/species/".concat(id));
   },
   fetchAlbanianSpecies: function fetchAlbanianSpecies() {
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;

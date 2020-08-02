@@ -16,7 +16,7 @@ class CreateSpeciesTable extends Migration
         Schema::create('species', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->String('common_name')->nullable();
-            $table->String('specie_name')->nullable();
+            $table->String('name')->nullable();
             $table->boolean('in_albania')->nullable();
             $table->bigInteger('ipni')->unique();
             $table->bigInteger('year')->nullable();

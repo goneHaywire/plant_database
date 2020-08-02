@@ -25,6 +25,7 @@
                                     >
                                     <div class="col-sm-9">
                                         <input
+                                            v-model="specie.name"
                                             type="text"
                                             class="form-control"
                                             id="name"
@@ -43,6 +44,7 @@
                                     >
                                     <div class="col-sm-9">
                                         <input
+                                            v-model="specie.common_name"
                                             type="text"
                                             class="form-control"
                                             id="cname"
@@ -64,6 +66,7 @@
                                             class="custom-control custom-checkbox mr-sm-2 pl-1"
                                         >
                                             <input
+                                                v-model="specie.in_albania"
                                                 type="checkbox"
                                                 class="custom-control-input"
                                                 name="in_albania"
@@ -77,8 +80,96 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label
+                                        class="col-sm-3 text-right control-label col-form-label"
+                                        >Family Name</label
+                                    >
+                                    <div class="col-md-9">
+                                        <select
+                                            name="family"
+                                            class="select2 form-control custom-select"
+                                            style="width: 100%; height:36px;"
+                                            required
+                                            v-model="specie.genera.family.id"
+                                        >
+                                            <option selected disabled>
+                                                Select Family
+                                            </option>
+                                            <template v-if="editing">
+                                                <option
+                                                    :value="family.id"
+                                                    v-for="family in families"
+                                                    :key="family.id"
+                                                    :selected="
+                                                        family.id ===
+                                                            specie.genera.family
+                                                                .id
+                                                    "
+                                                >
+                                                    {{ family.name }}
+                                                </option>
+                                            </template>
+                                            <template v-else>
+                                                <option
+                                                    :value="family.id"
+                                                    v-for="family in families"
+                                                    :key="family.id"
+                                                >
+                                                    {{ family.name }}
+                                                </option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="form-group row"
+                                    v-if="specie.genera.family.id"
+                                >
+                                    <label
+                                        class="col-sm-3 text-right control-label col-form-label"
+                                        >Genera Name</label
+                                    >
+                                    <div class="col-md-9">
+                                        <select
+                                            name="genera"
+                                            class="select2 form-control custom-select"
+                                            style="width: 100%; height:36px;"
+                                            required
+                                            v-model="specie.genera.id"
+                                        >
+                                            <option selected disabled>
+                                                Select Genus
+                                            </option>
+                                            <template v-if="editing">
+                                                <option
+                                                    :value="genus.id"
+                                                    v-for="genus in genera"
+                                                    :key="genus.id"
+                                                    :selected="
+                                                        genus.id ===
+                                                            specie.genera.id
+                                                    "
+                                                >
+                                                    {{ genus.name }}
+                                                </option>
+                                            </template>
+                                            <template v-else>
+                                                <option
+                                                    :value="genus.id"
+                                                    v-for="genus in genera"
+                                                    :key="genus.id"
+                                                >
+                                                    {{ genus.name }}
+                                                </option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
                                 <!-- <genera-for-family></genera-for-family> -->
                             </div>
+
                             <div class="border-top">
                                 <div class="card-body">
                                     <input
@@ -103,6 +194,7 @@
 
 <script>
 import speciesService from "../../services/SpeciesService";
+import familyService from "../../services/FamilyService";
 
 export default {
     name: "SpeciesForm",
@@ -110,13 +202,24 @@ export default {
         specie: {
             type: Object,
             default: () => {
-                return {};
+                return {
+                    genera: {
+                        family: {}
+                    }
+                };
             }
         },
         editing: {
             type: Boolean,
             default: () => false
         }
+    },
+    data() {
+        return {
+            families: [],
+            genera: [],
+            selected_family: 0
+        };
     },
     methods: {
         postSpecie() {
@@ -131,6 +234,24 @@ export default {
                     .then(resp => console.log(resp))
                     .catch(err => console.log(err));
             }
+        }
+    },
+    created() {
+        familyService.getAllFamilies().then(resp => {
+            this.families = resp.data;
+        });
+        if (this.editing) {
+            familyService
+                .getGeneraOfFamily(this.specie.genera.family.id)
+                .then(resp => (this.genera = resp.data));
+        }
+    },
+    watch: {
+        "specie.genera.family.id": function() {
+            // this.specie.genera.family.id = this.selected_family;
+            familyService
+                .getGeneraOfFamily(this.specie.genera.family.id)
+                .then(resp => (this.genera = resp.data));
         }
     }
 };
