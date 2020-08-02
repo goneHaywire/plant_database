@@ -10928,3 +10928,13 @@ a.text-dark:focus {
   }
 }
 
+.stary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-icon=star] * {
+  fill: #dba70c;
+}
+

@@ -6,3 +6,13 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.stary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-icon="star"] * {
+    fill: #dba70c;
+}

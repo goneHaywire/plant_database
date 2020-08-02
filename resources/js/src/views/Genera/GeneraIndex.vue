@@ -120,12 +120,6 @@ export default {
                 .catch(err => console.log(err));
         }
     },
-    data() {
-        return {
-            genera: [],
-            pagination: {}
-        };
-    },
     props: {
         genera: {
             type: Array,

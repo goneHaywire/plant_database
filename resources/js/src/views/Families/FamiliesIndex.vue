@@ -107,12 +107,6 @@ export default {
                 .catch(err => console.log(err));
         }
     },
-    data() {
-        return {
-            families: [],
-            pagination: {}
-        };
-    },
     props: {
         families: {
             type: Array,

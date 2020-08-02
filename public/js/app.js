@@ -2428,6 +2428,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2471,12 +2483,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  },
-  data: function data() {
-    return {
-      species: [],
-      pagination: {}
-    };
   },
   props: {
     species: {
@@ -2633,12 +2639,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return console.log(err);
       });
     }
-  },
-  data: function data() {
-    return {
-      families: [],
-      pagination: {}
-    };
   },
   props: {
     families: {
@@ -2824,6 +2824,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2864,12 +2882,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  },
-  data: function data() {
-    return {
-      favourites: [],
-      pagination: {}
-    };
   },
   props: {
     favourites: {
@@ -3035,12 +3047,6 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     }
-  },
-  data: function data() {
-    return {
-      genera: [],
-      pagination: {}
-    };
   },
   props: {
     genera: {
@@ -3255,6 +3261,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3295,12 +3311,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  data: function data() {
-    return {
-      species: [],
-      pagination: {}
-    };
-  },
+  // data() {
+  //     return {
+  //         species: [],
+  //         pagination: {}
+  //     };
+  // },
   props: {
     species: {
       type: Array,
@@ -40849,6 +40865,263 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-inline-svg/dist/vue-inline-svg.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vue-inline-svg/dist/vue-inline-svg.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+     true ? factory(exports) :
+    undefined;
+}(this, (function (exports) { 'use strict';
+
+    /** @type Object{string: Promise<Element>} */
+    var cache = {};
+    /**
+     * Remove false attrs
+     * @param {Object} attrs
+     */
+
+    function filterAttrs(attrs) {
+      return Object.keys(attrs).reduce(function (result, key) {
+        if (attrs[key] !== false && attrs[key] !== null && attrs[key] !== undefined) {
+          result[key] = attrs[key];
+        }
+
+        return result;
+      }, {});
+    }
+
+    var InlineSvgComponent = {
+      // name: 'inline-svg',
+      inheritAttrs: false,
+      render: function render(createElement) {
+        if (!this.svgElSource) {
+          return null;
+        }
+
+        return createElement('svg', {
+          on: this.$listeners,
+          attrs: Object.assign(this.getSvgAttrs(this.svgElSource), filterAttrs(this.$attrs)),
+          domProps: {
+            innerHTML: this.getSvgContent(this.svgElSource)
+          }
+        });
+      },
+      props: {
+        src: {
+          type: String,
+          required: true
+        },
+        title: {
+          type: String
+        },
+        transformSource: {
+          type: Function,
+          "default": function _default(svg) {
+            return svg;
+          }
+        },
+        keepDuringLoading: {
+          type: Boolean,
+          "default": true
+        }
+      },
+      data: function data() {
+        return {
+          /** @type SVGElement */
+          svgElSource: null
+        };
+      },
+      watch: {
+        src: function src(newValue) {
+          // re-generate cached svg (`svgElSource`)
+          this.getSource(newValue);
+        }
+      },
+      mounted: function mounted() {
+        // generate `svgElSource`
+        this.getSource(this.src);
+      },
+      methods: {
+        getSvgAttrs: function getSvgAttrs(svgEl) {
+          // copy attrs
+          var svgAttrs = {};
+          var attrs = svgEl.attributes;
+
+          if (!attrs) {
+            return svgAttrs;
+          }
+
+          for (var i = attrs.length - 1; i >= 0; i--) {
+            svgAttrs[attrs[i].name] = attrs[i].value;
+          }
+
+          return svgAttrs;
+        },
+        getSvgContent: function getSvgContent(svgEl) {
+          svgEl = svgEl.cloneNode(true);
+          svgEl = this.transformSource(svgEl);
+
+          if (this.title) {
+            setTitle(svgEl, this.title);
+          } // copy inner html
+
+
+          return svgEl.innerHTML;
+        },
+
+        /**
+         * Get svgElSource
+         * @param {string} src
+         */
+        getSource: function getSource(src) {
+          var _this = this;
+
+          // fill cache by src with promise
+          if (!cache[src]) {
+            // download
+            cache[src] = this.download(src);
+          } // notify svg is unloaded
+
+
+          if (this.svgElSource && cache[src].isPending() && !this.keepDuringLoading) {
+            this.svgElSource = null;
+            this.$emit('unloaded');
+          } // inline svg when cached promise resolves
+
+
+          cache[src].then(function (svg) {
+            _this.svgElSource = svg; // wait to render
+
+            _this.$nextTick(function () {
+              // notify
+              _this.$emit('loaded', _this.$el);
+            });
+          })["catch"](function (err) {
+            // notify svg is unloaded
+            if (_this.svgElSource) {
+              _this.svgElSource = null;
+
+              _this.$emit('unloaded');
+            } // remove cached rejected promise so next image can try load again
+
+
+            delete cache[src];
+
+            _this.$emit('error', err);
+          });
+        },
+
+        /**
+         * Get the contents of the SVG
+         * @param {string} url
+         * @returns {Promise<Element>}
+         */
+        download: function download(url) {
+          return makePromiseState(new Promise(function (resolve, reject) {
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+
+            request.onload = function () {
+              if (request.status >= 200 && request.status < 400) {
+                try {
+                  // Setup a parser to convert the response to text/xml in order for it to be manipulated and changed
+                  var parser = new DOMParser();
+                  var result = parser.parseFromString(request.responseText, 'text/xml');
+                  var svgEl = result.getElementsByTagName('svg')[0];
+
+                  if (svgEl) {
+                    // svgEl = this.transformSource(svgEl);
+                    resolve(svgEl);
+                  } else {
+                    reject(new Error('Loaded file is not valid SVG"'));
+                  }
+                } catch (e) {
+                  reject(e);
+                }
+              } else {
+                reject(new Error('Error loading SVG'));
+              }
+            };
+
+            request.onerror = reject;
+            request.send();
+          }));
+        }
+      }
+    };
+    /**
+     * Create or edit the <title> element of a SVG
+     * @param {SVGElement} svg
+     * @param {string} title
+     */
+
+    function setTitle(svg, title) {
+      var titleTags = svg.getElementsByTagName('title');
+
+      if (titleTags.length) {
+        // overwrite existing title
+        titleTags[0].textContent = title;
+      } else {
+        // create a title element if one doesn't already exist
+        var titleEl = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        titleEl.textContent = title;
+        svg.appendChild(titleEl);
+      }
+    }
+    /**
+     * @typedef {Promise} PromiseWithState
+     * @property {Function<boolean>} isPending
+     */
+
+    /**
+     * This function allow you to modify a JS Promise by adding some status properties.
+     * @param {Promise|PromiseWithState} promise
+     * @return {PromiseWithState}
+     */
+
+
+    function makePromiseState(promise) {
+      // Don't modify any promise that has been already modified.
+      if (promise.isPending) return promise; // Set initial state
+
+      var isPending = true; // Observe the promise, saving the fulfillment in a closure scope.
+
+      var result = promise.then(function (v) {
+        isPending = false;
+        return v;
+      }, function (e) {
+        isPending = false;
+        throw e;
+      });
+
+      result.isPending = function getIsPending() {
+        return isPending;
+      };
+
+      return result;
+    }
+
+    var InlineSvgPlugin = {
+      install: function install(Vue) {
+        Vue.component('inline-svg', InlineSvgComponent);
+      }
+    };
+
+    exports.InlineSvgComponent = InlineSvgComponent;
+    exports.InlineSvgPlugin = InlineSvgPlugin;
+    exports.default = InlineSvgComponent;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/Pagination.vue?vue&type=template&id=5748944c&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/Pagination.vue?vue&type=template&id=5748944c&scoped=true& ***!
@@ -41274,17 +41547,27 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.Favourite(specie.id)
+                                          return _vm.favSpecies(specie.id)
                                         }
                                       }
                                     },
                                     [
                                       specie.favourites.length > 0
                                         ? _c("inline-svg", {
-                                            attrs: { name: "star-solid" }
+                                            attrs: {
+                                              name: "star-solid",
+                                              width: "30",
+                                              height: "30",
+                                              src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                            }
                                           })
                                         : _c("inline-svg", {
-                                            attrs: { name: "star-regular" }
+                                            attrs: {
+                                              src: __webpack_require__(/*! ../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
+                                              width: "30",
+                                              height: "30",
+                                              name: "star-regular"
+                                            }
                                           })
                                     ],
                                     1
@@ -41711,16 +41994,28 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.Favourite(
-                                            favourite.specie.id
-                                          )
+                                          return _vm.favSpecies(_vm.specie.id)
                                         }
                                       }
                                     },
                                     [
-                                      _c("inline-svg", {
-                                        attrs: { name: "star-solid" }
-                                      })
+                                      _vm.specie.favourites.length > 0
+                                        ? _c("inline-svg", {
+                                            attrs: {
+                                              name: "star-solid",
+                                              width: "30",
+                                              height: "30",
+                                              src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                            }
+                                          })
+                                        : _c("inline-svg", {
+                                            attrs: {
+                                              src: __webpack_require__(/*! ../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
+                                              width: "30",
+                                              height: "30",
+                                              name: "star-regular"
+                                            }
+                                          })
                                     ],
                                     1
                                   )
@@ -42173,14 +42468,37 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 _c("div", { staticClass: "star-container" }, [
-                                  _c("div", {
-                                    staticClass: "stary",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.favSpecies(specie.id)
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "stary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.favSpecies(specie.id)
+                                        }
                                       }
-                                    }
-                                  })
+                                    },
+                                    [
+                                      specie.favourites.length > 0
+                                        ? _c("inline-svg", {
+                                            attrs: {
+                                              name: "star-solid",
+                                              width: "30",
+                                              height: "30",
+                                              src: __webpack_require__(/*! ../../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                            }
+                                          })
+                                        : _c("inline-svg", {
+                                            attrs: {
+                                              src: __webpack_require__(/*! ../../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
+                                              width: "30",
+                                              height: "30",
+                                              name: "star-regular"
+                                            }
+                                          })
+                                    ],
+                                    1
+                                  )
                                 ])
                               ]),
                               _vm._v(" "),
@@ -58781,6 +59099,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_store_store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./src/store/store.js */ "./resources/js/src/store/store.js");
 /* harmony import */ var _src_services_Api_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/services/Api.js */ "./resources/js/src/services/Api.js");
 /* harmony import */ var _src_services_AuthService_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./src/services/AuthService.js */ "./resources/js/src/services/AuthService.js");
+/* harmony import */ var vue_inline_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-inline-svg */ "./node_modules/vue-inline-svg/dist/vue-inline-svg.js");
+/* harmony import */ var vue_inline_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_inline_svg__WEBPACK_IMPORTED_MODULE_5__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -58798,6 +59118,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -58810,7 +59131,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("AppPage", __webpack_require__(/*! ./src/pages/AppPage.vue */ "./resources/js/src/pages/AppPage.vue")["default"]);
-Vue.component("TheBreadcrumbs", __webpack_require__(/*! ./src/components/TheBreadcrumbs.vue */ "./resources/js/src/components/TheBreadcrumbs.vue")["default"]);
+Vue.component("TheBreadcrumbs", __webpack_require__(/*! ./src/components/TheBreadcrumbs.vue */ "./resources/js/src/components/TheBreadcrumbs.vue")["default"]); // Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
+
+Vue.component('inline-svg', vue_inline_svg__WEBPACK_IMPORTED_MODULE_5___default.a);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59290,6 +59613,12 @@ var routes = [{
     path: "/filter/form",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/FilterForm.vue */ "./resources/js/src/views/FilterForm.vue"));
+    }
+  }, {
+    name: "maps.index",
+    path: "/maps/",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     }
   }]
 }];
@@ -59887,6 +60216,28 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/svgs/star-regular.svg":
+/*!*****************************************!*\
+  !*** ./resources/svgs/star-regular.svg ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/star-regular.svg?184843881820ca3e3422f3a1c43a4f04";
+
+/***/ }),
+
+/***/ "./resources/svgs/star-solid.svg":
+/*!***************************************!*\
+  !*** ./resources/svgs/star-solid.svg ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/star-solid.svg?f10a25eb07f2740619c9d181f900f2c6";
 
 /***/ }),
 

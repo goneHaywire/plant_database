@@ -84,12 +84,6 @@ export default {
         //         });
         // }
     },
-    data() {
-        return {
-            users: {},
-            pagination: {}
-        };
-    },
     props: {
         users: {
             type: Array,

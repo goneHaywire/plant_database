@@ -84,7 +84,9 @@
                                                     <div
                                                         class="stary"
                                                         @click="
-                                                            Favourite(specie.id)
+                                                            favSpecies(
+                                                                specie.id
+                                                            )
                                                         "
                                                     >
                                                         <inline-svg
@@ -94,9 +96,19 @@
                                                                     .length > 0
                                                             "
                                                             name="star-solid"
+                                                            width="30"
+                                                            height="30"
+                                                            :src="
+                                                                require('../../../svgs/star-solid.svg')
+                                                            "
                                                         ></inline-svg>
                                                         <inline-svg
                                                             v-else
+                                                            :src="
+                                                                require('../../../svgs/star-regular.svg')
+                                                            "
+                                                            width="30"
+                                                            height="30"
                                                             name="star-regular"
                                                         ></inline-svg>
                                                     </div>
@@ -174,12 +186,6 @@ export default {
                 }
             });
         }
-    },
-    data() {
-        return {
-            species: [],
-            pagination: {}
-        };
     },
     props: {
         species: {

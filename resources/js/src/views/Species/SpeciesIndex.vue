@@ -99,18 +99,28 @@
                                                             )
                                                         "
                                                     >
-                                                        <!-- <inline-svg
+                                                        <inline-svg
                                                             v-if="
                                                                 specie
                                                                     .favourites
                                                                     .length > 0
                                                             "
                                                             name="star-solid"
-                                                        ></inline-svg> -->
-                                                        <!-- <inline-svg
+                                                            width="30"
+                                                            height="30"
+                                                            :src="
+                                                                require('../../../../svgs/star-solid.svg')
+                                                            "
+                                                        ></inline-svg>
+                                                        <inline-svg
                                                             v-else
+                                                            :src="
+                                                                require('../../../../svgs/star-regular.svg')
+                                                            "
+                                                            width="30"
+                                                            height="30"
                                                             name="star-regular"
-                                                        ></inline-svg> -->
+                                                        ></inline-svg>
                                                     </div>
                                                 </div>
                                             </td>
@@ -206,12 +216,12 @@ export default {
                 .catch(err => console.log(err));
         }
     },
-    data() {
-        return {
-            species: [],
-            pagination: {}
-        };
-    },
+    // data() {
+    //     return {
+    //         species: [],
+    //         pagination: {}
+    //     };
+    // },
     props: {
         species: {
             type: Array,

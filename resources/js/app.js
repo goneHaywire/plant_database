@@ -9,6 +9,8 @@ import router from "./src/router/router.js";
 import store from "./src/store/store.js";
 import apiClient from "./src/services/Api.js";
 import authService from "./src/services/AuthService.js";
+import InlineSvg from 'vue-inline-svg';
+
 
 window.Vue = require("vue");
 
@@ -28,6 +30,8 @@ Vue.component(
     "TheBreadcrumbs",
     require("./src/components/TheBreadcrumbs.vue").default
 );
+// Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
+Vue.component('inline-svg', InlineSvg);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
