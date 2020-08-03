@@ -37,13 +37,19 @@
                                                     :to="{
                                                         name: 'species.show',
                                                         params: {
-                                                            specie,
-                                                            id: specie.id
+                                                            specie:
+                                                                favourite.specie,
+                                                            id:
+                                                                favourite.specie
+                                                                    .id
                                                         }
                                                     }"
                                                 >
-                                                    {{ specie.genera.name }}
-                                                    {{ specie.name }}
+                                                    {{
+                                                        favourite.specie.genera
+                                                            .name
+                                                    }}
+                                                    {{ favourite.specie.name }}
                                                 </router-link>
                                             </td>
                                             <td>
@@ -52,11 +58,17 @@
                                                         name: 'genera.show',
                                                         params: {
                                                             genus:
-                                                                specie.genera,
-                                                            id: specie.genera.id
+                                                                favourite.specie
+                                                                    .genera,
+                                                            id:
+                                                                favourite.specie
+                                                                    .genera.id
                                                         }
                                                     }"
-                                                    >{{ specie.genera.name }}
+                                                    >{{
+                                                        favourite.specie.genera
+                                                            .name
+                                                    }}
                                                 </router-link>
                                             </td>
                                             <td>
@@ -65,17 +77,19 @@
                                                         name: 'families.show',
                                                         params: {
                                                             family:
-                                                                specie.genera
+                                                                favourite.specie
+                                                                    .genera
                                                                     .family,
                                                             id:
-                                                                specie.genera
+                                                                favourite.specie
+                                                                    .genera
                                                                     .family.id
                                                         }
                                                     }"
                                                 >
                                                     {{
-                                                        specie.genera.family
-                                                            .name
+                                                        favourite.specie.genera
+                                                            .family.name
                                                     }}
                                                 </router-link>
                                             </td>
@@ -96,32 +110,19 @@
                                                     <div
                                                         class="stary"
                                                         @click="
-                                                            favSpecies(
-                                                                specie.id
+                                                            removeFavourite(
+                                                                favourite.specie
+                                                                    .id
                                                             )
                                                         "
                                                     >
                                                         <inline-svg
-                                                            v-if="
-                                                                specie
-                                                                    .favourites
-                                                                    .length > 0
-                                                            "
                                                             name="star-solid"
                                                             width="30"
                                                             height="30"
                                                             :src="
                                                                 require('../../../svgs/star-solid.svg')
                                                             "
-                                                        ></inline-svg>
-                                                        <inline-svg
-                                                            v-else
-                                                            :src="
-                                                                require('../../../svgs/star-regular.svg')
-                                                            "
-                                                            width="30"
-                                                            height="30"
-                                                            name="star-regular"
                                                         ></inline-svg>
                                                     </div>
                                                 </div>
@@ -171,35 +172,23 @@ export default {
                     last_page: resp.data.last_page
                 };
             });
-
-            //     axios
-            //         .get("/favourites?page=" + this.pagination.current_page)
-            //         .then(response => {
-            //             console.log(response);
-            //             this.favourites = response.data.data.data;
-            //             this.pagination = response.data.pagination;
-            //         })
-            //         .catch(err => {
-            //             console.log(error.response.data);
-            //         });
         },
-        Favourite(specie_id) {
-            axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
-                console.log(data);
-                for (let i = 0; i < this.favourites.length; i++) {
-                    if (this.favourites[i].specie_id === specie_id) {
-                        this.favourites.splice(
-                            this.favourites.indexOf(this.favourites[i]),
-                            1
+        removeFavourite(id) {
+            speciesService
+                .favourite(id)
+                .then(resp => {
+                    if (resp.status === 200) {
+                        let fav_index = this.favourites.findIndex(
+                            specie => specie.specie_id === id
                         );
-                        break;
+                        this.favourites.splice(fav_index, 1);
                     }
-                }
-            });
+                })
+                .catch(err => console.log(err));
         }
     },
     props: {
-        favourites: {
+        favouritesProp: {
             type: Array,
             required: true
         },
@@ -208,14 +197,19 @@ export default {
             required: true
         }
     },
-    // created() {
-    //     this.favourites = this.favouritesProp;
-    // },
+    data() {
+        return {
+            favourites: []
+        };
+    },
+    created() {
+        this.favourites = this.favouritesProp;
+    },
     beforeRouteEnter: (to, from, next) => {
         speciesService
             .fetchFavourites()
             .then(resp => {
-                to.params.favourites = resp.data.data;
+                to.params.favouritesProp = resp.data.data;
                 to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page
@@ -224,10 +218,7 @@ export default {
             })
             .catch(err => console.log(err));
     },
-    components: {
-        pagination
-        // svgIcon
-    }
+    components: { pagination }
 };
 </script>
 

@@ -14,7 +14,9 @@ const speciesService = {
     fetchAlbanianSpecies: (page = 1) =>
         apiClient.get(`/albanian?page=${page}`),
     fetchFavourites: (page = 1) =>
-        apiClient.get(`/favourites?page=${page}`)
+        apiClient.get(`/favourites?page=${page}`),
+    favourite: id =>
+        apiClient.post(`/favourites/${id}`),
 
 }
 

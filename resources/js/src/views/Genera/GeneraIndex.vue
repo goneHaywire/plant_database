@@ -130,10 +130,6 @@ export default {
             required: true
         }
     },
-    // created() {
-    //     this.genera = this.generaProp;
-    //     this.pagination = this.paginationProp;
-    // },
     beforeRouteEnter: (to, from, next) => {
         generaService
             .fetchGenera()

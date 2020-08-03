@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Favourite;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -20,7 +22,24 @@ class UserController extends Controller
 
     public function favouritesIndex()
     {
-        return Auth()->user()->favourites()->paginate(20);
+        return Auth()->user()->favourites()->with(['specie', 'specie.genera', 'specie.genera.family'])->paginate(20);
+    }
+
+    public function favouriteSpecie($id)
+    {
+        $user = Auth::user()->id;
+        $fav = Favourite::where(['specie_id' => $id, 'user_id' => $user])->first();
+
+        if ($fav) {
+            $fav->delete();
+        } else {
+            $fav = new Favourite();
+            $fav->user_id = $user;
+            $fav->specie_id = $id;
+            $fav->save();
+        }
+
+        return response()->json($fav->toJson());
     }
 
     /**

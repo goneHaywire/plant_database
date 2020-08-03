@@ -97,10 +97,9 @@ export default {
             familyService
                 .fetchFamilies(this.pagination.current_page)
                 .then(resp => {
-                    console.log(resp);
                     this.families = resp.data.data;
                     this.pagination = {
-                        ...this.pagination,
+                        current_page: resp.data.current_page,
                         last_page: resp.data.last_page
                     };
                 })
@@ -117,10 +116,6 @@ export default {
             required: true
         }
     },
-    // created() {
-    //     this.pagination = this.paginationProp;
-    //     this.families = this.familiesProp;
-    // },
     beforeRouteEnter: (to, from, next) => {
         familyService
             .fetchFamilies()

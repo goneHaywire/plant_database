@@ -84,16 +84,12 @@
                                                     <div
                                                         class="stary"
                                                         @click="
-                                                            favSpecies(
-                                                                specie.id
-                                                            )
+                                                            favourite(specie.id)
                                                         "
                                                     >
                                                         <inline-svg
                                                             v-if="
-                                                                specie
-                                                                    .favourites
-                                                                    .length > 0
+                                                                specie.favourites_count
                                                             "
                                                             name="star-solid"
                                                             width="30"
@@ -146,6 +142,7 @@
 <script>
 import Pagination from "../components/Pagination";
 import speciesService from "../services/SpeciesService";
+
 export default {
     name: "AlbanianIndex",
     methods: {
@@ -160,35 +157,25 @@ export default {
                     };
                 })
                 .catch(err => console.log(err));
-            // axios
-            //     .get("/albanian?page=" + this.pagination.current_page)
-            //     .then(response => {
-            //         this.species = response.data.data.data;
-            //         this.pagination = {
-            //             ...this.pagination,
-            //             last_page: resp.data.last_page
-            //         };
-            //     })
-            //     .catch(error => {
-            //         console.log(error);
-            //     });
         },
-        Favourite(specie_id) {
-            axios.post(`/dashboard/favourites/${specie_id}`).then(data => {
-                console.log(data);
-                for (let i = 0; i < this.species.length; i++) {
-                    if (this.species[i].id === specie_id) {
-                        if (this.species[i].favourites.length)
-                            this.species[i].favourites = [];
-                        else this.species[i].favourites.push(1);
-                        break;
+        favourite(id) {
+            speciesService
+                .favourite(id)
+                .then(resp => {
+                    if (resp.status === 200) {
+                        let fav_index = this.species.findIndex(
+                            specie => specie.id === id
+                        );
+                        this.species[fav_index].favourites_count
+                            ? (this.species[fav_index].favourites_count = 0)
+                            : (this.species[fav_index].favourites_count = 1);
                     }
-                }
-            });
+                })
+                .catch(err => console.log(err));
         }
     },
     props: {
-        species: {
+        speciesProp: {
             type: Array,
             required: true
         },
@@ -197,14 +184,19 @@ export default {
             required: true
         }
     },
-    // created() {
-    //     this.species = this.speciesProp;
-    // },
+    data() {
+        return {
+            species: []
+        };
+    },
+    created() {
+        this.species = this.speciesProp;
+    },
     beforeRouteEnter: (to, from, next) => {
         speciesService
             .fetchAlbanianSpecies()
             .then(resp => {
-                to.params.species = resp.data.data;
+                to.params.speciesProp = resp.data.data;
                 to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page

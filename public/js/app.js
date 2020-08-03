@@ -2436,10 +2436,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2456,36 +2452,26 @@ __webpack_require__.r(__webpack_exports__);
         };
       })["catch"](function (err) {
         return console.log(err);
-      }); // axios
-      //     .get("/albanian?page=" + this.pagination.current_page)
-      //     .then(response => {
-      //         this.species = response.data.data.data;
-      //         this.pagination = {
-      //             ...this.pagination,
-      //             last_page: resp.data.last_page
-      //         };
-      //     })
-      //     .catch(error => {
-      //         console.log(error);
-      //     });
+      });
     },
-    Favourite: function Favourite(specie_id) {
+    favourite: function favourite(id) {
       var _this2 = this;
 
-      axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
-        console.log(data);
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].favourite(id).then(function (resp) {
+        if (resp.status === 200) {
+          var fav_index = _this2.species.findIndex(function (specie) {
+            return specie.id === id;
+          });
 
-        for (var i = 0; i < _this2.species.length; i++) {
-          if (_this2.species[i].id === specie_id) {
-            if (_this2.species[i].favourites.length) _this2.species[i].favourites = [];else _this2.species[i].favourites.push(1);
-            break;
-          }
+          _this2.species[fav_index].favourites_count ? _this2.species[fav_index].favourites_count = 0 : _this2.species[fav_index].favourites_count = 1;
         }
+      })["catch"](function (err) {
+        return console.log(err);
       });
     }
   },
   props: {
-    species: {
+    speciesProp: {
       type: Array,
       required: true
     },
@@ -2494,12 +2480,17 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  // created() {
-  //     this.species = this.speciesProp;
-  // },
+  data: function data() {
+    return {
+      species: []
+    };
+  },
+  created: function created() {
+    this.species = this.speciesProp;
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchAlbanianSpecies().then(function (resp) {
-      to.params.species = resp.data.data;
+      to.params.speciesProp = resp.data.data;
       to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
@@ -2527,12 +2518,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/FamilyService.js */ "./resources/js/src/services/FamilyService.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2630,11 +2615,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies(this.pagination.current_page).then(function (resp) {
-        console.log(resp);
         _this.families = resp.data.data;
-        _this.pagination = _objectSpread(_objectSpread({}, _this.pagination), {}, {
+        _this.pagination = {
+          current_page: resp.data.current_page,
           last_page: resp.data.last_page
-        });
+        };
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -2650,10 +2635,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  // created() {
-  //     this.pagination = this.paginationProp;
-  //     this.families = this.familiesProp;
-  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies().then(function (resp) {
       to.params.families = resp.data.data;
@@ -2842,6 +2823,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2856,35 +2838,26 @@ __webpack_require__.r(__webpack_exports__);
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
-      }); //     axios
-      //         .get("/favourites?page=" + this.pagination.current_page)
-      //         .then(response => {
-      //             console.log(response);
-      //             this.favourites = response.data.data.data;
-      //             this.pagination = response.data.pagination;
-      //         })
-      //         .catch(err => {
-      //             console.log(error.response.data);
-      //         });
+      });
     },
-    Favourite: function Favourite(specie_id) {
+    removeFavourite: function removeFavourite(id) {
       var _this2 = this;
 
-      axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
-        console.log(data);
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].favourite(id).then(function (resp) {
+        if (resp.status === 200) {
+          var fav_index = _this2.favourites.findIndex(function (specie) {
+            return specie.specie_id === id;
+          });
 
-        for (var i = 0; i < _this2.favourites.length; i++) {
-          if (_this2.favourites[i].specie_id === specie_id) {
-            _this2.favourites.splice(_this2.favourites.indexOf(_this2.favourites[i]), 1);
-
-            break;
-          }
+          _this2.favourites.splice(fav_index, 1);
         }
+      })["catch"](function (err) {
+        return console.log(err);
       });
     }
   },
   props: {
-    favourites: {
+    favouritesProp: {
       type: Array,
       required: true
     },
@@ -2893,12 +2866,17 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  // created() {
-  //     this.favourites = this.favouritesProp;
-  // },
+  data: function data() {
+    return {
+      favourites: []
+    };
+  },
+  created: function created() {
+    this.favourites = this.favouritesProp;
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFavourites().then(function (resp) {
-      to.params.favourites = resp.data.data;
+      to.params.favouritesProp = resp.data.data;
       to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
@@ -2909,8 +2887,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   components: {
-    pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"] // svgIcon
-
+    pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -3058,10 +3035,6 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  // created() {
-  //     this.genera = this.generaProp;
-  //     this.pagination = this.paginationProp;
-  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera().then(function (resp) {
       to.params.genera = resp.data.data;
@@ -3267,10 +3240,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3289,18 +3258,19 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(err);
       });
     },
-    favSpecies: function favSpecies(specie_id) {
+    favourite: function favourite(id) {
       var _this2 = this;
 
-      axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
-        console.log(data);
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].favourite(id).then(function (resp) {
+        if (resp.status === 200) {
+          var fav_index = _this2.species.findIndex(function (specie) {
+            return specie.id === id;
+          });
 
-        for (var i = 0; i < _this2.species.length; i++) {
-          if (_this2.species[i].id === specie_id) {
-            if (_this2.species[i].favourites.length) _this2.species[i].favourites = [];else _this2.species[i].favourites.push(1);
-            break;
-          }
+          _this2.species[fav_index].favourites_count ? _this2.species[fav_index].favourites_count = 0 : _this2.species[fav_index].favourites_count = 1;
         }
+      })["catch"](function (err) {
+        return console.log(err);
       });
     },
     deleteSpecie: function deleteSpecie(id) {
@@ -3311,14 +3281,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  // data() {
-  //     return {
-  //         species: [],
-  //         pagination: {}
-  //     };
-  // },
+  data: function data() {
+    return {
+      species: []
+    };
+  },
   props: {
-    species: {
+    speciesProp: {
       type: Array,
       required: true
     },
@@ -3327,13 +3296,12 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  // created() {
-  //     this.species = this.speciesProp;
-  //     this.pagination = this.paginationProp;
-  // },
+  created: function created() {
+    this.species = this.speciesProp;
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies().then(function (resp) {
-      to.params.species = resp.data.data;
+      to.params.speciesProp = resp.data.data;
       to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
@@ -41547,12 +41515,12 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.favSpecies(specie.id)
+                                          return _vm.favourite(specie.id)
                                         }
                                       }
                                     },
                                     [
-                                      specie.favourites.length > 0
+                                      specie.favourites_count
                                         ? _c("inline-svg", {
                                             attrs: {
                                               name: "star-solid",
@@ -41889,8 +41857,8 @@ var render = function() {
                                         to: {
                                           name: "species.show",
                                           params: {
-                                            specie: _vm.specie,
-                                            id: _vm.specie.id
+                                            specie: favourite.specie,
+                                            id: favourite.specie.id
                                           }
                                         }
                                       }
@@ -41898,9 +41866,9 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                                                " +
-                                          _vm._s(_vm.specie.genera.name) +
+                                          _vm._s(favourite.specie.genera.name) +
                                           "\n                                                " +
-                                          _vm._s(_vm.specie.name) +
+                                          _vm._s(favourite.specie.name) +
                                           "\n                                            "
                                       )
                                     ]
@@ -41919,15 +41887,15 @@ var render = function() {
                                         to: {
                                           name: "genera.show",
                                           params: {
-                                            genus: _vm.specie.genera,
-                                            id: _vm.specie.genera.id
+                                            genus: favourite.specie.genera,
+                                            id: favourite.specie.genera.id
                                           }
                                         }
                                       }
                                     },
                                     [
                                       _vm._v(
-                                        _vm._s(_vm.specie.genera.name) +
+                                        _vm._s(favourite.specie.genera.name) +
                                           "\n                                            "
                                       )
                                     ]
@@ -41946,8 +41914,10 @@ var render = function() {
                                         to: {
                                           name: "families.show",
                                           params: {
-                                            family: _vm.specie.genera.family,
-                                            id: _vm.specie.genera.family.id
+                                            family:
+                                              favourite.specie.genera.family,
+                                            id:
+                                              favourite.specie.genera.family.id
                                           }
                                         }
                                       }
@@ -41956,7 +41926,7 @@ var render = function() {
                                       _vm._v(
                                         "\n                                                " +
                                           _vm._s(
-                                            _vm.specie.genera.family.name
+                                            favourite.specie.genera.family.name
                                           ) +
                                           "\n                                            "
                                       )
@@ -41994,28 +41964,21 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.favSpecies(_vm.specie.id)
+                                          return _vm.removeFavourite(
+                                            favourite.specie.id
+                                          )
                                         }
                                       }
                                     },
                                     [
-                                      _vm.specie.favourites.length > 0
-                                        ? _c("inline-svg", {
-                                            attrs: {
-                                              name: "star-solid",
-                                              width: "30",
-                                              height: "30",
-                                              src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
-                                            }
-                                          })
-                                        : _c("inline-svg", {
-                                            attrs: {
-                                              src: __webpack_require__(/*! ../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
-                                              width: "30",
-                                              height: "30",
-                                              name: "star-regular"
-                                            }
-                                          })
+                                      _c("inline-svg", {
+                                        attrs: {
+                                          name: "star-solid",
+                                          width: "30",
+                                          height: "30",
+                                          src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                        }
+                                      })
                                     ],
                                     1
                                   )
@@ -42474,12 +42437,12 @@ var render = function() {
                                       staticClass: "stary",
                                       on: {
                                         click: function($event) {
-                                          return _vm.favSpecies(specie.id)
+                                          return _vm.favourite(specie.id)
                                         }
                                       }
                                     },
                                     [
-                                      specie.favourites.length > 0
+                                      specie.favourites_count
                                         ? _c("inline-svg", {
                                             attrs: {
                                               name: "star-solid",
@@ -59569,14 +59532,14 @@ var routes = [{
     name: "species.form",
     path: "species/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
     },
     props: true
   }, {
     name: "species.show",
     path: "species/:id",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesShow.vue */ "./resources/js/src/views/Species/SpeciesShow.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesShow.vue */ "./resources/js/src/views/Species/SpeciesShow.vue"));
     },
     props: true
   }, {
@@ -59618,7 +59581,7 @@ var routes = [{
     name: "maps.index",
     path: "/maps/",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     }
   }]
 }];
@@ -59800,6 +59763,9 @@ var speciesService = {
   fetchFavourites: function fetchFavourites() {
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/favourites?page=".concat(page));
+  },
+  favourite: function favourite(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/favourites/".concat(id));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (speciesService);

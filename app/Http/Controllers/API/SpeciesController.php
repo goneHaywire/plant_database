@@ -6,6 +6,7 @@ use App\Genera;
 use App\Http\Controllers\Controller;
 use App\Specie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SpeciesController extends Controller
 {
@@ -16,7 +17,9 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        return Specie::with(['genera', 'genera.family', 'favourites'])->paginate(20);
+        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        }])->paginate(20);
     }
 
     // public function favouritesIndex()
@@ -28,7 +31,9 @@ class SpeciesController extends Controller
 
     public function albanianIndex()
     {
-        return Specie::with(['genera', 'genera.family', 'favourites'])
+        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        }])
             ->where('in_albania', 1)
             ->paginate(20);
     }

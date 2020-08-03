@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     ]);
     Route::get('/stats', 'API\HomeController@stats');
     Route::get('/favourites', 'API\UserController@favouritesIndex');
+    Route::post('/favourites/{id}', 'API\UserController@favouriteSpecie');
     Route::get('/albanian', 'API\SpeciesController@albanianIndex');
 });
 
