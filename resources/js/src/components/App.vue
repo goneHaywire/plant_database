@@ -1,5 +1,5 @@
 <template>
-<div id="main-wrapper">
+    <div id="main-wrapper">
         <!-- <header class="topbar" data-navbarbg="skin4">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin4">
@@ -209,15 +209,10 @@
             </footer>
         </div>
     </div>
-    </div>
-
 </template>
 
 <script>
-import 'nprogress/nprogress.css'
-
 export default {};
 </script>
 
-<style>
-</style>
+<style></style>
