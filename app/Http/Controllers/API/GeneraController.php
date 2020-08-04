@@ -56,7 +56,7 @@ class GeneraController extends Controller
         $genera->family_id = $request->get('family_id');
         $genera->save();
 
-        return $genera;
+        return Genera::with('family')->find($genera->id);
     }
 
     /**

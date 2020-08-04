@@ -126,12 +126,28 @@ export default {
             if (!this.editing) {
                 generaService
                     .createGenre(this.genus)
-                    .then(resp => console.log(resp))
+                    .then(resp => {
+                        this.$router.push({
+                            name: "genera.show",
+                            params: {
+                                genus: resp.data,
+                                id: resp.data.id
+                            }
+                        });
+                    })
                     .catch(err => console.log(err));
             } else {
                 generaService
                     .updateGenera(this.genus)
-                    .then(resp => console.log(resp))
+                    .then(resp => {
+                        this.$router.push({
+                            name: "genera.show",
+                            params: {
+                                genus: resp.data,
+                                id: resp.data.id
+                            }
+                        });
+                    })
                     .catch(err => console.log(err));
             }
         }

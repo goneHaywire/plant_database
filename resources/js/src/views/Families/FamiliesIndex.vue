@@ -56,7 +56,12 @@
                                                 >
                                                     Update
                                                 </router-link>
-                                                <div class="btn btn-danger">
+                                                <div
+                                                    class="btn btn-danger"
+                                                    @click="
+                                                        deleteFamily(family.id)
+                                                    "
+                                                >
                                                     Delete
                                                 </div>
                                             </td>
@@ -104,10 +109,21 @@ export default {
                     };
                 })
                 .catch(err => console.log(err));
+        },
+        deleteFamily(id) {
+            familyService
+                .deleteFamily(id)
+                .then(resp => {
+                    console.log(resp);
+                    this.families = this.families.filter(
+                        family => family.id !== id
+                    );
+                })
+                .catch(err => console.log(err));
         }
     },
     props: {
-        families: {
+        familiesProp: {
             type: Array,
             required: true
         },
@@ -116,11 +132,19 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            families: []
+        };
+    },
+    created() {
+        this.families = this.familiesProp;
+    },
     beforeRouteEnter: (to, from, next) => {
         familyService
             .fetchFamilies()
             .then(resp => {
-                to.params.families = resp.data.data;
+                to.params.familiesProp = resp.data.data;
                 to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page

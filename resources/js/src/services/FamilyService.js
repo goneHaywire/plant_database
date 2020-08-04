@@ -10,7 +10,7 @@ var familyService = {
     updateFamily: family =>
         ApiClient.put(`/families/${family.id}`, JSON.stringify(family)),
     deleteFamily: id =>
-        ApiClient.delete(`/family/${id}`),
+        ApiClient.delete(`/families/${id}`),
     getAllFamilies: () =>
         ApiClient.get('/families/all'),
     getGeneraOfFamily: id =>

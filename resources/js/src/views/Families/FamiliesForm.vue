@@ -150,12 +150,28 @@ export default {
             if (!this.editing) {
                 familyService
                     .createFamily(this.family)
-                    .then(resp => console.log(resp))
+                    .then(resp => {
+                        this.$router.push({
+                            name: "families.show",
+                            params: {
+                                family: resp.data,
+                                id: resp.data.id
+                            }
+                        });
+                    })
                     .catch(err => console.log(err));
             } else {
                 familyService
                     .updateFamily(this.family)
-                    .then(resp => console.log(resp))
+                    .then(resp =>
+                        this.$router.push({
+                            name: "families.show",
+                            params: {
+                                family: resp.data,
+                                id: resp.data.id
+                            }
+                        })
+                    )
                     .catch(err => console.log(err));
             }
         }

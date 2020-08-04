@@ -2606,6 +2606,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2623,10 +2628,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    deleteFamily: function deleteFamily(id) {
+      var _this2 = this;
+
+      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteFamily(id).then(function (resp) {
+        console.log(resp);
+        _this2.families = _this2.families.filter(function (family) {
+          return family.id !== id;
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   },
   props: {
-    families: {
+    familiesProp: {
       type: Array,
       required: true
     },
@@ -2635,9 +2652,17 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+  data: function data() {
+    return {
+      families: []
+    };
+  },
+  created: function created() {
+    this.families = this.familiesProp;
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies().then(function (resp) {
-      to.params.families = resp.data.data;
+      to.params.familiesProp = resp.data.data;
       to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
@@ -3006,6 +3031,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3023,10 +3053,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    deleteGenera: function deleteGenera(id) {
+      var _this2 = this;
+
+      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteGenre(id).then(function (resp) {
+        _this2.genera = _this2.genera.filter(function (genre) {
+          return genre.id !== id;
+        });
+        console.log(resp);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   },
   props: {
-    genera: {
+    generaProp: {
       type: Array,
       required: true
     },
@@ -3035,9 +3077,17 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
+  data: function data() {
+    return {
+      genera: []
+    };
+  },
+  created: function created() {
+    this.genera = this.generaProp;
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera().then(function (resp) {
-      to.params.genera = resp.data.data;
+      to.params.generaProp = resp.data.data;
       to.params.pagination = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
@@ -3274,8 +3324,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteSpecie: function deleteSpecie(id) {
+      var _this3 = this;
+
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteSpecie(id).then(function (resp) {
-        return console.log(resp);
+        _this3.species = _this3.species.filter(function (specie) {
+          return specie.id !== id;
+        });
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -41726,11 +41780,22 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "btn btn-danger" }, [
-                                    _vm._v(
-                                      "\n                                                Delete\n                                            "
-                                    )
-                                  ])
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteFamily(family.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Delete\n                                            "
+                                      )
+                                    ]
+                                  )
                                 ],
                                 1
                               )
@@ -42200,11 +42265,22 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "btn btn-danger" }, [
-                                    _vm._v(
-                                      "\n                                                Delete\n                                            "
-                                    )
-                                  ])
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteGenera(genus.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                Delete\n                                            "
+                                      )
+                                    ]
+                                  )
                                 ],
                                 1
                               )
@@ -42477,7 +42553,7 @@ var render = function() {
                                           name: "species.form",
                                           params: {
                                             editing: true,
-                                            specie: specie
+                                            specieProp: specie
                                           }
                                         }
                                       }
@@ -59484,7 +59560,8 @@ var routes = [{
     path: "/",
     component: function component() {
       return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/HomeView.vue */ "./resources/js/src/views/HomeView.vue"));
-    }
+    },
+    props: true
   }, {
     name: "families.index",
     path: "families",
@@ -59679,7 +59756,7 @@ var familyService = {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].put("/families/".concat(family.id), JSON.stringify(family));
   },
   deleteFamily: function deleteFamily(id) {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/family/".concat(id));
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/families/".concat(id));
   },
   getAllFamilies: function getAllFamilies() {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/families/all');
@@ -59793,11 +59870,15 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   state: {
-    user: null
+    user: null,
+    stats: null
   },
   getters: {
     getUser: function getUser(state) {
       return state.user;
+    },
+    getStats: function getStats(state) {
+      return state.stats;
     }
   },
   mutations: {
@@ -59810,6 +59891,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
       state.user = null;
       _services_Api__WEBPACK_IMPORTED_MODULE_2__["default"].defaults.headers.common['Authorization'] = "j";
       localStorage.removeItem('user');
+    },
+    SET_STATS: function SET_STATS(state, stats) {
+      return state.stats = stats;
+    },
+    SET_STAT: function SET_STAT(state, stat, value) {
+      return state.stats[stat] = value;
     }
   },
   actions: {
@@ -59822,6 +59909,15 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
       var commit = _ref2.commit;
       commit('CLEAR_USER_DATA');
       _router_router__WEBPACK_IMPORTED_MODULE_3__["default"].push('/login');
+    },
+    setStats: function setStats(_ref3, stats) {
+      var commit = _ref3.commit;
+      commit('SET_STATS', stats);
+    },
+    setStat: function setStat(_ref4, stat, value) {
+      var commit = _ref4.commit;
+      console.log('u vune!');
+      commit('SET_STAT', stat, value);
     }
   }
 });

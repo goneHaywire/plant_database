@@ -22,13 +22,6 @@ class SpeciesController extends Controller
         }])->paginate(20);
     }
 
-    // public function favouritesIndex()
-    // {
-    //     return Specie::with(['genera', 'genera.family', 'favourites'])
-    //         ->where('in_albania', 1)
-    //         ->paginate(20);
-    // }
-
     public function albanianIndex()
     {
         return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
@@ -83,7 +76,7 @@ class SpeciesController extends Controller
         $specie->genera_name = $request->get('genera')['name'];
         $specie->save();
 
-        return $specie;
+        return Specie::with(['genera', 'genera.family'])->find($specie->id);
     }
 
     /**

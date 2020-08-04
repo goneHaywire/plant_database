@@ -135,7 +135,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $family_count }}
+                                    {{ stats.family_count }}
                                 </h3>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $genera_count }}
+                                    {{ stats.genera_count }}
                                 </h3>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $species_count }}
+                                    {{ stats.species_count }}
                                 </h3>
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $albanian_count }}
+                                    {{ stats.albanian_count }}
                                 </h3>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $user_count }}
+                                    {{ stats.user_count }}
                                 </h3>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                 class="col-md-6 border-left text-center p-t-10"
                             >
                                 <h3 class="mb-0 font-weight-bold">
-                                    {{ $favourites_count }}
+                                    {{ stats.favourites_count }}
                                 </h3>
                             </div>
                         </div>
@@ -256,6 +256,7 @@
 
 <script>
 import clientApi from "../services/Api";
+import store from "../store/store";
 
 export default {
     name: "HomeView",
@@ -265,14 +266,37 @@ export default {
             clientApi.get("families").then(data => console.log(data));
         }
     },
+    props: {
+        stats: {
+            required: true,
+            type: Object
+        }
+    },
     data() {
         return {
             token: ""
+            // stats: {}
         };
     },
     created() {
         console.log("token!!!");
         this.token = JSON.parse(localStorage.getItem("user")).access_token;
+    },
+    beforeRouteEnter: (to, from, next) => {
+        console.log(store);
+        if (!!store.getters.getStats) {
+            console.log("e ka!");
+            console.log(store.getters.getStats);
+            to.params.stats = store.getters.getStats;
+            next();
+        } else {
+            clientApi.get("/stats").then(resp => {
+                console.log("se ka!");
+                to.params.stats = resp.data;
+                store.dispatch("setStats", resp.data);
+                next();
+            });
+        }
     }
 };
 </script>

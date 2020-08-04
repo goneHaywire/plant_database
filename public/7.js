@@ -136,15 +136,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postGenus: function postGenus() {
+      var _this = this;
+
       if (!this.editing) {
         _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].createGenre(this.genus).then(function (resp) {
-          return console.log(resp);
+          _this.$router.push({
+            name: "genera.show",
+            params: {
+              genus: resp.data,
+              id: resp.data.id
+            }
+          });
         })["catch"](function (err) {
           return console.log(err);
         });
       } else {
         _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].updateGenera(this.genus).then(function (resp) {
-          return console.log(resp);
+          _this.$router.push({
+            name: "genera.show",
+            params: {
+              genus: resp.data,
+              id: resp.data.id
+            }
+          });
         })["catch"](function (err) {
           return console.log(err);
         });
@@ -152,10 +166,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getAllFamilies().then(function (resp) {
-      _this.families = resp.data;
+      _this2.families = resp.data;
     });
   }
 });

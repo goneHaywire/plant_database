@@ -8,9 +8,11 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         user: null,
+        stats: null
     },
     getters: {
-        getUser: (state) => state.user
+        getUser: (state) => state.user,
+        getStats: (state) => state.stats
     },
     mutations: {
         SET_USER_DATA: (state, user) => {
@@ -22,7 +24,9 @@ const store = new Vuex.Store({
             state.user = null
             apiClient.defaults.headers.common['Authorization'] = `j`
             localStorage.removeItem('user')
-        }
+        },
+        SET_STATS: (state, stats) => state.stats = stats,
+        SET_STAT: (state, stat, value) => state.stats[stat] = value
     },
     actions: {
         login: function ({
@@ -36,6 +40,17 @@ const store = new Vuex.Store({
         }) => {
             commit('CLEAR_USER_DATA')
             router.push('/login')
+        },
+        setStats: ({
+            commit
+        }, stats) => {
+            commit('SET_STATS', stats)
+        },
+        setStat: ({
+            commit
+        }, stat, value) => {
+            console.log('u vune!')
+            commit('SET_STAT', stat, value)
         }
     }
 })

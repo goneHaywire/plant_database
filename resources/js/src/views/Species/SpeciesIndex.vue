@@ -126,7 +126,7 @@
                                                         name: 'species.form',
                                                         params: {
                                                             editing: true,
-                                                            specie
+                                                            specieProp: specie
                                                         }
                                                     }"
                                                     class="btn btn-primary"
@@ -210,7 +210,11 @@ export default {
         deleteSpecie(id) {
             speciesService
                 .deleteSpecie(id)
-                .then(resp => console.log(resp))
+                .then(resp => {
+                    this.species = this.species.filter(
+                        specie => specie.id !== id
+                    );
+                })
                 .catch(err => console.log(err));
         }
     },

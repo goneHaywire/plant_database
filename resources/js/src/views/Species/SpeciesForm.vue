@@ -199,7 +199,7 @@ import familyService from "../../services/FamilyService";
 export default {
     name: "SpeciesForm",
     props: {
-        specie: {
+        specieProp: {
             type: Object,
             default: () => {
                 return {
@@ -218,7 +218,12 @@ export default {
         return {
             families: [],
             genera: [],
-            selected_family: 0
+            selected_family: 0,
+            specie: {
+                genera: {
+                    family: {}
+                }
+            }
         };
     },
     methods: {
@@ -226,17 +231,31 @@ export default {
             if (!this.editing) {
                 speciesService
                     .createSpecie(this.specie)
-                    .then(resp => console.log(resp))
+                    .then(resp => {
+                        this.$router.push({
+                            name: "species.show",
+                            params: {
+                                id: resp.data.id,
+                                specie: resp.data
+                            }
+                        });
+                    })
                     .catch(err => console.log(err));
             } else {
-                speciesService
-                    .updateSpecie(this.specie)
-                    .then(resp => console.log(resp))
-                    .catch(err => console.log(err));
+                speciesService.updateSpecie(this.specie).then(resp => {
+                    this.$router.push({
+                        name: "species.show",
+                        params: {
+                            id: resp.data.id,
+                            specie: resp.data
+                        }
+                    });
+                });
             }
         }
     },
     created() {
+        this.specie = this.specieProp;
         familyService.getAllFamilies().then(resp => {
             this.families = resp.data;
         });

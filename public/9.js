@@ -10,6 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/Api */ "./resources/js/src/services/Api.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/store */ "./resources/js/src/store/store.js");
 //
 //
 //
@@ -267,6 +268,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeView",
   methods: {
@@ -277,14 +279,38 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  props: {
+    stats: {
+      required: true,
+      type: Object
+    }
+  },
   data: function data() {
     return {
-      token: ""
+      token: "" // stats: {}
+
     };
   },
   created: function created() {
     console.log("token!!!");
     this.token = JSON.parse(localStorage.getItem("user")).access_token;
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    console.log(_store_store__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+    if (!!_store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats) {
+      console.log("e ka!");
+      console.log(_store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats);
+      to.params.stats = _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats;
+      next();
+    } else {
+      _services_Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/stats").then(function (resp) {
+        console.log("se ka!");
+        to.params.stats = resp.data;
+        _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("setStats", resp.data);
+        next();
+      });
+    }
   }
 });
 
@@ -528,7 +554,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$family_count) +
+                          _vm._s(_vm.stats.family_count) +
                           "\n                            "
                       )
                     ])
@@ -550,7 +576,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$genera_count) +
+                          _vm._s(_vm.stats.genera_count) +
                           "\n                            "
                       )
                     ])
@@ -572,7 +598,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$species_count) +
+                          _vm._s(_vm.stats.species_count) +
                           "\n                            "
                       )
                     ])
@@ -594,7 +620,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$albanian_count) +
+                          _vm._s(_vm.stats.albanian_count) +
                           "\n                            "
                       )
                     ])
@@ -616,7 +642,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$user_count) +
+                          _vm._s(_vm.stats.user_count) +
                           "\n                            "
                       )
                     ])
@@ -638,7 +664,7 @@ var render = function() {
                     _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
                       _vm._v(
                         "\n                                " +
-                          _vm._s(_vm.$favourites_count) +
+                          _vm._s(_vm.stats.favourites_count) +
                           "\n                            "
                       )
                     ])

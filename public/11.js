@@ -210,7 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesForm",
   props: {
-    specie: {
+    specieProp: {
       type: Object,
       "default": function _default() {
         return {
@@ -231,46 +231,64 @@ __webpack_require__.r(__webpack_exports__);
     return {
       families: [],
       genera: [],
-      selected_family: 0
+      selected_family: 0,
+      specie: {
+        genera: {
+          family: {}
+        }
+      }
     };
   },
   methods: {
     postSpecie: function postSpecie() {
+      var _this = this;
+
       if (!this.editing) {
         _services_SpeciesService__WEBPACK_IMPORTED_MODULE_0__["default"].createSpecie(this.specie).then(function (resp) {
-          return console.log(resp);
+          _this.$router.push({
+            name: "species.show",
+            params: {
+              id: resp.data.id,
+              specie: resp.data
+            }
+          });
         })["catch"](function (err) {
           return console.log(err);
         });
       } else {
         _services_SpeciesService__WEBPACK_IMPORTED_MODULE_0__["default"].updateSpecie(this.specie).then(function (resp) {
-          return console.log(resp);
-        })["catch"](function (err) {
-          return console.log(err);
+          _this.$router.push({
+            name: "species.show",
+            params: {
+              id: resp.data.id,
+              specie: resp.data
+            }
+          });
         });
       }
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
+    this.specie = this.specieProp;
     _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getAllFamilies().then(function (resp) {
-      _this.families = resp.data;
+      _this2.families = resp.data;
     });
 
     if (this.editing) {
       _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getGeneraOfFamily(this.specie.genera.family.id).then(function (resp) {
-        return _this.genera = resp.data;
+        return _this2.genera = resp.data;
       });
     }
   },
   watch: {
     "specie.genera.family.id": function specieGeneraFamilyId() {
-      var _this2 = this;
+      var _this3 = this;
 
       // this.specie.genera.family.id = this.selected_family;
       _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getGeneraOfFamily(this.specie.genera.family.id).then(function (resp) {
-        return _this2.genera = resp.data;
+        return _this3.genera = resp.data;
       });
     }
   }

@@ -159,15 +159,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postFamily: function postFamily() {
+      var _this = this;
+
       if (!this.editing) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].createFamily(this.family).then(function (resp) {
-          return console.log(resp);
+          _this.$router.push({
+            name: "families.show",
+            params: {
+              family: resp.data,
+              id: resp.data.id
+            }
+          });
         })["catch"](function (err) {
           return console.log(err);
         });
       } else {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].updateFamily(this.family).then(function (resp) {
-          return console.log(resp);
+          return _this.$router.push({
+            name: "families.show",
+            params: {
+              family: resp.data,
+              id: resp.data.id
+            }
+          });
         })["catch"](function (err) {
           return console.log(err);
         });

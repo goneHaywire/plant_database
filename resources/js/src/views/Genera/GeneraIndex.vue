@@ -69,7 +69,12 @@
                                                 >
                                                     Update
                                                 </router-link>
-                                                <div class="btn btn-danger">
+                                                <div
+                                                    class="btn btn-danger"
+                                                    @click="
+                                                        deleteGenera(genus.id)
+                                                    "
+                                                >
                                                     Delete
                                                 </div>
                                             </td>
@@ -118,10 +123,19 @@ export default {
                     };
                 })
                 .catch(err => console.log(err));
+        },
+        deleteGenera(id) {
+            generaService
+                .deleteGenre(id)
+                .then(resp => {
+                    this.genera = this.genera.filter(genre => genre.id !== id);
+                    console.log(resp);
+                })
+                .catch(err => console.log(err));
         }
     },
     props: {
-        genera: {
+        generaProp: {
             type: Array,
             required: true
         },
@@ -130,11 +144,19 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            genera: []
+        };
+    },
+    created() {
+        this.genera = this.generaProp;
+    },
     beforeRouteEnter: (to, from, next) => {
         generaService
             .fetchGenera()
             .then(resp => {
-                to.params.genera = resp.data.data;
+                to.params.generaProp = resp.data.data;
                 to.params.pagination = {
                     current_page: resp.data.current_page,
                     last_page: resp.data.last_page
