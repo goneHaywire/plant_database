@@ -8,11 +8,19 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         user: null,
-        stats: null
+        stats: null,
+        soilPolygons: [],
+        areas: {},
+        areasArray: []
     },
     getters: {
         getUser: (state) => state.user,
-        getStats: (state) => state.stats
+        getStats: (state) => state.stats,
+        getSoilPolygons: (state) => state.soilPolygons,
+        // getSoilPolygonsLength: (state) => state.soilPolygons.length,
+        getAreas: state => state.areas,
+        getAreasArray: state => state.areasArray
+        // getAreasLength: state => state.areas.length
     },
     mutations: {
         SET_USER_DATA: (state, user) => {
@@ -26,7 +34,10 @@ const store = new Vuex.Store({
             localStorage.removeItem('user')
         },
         SET_STATS: (state, stats) => state.stats = stats,
-        SET_STAT: (state, stat, value) => state.stats[stat] = value
+        SET_STAT: (state, stat, value) => state.stats[stat] = value,
+        SET_SOIL_POLYGONS: (state, soilPolygons) => state.soilPolygons = soilPolygons,
+        SET_AREAS: (state, areas) => state.areas = areas,
+        SET_AREAS_ARRAY: (state, areasArray) => state.areasArray = areasArray,
     },
     actions: {
         login: function ({
@@ -51,7 +62,23 @@ const store = new Vuex.Store({
         }, stat, value) => {
             console.log('u vune!')
             commit('SET_STAT', stat, value)
+        },
+        setSoilPolygons: ({
+            commit
+        }, soilPolygons) => {
+            commit('SET_SOIL_POLYGONS', soilPolygons)
+        },
+        setAreas: ({
+            commit
+        }, areas) => {
+            commit('SET_AREAS', areas)
+        },
+        setAreasArray: ({
+            commit
+        }, areasArray) => {
+            commit('SET_AREAS_ARRAY', areasArray)
         }
+
     }
 })
 

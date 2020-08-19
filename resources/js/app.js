@@ -10,6 +10,7 @@ import store from "./src/store/store.js";
 import apiClient from "./src/services/Api.js";
 import authService from "./src/services/AuthService.js";
 import InlineSvg from 'vue-inline-svg';
+import 'leaflet/dist/leaflet.css';
 
 
 window.Vue = require("vue");

@@ -461,6 +461,12 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "sidebar-link",
+                { attrs: { "route-name": "maps.index", icon: "map" } },
+                [_vm._v("\n          Map\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "sidebar-link",
                 { attrs: { "route-name": "filter.index", icon: "search" } },
                 [_vm._v("Filter")]
               ),

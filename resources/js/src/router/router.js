@@ -9,6 +9,7 @@ import GeneraIndex from '../views/Genera/GeneraIndex.vue'
 import SpeciesIndex from '../views/Species/SpeciesIndex.vue'
 import AlbanianIndex from '../views/AlbanianIndex.vue'
 import FavouritesIndex from '../views/FavouritesView.vue'
+import MapsIndex from '../views/Maps/MapsIndex.vue'
 
 Vue.use(VueRouter);
 
@@ -115,8 +116,10 @@ const routes = [{
             },
             {
                 name: "maps.index",
-                path: "/maps/",
-                component: () => import('../views/Maps/MapsIndex.vue')
+                path: "/maps",
+                component: () => import('../views/Maps/MapsIndex.vue'),
+                // component: MapsIndex,
+                props: true
             }
         ]
     }

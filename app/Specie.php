@@ -22,6 +22,11 @@ class Specie extends Model
         return $this->hasMany('App\Favourite');
     }
 
+    public function polygons()
+    {
+        return $this->hasMany('App\Polygon');
+    }
+
     public function photos()
     {
         return $this->hasMany('App\Photos');

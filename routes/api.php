@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/favourites', 'API\UserController@favouritesIndex');
     Route::post('/favourites/{id}', 'API\UserController@favouriteSpecie');
     Route::get('/albanian', 'API\SpeciesController@albanianIndex');
+    Route::get('/areas', 'API\MapController@areas');
+    Route::get('/polygons/soil', 'API\MapController@soil_polygons');
+    Route::get('/polygons/specie/{specie}', 'API\MapController@specie_polygons');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
