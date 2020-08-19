@@ -1,21 +1,26 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _services_AuthService_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/AuthService.js */ "./resources/js/src/services/AuthService.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_MapService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/MapService */ "./resources/js/src/services/MapService.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/store */ "./resources/js/src/store/store.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -111,105 +116,162 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+ // import { mapGetters } from "vuex";
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "LoginPage",
+  name: "MapsIndex",
+  props: {
+    specieProp: {
+      type: Object
+    },
+    polygons: {
+      type: Array,
+      required: true
+    },
+    areas: {
+      type: Object,
+      required: true
+    },
+    layersProp: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {// ...mapGetters(["getSoilPolygons"]),
+  },
   data: function data() {
     return {
-      email: undefined,
-      password: undefined
+      layers: {},
+      selectedSpecie: undefined,
+      zoom: 7,
+      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"])(41.09591205639546, 20.026783401808004),
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      currentZoom: 11.5,
+      currentCenter: Object(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"])(47.41322, -1.219482),
+      mapOptions: {
+        zoomSnap: 0.5
+      }
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["login"])), {}, {
-    handleLogin: function handleLogin() {
-      var _this = this;
-
-      var payload = {
-        email: this.email,
-        password: this.password
-      };
-      var user = {};
-      _services_AuthService_js__WEBPACK_IMPORTED_MODULE_1__["default"].login(payload).then(function (data) {
-        var user = {
-          access_token: data.data.access_token,
-          id: data.data.user.id,
-          name: data.data.user.name,
-          email: data.data.user.email
-        };
-
-        _this.login(user);
-      });
+  methods: {
+    zoomUpdate: function zoomUpdate(zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate: function centerUpdate(center) {
+      this.currentCenter = center;
     }
-  })
+  },
+  created: function created() {
+    this.selectedSpecie = this.specieProp;
+    this.layers = this.layersProp;
+  },
+  beforeRouteEnter: function () {
+    var _beforeRouteEnter = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(to, from, next) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (Object.keys(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getAreas).length) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
+              return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getAreas().then(function (resp) {
+                var areas = {};
+                var layers = {}; // separate areas
+
+                areas.soils = resp.data.filter(function (area) {
+                  return area.type === "soils";
+                });
+                areas.specie_status = resp.data.filter(function (area) {
+                  return area.type === "specie_status";
+                }); // create layers object
+
+                resp.data.forEach(function (area) {
+                  return layers[area.name] = false;
+                });
+                _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("setAreasArray", layers);
+                _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("setAreas", areas);
+                to.params.areas = areas;
+                to.params.layersProp = layers;
+              });
+
+            case 3:
+              _context.next = 7;
+              break;
+
+            case 5:
+              to.params.areas = _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getAreas;
+              to.params.layersProp = Object.assign({}, _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getAreasArray);
+
+            case 7:
+              if (_store_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getSoilPolygons.length) {
+                _context.next = 12;
+                break;
+              }
+
+              _context.next = 10;
+              return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSoilPolygons().then(function (resp) {
+                _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("setSoilPolygons", resp.data);
+                to.params.polygons = resp.data;
+              });
+
+            case 10:
+              _context.next = 13;
+              break;
+
+            case 12:
+              to.params.polygons = _store_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getSoilPolygons;
+
+            case 13:
+              if (!to.params.specieProp) {
+                _context.next = 16;
+                break;
+              }
+
+              _context.next = 16;
+              return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(to.params.specieProp.id).then(function (resp) {
+                to.params.polygons = to.params.polygons.concat(resp.data);
+              });
+
+            case 16:
+              next();
+
+            case 17:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function beforeRouteEnter(_x, _x2, _x3) {
+      return _beforeRouteEnter.apply(this, arguments);
+    }
+
+    return beforeRouteEnter;
+  }(),
+  components: {
+    LMap: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LMap"],
+    LTileLayer: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LTileLayer"],
+    LMarker: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LMarker"],
+    LPopup: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LPopup"],
+    LTooltip: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LTooltip"],
+    LPolygon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_4__["LPolygon"]
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -221,282 +283,313 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass:
-          "auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark"
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "auth-box bg-dark border-top border-secondary" },
-          [
-            _c("div", { attrs: { id: "loginform" } }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  staticClass: "form-horizontal m-t-20",
-                  attrs: { id: "loginform", action: "index.html" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.handleLogin()
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "row p-b-30" }, [
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "input-group mb-3" }, [
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.email,
-                              expression: "email"
+  return _c(
+    "div",
+    [
+      _c("the-breadcrumbs", {
+        attrs: { paths: [{ name: "Map", route: "maps.index" }] },
+        scopedSlots: _vm._u([
+          {
+            key: "createBtn",
+            fn: function() {
+              return [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success ml-3",
+                    attrs: { tag: "div", to: { name: "maps.create" } }
+                  },
+                  [_vm._v("\n        Create Polygon\n      ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Map")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticStyle: { height: "600px", width: "100%" },
+                        attrs: { id: "map" }
+                      },
+                      [
+                        _c(
+                          "l-map",
+                          {
+                            staticStyle: { height: "90%" },
+                            attrs: {
+                              zoom: _vm.zoom,
+                              center: _vm.center,
+                              options: _vm.mapOptions
+                            },
+                            on: {
+                              "update:center": _vm.centerUpdate,
+                              "update:zoom": _vm.zoomUpdate
                             }
-                          ],
-                          staticClass: "form-control form-control-lg",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Username",
-                            "aria-label": "Username",
-                            "aria-describedby": "basic-addon1",
-                            required: ""
                           },
-                          domProps: { value: _vm.email },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                          [
+                            _c("l-tile-layer", {
+                              attrs: {
+                                url: _vm.url,
+                                attribution: _vm.attribution
                               }
-                              _vm.email = $event.target.value
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group mb-3" }, [
-                        _vm._m(2),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.password,
-                              expression: "password"
-                            }
+                            }),
+                            _vm._v(" "),
+                            _vm._l(_vm.polygons, function(polygon) {
+                              return _c("l-polygon", {
+                                key: polygon.id,
+                                attrs: {
+                                  visible: _vm.layers[polygon.area.name],
+                                  "lat-lngs": JSON.parse(polygon.coordinates),
+                                  color: polygon.area.color
+                                }
+                              })
+                            })
                           ],
-                          staticClass: "form-control form-control-lg",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Password",
-                            "aria-label": "Password",
-                            "aria-describedby": "basic-addon1",
-                            required: ""
-                          },
-                          domProps: { value: _vm.password },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.password = $event.target.value
-                            }
-                          }
-                        })
-                      ])
-                    ])
+                          2
+                        )
+                      ],
+                      1
+                    )
                   ]),
                   _vm._v(" "),
-                  _vm._m(3)
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(4)
-          ]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center p-t-20 p-b-20" }, [
-      _c("span", { staticClass: "db" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text bg-success text-white",
-          attrs: { id: "basic-addon1" }
-        },
-        [_c("i", { staticClass: "ti-user" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text bg-warning text-white",
-          attrs: { id: "basic-addon2" }
-        },
-        [_c("i", { staticClass: "ti-pencil" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row border-top border-secondary" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("div", { staticClass: "p-t-20" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-info",
-                attrs: { id: "to-recover", type: "button" }
-              },
-              [
-                _c("i", { staticClass: "fa fa-lock m-r-5" }),
-                _vm._v(
-                  "\n                                        Lost password?\n                                    "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success float-right",
-                attrs: { type: "submit" }
-              },
-              [
-                _vm._v(
-                  "\n                                        Login\n                                    "
-                )
-              ]
-            )
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-6" },
+                        [
+                          _c("h4", [_vm._v("Soil Types")]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _vm._l(_vm.areas.soils, function(soil) {
+                            return [
+                              _c("div", { key: soil.name }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.layers[soil.name],
+                                      expression: "layers[soil.name]"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "checkbox",
+                                    name: soil.name,
+                                    id: soil.name
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.layers[soil.name]
+                                    )
+                                      ? _vm._i(_vm.layers[soil.name], null) > -1
+                                      : _vm.layers[soil.name]
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.layers[soil.name],
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.layers,
+                                              soil.name,
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.layers,
+                                              soil.name,
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.layers, soil.name, $$c)
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: soil.name } }, [
+                                  _vm._v(_vm._s(soil.name))
+                                ])
+                              ])
+                            ]
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-md-6" },
+                        [
+                          [
+                            _c("h4", [_vm._v("Specie Status")]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _vm._l(_vm.areas.specie_status, function(
+                              specie_status
+                            ) {
+                              return [
+                                _c("div", { key: specie_status.name }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.layers[specie_status.name],
+                                        expression: "layers[specie_status.name]"
+                                      }
+                                    ],
+                                    attrs: {
+                                      type: "checkbox",
+                                      name: specie_status.name,
+                                      id: specie_status.name,
+                                      disabled: !_vm.selectedSpecie
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(
+                                        _vm.layers[specie_status.name]
+                                      )
+                                        ? _vm._i(
+                                            _vm.layers[specie_status.name],
+                                            null
+                                          ) > -1
+                                        : _vm.layers[specie_status.name]
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$a =
+                                            _vm.layers[specie_status.name],
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.layers,
+                                                specie_status.name,
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.layers,
+                                                specie_status.name,
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(
+                                            _vm.layers,
+                                            specie_status.name,
+                                            $$c
+                                          )
+                                        }
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      class: {
+                                        "text-muted": !_vm.selectedSpecie
+                                      },
+                                      attrs: { for: specie_status.name }
+                                    },
+                                    [_vm._v(_vm._s(specie_status.name))]
+                                  )
+                                ])
+                              ]
+                            })
+                          ]
+                        ],
+                        2
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "recoverform" } }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("span", { staticClass: "text-white" }, [
-          _vm._v(
-            "Enter your e-mail address below and we will send\n                        you instructions how to recover a password."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row m-t-20" }, [
-        _c("form", { staticClass: "col-12", attrs: { action: "index.html" } }, [
-          _c("div", { staticClass: "input-group mb-3" }, [
-            _c("div", { staticClass: "input-group-prepend" }, [
-              _c(
-                "span",
-                {
-                  staticClass: "input-group-text bg-danger text-white",
-                  attrs: { id: "basic-addon1" }
-                },
-                [_c("i", { staticClass: "ti-email" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control form-control-lg",
-              attrs: {
-                type: "text",
-                placeholder: "Email Address",
-                "aria-label": "Username",
-                "aria-describedby": "basic-addon1"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "row m-t-20 p-t-20 border-top border-secondary" },
-            [
-              _c("div", { staticClass: "col-12" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { href: "#", id: "to-login", name: "action" }
-                  },
-                  [_vm._v("Back To Login")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info float-right",
-                    attrs: { type: "button", name: "action" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                                    Recover\n                                "
-                    )
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
-  }
-]
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/pages/LoginPage.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/src/pages/LoginPage.vue ***!
-  \**********************************************/
+/***/ "./resources/js/src/services/MapService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/src/services/MapService.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginPage.vue?vue&type=template&id=f1a88e98& */ "./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98&");
-/* harmony import */ var _LoginPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginPage.vue?vue&type=script&lang=js& */ "./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./resources/js/src/services/Api.js");
+
+var mapService = {
+  getAreas: function getAreas() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/areas');
+  },
+  getSoilPolygons: function getSoilPolygons() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/polygons/soil');
+  },
+  getSpecieStatusPolygons: function getSpecieStatusPolygons(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/polygons/specie/".concat(id));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (mapService);
+
+/***/ }),
+
+/***/ "./resources/js/src/views/Maps/MapsIndex.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/src/views/Maps/MapsIndex.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapsIndex.vue?vue&type=template&id=645d170d& */ "./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d&");
+/* harmony import */ var _MapsIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MapsIndex.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -505,9 +598,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _LoginPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _MapsIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -517,38 +610,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/pages/LoginPage.vue"
+component.options.__file = "resources/js/src/views/Maps/MapsIndex.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
+/***/ "./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/LoginPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MapsIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginPage.vue?vue&type=template&id=f1a88e98& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/LoginPage.vue?vue&type=template&id=f1a88e98&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MapsIndex.vue?vue&type=template&id=645d170d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Maps/MapsIndex.vue?vue&type=template&id=645d170d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPage_vue_vue_type_template_id_f1a88e98___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

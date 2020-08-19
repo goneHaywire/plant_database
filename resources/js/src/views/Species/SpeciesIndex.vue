@@ -1,9 +1,16 @@
 <template>
   <div>
-    <the-breadcrumbs
-      :paths="[{ name: 'Species', route: 'species.index' }]"
-      :createBtn="{ name: 'Create Species', route: 'species.form' }"
-    ></the-breadcrumbs>
+    <the-breadcrumbs :paths="[{ name: 'Species', route: 'species.index' }]">
+      <template v-slot:createBtn>
+        <router-link
+          tag="div"
+          :to="{ name: 'species.form' }"
+          class="btn btn-success ml-3"
+        >
+          Create Species
+        </router-link>
+      </template>
+    </the-breadcrumbs>
 
     <div class="container-fluid">
       <div class="row">

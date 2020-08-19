@@ -2,14 +2,12 @@ import VueRouter from "vue-router";
 import Vue from "vue";
 import NProgress from "nprogress";
 import 'nprogress/nprogress.css';
-import AuthService from '../services/AuthService'
-import authService from "../services/AuthService";
+
 import FamiliesIndex from '../views/Families/FamiliesIndex.vue'
 import GeneraIndex from '../views/Genera/GeneraIndex.vue'
 import SpeciesIndex from '../views/Species/SpeciesIndex.vue'
 import AlbanianIndex from '../views/AlbanianIndex.vue'
 import FavouritesIndex from '../views/FavouritesView.vue'
-import MapsIndex from '../views/Maps/MapsIndex.vue'
 
 Vue.use(VueRouter);
 
@@ -118,8 +116,12 @@ const routes = [{
                 name: "maps.index",
                 path: "/maps",
                 component: () => import('../views/Maps/MapsIndex.vue'),
-                // component: MapsIndex,
                 props: true
+            },
+            {
+                name: "maps.create",
+                path: '/maps/create',
+                component: () => import('../views/Maps/MapsCreate.vue')
             }
         ]
     }

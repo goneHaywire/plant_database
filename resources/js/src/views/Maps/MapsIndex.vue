@@ -1,8 +1,16 @@
 <template>
   <div>
-    <the-breadcrumbs
-      :paths="[{ name: 'Map', route: 'maps.index' }]"
-    ></the-breadcrumbs>
+    <the-breadcrumbs :paths="[{ name: 'Map', route: 'maps.index' }]">
+      <template v-slot:createBtn>
+        <router-link
+          tag="div"
+          :to="{ name: 'maps.create' }"
+          class="btn btn-success ml-3"
+        >
+          Create Polygon
+        </router-link>
+      </template>
+    </the-breadcrumbs>
 
     <div class="container-fluid">
       <div class="row">
