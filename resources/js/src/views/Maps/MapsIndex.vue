@@ -4,7 +4,13 @@
       <template v-slot:createBtn>
         <router-link
           tag="div"
-          :to="{ name: 'maps.create' }"
+          :to="{
+            name: 'maps.create',
+            params: {
+              specieProp: selectedSpecie,
+              polygonsProp: polygons,
+            },
+          }"
           class="btn btn-success ml-3"
         >
           Create Polygon
@@ -19,7 +25,7 @@
             <div class="card-body">
               <h5 class="card-title">Map</h5>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                   <div id="map" style="height: 600px; width: 100%;">
                     <l-map
                       :zoom="zoom"
@@ -28,6 +34,7 @@
                       style="height: 90%;"
                       @update:center="centerUpdate"
                       @update:zoom="zoomUpdate"
+                      ref="map"
                     >
                       <l-tile-layer :url="url" :attribution="attribution" />
 
@@ -42,43 +49,74 @@
                     </l-map>
                   </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                   <div class="row">
                     <div class="col-md-6">
                       <h4>Soil Types</h4>
                       <hr />
                       <template v-for="soil in areas.soils">
-                        <div :key="soil.name">
-                          <input
-                            type="checkbox"
-                            :name="soil.name"
-                            v-model="layers[soil.name]"
+                        <div
+                          :key="soil.name"
+                          class="d-flex align-items-center justify-content-start mb-2"
+                        >
+                          <inline-svg
+                            class="icon icon-checkbox eye-icon"
+                            name="eye"
+                            width="20"
+                            height="20"
+                            :src="
+                              layers[soil.name]
+                                ? require('../../../../svgs/eye-closed.svg')
+                                : require('../../../../svgs/eye-open.svg')
+                            "
                             :id="soil.name"
-                          />
-                          <label :for="soil.name">{{ soil.name }}</label>
+                            @click="layers[soil.name] = !layers[soil.name]"
+                          ></inline-svg>
+                          <label :for="soil.name" class="mb-0">{{
+                            soil.name
+                          }}</label>
                         </div>
                       </template>
                     </div>
                     <div class="col-md-6">
-                      <template>
-                        <h4>Specie Status</h4>
-                        <hr />
-                        <template v-for="specie_status in areas.specie_status">
-                          <div :key="specie_status.name">
-                            <input
-                              type="checkbox"
-                              :name="specie_status.name"
-                              v-model="layers[specie_status.name]"
-                              :id="specie_status.name"
-                              :disabled="!selectedSpecie"
-                            />
-                            <label
-                              :for="specie_status.name"
-                              :class="{ 'text-muted': !selectedSpecie }"
-                              >{{ specie_status.name }}</label
-                            >
-                          </div>
-                        </template>
+                      <h4>Specie Status</h4>
+                      <hr />
+                      <template v-for="specie_status in areas.specie_status">
+                        <div
+                          :key="specie_status.name"
+                          class="d-flex align-items-center justify-content-start mb-2"
+                        >
+                          <inline-svg
+                            class="icon icon-checkbox eye-icon"
+                            name="eye"
+                            width="20"
+                            height="20"
+                            :src="
+                              layers[specie_status.name]
+                                ? require('../../../../svgs/eye-closed.svg')
+                                : require('../../../../svgs/eye-open.svg')
+                            "
+                            :id="specie_status.name"
+                            @click="
+                              selectedSpecie
+                                ? (layers[specie_status.name] = !layers[
+                                    specie_status.name
+                                  ])
+                                : null
+                            "
+                            :style="
+                              selectedSpecie
+                                ? { cursor: 'pointer' }
+                                : { cursor: 'default' }
+                            "
+                          ></inline-svg>
+                          <label
+                            :for="specie_status.name"
+                            class="mb-0"
+                            :class="{ 'text-muted': !selectedSpecie }"
+                            >{{ specie_status.name }}</label
+                          >
+                        </div>
                       </template>
                     </div>
                   </div>

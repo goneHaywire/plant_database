@@ -17,24 +17,29 @@
           <tr v-for="specie in species" :key="specie.id">
             <td>{{ specie.id }}</td>
             <td>
-              <a
-                :href="'/dashboard/species/'+specie.id"
-              >{{ specie.genera.name }} {{ specie.name }}</a>
+              <a :href="'/dashboard/species/' + specie.id"
+                >{{ specie.genera.name }} {{ specie.name }}</a
+              >
             </td>
             <td>
-              <a :href="'/dashboard/genera/'+specie.genera.id">{{ specie.genera.name }}</a>
+              <a :href="'/dashboard/genera/' + specie.genera.id">{{
+                specie.genera.name
+              }}</a>
             </td>
             <td>
-              <a
-                :href="'/dashboard/families/'+specie.genera.family.id"
-              >{{ specie.genera.family.name }}</a>
+              <a :href="'/dashboard/families/' + specie.genera.family.id">{{
+                specie.genera.family.name
+              }}</a>
             </td>
             <td>{{ specie.common_name }}</td>
             <td>{{ specie.in_albania ? "True" : "False" }}</td>
             <td>
               <div class="star-container">
-                <div class="stary" @click="Favourite(specie.id)">
-                  <inline-svg v-if="specie.favourites.length > 0" name="star-solid"></inline-svg>
+                <div class="centerize" @click="Favourite(specie.id)">
+                  <inline-svg
+                    v-if="specie.favourites.length > 0"
+                    name="star-solid"
+                  ></inline-svg>
                   <inline-svg v-else name="star-regular"></inline-svg>
                 </div>
               </div>

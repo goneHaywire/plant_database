@@ -10938,3 +10938,31 @@ a.text-dark:focus {
   fill: #dba70c;
 }
 
+.centerize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.icon-checkbox {
+  margin: 0 0.5rem 0 0;
+}
+
+.trash-icon {
+  fill: #a31010;
+}
+
+.eye-icon {
+  fill: #686666;
+}
+
+.pin-icon {
+  fill: #0a5484;
+}
+

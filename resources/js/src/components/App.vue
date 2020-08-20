@@ -1,6 +1,6 @@
 <template>
-    <div id="main-wrapper">
-        <!-- <header class="topbar" data-navbarbg="skin4">
+  <div id="main-wrapper">
+    <!-- <header class="topbar" data-navbarbg="skin4">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin4">
                      This is for the sidebar toggle which is visible on mobile only 
@@ -200,15 +200,15 @@
             </nav>
         </header> -->
 
-        <the-sidebar></the-sidebar>
+    <the-sidebar></the-sidebar>
 
-        <div class="page-wrapper">
-            <router-view></router-view>
-            <footer class="footer text-center">
-                Designed and Developed by Emiljan Dusha.
-            </footer>
-        </div>
+    <div class="page-wrapper">
+      <router-view></router-view>
+      <footer class="footer text-center">
+        Designed and Developed by Emiljan Dusha.
+      </footer>
     </div>
+  </div>
 </template>
 
 <script>

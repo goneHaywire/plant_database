@@ -17,18 +17,25 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
+        return Specie::with(['genus', 'genus.family'])->withCount(['favourites' => function ($query) {
             $query->where('user_id', Auth::user()->id);
         }])->paginate(20);
     }
 
     public function albanianIndex()
     {
-        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
+        return Specie::with(['genus', 'genus.family'])->withCount(['favourites' => function ($query) {
             $query->where('user_id', Auth::user()->id);
         }])
             ->where('in_albania', 1)
             ->paginate(20);
+    }
+    
+    public function search(Request $request){
+        $query = $request->get('query');
+        $results = Specie::where([['name', 'like', "%{$query}%"],['common_name', 'like', "%{$query}%"]])->orWhereHas(
+            'ge'
+        )
     }
 
     /**
@@ -48,7 +55,7 @@ class SpeciesController extends Controller
             }
         }
 
-        $specie->genera()->associate($genus);
+        $specie->genus()->associate($genus);
         $specie->save();
 
         return $specie;
@@ -76,7 +83,7 @@ class SpeciesController extends Controller
         $specie->genera_name = $request->get('genera')['name'];
         $specie->save();
 
-        return Specie::with(['genera', 'genera.family'])->find($specie->id);
+        return Specie::with(['genus', 'genus.family'])->find($specie->id);
     }
 
     /**

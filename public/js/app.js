@@ -2026,6 +2026,28 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "BaseButton"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/Pagination.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/Pagination.vue?vue&type=script&lang=js& ***!
@@ -2285,8 +2307,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
-//
-//
 //
 //
 //
@@ -2831,16 +2851,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3109,6 +3119,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7784,6 +7801,46 @@ __webpack_require__.r(__webpack_exports__);
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw-src.css":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/leaflet-draw/dist/leaflet.draw-src.css ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var escape = __webpack_require__(/*! ../../css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* ================================================================== */\n/* Toolbars\n/* ================================================================== */\n\n.leaflet-draw-section {\n\tposition: relative;\n}\n\n.leaflet-draw-toolbar {\n\tmargin-top: 12px;\n}\n\n.leaflet-draw-toolbar-top {\n\tmargin-top: 0;\n}\n\n.leaflet-draw-toolbar-notop a:first-child {\n\tborder-top-right-radius: 0;\n}\n\n.leaflet-draw-toolbar-nobottom a:last-child {\n\tborder-bottom-right-radius: 0;\n}\n\n.leaflet-draw-toolbar a {\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/spritesheet.png */ "./node_modules/leaflet-draw/dist/images/spritesheet.png")) + ");\n\tbackground-image: linear-gradient(transparent, transparent), url(" + escape(__webpack_require__(/*! ./images/spritesheet.svg */ "./node_modules/leaflet-draw/dist/images/spritesheet.svg")) + ");\n\tbackground-repeat: no-repeat;\n\tbackground-size: 300px 30px;\n\tbackground-clip: padding-box;\n}\n\n.leaflet-retina .leaflet-draw-toolbar a {\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/spritesheet-2x.png */ "./node_modules/leaflet-draw/dist/images/spritesheet-2x.png")) + ");\n\tbackground-image: linear-gradient(transparent, transparent), url(" + escape(__webpack_require__(/*! ./images/spritesheet.svg */ "./node_modules/leaflet-draw/dist/images/spritesheet.svg")) + ");\n}\n\n.leaflet-draw a {\n\tdisplay: block;\n\ttext-align: center;\n\ttext-decoration: none;\n}\n\n.leaflet-draw a .sr-only {\n\tposition: absolute;\n\twidth: 1px;\n\theight: 1px;\n\tpadding: 0;\n\tmargin: -1px;\n\toverflow: hidden;\n\tclip: rect(0, 0, 0, 0);\n\tborder: 0;\n}\n\n/* ================================================================== */\n/* Toolbar actions menu\n/* ================================================================== */\n\n.leaflet-draw-actions {\n\tdisplay: none;\n\tlist-style: none;\n\tmargin: 0;\n\tpadding: 0;\n\tposition: absolute;\n\tleft: 26px; /* leaflet-draw-toolbar.left + leaflet-draw-toolbar.width */\n\ttop: 0;\n\twhite-space: nowrap;\n}\n\n.leaflet-touch .leaflet-draw-actions {\n\tleft: 32px;\n}\n\n.leaflet-right .leaflet-draw-actions {\n\tright: 26px;\n\tleft: auto;\n}\n\n.leaflet-touch .leaflet-right .leaflet-draw-actions {\n\tright: 32px;\n\tleft: auto;\n}\n\n.leaflet-draw-actions li {\n\tdisplay: inline-block;\n}\n\n.leaflet-draw-actions li:first-child a {\n\tborder-left: none;\n}\n\n.leaflet-draw-actions li:last-child a {\n\tborder-radius: 0 4px 4px 0;\n}\n\n.leaflet-right .leaflet-draw-actions li:last-child a {\n\tborder-radius: 0;\n}\n\n.leaflet-right .leaflet-draw-actions li:first-child a {\n\tborder-radius: 4px 0 0 4px;\n}\n\n.leaflet-draw-actions a {\n\tbackground-color: #919187;\n\tborder-left: 1px solid #AAA;\n\tcolor: #FFF;\n\tfont: 11px/19px \"Helvetica Neue\", Arial, Helvetica, sans-serif;\n\tline-height: 28px;\n\ttext-decoration: none;\n\tpadding-left: 10px;\n\tpadding-right: 10px;\n\theight: 28px;\n}\n\n.leaflet-touch .leaflet-draw-actions a {\n\tfont-size: 12px;\n\tline-height: 30px;\n\theight: 30px;\n}\n\n.leaflet-draw-actions-bottom {\n\tmargin-top: 0;\n}\n\n.leaflet-draw-actions-top {\n\tmargin-top: 1px;\n}\n\n.leaflet-draw-actions-top a,\n.leaflet-draw-actions-bottom a {\n\theight: 27px;\n\tline-height: 27px;\n}\n\n.leaflet-draw-actions a:hover {\n\tbackground-color: #A0A098;\n}\n\n.leaflet-draw-actions-top.leaflet-draw-actions-bottom a {\n\theight: 26px;\n\tline-height: 26px;\n}\n\n/* ================================================================== */\n/* Draw toolbar\n/* ================================================================== */\n\n.leaflet-draw-toolbar .leaflet-draw-draw-polyline {\n\tbackground-position: -2px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline {\n\tbackground-position: 0 -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-draw-polygon {\n\tbackground-position: -31px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon {\n\tbackground-position: -29px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-draw-rectangle {\n\tbackground-position: -62px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-rectangle {\n\tbackground-position: -60px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-draw-circle {\n\tbackground-position: -92px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle {\n\tbackground-position: -90px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-draw-marker {\n\tbackground-position: -122px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker {\n\tbackground-position: -120px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {\n\tbackground-position: -273px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker {\n\tbackground-position: -271px -1px;\n}\n\n/* ================================================================== */\n/* Edit toolbar\n/* ================================================================== */\n\n.leaflet-draw-toolbar .leaflet-draw-edit-edit {\n\tbackground-position: -152px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit {\n\tbackground-position: -150px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-edit-remove {\n\tbackground-position: -182px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove {\n\tbackground-position: -180px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {\n\tbackground-position: -212px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled {\n\tbackground-position: -210px -1px;\n}\n\n.leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {\n\tbackground-position: -242px -2px;\n}\n\n.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled {\n\tbackground-position: -240px -2px;\n}\n\n/* ================================================================== */\n/* Drawing styles\n/* ================================================================== */\n\n.leaflet-mouse-marker {\n\tbackground-color: #fff;\n\tcursor: crosshair;\n}\n\n.leaflet-draw-tooltip {\n\tbackground: rgb(54, 54, 54);\n\tbackground: rgba(0, 0, 0, 0.5);\n\tborder: 1px solid transparent;\n\tborder-radius: 4px;\n\tcolor: #fff;\n\tfont: 12px/18px \"Helvetica Neue\", Arial, Helvetica, sans-serif;\n\tmargin-left: 20px;\n\tmargin-top: -21px;\n\tpadding: 4px 8px;\n\tposition: absolute;\n\tvisibility: hidden;\n\twhite-space: nowrap;\n\tz-index: 6;\n}\n\n.leaflet-draw-tooltip:before {\n\tborder-right: 6px solid black;\n\tborder-right-color: rgba(0, 0, 0, 0.5);\n\tborder-top: 6px solid transparent;\n\tborder-bottom: 6px solid transparent;\n\tcontent: \"\";\n\tposition: absolute;\n\ttop: 7px;\n\tleft: -7px;\n}\n\n.leaflet-error-draw-tooltip {\n\tbackground-color: #F2DEDE;\n\tborder: 1px solid #E6B6BD;\n\tcolor: #B94A48;\n}\n\n.leaflet-error-draw-tooltip:before {\n\tborder-right-color: #E6B6BD;\n}\n\n.leaflet-draw-tooltip-single {\n\tmargin-top: -12px\n}\n\n.leaflet-draw-tooltip-subtext {\n\tcolor: #f8d5e4;\n}\n\n.leaflet-draw-guide-dash {\n\tfont-size: 1%;\n\topacity: 0.6;\n\tposition: absolute;\n\twidth: 5px;\n\theight: 5px;\n}\n\n/* ================================================================== */\n/* Edit styles\n/* ================================================================== */\n\n.leaflet-edit-marker-selected {\n\tbackground-color: rgba(254, 87, 161, 0.1);\n\tborder: 4px dashed rgba(254, 87, 161, 0.6);\n\tborder-radius: 4px;\n\tbox-sizing: content-box;\n}\n\n.leaflet-edit-move {\n\tcursor: move;\n}\n\n.leaflet-edit-resize {\n\tcursor: pointer;\n}\n\n/* ================================================================== */\n/* Old IE styles\n/* ================================================================== */\n\n.leaflet-oldie .leaflet-draw-toolbar {\n\tborder: 1px solid #999;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw.css":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/leaflet-draw/dist/leaflet.draw.css ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var escape = __webpack_require__(/*! ../../css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".leaflet-draw-section{position:relative}.leaflet-draw-toolbar{margin-top:12px}.leaflet-draw-toolbar-top{margin-top:0}.leaflet-draw-toolbar-notop a:first-child{border-top-right-radius:0}.leaflet-draw-toolbar-nobottom a:last-child{border-bottom-right-radius:0}.leaflet-draw-toolbar a{background-image:url(" + escape(__webpack_require__(/*! ./images/spritesheet.png */ "./node_modules/leaflet-draw/dist/images/spritesheet.png")) + ");background-image:linear-gradient(transparent,transparent),url(" + escape(__webpack_require__(/*! ./images/spritesheet.svg */ "./node_modules/leaflet-draw/dist/images/spritesheet.svg")) + ");background-repeat:no-repeat;background-size:300px 30px;background-clip:padding-box}.leaflet-retina .leaflet-draw-toolbar a{background-image:url(" + escape(__webpack_require__(/*! ./images/spritesheet-2x.png */ "./node_modules/leaflet-draw/dist/images/spritesheet-2x.png")) + ");background-image:linear-gradient(transparent,transparent),url(" + escape(__webpack_require__(/*! ./images/spritesheet.svg */ "./node_modules/leaflet-draw/dist/images/spritesheet.svg")) + ")}\n.leaflet-draw a{display:block;text-align:center;text-decoration:none}.leaflet-draw a .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}.leaflet-draw-actions{display:none;list-style:none;margin:0;padding:0;position:absolute;left:26px;top:0;white-space:nowrap}.leaflet-touch .leaflet-draw-actions{left:32px}.leaflet-right .leaflet-draw-actions{right:26px;left:auto}.leaflet-touch .leaflet-right .leaflet-draw-actions{right:32px;left:auto}.leaflet-draw-actions li{display:inline-block}\n.leaflet-draw-actions li:first-child a{border-left:0}.leaflet-draw-actions li:last-child a{border-radius:0 4px 4px 0}.leaflet-right .leaflet-draw-actions li:last-child a{border-radius:0}.leaflet-right .leaflet-draw-actions li:first-child a{border-radius:4px 0 0 4px}.leaflet-draw-actions a{background-color:#919187;border-left:1px solid #AAA;color:#FFF;font:11px/19px \"Helvetica Neue\",Arial,Helvetica,sans-serif;line-height:28px;text-decoration:none;padding-left:10px;padding-right:10px;height:28px}\n.leaflet-touch .leaflet-draw-actions a{font-size:12px;line-height:30px;height:30px}.leaflet-draw-actions-bottom{margin-top:0}.leaflet-draw-actions-top{margin-top:1px}.leaflet-draw-actions-top a,.leaflet-draw-actions-bottom a{height:27px;line-height:27px}.leaflet-draw-actions a:hover{background-color:#a0a098}.leaflet-draw-actions-top.leaflet-draw-actions-bottom a{height:26px;line-height:26px}.leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:-2px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:0 -1px}\n.leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-31px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-29px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-62px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-60px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-92px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-90px -1px}\n.leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-122px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-120px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-273px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-271px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-152px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-150px -1px}\n.leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-182px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-180px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-212px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-210px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-242px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-240px -2px}\n.leaflet-mouse-marker{background-color:#fff;cursor:crosshair}.leaflet-draw-tooltip{background:#363636;background:rgba(0,0,0,0.5);border:1px solid transparent;border-radius:4px;color:#fff;font:12px/18px \"Helvetica Neue\",Arial,Helvetica,sans-serif;margin-left:20px;margin-top:-21px;padding:4px 8px;position:absolute;visibility:hidden;white-space:nowrap;z-index:6}.leaflet-draw-tooltip:before{border-right:6px solid black;border-right-color:rgba(0,0,0,0.5);border-top:6px solid transparent;border-bottom:6px solid transparent;content:\"\";position:absolute;top:7px;left:-7px}\n.leaflet-error-draw-tooltip{background-color:#f2dede;border:1px solid #e6b6bd;color:#b94a48}.leaflet-error-draw-tooltip:before{border-right-color:#e6b6bd}.leaflet-draw-tooltip-single{margin-top:-12px}.leaflet-draw-tooltip-subtext{color:#f8d5e4}.leaflet-draw-guide-dash{font-size:1%;opacity:.6;position:absolute;width:5px;height:5px}.leaflet-edit-marker-selected{background-color:rgba(254,87,161,0.1);border:4px dashed rgba(254,87,161,0.6);border-radius:4px;box-sizing:content-box}\n.leaflet-edit-move{cursor:move}.leaflet-edit-resize{cursor:pointer}.leaflet-oldie .leaflet-draw-toolbar{border:1px solid #999}", ""]);
+
+// exports
 
 
 /***/ }),
@@ -18841,6 +18898,99 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
+
+/***/ }),
+
+/***/ "./node_modules/leaflet-draw/dist/images/spritesheet-2x.png":
+/*!******************************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/images/spritesheet-2x.png ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vendor/leaflet-draw/dist/spritesheet-2x.png?6a1e950d14904d4b6fb5c9bdc3dfad06";
+
+/***/ }),
+
+/***/ "./node_modules/leaflet-draw/dist/images/spritesheet.png":
+/*!***************************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/images/spritesheet.png ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vendor/leaflet-draw/dist/spritesheet.png?deac1d4aa2ccf7ed832e4db55bb64e63";
+
+/***/ }),
+
+/***/ "./node_modules/leaflet-draw/dist/images/spritesheet.svg":
+/*!***************************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/images/spritesheet.svg ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vendor/leaflet-draw/dist/spritesheet.svg?fd5728f2cf777b06b966d05c0c823dc9";
+
+/***/ }),
+
+/***/ "./node_modules/leaflet-draw/dist/leaflet.draw-src.css":
+/*!*************************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/leaflet.draw-src.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./leaflet.draw-src.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw-src.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/leaflet-draw/dist/leaflet.draw.css":
+/*!*********************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/leaflet.draw.css ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./leaflet.draw.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -41242,6 +41392,30 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { attrs: _vm.$attrs } }, [_vm._t("default")], 2)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/Pagination.vue?vue&type=template&id=5748944c&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/components/Pagination.vue?vue&type=template&id=5748944c&scoped=true& ***!
@@ -41575,11 +41749,11 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                        " +
                                           _vm._s(specie.genera.name) +
-                                          "\n                                                " +
+                                          "\n                        " +
                                           _vm._s(specie.name) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -41606,7 +41780,7 @@ var render = function() {
                                     [
                                       _vm._v(
                                         _vm._s(specie.genera.name) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -41632,9 +41806,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                        " +
                                           _vm._s(specie.genera.family.name) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -41644,40 +41818,63 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(specie.common_name))]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c("div", { staticClass: "star-container" }, [
+                              _c(
+                                "td",
+                                [
                                   _c(
-                                    "div",
+                                    "router-link",
                                     {
-                                      staticClass: "stary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.favourite(specie.id)
+                                      attrs: {
+                                        to: {
+                                          name: "maps.index",
+                                          params: {
+                                            specieProp: specie
+                                          }
                                         }
                                       }
                                     },
                                     [
-                                      specie.favourites_count
-                                        ? _c("inline-svg", {
-                                            attrs: {
-                                              name: "star-solid",
-                                              width: "30",
-                                              height: "30",
-                                              src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
-                                            }
-                                          })
-                                        : _c("inline-svg", {
-                                            attrs: {
-                                              src: __webpack_require__(/*! ../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
-                                              width: "30",
-                                              height: "30",
-                                              name: "star-regular"
-                                            }
-                                          })
+                                      _c("inline-svg", {
+                                        staticClass: "icon pin-icon",
+                                        attrs: {
+                                          width: "25",
+                                          height: "25",
+                                          src: __webpack_require__(/*! ../../../svgs/pin.svg */ "./resources/svgs/pin.svg")
+                                        }
+                                      })
                                     ],
                                     1
                                   )
-                                ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "centerize",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.favourite(specie.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("inline-svg", {
+                                      staticClass: "icon star-icon",
+                                      attrs: {
+                                        name: "star-solid",
+                                        width: "25",
+                                        height: "25",
+                                        src: specie.favourites_count
+                                          ? __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                          : __webpack_require__(/*! ../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg")
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
                               ])
                             ])
                           }),
@@ -41727,6 +41924,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Map")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Favourite")])
       ])
     ])
@@ -41746,6 +41945,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Family")]),
         _vm._v(" "),
         _c("th", [_vm._v("Common Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Map")]),
         _vm._v(" "),
         _c("th", [_vm._v("Favourite")])
       ])
@@ -42028,11 +42229,11 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                        " +
                                           _vm._s(favourite.specie.genera.name) +
-                                          "\n                                                " +
+                                          "\n                        " +
                                           _vm._s(favourite.specie.name) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -42059,7 +42260,7 @@ var render = function() {
                                     [
                                       _vm._v(
                                         _vm._s(favourite.specie.genera.name) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -42087,11 +42288,11 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                        " +
                                           _vm._s(
                                             favourite.specie.genera.family.name
                                           ) +
-                                          "\n                                            "
+                                          "\n                      "
                                       )
                                     ]
                                   )
@@ -42101,51 +42302,81 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  "\n                                            " +
+                                  "\n                      " +
                                     _vm._s(favourite.specie.common_name) +
-                                    "\n                                        "
+                                    "\n                    "
                                 )
                               ]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  "\n                                            " +
+                                  "\n                      " +
                                     _vm._s(
                                       favourite.specie.in_albania
                                         ? "True"
                                         : "False"
                                     ) +
-                                    "\n                                        "
+                                    "\n                    "
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c("div", { staticClass: "star-container" }, [
+                              _c(
+                                "td",
+                                [
                                   _c(
-                                    "div",
+                                    "router-link",
                                     {
-                                      staticClass: "stary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.removeFavourite(
-                                            favourite.specie.id
-                                          )
+                                      attrs: {
+                                        to: {
+                                          name: "maps.index",
+                                          params: {
+                                            specieProp: favourite.specie
+                                          }
                                         }
                                       }
                                     },
                                     [
                                       _c("inline-svg", {
+                                        staticClass: "icon pin-icon",
                                         attrs: {
-                                          name: "star-solid",
-                                          width: "30",
-                                          height: "30",
-                                          src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                          width: "25",
+                                          height: "25",
+                                          src: __webpack_require__(/*! ../../../svgs/pin.svg */ "./resources/svgs/pin.svg")
                                         }
                                       })
                                     ],
                                     1
                                   )
-                                ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "centerize",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.removeFavourite(
+                                          favourite.specie.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("inline-svg", {
+                                      staticClass: "icon star-icon",
+                                      attrs: {
+                                        name: "star-solid",
+                                        width: "25",
+                                        height: "25",
+                                        src: __webpack_require__(/*! ../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
                               ])
                             ])
                           }),
@@ -42197,6 +42428,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Map")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Favourite")])
       ])
     ])
@@ -42218,6 +42451,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Common Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Map")]),
         _vm._v(" "),
         _c("th", [_vm._v("Favourite")])
       ])
@@ -42633,42 +42868,6 @@ var render = function() {
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c("div", { staticClass: "star-container" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "stary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.favourite(specie.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      specie.favourites_count
-                                        ? _c("inline-svg", {
-                                            attrs: {
-                                              name: "star-solid",
-                                              width: "30",
-                                              height: "30",
-                                              src: __webpack_require__(/*! ../../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
-                                            }
-                                          })
-                                        : _c("inline-svg", {
-                                            attrs: {
-                                              src: __webpack_require__(/*! ../../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg"),
-                                              width: "30",
-                                              height: "30",
-                                              name: "star-regular"
-                                            }
-                                          })
-                                    ],
-                                    1
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
                               _c(
                                 "td",
                                 [
@@ -42684,11 +42883,49 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v("Map")]
+                                    [
+                                      _c("inline-svg", {
+                                        staticClass: "icon pin-icon",
+                                        attrs: {
+                                          width: "25",
+                                          height: "25",
+                                          src: __webpack_require__(/*! ../../../../svgs/pin.svg */ "./resources/svgs/pin.svg")
+                                        }
+                                      })
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
                               ),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "centerize",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.favourite(specie.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("inline-svg", {
+                                      staticClass: "icon star-icon",
+                                      attrs: {
+                                        name: "star-solid",
+                                        width: "25",
+                                        height: "25",
+                                        src: specie.favourites_count
+                                          ? __webpack_require__(/*! ../../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                          : __webpack_require__(/*! ../../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg")
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -42783,9 +43020,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Favourite")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Map")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -42809,9 +43046,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("In Albania")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Favourite")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Map")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Favourite")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -59295,6 +59532,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_inline_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_inline_svg__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var leaflet_draw_dist_leaflet_draw_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! leaflet-draw/dist/leaflet.draw.css */ "./node_modules/leaflet-draw/dist/leaflet.draw.css");
+/* harmony import */ var leaflet_draw_dist_leaflet_draw_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(leaflet_draw_dist_leaflet_draw_css__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var leaflet_draw_dist_leaflet_draw_src_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! leaflet-draw/dist/leaflet.draw-src.css */ "./node_modules/leaflet-draw/dist/leaflet.draw-src.css");
+/* harmony import */ var leaflet_draw_dist_leaflet_draw_src_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(leaflet_draw_dist_leaflet_draw_src_css__WEBPACK_IMPORTED_MODULE_8__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -59314,6 +59555,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -59326,7 +59569,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("AppPage", __webpack_require__(/*! ./src/pages/AppPage.vue */ "./resources/js/src/pages/AppPage.vue")["default"]);
-Vue.component("TheBreadcrumbs", __webpack_require__(/*! ./src/components/TheBreadcrumbs.vue */ "./resources/js/src/components/TheBreadcrumbs.vue")["default"]); // Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
+Vue.component("TheBreadcrumbs", __webpack_require__(/*! ./src/components/TheBreadcrumbs.vue */ "./resources/js/src/components/TheBreadcrumbs.vue")["default"]);
+Vue.component('BaseButton', __webpack_require__(/*! ./src/components/BaseButton.vue */ "./resources/js/src/components/BaseButton.vue")["default"]); // Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
 
 Vue.component('inline-svg', vue_inline_svg__WEBPACK_IMPORTED_MODULE_5___default.a);
 /**
@@ -59438,6 +59682,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/src/components/BaseButton.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/src/components/BaseButton.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseButton.vue?vue&type=template&id=61996b23& */ "./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23&");
+/* harmony import */ var _BaseButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BaseButton.vue?vue&type=script&lang=js& */ "./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BaseButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/components/BaseButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BaseButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/BaseButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BaseButton.vue?vue&type=template&id=61996b23& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/components/BaseButton.vue?vue&type=template&id=61996b23&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseButton_vue_vue_type_template_id_61996b23___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -59811,15 +60124,16 @@ var routes = [{
     name: "maps.index",
     path: "/maps",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(13), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(16), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     },
     props: true
   }, {
     name: "maps.create",
     path: '/maps/create',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
-    }
+      return Promise.all(/*! import() */[__webpack_require__.e(16), __webpack_require__.e(15), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
+    },
+    props: true
   }]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -60080,6 +60394,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     },
     SET_AREAS_ARRAY: function SET_AREAS_ARRAY(state, areasArray) {
       return state.areasArray = areasArray;
+    },
+    ADD_SOIL_POLYGON: function ADD_SOIL_POLYGON(state, soilPolygon) {
+      return state.soilPolygons.push(soilPolygon);
+    },
+    REMOVE_SOIL_POLYGON: function REMOVE_SOIL_POLYGON(state, id) {
+      return state.soilPolygons = state.soilPolygons.filter(function (polygon) {
+        return polygon.id !== id;
+      });
     }
   },
   actions: {
@@ -60113,6 +60435,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     setAreasArray: function setAreasArray(_ref7, areasArray) {
       var commit = _ref7.commit;
       commit('SET_AREAS_ARRAY', areasArray);
+    },
+    addSoilPolygon: function addSoilPolygon(_ref8, soilPolygon) {
+      var commit = _ref8.commit;
+      commit('ADD_SOIL_POLYGON', soilPolygon);
+    },
+    removeSoilPolygon: function removeSoilPolygon(_ref9, id) {
+      var commit = _ref9.commit;
+      commit('REMOVE_SOIL_POLYGON', id);
     }
   }
 });
@@ -60473,6 +60803,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/svgs/pin.svg":
+/*!********************************!*\
+  !*** ./resources/svgs/pin.svg ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/pin.svg?297ebe179629ebe63bc02eb3981eb4ed";
 
 /***/ }),
 

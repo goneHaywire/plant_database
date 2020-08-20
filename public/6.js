@@ -109,39 +109,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FilterIndex",
@@ -263,7 +230,7 @@ var render = function() {
                                   [
                                     _vm._v(
                                       _vm._s(specie.genera.name) +
-                                        "\n                                                " +
+                                        " " +
                                         _vm._s(specie.name)
                                     )
                                   ]
@@ -301,11 +268,11 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  "\n                                            " +
+                                  "\n                      " +
                                     _vm._s(
                                       specie.in_albania ? "True" : "False"
                                     ) +
-                                    "\n                                        "
+                                    "\n                    "
                                 )
                               ]),
                               _vm._v(" "),
@@ -314,7 +281,7 @@ var render = function() {
                                   _c(
                                     "div",
                                     {
-                                      staticClass: "stary",
+                                      staticClass: "centerize",
                                       on: {
                                         click: function($event) {
                                           return _vm.Favourite(specie.id)
@@ -358,7 +325,7 @@ var render = function() {
                   _c("hr"),
                   _vm._v(" "),
                   _c("h3", [_vm._v("No species found.")]),
-                  _vm._v("\n                        @\n                    ")
+                  _vm._v("\n            @\n          ")
                 ],
                 1
               )

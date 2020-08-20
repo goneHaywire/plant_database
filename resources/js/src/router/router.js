@@ -121,7 +121,8 @@ const routes = [{
             {
                 name: "maps.create",
                 path: '/maps/create',
-                component: () => import('../views/Maps/MapsCreate.vue')
+                component: () => import('../views/Maps/MapsCreate.vue'),
+                props: true
             }
         ]
     }

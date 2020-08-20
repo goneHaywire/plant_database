@@ -11,7 +11,8 @@ import apiClient from "./src/services/Api.js";
 import authService from "./src/services/AuthService.js";
 import InlineSvg from 'vue-inline-svg';
 import 'leaflet/dist/leaflet.css';
-
+import 'leaflet-draw/dist/leaflet.draw.css';
+import 'leaflet-draw/dist/leaflet.draw-src.css';
 
 window.Vue = require("vue");
 
@@ -31,6 +32,7 @@ Vue.component(
     "TheBreadcrumbs",
     require("./src/components/TheBreadcrumbs.vue").default
 );
+Vue.component('BaseButton', require('./src/components/BaseButton.vue').default);
 // Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
 Vue.component('inline-svg', InlineSvg);
 /**

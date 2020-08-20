@@ -12,9 +12,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Map</h5>
+              <h5 class="card-title">Create Polygons</h5>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                   <div id="map" style="height: 600px; width: 100%;">
                     <l-map
                       :zoom="zoom"
@@ -23,60 +23,116 @@
                       style="height: 90%;"
                       @update:center="centerUpdate"
                       @update:zoom="zoomUpdate"
+                      ref="map"
                     >
                       <l-tile-layer :url="url" :attribution="attribution" />
+                      <!-- <l-draw-toolbar position="topright" /> -->
 
                       <l-polygon
                         v-for="polygon in polygons"
                         :key="polygon.id"
-                        :visible="layers[polygon.area.name]"
+                        :visible="polygon.visible"
                         :lat-lngs="JSON.parse(polygon.coordinates)"
                         :color="polygon.area.color"
+                        :opacity="0.4"
                       >
                       </l-polygon>
                     </l-map>
                   </div>
                 </div>
-                <div class="col-md-8">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <h4>Soil Types</h4>
-                      <hr />
-                      <template v-for="soil in areas.soils">
-                        <div :key="soil.name">
-                          <input
-                            type="checkbox"
-                            :name="soil.name"
-                            v-model="layers[soil.name]"
-                            :id="soil.name"
-                          />
-                          <label :for="soil.name">{{ soil.name }}</label>
-                        </div>
-                      </template>
-                    </div>
-                    <div class="col-md-6">
-                      <template>
+                <div class="col-md-7">
+                  <form @submit.prevent="createPolygon()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h4>Soil Types</h4>
+                        <hr />
+                        <template v-for="soil in areas.soils">
+                          <div :key="soil.name">
+                            <input
+                              type="radio"
+                              :value="soil.id"
+                              name="area"
+                              v-model="activePolygon.area_id"
+                              :id="soil.name"
+                              required
+                            />
+                            <label :for="soil.name">{{ soil.name }}</label>
+                          </div>
+                        </template>
+                      </div>
+                      <div class="col-md-6">
                         <h4>Specie Status</h4>
                         <hr />
                         <template v-for="specie_status in areas.specie_status">
                           <div :key="specie_status.name">
                             <input
-                              type="checkbox"
-                              :name="specie_status.name"
-                              v-model="layers[specie_status.name]"
+                              type="radio"
+                              :value="specie_status.id"
+                              name="area"
+                              v-model="activePolygon.area_id"
                               :id="specie_status.name"
-                              :disabled="!selectedSpecie"
+                              :disabled="!activePolygon.specie_id"
+                              required
                             />
                             <label
                               :for="specie_status.name"
-                              :class="{ 'text-muted': !selectedSpecie }"
+                              :class="{
+                                'text-muted': !activePolygon.specie_id,
+                              }"
                               >{{ specie_status.name }}</label
                             >
                           </div>
                         </template>
-                      </template>
+                      </div>
                     </div>
-                  </div>
+                    <hr />
+                    <div class="form-group">
+                      <input
+                        type="submit"
+                        value="Add Polygon"
+                        class="btn btn-success"
+                      />
+                    </div>
+                    <hr />
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <td>ID</td>
+                        <td>Toggle</td>
+                        <td>Name</td>
+                        <td>Type</td>
+                        <td>Remove</td>
+                      </thead>
+                      <tr v-for="polygon in polygons" :key="polygon.id">
+                        <td>{{ polygon.id }}</td>
+                        <td>
+                          <inline-svg
+                            class="icon eye-icon"
+                            :name="polygon.visible ? 'eye-closed' : 'eye-open'"
+                            width="25"
+                            height="25"
+                            :src="
+                              polygon.visible
+                                ? require('../../../../svgs/eye-closed.svg')
+                                : require('../../../../svgs/eye-open.svg')
+                            "
+                            @click="polygon.visible = !polygon.visible"
+                          ></inline-svg>
+                        </td>
+                        <td>{{ polygon.area.name }}</td>
+                        <td>{{ polygon.area.type | cleanType }}</td>
+                        <td>
+                          <inline-svg
+                            class="icon trash-icon"
+                            name="trash"
+                            width="25"
+                            height="25"
+                            :src="require('../../../../svgs/trash.svg')"
+                            @click="deletePolygon(polygon.id)"
+                          ></inline-svg>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
                 </div>
               </div>
             </div>
@@ -88,8 +144,155 @@
 </template>
 
 <script>
-export default {};
+import MapService from "../../services/MapService";
+import store from "../../store/store";
+import { latLng } from "leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LPopup,
+  LTooltip,
+  LPolygon,
+} from "vue2-leaflet";
+import "leaflet-draw";
+import { mapGetters } from "vuex";
+
+export default {
+  name: "MapsCreate",
+  props: {
+    specieProp: {
+      type: Object,
+    },
+    polygonsProp: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    ...mapGetters({
+      areas: "getAreas",
+      soilPolygons: "getSoilPolygons",
+    }),
+  },
+  data() {
+    return {
+      activePolygon: {
+        coordinates: [],
+        area_id: null,
+        specie_id: null,
+      },
+      polygons: [],
+      editableLayers: undefined,
+      zoom: 7,
+      center: latLng(41.09591205639546, 20.026783401808004),
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      currentZoom: 11.5,
+      currentCenter: latLng(47.41322, -1.219482),
+      mapOptions: {
+        zoomSnap: 0.5,
+      },
+    };
+  },
+  methods: {
+    createPolygon() {
+      MapService.createPolygon(this.activePolygon).then((resp) => {
+        console.log(resp.data);
+        if (resp.data.area.type === "soils")
+          this.$store.dispatch("addSoilPolygon", {
+            ...resp.data,
+            visible: false,
+          });
+        this.activePolygon.coordinates = [];
+        this.activePolygon.area_id = null;
+        const oldLayer = Object.values(this.editableLayers._layers)[0];
+        this.editableLayers.removeLayer(oldLayer);
+        this.editableLayers._map.removeLayer(oldLayer);
+      });
+    },
+    deletePolygon(id) {
+      MapService.deletePolygon(id).then((resp) => {
+        this.$store.dispatch("removeSoilPolygon", id);
+        this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
+      });
+    },
+    zoomUpdate(zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate(center) {
+      this.currentCenter = center;
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const map = this.$refs.map.mapObject;
+      const drawControl = new window.L.Control.Draw({
+        position: "topright",
+        draw: {
+          polyline: false,
+          polygon: true,
+          rectangle: false,
+          circle: false,
+          marker: false,
+        },
+      });
+
+      map.addControl(drawControl);
+
+      const editableLayers = new window.L.FeatureGroup().addTo(map);
+      this.editableLayers = editableLayers;
+      console.log("map: ", this.$refs.map.mapObject);
+      window.map = this.$refs.map.mapObject;
+      //   console.log();
+
+      map.on(window.L.Draw.Event.CREATED, (e) => {
+        console.log("drawing complete");
+        const layer = e.layer;
+        console.log("layer:", layer);
+        // this.$set(this);
+        this.activePolygon.coordinates = layer._latlngs[0];
+        editableLayers.addLayer(layer);
+        window.editable = editableLayers;
+        console.log("current val: ", this.activePolygon.coordinates);
+      });
+      map.on(window.L.Draw.Event.DRAWSTART, (e) => {
+        console.log("started drawing");
+        const all_layers = Object.keys(editableLayers._layers);
+        if (all_layers.length) {
+          console.log("all_layers,", all_layers);
+          editableLayers.removeLayer(editableLayers._layers[all_layers[0]]);
+          this.activePolygon.coordinates = [];
+          console.log(
+            "current val after drawstart: ",
+            this.activePolygon.coordinates
+          );
+        }
+      });
+    });
+  },
+  filters: {
+    cleanType: function (value) {
+      return _.capitalize(value).replace("_", " ");
+    },
+  },
+  created() {
+    if (this.specieProp)
+      this.activePolygon.specie_id = this.specieProp.id || null;
+    this.polygons = this.polygonsProp;
+    this.polygons.forEach((polygon) => this.$set(polygon, "visible", false));
+  },
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LPopup,
+    LTooltip,
+    LPolygon,
+    // LDrawToolbar,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

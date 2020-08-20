@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         'species' => 'API\SpeciesController',
         'users' => 'API\UserController',
     ]);
+    Route::apiResource('polygons', 'API\MapController')->only(['store', 'destroy']);
     Route::get('/stats', 'API\HomeController@stats');
     Route::get('/favourites', 'API\UserController@favouritesIndex');
     Route::post('/favourites/{id}', 'API\UserController@favouriteSpecie');

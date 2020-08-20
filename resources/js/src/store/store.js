@@ -38,6 +38,8 @@ const store = new Vuex.Store({
         SET_SOIL_POLYGONS: (state, soilPolygons) => state.soilPolygons = soilPolygons,
         SET_AREAS: (state, areas) => state.areas = areas,
         SET_AREAS_ARRAY: (state, areasArray) => state.areasArray = areasArray,
+        ADD_SOIL_POLYGON: (state, soilPolygon) => state.soilPolygons.push(soilPolygon),
+        REMOVE_SOIL_POLYGON: (state, id) => state.soilPolygons = state.soilPolygons.filter(polygon => polygon.id !== id),
     },
     actions: {
         login: function ({
@@ -77,6 +79,16 @@ const store = new Vuex.Store({
             commit
         }, areasArray) => {
             commit('SET_AREAS_ARRAY', areasArray)
+        },
+        addSoilPolygon: ({
+            commit
+        }, soilPolygon) => {
+            commit('ADD_SOIL_POLYGON', soilPolygon)
+        },
+        removeSoilPolygon: ({
+            commit
+        }, id) => {
+            commit('REMOVE_SOIL_POLYGON', id)
         }
 
     }

@@ -20,12 +20,6 @@ class MapController extends Controller
         return Area::all()->toJson();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function soil_polygons()
     {
         return Polygon::with('area')->soilOnly()->get();
@@ -37,26 +31,21 @@ class MapController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        //
+        // return $request->all();
+        $polygon = new Polygon();
+        // return json_encode($request->get('coordinates'));
+        $polygon->coordinates = json_encode($request->get('coordinates'));
+        $polygon->specie_id = $request->get('specie_id');
+        $polygon->area_id = $request->get('area_id');
+        $polygon->save();
+        return $polygon->load('area');
     }
 
     /**
@@ -67,6 +56,6 @@ class MapController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Polygon::find($id)->delete();
     }
 }

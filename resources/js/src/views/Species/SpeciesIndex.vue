@@ -31,14 +31,15 @@
                       <th>Family</th>
                       <th>Common Name</th>
                       <th>In Albania</th>
-                      <th>Favourite</th>
                       <th>Map</th>
+                      <th>Favourite</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="specie in species" :key="specie.id">
                       <td>{{ specie.id }}</td>
+
                       <td>
                         <router-link
                           :to="{
@@ -53,6 +54,7 @@
                           {{ specie.name }}
                         </router-link>
                       </td>
+
                       <td>
                         <router-link
                           :to="{
@@ -65,6 +67,7 @@
                           >{{ specie.genera.name }}
                         </router-link>
                       </td>
+
                       <td>
                         <router-link
                           :to="{
@@ -78,32 +81,13 @@
                           {{ specie.genera.family.name }}
                         </router-link>
                       </td>
+
                       <td>{{ specie.common_name }}</td>
+
                       <td>
                         {{ specie.in_albania ? "True" : "False" }}
                       </td>
-                      <td>
-                        <div class="star-container">
-                          <div class="stary" @click="favourite(specie.id)">
-                            <inline-svg
-                              v-if="specie.favourites_count"
-                              name="star-solid"
-                              width="30"
-                              height="30"
-                              :src="require('../../../../svgs/star-solid.svg')"
-                            ></inline-svg>
-                            <inline-svg
-                              v-else
-                              :src="
-                                require('../../../../svgs/star-regular.svg')
-                              "
-                              width="30"
-                              height="30"
-                              name="star-regular"
-                            ></inline-svg>
-                          </div>
-                        </div>
-                      </td>
+
                       <td>
                         <router-link
                           :to="{
@@ -112,9 +96,32 @@
                               specieProp: specie,
                             },
                           }"
-                          >Map</router-link
                         >
+                          <inline-svg
+                            class="icon pin-icon"
+                            width="25"
+                            height="25"
+                            :src="require('../../../../svgs/pin.svg')"
+                          ></inline-svg>
+                        </router-link>
                       </td>
+
+                      <td>
+                        <div class="centerize" @click="favourite(specie.id)">
+                          <inline-svg
+                          class="icon star-icon"
+                            name="star-solid"
+                            width="25"
+                            height="25"
+                            :src="
+                              specie.favourites_count
+                                ? require('../../../../svgs/star-solid.svg')
+                                : require('../../../../svgs/star-regular.svg')
+                            "
+                          ></inline-svg>
+                        </div>
+                      </td>
+
                       <td>
                         <router-link
                           :to="{
@@ -145,8 +152,8 @@
                       <th>Family</th>
                       <th>Common Name</th>
                       <th>In Albania</th>
-                      <th>Favourite</th>
                       <th>Map</th>
+                      <th>Favourite</th>
                       <th>Actions</th>
                     </tr>
                   </tfoot>

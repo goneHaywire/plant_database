@@ -116,6 +116,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // import { mapGetters } from "vuex";
 
 
@@ -297,7 +335,16 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-success ml-3",
-                    attrs: { tag: "div", to: { name: "maps.create" } }
+                    attrs: {
+                      tag: "div",
+                      to: {
+                        name: "maps.create",
+                        params: {
+                          specieProp: _vm.selectedSpecie,
+                          polygonsProp: _vm.polygons
+                        }
+                      }
+                    }
                   },
                   [_vm._v("\n        Create Polygon\n      ")]
                 )
@@ -316,7 +363,7 @@ var render = function() {
                 _c("h5", { staticClass: "card-title" }, [_vm._v("Map")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "col-md-5" }, [
                     _c(
                       "div",
                       {
@@ -327,6 +374,7 @@ var render = function() {
                         _c(
                           "l-map",
                           {
+                            ref: "map",
                             staticStyle: { height: "90%" },
                             attrs: {
                               zoom: _vm.zoom,
@@ -364,7 +412,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-8" }, [
+                  _c("div", { staticClass: "col-md-7" }, [
                     _c("div", { staticClass: "row" }, [
                       _c(
                         "div",
@@ -376,64 +424,45 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(_vm.areas.soils, function(soil) {
                             return [
-                              _c("div", { key: soil.name }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.layers[soil.name],
-                                      expression: "layers[soil.name]"
-                                    }
-                                  ],
-                                  attrs: {
-                                    type: "checkbox",
-                                    name: soil.name,
-                                    id: soil.name
-                                  },
-                                  domProps: {
-                                    checked: Array.isArray(
-                                      _vm.layers[soil.name]
-                                    )
-                                      ? _vm._i(_vm.layers[soil.name], null) > -1
-                                      : _vm.layers[soil.name]
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      var $$a = _vm.layers[soil.name],
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.layers,
-                                              soil.name,
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.layers,
-                                              soil.name,
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
-                                        }
-                                      } else {
-                                        _vm.$set(_vm.layers, soil.name, $$c)
+                              _c(
+                                "div",
+                                {
+                                  key: soil.name,
+                                  staticClass:
+                                    "d-flex align-items-center justify-content-start mb-2"
+                                },
+                                [
+                                  _c("inline-svg", {
+                                    staticClass: "icon icon-checkbox eye-icon",
+                                    attrs: {
+                                      name: "eye",
+                                      width: "20",
+                                      height: "20",
+                                      src: _vm.layers[soil.name]
+                                        ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                        : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
+                                      id: soil.name
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.layers[soil.name] = !_vm.layers[
+                                          soil.name
+                                        ]
                                       }
                                     }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("label", { attrs: { for: soil.name } }, [
-                                  _vm._v(_vm._s(soil.name))
-                                ])
-                              ])
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "mb-0",
+                                      attrs: { for: soil.name }
+                                    },
+                                    [_vm._v(_vm._s(soil.name))]
+                                  )
+                                ],
+                                1
+                              )
                             ]
                           })
                         ],
@@ -444,74 +473,43 @@ var render = function() {
                         "div",
                         { staticClass: "col-md-6" },
                         [
-                          [
-                            _c("h4", [_vm._v("Specie Status")]),
-                            _vm._v(" "),
-                            _c("hr"),
-                            _vm._v(" "),
-                            _vm._l(_vm.areas.specie_status, function(
-                              specie_status
-                            ) {
-                              return [
-                                _c("div", { key: specie_status.name }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.layers[specie_status.name],
-                                        expression: "layers[specie_status.name]"
-                                      }
-                                    ],
+                          _c("h4", [_vm._v("Specie Status")]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _vm._l(_vm.areas.specie_status, function(
+                            specie_status
+                          ) {
+                            return [
+                              _c(
+                                "div",
+                                {
+                                  key: specie_status.name,
+                                  staticClass:
+                                    "d-flex align-items-center justify-content-start mb-2"
+                                },
+                                [
+                                  _c("inline-svg", {
+                                    staticClass: "icon icon-checkbox eye-icon",
+                                    style: _vm.selectedSpecie
+                                      ? { cursor: "pointer" }
+                                      : { cursor: "default" },
                                     attrs: {
-                                      type: "checkbox",
-                                      name: specie_status.name,
-                                      id: specie_status.name,
-                                      disabled: !_vm.selectedSpecie
-                                    },
-                                    domProps: {
-                                      checked: Array.isArray(
-                                        _vm.layers[specie_status.name]
-                                      )
-                                        ? _vm._i(
-                                            _vm.layers[specie_status.name],
-                                            null
-                                          ) > -1
-                                        : _vm.layers[specie_status.name]
+                                      name: "eye",
+                                      width: "20",
+                                      height: "20",
+                                      src: _vm.layers[specie_status.name]
+                                        ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                        : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
+                                      id: specie_status.name
                                     },
                                     on: {
-                                      change: function($event) {
-                                        var $$a =
-                                            _vm.layers[specie_status.name],
-                                          $$el = $event.target,
-                                          $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                          var $$v = null,
-                                            $$i = _vm._i($$a, $$v)
-                                          if ($$el.checked) {
-                                            $$i < 0 &&
-                                              _vm.$set(
-                                                _vm.layers,
-                                                specie_status.name,
-                                                $$a.concat([$$v])
-                                              )
-                                          } else {
-                                            $$i > -1 &&
-                                              _vm.$set(
-                                                _vm.layers,
-                                                specie_status.name,
-                                                $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1))
-                                              )
-                                          }
-                                        } else {
-                                          _vm.$set(
-                                            _vm.layers,
-                                            specie_status.name,
-                                            $$c
-                                          )
-                                        }
+                                      click: function($event) {
+                                        _vm.selectedSpecie
+                                          ? (_vm.layers[
+                                              specie_status.name
+                                            ] = !_vm.layers[specie_status.name])
+                                          : null
                                       }
                                     }
                                   }),
@@ -519,6 +517,7 @@ var render = function() {
                                   _c(
                                     "label",
                                     {
+                                      staticClass: "mb-0",
                                       class: {
                                         "text-muted": !_vm.selectedSpecie
                                       },
@@ -526,10 +525,11 @@ var render = function() {
                                     },
                                     [_vm._v(_vm._s(specie_status.name))]
                                   )
-                                ])
-                              ]
-                            })
-                          ]
+                                ],
+                                1
+                              )
+                            ]
+                          })
                         ],
                         2
                       )
@@ -572,6 +572,12 @@ var mapService = {
   },
   getSpecieStatusPolygons: function getSpecieStatusPolygons(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/polygons/specie/".concat(id));
+  },
+  createPolygon: function createPolygon(polygon) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/polygons', polygon);
+  },
+  deletePolygon: function deletePolygon(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/polygons/".concat(id));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mapService);
@@ -644,6 +650,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsIndex_vue_vue_type_template_id_645d170d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/svgs/eye-closed.svg":
+/*!***************************************!*\
+  !*** ./resources/svgs/eye-closed.svg ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/eye-closed.svg?37228d13df56ec65af6ac55c1798b24a";
+
+/***/ }),
+
+/***/ "./resources/svgs/eye-open.svg":
+/*!*************************************!*\
+  !*** ./resources/svgs/eye-open.svg ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/eye-open.svg?4b4cf493f88fb594bc1a7072e5b52902";
 
 /***/ })
 

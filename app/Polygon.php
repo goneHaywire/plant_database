@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Polygon extends Model
 {
     protected $hidden = ['created_at', 'updated_at'];
+    protected $fillable = ['coordinates', 'area_id', 'specie_id'];
 
     public function specie()
     {

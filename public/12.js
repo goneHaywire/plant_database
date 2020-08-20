@@ -9,6 +9,20 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_MapService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/MapService */ "./resources/js/src/services/MapService.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/store */ "./resources/js/src/store/store.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+/* harmony import */ var leaflet_draw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! leaflet-draw */ "./node_modules/leaflet-draw/dist/leaflet.draw.js");
+/* harmony import */ var leaflet_draw__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(leaflet_draw__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -98,7 +112,207 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "MapsCreate",
+  props: {
+    specieProp: {
+      type: Object
+    },
+    polygonsProp: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])({
+    areas: "getAreas",
+    soilPolygons: "getSoilPolygons"
+  })),
+  data: function data() {
+    return {
+      activePolygon: {
+        coordinates: [],
+        area_id: null,
+        specie_id: null
+      },
+      polygons: [],
+      editableLayers: undefined,
+      zoom: 7,
+      center: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(41.09591205639546, 20.026783401808004),
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      currentZoom: 11.5,
+      currentCenter: Object(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"])(47.41322, -1.219482),
+      mapOptions: {
+        zoomSnap: 0.5
+      }
+    };
+  },
+  methods: {
+    createPolygon: function createPolygon() {
+      var _this = this;
+
+      _services_MapService__WEBPACK_IMPORTED_MODULE_0__["default"].createPolygon(this.activePolygon).then(function (resp) {
+        console.log(resp.data);
+        if (resp.data.area.type === "soils") _this.$store.dispatch("addSoilPolygon", _objectSpread(_objectSpread({}, resp.data), {}, {
+          visible: false
+        }));
+        _this.activePolygon.coordinates = [];
+        _this.activePolygon.area_id = null;
+        var oldLayer = Object.values(_this.editableLayers._layers)[0];
+
+        _this.editableLayers.removeLayer(oldLayer);
+
+        _this.editableLayers._map.removeLayer(oldLayer);
+      });
+    },
+    deletePolygon: function deletePolygon(id) {
+      var _this2 = this;
+
+      _services_MapService__WEBPACK_IMPORTED_MODULE_0__["default"].deletePolygon(id).then(function (resp) {
+        _this2.$store.dispatch("removeSoilPolygon", id);
+
+        _this2.polygons = _this2.polygons.filter(function (polygon) {
+          return polygon.id !== id;
+        });
+      });
+    },
+    zoomUpdate: function zoomUpdate(zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate: function centerUpdate(center) {
+      this.currentCenter = center;
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    this.$nextTick(function () {
+      var map = _this3.$refs.map.mapObject;
+      var drawControl = new window.L.Control.Draw({
+        position: "topright",
+        draw: {
+          polyline: false,
+          polygon: true,
+          rectangle: false,
+          circle: false,
+          marker: false
+        }
+      });
+      map.addControl(drawControl);
+      var editableLayers = new window.L.FeatureGroup().addTo(map);
+      _this3.editableLayers = editableLayers;
+      console.log("map: ", _this3.$refs.map.mapObject);
+      window.map = _this3.$refs.map.mapObject; //   console.log();
+
+      map.on(window.L.Draw.Event.CREATED, function (e) {
+        console.log("drawing complete");
+        var layer = e.layer;
+        console.log("layer:", layer); // this.$set(this);
+
+        _this3.activePolygon.coordinates = layer._latlngs[0];
+        editableLayers.addLayer(layer);
+        window.editable = editableLayers;
+        console.log("current val: ", _this3.activePolygon.coordinates);
+      });
+      map.on(window.L.Draw.Event.DRAWSTART, function (e) {
+        console.log("started drawing");
+        var all_layers = Object.keys(editableLayers._layers);
+
+        if (all_layers.length) {
+          console.log("all_layers,", all_layers);
+          editableLayers.removeLayer(editableLayers._layers[all_layers[0]]);
+          _this3.activePolygon.coordinates = [];
+          console.log("current val after drawstart: ", _this3.activePolygon.coordinates);
+        }
+      });
+    });
+  },
+  filters: {
+    cleanType: function cleanType(value) {
+      return _.capitalize(value).replace("_", " ");
+    }
+  },
+  created: function created() {
+    var _this4 = this;
+
+    if (this.specieProp) this.activePolygon.specie_id = this.specieProp.id || null;
+    this.polygons = this.polygonsProp;
+    this.polygons.forEach(function (polygon) {
+      return _this4.$set(polygon, "visible", false);
+    });
+  },
+  components: {
+    LMap: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LMap"],
+    LTileLayer: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LTileLayer"],
+    LMarker: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LMarker"],
+    LPopup: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LPopup"],
+    LTooltip: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LTooltip"],
+    LPolygon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_3__["LPolygon"] // LDrawToolbar,
+
+  }
+});
 
 /***/ }),
 
@@ -134,10 +348,12 @@ var render = function() {
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Map")]),
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Create Polygons")
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", { staticClass: "col-md-5" }, [
                     _c(
                       "div",
                       {
@@ -148,6 +364,7 @@ var render = function() {
                         _c(
                           "l-map",
                           {
+                            ref: "map",
                             staticStyle: { height: "90%" },
                             attrs: {
                               zoom: _vm.zoom,
@@ -171,9 +388,10 @@ var render = function() {
                               return _c("l-polygon", {
                                 key: polygon.id,
                                 attrs: {
-                                  visible: _vm.layers[polygon.area.name],
+                                  visible: polygon.visible,
                                   "lat-lngs": JSON.parse(polygon.coordinates),
-                                  color: polygon.area.color
+                                  color: polygon.area.color,
+                                  opacity: 0.4
                                 }
                               })
                             })
@@ -185,176 +403,217 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6" },
-                        [
-                          _c("h4", [_vm._v("Soil Types")]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _vm._l(_vm.areas.soils, function(soil) {
-                            return [
-                              _c("div", { key: soil.name }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.layers[soil.name],
-                                      expression: "layers[soil.name]"
-                                    }
-                                  ],
-                                  attrs: {
-                                    type: "checkbox",
-                                    name: soil.name,
-                                    id: soil.name
-                                  },
-                                  domProps: {
-                                    checked: Array.isArray(
-                                      _vm.layers[soil.name]
-                                    )
-                                      ? _vm._i(_vm.layers[soil.name], null) > -1
-                                      : _vm.layers[soil.name]
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      var $$a = _vm.layers[soil.name],
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.layers,
-                                              soil.name,
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.layers,
-                                              soil.name,
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
+                  _c("div", { staticClass: "col-md-7" }, [
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.createPolygon()
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6" },
+                            [
+                              _c("h4", [_vm._v("Soil Types")]),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _vm._l(_vm.areas.soils, function(soil) {
+                                return [
+                                  _c("div", { key: soil.name }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.activePolygon.area_id,
+                                          expression: "activePolygon.area_id"
                                         }
-                                      } else {
-                                        _vm.$set(_vm.layers, soil.name, $$c)
-                                      }
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("label", { attrs: { for: soil.name } }, [
-                                  _vm._v(_vm._s(soil.name))
-                                ])
-                              ])
-                            ]
-                          })
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6" },
-                        [
-                          [
-                            _c("h4", [_vm._v("Specie Status")]),
-                            _vm._v(" "),
-                            _c("hr"),
-                            _vm._v(" "),
-                            _vm._l(_vm.areas.specie_status, function(
-                              specie_status
-                            ) {
-                              return [
-                                _c("div", { key: specie_status.name }, [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.layers[specie_status.name],
-                                        expression: "layers[specie_status.name]"
-                                      }
-                                    ],
-                                    attrs: {
-                                      type: "checkbox",
-                                      name: specie_status.name,
-                                      id: specie_status.name,
-                                      disabled: !_vm.selectedSpecie
-                                    },
-                                    domProps: {
-                                      checked: Array.isArray(
-                                        _vm.layers[specie_status.name]
-                                      )
-                                        ? _vm._i(
-                                            _vm.layers[specie_status.name],
-                                            null
-                                          ) > -1
-                                        : _vm.layers[specie_status.name]
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$a =
-                                            _vm.layers[specie_status.name],
-                                          $$el = $event.target,
-                                          $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                          var $$v = null,
-                                            $$i = _vm._i($$a, $$v)
-                                          if ($$el.checked) {
-                                            $$i < 0 &&
-                                              _vm.$set(
-                                                _vm.layers,
-                                                specie_status.name,
-                                                $$a.concat([$$v])
-                                              )
-                                          } else {
-                                            $$i > -1 &&
-                                              _vm.$set(
-                                                _vm.layers,
-                                                specie_status.name,
-                                                $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1))
-                                              )
-                                          }
-                                        } else {
-                                          _vm.$set(
-                                            _vm.layers,
-                                            specie_status.name,
-                                            $$c
+                                      ],
+                                      attrs: {
+                                        type: "radio",
+                                        name: "area",
+                                        id: soil.name,
+                                        required: ""
+                                      },
+                                      domProps: {
+                                        value: soil.id,
+                                        checked: _vm._q(
+                                          _vm.activePolygon.area_id,
+                                          soil.id
+                                        )
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.$set(
+                                            _vm.activePolygon,
+                                            "area_id",
+                                            soil.id
                                           )
                                         }
                                       }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      class: {
-                                        "text-muted": !_vm.selectedSpecie
+                                    }),
+                                    _vm._v(" "),
+                                    _c("label", { attrs: { for: soil.name } }, [
+                                      _vm._v(_vm._s(soil.name))
+                                    ])
+                                  ])
+                                ]
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-6" },
+                            [
+                              _c("h4", [_vm._v("Specie Status")]),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _vm._l(_vm.areas.specie_status, function(
+                                specie_status
+                              ) {
+                                return [
+                                  _c("div", { key: specie_status.name }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.activePolygon.area_id,
+                                          expression: "activePolygon.area_id"
+                                        }
+                                      ],
+                                      attrs: {
+                                        type: "radio",
+                                        name: "area",
+                                        id: specie_status.name,
+                                        disabled: !_vm.activePolygon.specie_id,
+                                        required: ""
                                       },
-                                      attrs: { for: specie_status.name }
-                                    },
-                                    [_vm._v(_vm._s(specie_status.name))]
+                                      domProps: {
+                                        value: specie_status.id,
+                                        checked: _vm._q(
+                                          _vm.activePolygon.area_id,
+                                          specie_status.id
+                                        )
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.$set(
+                                            _vm.activePolygon,
+                                            "area_id",
+                                            specie_status.id
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        class: {
+                                          "text-muted": !_vm.activePolygon
+                                            .specie_id
+                                        },
+                                        attrs: { for: specie_status.name }
+                                      },
+                                      [_vm._v(_vm._s(specie_status.name))]
+                                    )
+                                  ])
+                                ]
+                              })
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c(
+                          "table",
+                          { staticClass: "table table-striped table-bordered" },
+                          [
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _vm._l(_vm.polygons, function(polygon) {
+                              return _c("tr", { key: polygon.id }, [
+                                _c("td", [_vm._v(_vm._s(polygon.id))]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    _c("inline-svg", {
+                                      staticClass: "icon eye-icon",
+                                      attrs: {
+                                        name: polygon.visible
+                                          ? "eye-closed"
+                                          : "eye-open",
+                                        width: "25",
+                                        height: "25",
+                                        src: polygon.visible
+                                          ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                          : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          polygon.visible = !polygon.visible
+                                        }
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(polygon.area.name))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("cleanType")(polygon.area.type)
+                                    )
                                   )
-                                ])
-                              ]
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    _c("inline-svg", {
+                                      staticClass: "icon trash-icon",
+                                      attrs: {
+                                        name: "trash",
+                                        width: "25",
+                                        height: "25",
+                                        src: __webpack_require__(/*! ../../../../svgs/trash.svg */ "./resources/svgs/trash.svg")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deletePolygon(polygon.id)
+                                        }
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ])
                             })
-                          ]
-                        ],
-                        2
-                      )
-                    ])
+                          ],
+                          2
+                        )
+                      ]
+                    )
                   ])
                 ])
               ])
@@ -366,10 +625,70 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("input", {
+        staticClass: "btn btn-success",
+        attrs: { type: "submit", value: "Add Polygon" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("td", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Toggle")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Type")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Remove")])
+    ])
+  }
+]
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/src/services/MapService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/src/services/MapService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./resources/js/src/services/Api.js");
+
+var mapService = {
+  getAreas: function getAreas() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/areas');
+  },
+  getSoilPolygons: function getSoilPolygons() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/polygons/soil');
+  },
+  getSpecieStatusPolygons: function getSpecieStatusPolygons(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/polygons/specie/".concat(id));
+  },
+  createPolygon: function createPolygon(polygon) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/polygons', polygon);
+  },
+  deletePolygon: function deletePolygon(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/polygons/".concat(id));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (mapService);
 
 /***/ }),
 
@@ -439,6 +758,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapsCreate_vue_vue_type_template_id_4efa1551___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/svgs/eye-closed.svg":
+/*!***************************************!*\
+  !*** ./resources/svgs/eye-closed.svg ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/eye-closed.svg?37228d13df56ec65af6ac55c1798b24a";
+
+/***/ }),
+
+/***/ "./resources/svgs/eye-open.svg":
+/*!*************************************!*\
+  !*** ./resources/svgs/eye-open.svg ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/eye-open.svg?4b4cf493f88fb594bc1a7072e5b52902";
+
+/***/ }),
+
+/***/ "./resources/svgs/trash.svg":
+/*!**********************************!*\
+  !*** ./resources/svgs/trash.svg ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/trash.svg?650cdc57dc0be3a71cc230a760215df5";
 
 /***/ })
 
