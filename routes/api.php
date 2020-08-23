@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/areas', 'API\MapController@areas');
     Route::get('/polygons/soil', 'API\MapController@soil_polygons');
     Route::get('/polygons/specie/{specie}', 'API\MapController@specie_polygons');
+    Route::post('/search', 'API\SpeciesController@search');
+    Route::get('/search', 'API\SpeciesController@search');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -25,7 +25,7 @@ class FamilyController extends Controller
 
     public function generaOfFamily(Family $family)
     {
-        return $family->load('genus')->genera;
+        return $family->load('genera')->genera;
     }
 
     /**

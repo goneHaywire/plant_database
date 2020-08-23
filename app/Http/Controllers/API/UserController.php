@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function favouritesIndex()
     {
-        return Auth()->user()->favourites()->with(['specie', 'specie.genus', 'specie.genus.family'])->paginate(20);
+        return Auth()->user()->favourites()->with(['specie', 'specie.genera', 'specie.genera.family'])->paginate(20);
     }
 
     public function favouriteSpecie($id)

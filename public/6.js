@@ -1,15 +1,46 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FilterView.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/FilterView.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Pagination */ "./resources/js/src/components/Pagination.vue");
+/* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -111,66 +142,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "FilterIndex",
+  name: "FamiliesForm",
   props: {
-    results: {
-      required: false,
+    family: {
+      type: Object,
       "default": function _default() {
         return {};
       }
-    } // pagination: {
-    //     required: true
-    // }
-
-  },
-  methods: {
-    fetchResults: function fetchResults() {
-      var _this = this;
-
-      axios.get(this.url + "&page=" + this.pagination.current_page).then(function (response) {
-        _this.species = response.data.data.data;
-        _this.pagination = response.data.pagination;
-        _this.url = response.data.url;
-      })["catch"](function (error) {
-        console.log(error.response.data);
-      });
     },
-    Favourite: function Favourite(specie_id) {
-      var _this2 = this;
-
-      axios.post("/dashboard/favourites/".concat(specie_id)).then(function (data) {
-        console.log(data);
-
-        for (var i = 0; i < _this2.species.length; i++) {
-          if (_this2.species[i].id === specie_id) {
-            if (_this2.species[i].favourites.length) _this2.species[i].favourites = [];else _this2.species[i].favourites.push(1);
-            break;
-          }
-        }
-      });
+    editing: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
     }
   },
-  data: function data() {
-    return {
-      url: JSON.parse(this.results).url,
-      species: JSON.parse(this.results).data.data,
-      pagination: JSON.parse(this.results).pagination
-    };
+  methods: {
+    postFamily: function postFamily() {
+      var _this = this;
+
+      if (!this.editing) {
+        _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].createFamily(this.family).then(function (resp) {
+          _this.$router.push({
+            name: "families.show",
+            params: {
+              family: resp.data,
+              id: resp.data.id
+            }
+          });
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      } else {
+        _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].updateFamily(this.family).then(function (resp) {
+          return _this.$router.push({
+            name: "families.show",
+            params: {
+              family: resp.data,
+              id: resp.data.id
+            }
+          });
+        })["catch"](function (err) {
+          return console.log(err);
+        });
+      }
+    }
   },
-  mounted: function mounted() {
-    console.log(this.results.url); // this.fetchResults();
-  },
-  components: {
-    pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_0__["default"]
+  // data() {
+  //     return {
+  //         family: {
+  //             name: ""
+  //         }
+  //     };
+  // },
+  created: function created() {// this.family = this.familyProp;
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -186,148 +220,285 @@ var render = function() {
     "div",
     [
       _c("the-breadcrumbs", {
-        attrs: { paths: [{ name: "Filter Species", route: "filter.index" }] }
+        attrs: {
+          paths: [
+            { name: "Families", route: "families.index" },
+            { name: "Create Family", route: "families.form" }
+          ]
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
               _c(
-                "div",
-                { staticClass: "card-body" },
+                "form",
+                {
+                  staticClass: "form-horizontal",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.postFamily()
+                    }
+                  }
+                },
                 [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v("Filter Results")
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "table-responsive" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "table table-striped table-bordered",
-                        attrs: { id: "zero_config" }
-                      },
-                      [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.species, function(specie) {
-                            return _c("tr", { key: specie.id }, [
-                              _c("td", [_vm._v(_vm._s(specie.id))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: {
-                                      href: "/dashboard/species/" + specie.id
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      _vm._s(specie.genera.name) +
-                                        " " +
-                                        _vm._s(specie.name)
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: {
-                                      href:
-                                        "/dashboard/genera/" + specie.genera.id
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(specie.genera.name))]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: {
-                                      href:
-                                        "/dashboard/families/" +
-                                        specie.genera.family.id
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(specie.genera.family.name))]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(specie.common_name))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(
-                                      specie.in_albania ? "True" : "False"
-                                    ) +
-                                    "\n                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c("div", { staticClass: "star-container" }, [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "centerize",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.Favourite(specie.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      specie.favourites.length > 0
-                                        ? _c("inline-svg", {
-                                            attrs: { name: "star-solid" }
-                                          })
-                                        : _c("inline-svg", {
-                                            attrs: { name: "star-regular" }
-                                          })
-                                    ],
-                                    1
-                                  )
-                                ])
-                              ])
-                            ])
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _vm._m(1)
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            return _vm.fetchResults()
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Family Data")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "fname" }
+                        },
+                        [_vm._v("Family Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.name,
+                              expression: "family.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "name",
+                            name: "name",
+                            required: "",
+                            placeholder: "Family Name Here"
+                          },
+                          domProps: { value: _vm.family.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.family, "name", $event.target.value)
+                            }
                           }
-                        }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "cono1" }
+                        },
+                        [_vm._v("Family Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.description,
+                              expression: "family.description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "desc" },
+                          domProps: { value: _vm.family.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.family,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "cono1" }
+                        },
+                        [_vm._v("Leaves Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.leaves,
+                              expression: "family.leaves"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "leaves" },
+                          domProps: { value: _vm.family.leaves },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.family,
+                                "leaves",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "cono1" }
+                        },
+                        [_vm._v("Flowers Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.flowers,
+                              expression: "family.flowers"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "flowers" },
+                          domProps: { value: _vm.family.flowers },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.family,
+                                "flowers",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "cono1" }
+                        },
+                        [_vm._v("Seeds Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.seeds,
+                              expression: "family.seeds"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "seeds" },
+                          domProps: { value: _vm.family.seeds },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.family, "seeds", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "col-sm-3 text-right control-label col-form-label",
+                          attrs: { for: "cono1" }
+                        },
+                        [_vm._v("Family Characteristics")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.characteristics,
+                              expression: "family.characteristics"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "characteristics" },
+                          domProps: { value: _vm.family.characteristics },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.family,
+                                "characteristics",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "border-top" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("input", {
+                        staticClass: "btn",
+                        class: _vm.editing ? "btn-primary" : "btn-success",
+                        attrs: { type: "submit" },
+                        domProps: { value: _vm.editing ? "Update" : "Create" }
                       })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("h3", [_vm._v("No species found.")]),
-                  _vm._v("\n            @\n          ")
-                ],
-                1
+                    ])
+                  ])
+                ]
               )
             ])
           ])
@@ -337,70 +508,25 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Full Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Genus")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Family")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Common Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("In Albania")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Favourite")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Full Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Genus")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Family")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Common Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("In Albania")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Favourite")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FilterView.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/src/views/FilterView.vue ***!
-  \***********************************************/
+/***/ "./resources/js/src/views/Families/FamiliesForm.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/views/Families/FamiliesForm.vue ***!
+  \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FilterView.vue?vue&type=template&id=17c39e67& */ "./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67&");
-/* harmony import */ var _FilterView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilterView.vue?vue&type=script&lang=js& */ "./resources/js/src/views/FilterView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FamiliesForm.vue?vue&type=template&id=7036128e& */ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&");
+/* harmony import */ var _FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FamiliesForm.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -409,9 +535,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FilterView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -421,38 +547,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/FilterView.vue"
+component.options.__file = "resources/js/src/views/Families/FamiliesForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FilterView.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/src/views/FilterView.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/***/ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FilterView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FilterView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FamiliesForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67& ***!
-  \******************************************************************************/
+/***/ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FilterView.vue?vue&type=template&id=17c39e67& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/FilterView.vue?vue&type=template&id=17c39e67&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FamiliesForm.vue?vue&type=template&id=7036128e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterView_vue_vue_type_template_id_17c39e67___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

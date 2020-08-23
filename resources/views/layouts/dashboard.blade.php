@@ -14,11 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
+
     <!-- Custom CSS -->
-    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div id="app">

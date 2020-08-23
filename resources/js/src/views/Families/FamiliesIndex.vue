@@ -18,7 +18,6 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">All Families</h5>
-              <!-- <button @click="getFamilies()">tesg</button> -->
               <div class="table-responsive">
                 <table
                   id="zero_config"

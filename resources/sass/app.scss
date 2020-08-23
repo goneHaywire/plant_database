@@ -7,6 +7,12 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+a,
+a:hover {
+    color: #2E7D32;
+    text-decoration: none;
+}
+
 .stary {
     display: flex;
     align-items: center;

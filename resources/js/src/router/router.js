@@ -103,16 +103,6 @@ const routes = [{
                 component: () => import("../views/Users/UsersIndex.vue"),
             },
             {
-                name: "filter.index",
-                path: "filter",
-                component: () => import("../views/FilterView.vue"),
-            },
-            {
-                name: "filter.form",
-                path: "/filter/form",
-                component: () => import("../views/FilterForm.vue"),
-            },
-            {
                 name: "maps.index",
                 path: "/maps",
                 component: () => import('../views/Maps/MapsIndex.vue'),

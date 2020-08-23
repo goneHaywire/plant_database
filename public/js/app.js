@@ -2622,7 +2622,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3119,6 +3118,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
+/* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
 //
 //
 //
@@ -3295,6 +3295,101 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3338,11 +3433,60 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+    },
+    searchSpecies: function searchSpecies() {
+      var _this4 = this;
+
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].searchSpecies(this.pagination.current_page, this.search).then(function (resp) {
+        if (!resp.data.data.length) _this4.tableTitle = "No Species found for: ".concat(_this4.search.query);else _this4.tableTitle = "Search results for: ".concat(_this4.search.query);
+        _this4.justSearched = true;
+        _this4.species = resp.data.data;
+        _this4.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      });
+    },
+    clearSearch: function clearSearch() {
+      var _this5 = this;
+
+      this.justSearched = false;
+      this.search = {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "species"
+      };
+      this.tableTitle = "All Species";
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies().then(function (resp) {
+        _this5.species = resp.data.data;
+        _this5.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      });
     }
   },
   data: function data() {
     return {
-      species: []
+      tableTitle: "All Species",
+      species: [],
+      pagination: {},
+      search: {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "species"
+      },
+      justSearched: false,
+      families: [],
+      genera: []
     };
   },
   props: {
@@ -3350,18 +3494,47 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       required: true
     },
-    pagination: {
+    paginationProp: {
       type: Object,
       required: true
     }
   },
+  watch: {
+    "search.searchFilters": function searchSearchFilters(newValue, oldValue) {
+      var _this6 = this;
+
+      if (!this.families.length) {
+        _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getAllFamilies().then(function (resp) {
+          return _this6.families = resp.data;
+        })["catch"](function (err) {
+          return console.log("Error: ", err);
+        });
+      }
+    },
+    "search.family_id": function searchFamily_id(newValue, oldValue) {
+      var _this7 = this;
+
+      if (newValue) {
+        _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getGeneraOfFamily(newValue).then(function (resp) {
+          _this7.genera = resp.data;
+        });
+      }
+    },
+    search: {
+      handler: function handler(newValue, oldValue) {
+        this.pagination.current_page = 1;
+      },
+      deep: true
+    }
+  },
   created: function created() {
     this.species = this.speciesProp;
+    this.pagination = this.paginationProp;
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies().then(function (resp) {
       to.params.speciesProp = resp.data.data;
-      to.params.pagination = {
+      to.params.paginationProp = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page
       };
@@ -7897,6 +8070,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.pagination[data-v-5748944c] {\n    margin-top: 40px;\n}\n.page-link[data-v-5748944c] {\n    position: relative;\n    display: block;\n    padding: 0.5rem 0.75rem;\n    margin-left: -1px;\n    line-height: 1.25;\n    color: #7460ee !important;\n    background-color: #fff;\n    border: 1px solid #dee2e6;\n}\n.page-link[data-v-5748944c]:not(:disabled):not(.disabled) {\n    cursor: pointer;\n}\n.page-link[data-v-5748944c]:hover {\n    z-index: 2;\n    color: #381be7 !important;\n    text-decoration: none;\n    background-color: #e9ecef;\n    border-color: #dee2e6;\n}\n.page-link.is-current[data-v-5748944c] {\n    z-index: 1;\n    color: #fff !important;\n    background-color: #2962ff !important;\n    border-color: #2962ff !important;\n}\n/*.page-link[disabled=\"disabled\"]{*/\n/*    cursor: normal !important;*/\n/*}*/\n.page-link[disabled=\"disabled\"][data-v-5748944c] {\n    color: #6c757d !important;\n    pointer-events: none;\n    cursor: auto;\n    background-color: #fff !important;\n    border-color: #dee2e6 !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.show-filters {\n  margin-right: 1rem;\n  width: 50px;\n}\n", ""]);
 
 // exports
 
@@ -40551,6 +40743,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SpeciesIndex.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -42751,241 +42973,630 @@ var render = function() {
                 "div",
                 { staticClass: "card-body" },
                 [
-                  _c("h5", { staticClass: "card-title" }, [
-                    _vm._v("All Plants")
-                  ]),
+                  _c("h5", [_vm._v("Search")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "table-responsive" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "table table-striped table-bordered",
-                        attrs: { id: "zero_config" }
-                      },
-                      [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.species, function(specie) {
-                            return _c("tr", { key: specie.id }, [
-                              _c("td", [_vm._v(_vm._s(specie.id))]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          name: "species.show",
-                                          params: {
-                                            specie: specie,
-                                            id: specie.id
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                        " +
-                                          _vm._s(specie.genera.name) +
-                                          "\n                        " +
-                                          _vm._s(specie.name) +
-                                          "\n                      "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          name: "genera.show",
-                                          params: {
-                                            genus: specie.genera,
-                                            id: specie.genera.id
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        _vm._s(specie.genera.name) +
-                                          "\n                      "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          name: "families.show",
-                                          params: {
-                                            family: specie.genera.family,
-                                            id: specie.genera.family.id
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                        " +
-                                          _vm._s(specie.genera.family.name) +
-                                          "\n                      "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(specie.common_name))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  "\n                      " +
-                                    _vm._s(
-                                      specie.in_albania ? "True" : "False"
-                                    ) +
-                                    "\n                    "
+                  _c(
+                    "form",
+                    {
+                      staticClass: "search-form",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.searchSpecies()
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "form-group d-flex justify-content-between"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "show-filters btn border",
+                              on: {
+                                click: function($event) {
+                                  _vm.search.searchFilters = !_vm.search
+                                    .searchFilters
+                                }
+                              }
+                            },
+                            [
+                              _c("inline-svg", {
+                                attrs: {
+                                  width: "25",
+                                  height: "25",
+                                  src: __webpack_require__(/*! ../../../../svgs/filter.svg */ "./resources/svgs/filter.svg")
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.search.query,
+                                expression: "search.query"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Search Species"
+                            },
+                            domProps: { value: _vm.search.query },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.search,
+                                  "query",
+                                  $event.target.value
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          name: "maps.index",
-                                          params: {
-                                            specieProp: specie
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("inline-svg", {
-                                        staticClass: "icon pin-icon",
-                                        attrs: {
-                                          width: "25",
-                                          height: "25",
-                                          src: __webpack_require__(/*! ../../../../svgs/pin.svg */ "./resources/svgs/pin.svg")
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("td", [
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.search.searchFilters,
+                              expression: "search.searchFilters"
+                            }
+                          ],
+                          staticClass: "filters"
+                        },
+                        [
+                          _c("div", { staticClass: "row align-items-center" }, [
+                            _c("div", { staticClass: "col-6 col-md-4" }, [
+                              _c("div", { staticClass: "form-group" }, [
                                 _c(
-                                  "div",
+                                  "select",
                                   {
-                                    staticClass: "centerize",
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.search.family_id,
+                                        expression: "search.family_id"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { name: "family" },
                                     on: {
-                                      click: function($event) {
-                                        return _vm.favourite(specie.id)
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.search,
+                                          "family_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
                                       }
                                     }
                                   },
                                   [
-                                    _c("inline-svg", {
-                                      staticClass: "icon star-icon",
-                                      attrs: {
-                                        name: "star-solid",
-                                        width: "25",
-                                        height: "25",
-                                        src: specie.favourites_count
-                                          ? __webpack_require__(/*! ../../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
-                                          : __webpack_require__(/*! ../../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg")
-                                      }
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: { selected: "" },
+                                        domProps: { value: null }
+                                      },
+                                      [_vm._v("Select Family")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.families, function(family) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: family.id,
+                                          domProps: { value: family.id }
+                                        },
+                                        [_vm._v(_vm._s(family.name))]
+                                      )
                                     })
                                   ],
-                                  1
+                                  2
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      attrs: {
-                                        to: {
-                                          name: "species.form",
-                                          params: {
-                                            editing: true,
-                                            specieProp: specie
-                                          }
-                                        }
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-6 col-md-4" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.search.genera_id,
+                                        expression: "search.genera_id"
                                       }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                        Update\n                      "
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { name: "genera" },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.search,
+                                          "genera_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: { selected: "" },
+                                        domProps: { value: null }
+                                      },
+                                      [_vm._v("Select Genus")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.genera, function(genus) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: genus.id,
+                                          domProps: { value: genus.id }
+                                        },
+                                        [_vm._v(_vm._s(genus.name))]
                                       )
-                                    ]
+                                    })
+                                  ],
+                                  2
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-2" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.search.in_albania,
+                                      expression: "search.in_albania"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "checkbox",
+                                    name: "in_albania",
+                                    id: "in_albania"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.search.in_albania
+                                    )
+                                      ? _vm._i(_vm.search.in_albania, null) > -1
+                                      : _vm.search.in_albania
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.search.in_albania,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.search,
+                                              "in_albania",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.search,
+                                              "in_albania",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.search, "in_albania", $$c)
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0",
+                                    attrs: { for: "in_albania" }
+                                  },
+                                  [_vm._v("In Albania")]
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-2" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.search.favourite,
+                                      expression: "search.favourite"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "checkbox",
+                                    name: "favourite",
+                                    id: "favourite"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.search.favourite)
+                                      ? _vm._i(_vm.search.favourite, null) > -1
+                                      : _vm.search.favourite
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.search.favourite,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.search,
+                                              "favourite",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.search,
+                                              "favourite",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.search, "favourite", $$c)
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0",
+                                    attrs: { for: "favourite" }
+                                  },
+                                  [_vm._v("Favorite")]
+                                )
+                              ])
+                            ])
+                          ])
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.tableTitle) +
+                        "\n              "
+                    ),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.justSearched,
+                            expression: "justSearched"
+                          }
+                        ],
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.clearSearch()
+                          }
+                        }
+                      },
+                      [_vm._v("Clear Search")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.species.length > 0
+                    ? _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table table-striped table-bordered",
+                            attrs: { id: "zero_config" }
+                          },
+                          [
+                            _vm._m(0),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.species, function(specie) {
+                                return _c("tr", { key: specie.id }, [
+                                  _c("td", [_vm._v(_vm._s(specie.id))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "species.show",
+                                              params: {
+                                                specie: specie,
+                                                id: specie.id
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                        " +
+                                              _vm._s(specie.genera.name) +
+                                              "\n                        " +
+                                              _vm._s(specie.name) +
+                                              "\n                      "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "div",
-                                    {
-                                      staticClass: "btn btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deleteSpecie(specie.id)
-                                        }
-                                      }
-                                    },
+                                    "td",
                                     [
-                                      _vm._v(
-                                        "\n                        Delete\n                      "
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "genera.show",
+                                              params: {
+                                                genus: specie.genera,
+                                                id: specie.genera.id
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(specie.genera.name) +
+                                              "\n                      "
+                                          )
+                                        ]
                                       )
-                                    ]
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "families.show",
+                                              params: {
+                                                family: specie.genera.family,
+                                                id: specie.genera.family.id
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                        " +
+                                              _vm._s(
+                                                specie.genera.family.name
+                                              ) +
+                                              "\n                      "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(specie.common_name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(
+                                          specie.in_albania ? "True" : "False"
+                                        ) +
+                                        "\n                    "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "maps.index",
+                                              params: {
+                                                specieProp: specie
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("inline-svg", {
+                                            staticClass: "icon pin-icon",
+                                            attrs: {
+                                              width: "25",
+                                              height: "25",
+                                              src: __webpack_require__(/*! ../../../../svgs/pin.svg */ "./resources/svgs/pin.svg")
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "centerize",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.favourite(specie.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("inline-svg", {
+                                          staticClass: "icon star-icon",
+                                          attrs: {
+                                            name: "star-solid",
+                                            width: "25",
+                                            height: "25",
+                                            src: specie.favourites_count
+                                              ? __webpack_require__(/*! ../../../../svgs/star-solid.svg */ "./resources/svgs/star-solid.svg")
+                                              : __webpack_require__(/*! ../../../../svgs/star-regular.svg */ "./resources/svgs/star-regular.svg")
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            to: {
+                                              name: "species.form",
+                                              params: {
+                                                editing: true,
+                                                specieProp: specie
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                        Update\n                      "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "btn btn-danger",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteSpecie(specie.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                        Delete\n                      "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _vm._m(1)
-                      ]
-                    )
-                  ]),
+                                ])
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm._m(1)
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.pagination.last_page > 1
                     ? _c("pagination", {
                         attrs: { pagination: _vm.pagination, offset: 5 },
                         on: {
                           paginate: function($event) {
-                            return _vm.fetchSpecies()
+                            {
+                              _vm.justSearched
+                                ? _vm.searchSpecies()
+                                : _vm.fetchSpecies()
+                            }
                           }
                         }
                       })
@@ -59595,12 +60206,11 @@ var app = new Vue({
               userData = JSON.parse(localStorage.getItem("user"));
 
               if (!userData) {
-                _context.next = 7;
+                _context.next = 6;
                 break;
               }
 
-              console.log("ka ne storage");
-              _context.next = 5;
+              _context.next = 4;
               return _src_services_AuthService_js__WEBPACK_IMPORTED_MODULE_4__["default"].verifyToken(userData.access_token).then(function (data) {
                 _this.$store.dispatch("login", userData);
               })["catch"](function (error) {
@@ -59609,15 +60219,15 @@ var app = new Vue({
                 }
               });
 
-            case 5:
-              _context.next = 8;
+            case 4:
+              _context.next = 7;
               break;
 
-            case 7:
+            case 6:
               _src_router_router_js__WEBPACK_IMPORTED_MODULE_1__["default"].push("/login");
 
-            case 8:
-              console.log('u vu kushti');
+            case 7:
+              // console.log('u vu kushti')
               _src_services_Api_js__WEBPACK_IMPORTED_MODULE_3__["default"].interceptors.response.use(function (response) {
                 return response;
               }, function (error) {
@@ -59628,7 +60238,7 @@ var app = new Vue({
                 }
               });
 
-            case 10:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -60014,18 +60624,18 @@ var routes = [{
   path: "/login",
   name: "login",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/LoginPage.vue */ "./resources/js/src/pages/LoginPage.vue"));
+    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/LoginPage.vue */ "./resources/js/src/pages/LoginPage.vue"));
   }
 }, {
   path: "/dashboard",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../pages/DashboardPage.vue */ "./resources/js/src/pages/DashboardPage.vue"));
+    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/DashboardPage.vue */ "./resources/js/src/pages/DashboardPage.vue"));
   },
   children: [{
     name: "home",
     path: "/",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/HomeView.vue */ "./resources/js/src/views/HomeView.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/HomeView.vue */ "./resources/js/src/views/HomeView.vue"));
     },
     props: true
   }, {
@@ -60037,14 +60647,14 @@ var routes = [{
     name: "families.form",
     path: "families/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesForm.vue */ "./resources/js/src/views/Families/FamiliesForm.vue"));
     },
     props: true
   }, {
     name: "families.show",
     path: "families/:id",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesShow.vue */ "./resources/js/src/views/Families/FamiliesShow.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Families/FamiliesShow.vue */ "./resources/js/src/views/Families/FamiliesShow.vue"));
     },
     props: true
   }, {
@@ -60056,14 +60666,14 @@ var routes = [{
     name: "genera.form",
     path: "genera/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraForm.vue */ "./resources/js/src/views/Genera/GeneraForm.vue"));
     },
     props: true
   }, {
     name: "genera.show",
     path: "genera/:id",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraShow.vue */ "./resources/js/src/views/Genera/GeneraShow.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/Genera/GeneraShow.vue */ "./resources/js/src/views/Genera/GeneraShow.vue"));
     },
     props: true
   }, {
@@ -60075,14 +60685,14 @@ var routes = [{
     name: "species.form",
     path: "species/form",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesForm.vue */ "./resources/js/src/views/Species/SpeciesForm.vue"));
     },
     props: true
   }, {
     name: "species.show",
     path: "species/:id",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesShow.vue */ "./resources/js/src/views/Species/SpeciesShow.vue"));
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/Species/SpeciesShow.vue */ "./resources/js/src/views/Species/SpeciesShow.vue"));
     },
     props: true
   }, {
@@ -60099,39 +60709,27 @@ var routes = [{
     name: "users.index",
     path: "users",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
     },
     props: true
   }, {
     name: "users.create",
     path: "users/create",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
-    }
-  }, {
-    name: "filter.index",
-    path: "filter",
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/FilterView.vue */ "./resources/js/src/views/FilterView.vue"));
-    }
-  }, {
-    name: "filter.form",
-    path: "/filter/form",
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/FilterForm.vue */ "./resources/js/src/views/FilterForm.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/Users/UsersIndex.vue */ "./resources/js/src/views/Users/UsersIndex.vue"));
     }
   }, {
     name: "maps.index",
     path: "/maps",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(16), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     },
     props: true
   }, {
     name: "maps.create",
     path: '/maps/create',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(16), __webpack_require__.e(15), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
     },
     props: true
   }]
@@ -60317,6 +60915,11 @@ var speciesService = {
   },
   favourite: function favourite(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/favourites/".concat(id));
+  },
+  searchSpecies: function searchSpecies() {
+    var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    var queryObject = arguments.length > 1 ? arguments[1] : undefined;
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/search?page=".concat(page), queryObject);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (speciesService);
@@ -60737,7 +61340,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SpeciesIndex.vue?vue&type=template&id=32786eb3& */ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&");
 /* harmony import */ var _SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpeciesIndex.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpeciesIndex.vue?vue&type=style&index=0&lang=css& */ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -60745,7 +61350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _SpeciesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["render"],
   _SpeciesIndex_vue_vue_type_template_id_32786eb3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -60777,6 +61382,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SpeciesIndex.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SpeciesIndex_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3&":
 /*!****************************************************************************************!*\
   !*** ./resources/js/src/views/Species/SpeciesIndex.vue?vue&type=template&id=32786eb3& ***!
@@ -60803,6 +61424,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/svgs/filter.svg":
+/*!***********************************!*\
+  !*** ./resources/svgs/filter.svg ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/filter.svg?6ae11226b5433522ecf0a53652457e2b";
 
 /***/ }),
 

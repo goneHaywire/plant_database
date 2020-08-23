@@ -17,8 +17,98 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">All Plants</h5>
-              <div class="table-responsive">
+              <h5>Search</h5>
+              <form class="search-form" @submit.prevent="searchSpecies()">
+                <div class="form-group d-flex justify-content-between">
+                  <div
+                    class="show-filters btn border"
+                    @click="search.searchFilters = !search.searchFilters"
+                  >
+                    <inline-svg
+                      width="25"
+                      height="25"
+                      :src="require('../../../../svgs/filter.svg')"
+                    ></inline-svg>
+                  </div>
+                  <input
+                    type="text"
+                    v-model="search.query"
+                    placeholder="Search Species"
+                    class="form-control"
+                  />
+                </div>
+                <div class="filters" v-show="search.searchFilters">
+                  <div class="row align-items-center">
+                    <div class="col-6 col-md-4">
+                      <div class="form-group">
+                        <select
+                          name="family"
+                          class="form-control"
+                          v-model="search.family_id"
+                        >
+                          <option selected :value="null">Select Family</option>
+                          <option
+                            v-for="family in families"
+                            :key="family.id"
+                            :value="family.id"
+                            >{{ family.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <div class="form-group">
+                        <select
+                          name="genera"
+                          class="form-control"
+                          v-model="search.genera_id"
+                        >
+                          <option selected :value="null">Select Genus</option>
+                          <option
+                            v-for="genus in genera"
+                            :key="genus.id"
+                            :value="genus.id"
+                            >{{ genus.name }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input
+                          type="checkbox"
+                          name="in_albania"
+                          id="in_albania"
+                          v-model="search.in_albania"
+                        />
+                        <label class="mb-0" for="in_albania">In Albania</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input
+                          type="checkbox"
+                          name="favourite"
+                          id="favourite"
+                          v-model="search.favourite"
+                        />
+                        <label class="mb-0" for="favourite">Favorite</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <hr />
+              <h5>
+                {{ tableTitle }}
+                <span
+                  v-show="justSearched"
+                  class="btn btn-danger"
+                  @click="clearSearch()"
+                  >Clear Search</span
+                >
+              </h5>
+              <div class="table-responsive" v-if="species.length > 0">
                 <table
                   id="zero_config"
                   class="table table-striped table-bordered"
@@ -109,7 +199,7 @@
                       <td>
                         <div class="centerize" @click="favourite(specie.id)">
                           <inline-svg
-                          class="icon star-icon"
+                            class="icon star-icon"
                             name="star-solid"
                             width="25"
                             height="25"
@@ -164,7 +254,11 @@
                 v-if="pagination.last_page > 1"
                 :pagination="pagination"
                 :offset="5"
-                @paginate="fetchSpecies()"
+                @paginate="
+                  {
+                    justSearched ? searchSpecies() : fetchSpecies();
+                  }
+                "
               ></pagination>
             </div>
           </div>
@@ -177,6 +271,7 @@
 <script>
 import Pagination from "../../components/Pagination";
 import speciesService from "../../services/SpeciesService";
+import familyService from "../../services/FamilyService";
 
 export default {
   name: "SpeciesIndex",
@@ -216,10 +311,60 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    searchSpecies() {
+      speciesService
+        .searchSpecies(this.pagination.current_page, this.search)
+        .then((resp) => {
+          if (!resp.data.data.length)
+            this.tableTitle = `No Species found for: ${this.search.query}`;
+          else this.tableTitle = `Search results for: ${this.search.query}`;
+
+          this.justSearched = true;
+          this.species = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        });
+    },
+    clearSearch() {
+      this.justSearched = false;
+      this.search = {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "species",
+      };
+      this.tableTitle = "All Species";
+      speciesService.fetchSpecies().then((resp) => {
+        this.species = resp.data.data;
+        this.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page,
+        };
+      });
+    },
   },
   data() {
     return {
+      tableTitle: "All Species",
       species: [],
+      pagination: {},
+      search: {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "species",
+      },
+      justSearched: false,
+      families: [],
+      genera: [],
     };
   },
   props: {
@@ -227,18 +372,42 @@ export default {
       type: Array,
       required: true,
     },
-    pagination: {
+    paginationProp: {
       type: Object,
       required: true,
     },
   },
+  watch: {
+    "search.searchFilters"(newValue, oldValue) {
+      if (!this.families.length) {
+        familyService
+          .getAllFamilies()
+          .then((resp) => (this.families = resp.data))
+          .catch((err) => console.log("Error: ", err));
+      }
+    },
+    "search.family_id"(newValue, oldValue) {
+      if (newValue) {
+        familyService.getGeneraOfFamily(newValue).then((resp) => {
+          this.genera = resp.data;
+        });
+      }
+    },
+    search: {
+      handler(newValue, oldValue) {
+        this.pagination.current_page = 1;
+      },
+      deep: true,
+    },
+  },
   created() {
     this.species = this.speciesProp;
+    this.pagination = this.paginationProp;
   },
   beforeRouteEnter: (to, from, next) => {
     speciesService.fetchSpecies().then((resp) => {
       to.params.speciesProp = resp.data.data;
-      to.params.pagination = {
+      to.params.paginationProp = {
         current_page: resp.data.current_page,
         last_page: resp.data.last_page,
       };
@@ -251,4 +420,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.show-filters {
+  margin-right: 1rem;
+  width: 50px;
+}
+</style>

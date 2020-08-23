@@ -49,7 +49,7 @@ const app = new Vue({
         const userData = JSON.parse(localStorage.getItem("user"));
 
         if (userData) {
-            console.log("ka ne storage");
+            // console.log("ka ne storage");
             await authService
                 .verifyToken(userData.access_token)
                 .then(data => {
@@ -64,7 +64,7 @@ const app = new Vue({
             router.push("/login");
         }
 
-        console.log('u vu kushti')
+        // console.log('u vu kushti')
         apiClient.interceptors.response.use(
             response => response,
             error => {

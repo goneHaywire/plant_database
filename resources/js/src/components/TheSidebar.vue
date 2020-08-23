@@ -31,10 +31,6 @@
             Map
           </sidebar-link>
 
-          <sidebar-link route-name="filter.index" icon="search"
-            >Filter</sidebar-link
-          >
-
           <sidebar-link route-name="users.index" icon="user"
             >Users</sidebar-link
           >

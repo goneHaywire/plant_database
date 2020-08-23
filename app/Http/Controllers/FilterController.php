@@ -37,12 +37,12 @@ class FilterController extends Controller
 //        return json_decode(json_encode($request->all()), true);
 //        return array($request->all());
 
-        $species = Specie::with('genus', 'genus.family', 'favourites');
+        $species = Specie::with('genera', 'genera.family', 'favourites');
 //       whereHas('permissions', $function($q) {
 //        $q->where('name', $value)->orWhere('name', $value2);
 //    });
         $species->when(!(is_null($name)), function ($query) use ($name) {
-            $query->whereHas('genus', function ($test) use ($name) {
+            $query->whereHas('genera', function ($test) use ($name) {
                 return $test->where(DB::raw('CONCAT(generas.name, " ", specie_name)'), 'like', '%' . $name . '%')
                     ->orWhere(DB::raw('CONCAT(specie_name, " ", generas.name)'), 'like', '%' . $name . '%');
             });

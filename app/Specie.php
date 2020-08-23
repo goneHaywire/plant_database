@@ -12,7 +12,7 @@ class Specie extends Model
         'in_albania' => 'boolean',
     ];
 
-    public function genus()
+    public function genera()
     {
         return $this->belongsTo('App\Genera');
     }
