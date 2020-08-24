@@ -313,7 +313,7 @@ export default {
     },
     searchSpecies() {
       speciesService
-        .searchSpecies(this.pagination.current_page, this.search)
+        .searchSpecies(this.search, this.pagination.current_page)
         .then((resp) => {
           if (!resp.data.data.length)
             this.tableTitle = `No Species found for: ${this.search.query}`;

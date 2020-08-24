@@ -37,7 +37,7 @@ class SpeciesController extends Controller
     {
         // return $request->all();
         $results = Specie::query();
-        $results_full_name = Specie::query();
+        // $results_full_name = Specie::query();
 
         $results->when($request->get('searchFilters') == true, function ($sub_query) use ($request) {
             $favourite_filter = $request->get('favourite');
@@ -73,6 +73,9 @@ class SpeciesController extends Controller
                 $fav_query->where('user_id', Auth::user()->id);
             }]);
         });
+        $results->when($request->get('view') === 'map', function ($sub_query) {
+            $sub_query->with('genera');
+        });
 
         $query = $request->get('query');
 
@@ -95,7 +98,7 @@ class SpeciesController extends Controller
         if ($request->get('view') === 'species') {
             $results = $results->paginate(20);
         } else if ($request->get('view') === 'map') {
-            $results = $results->take(5);
+            $results = $results->limit(5)->get();
         }
 
         return $results;

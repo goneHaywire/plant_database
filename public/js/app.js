@@ -3437,7 +3437,7 @@ __webpack_require__.r(__webpack_exports__);
     searchSpecies: function searchSpecies() {
       var _this4 = this;
 
-      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].searchSpecies(this.pagination.current_page, this.search).then(function (resp) {
+      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].searchSpecies(this.search, this.pagination.current_page).then(function (resp) {
         if (!resp.data.data.length) _this4.tableTitle = "No Species found for: ".concat(_this4.search.query);else _this4.tableTitle = "Search results for: ".concat(_this4.search.query);
         _this4.justSearched = true;
         _this4.species = resp.data.data;
@@ -60722,14 +60722,14 @@ var routes = [{
     name: "maps.index",
     path: "/maps",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(14), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     },
     props: true
   }, {
     name: "maps.create",
     path: '/maps/create',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
     },
     props: true
   }]
@@ -60916,9 +60916,8 @@ var speciesService = {
   favourite: function favourite(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/favourites/".concat(id));
   },
-  searchSpecies: function searchSpecies() {
-    var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-    var queryObject = arguments.length > 1 ? arguments[1] : undefined;
+  searchSpecies: function searchSpecies(queryObject) {
+    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/search?page=".concat(page), queryObject);
   }
 };

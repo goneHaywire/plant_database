@@ -17,7 +17,7 @@ const speciesService = {
         apiClient.get(`/favourites?page=${page}`),
     favourite: id =>
         apiClient.post(`/favourites/${id}`),
-    searchSpecies: (page = 1, queryObject) => apiClient.post(`/search?page=${page}`, queryObject),
+    searchSpecies: (queryObject, page = 1) => apiClient.post(`/search?page=${page}`, queryObject),
 
 }
 

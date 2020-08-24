@@ -51,6 +51,119 @@
                 </div>
                 <div class="col-md-7">
                   <div class="row">
+                    <div class="col-md-12">
+                      <h5>Search</h5>
+                      <form class="search-form" @submit.prevent="null">
+                        <div class="form-group d-flex justify-content-between">
+                          <div
+                            class="show-filters btn border"
+                            @click="
+                              search.searchFilters = !search.searchFilters
+                            "
+                          >
+                            <inline-svg
+                              width="25"
+                              height="25"
+                              :src="require('../../../../svgs/filter.svg')"
+                            ></inline-svg>
+                          </div>
+                          <vue-autosuggest
+                            :suggestions="species"
+                            :renderSuggestion="renderSuggestion"
+                            :get-suggestion-value="renderSuggestion"
+                            @input="searchSpecies()"
+                            @selected="onSelected"
+                            :input-props="inputProps"
+                            v-model="search.query"
+                            class="w-100"
+                          ></vue-autosuggest>
+                        </div>
+                        <div class="filters" v-show="search.searchFilters">
+                          <div class="row align-items-center">
+                            <div class="col-6 col-md-4">
+                              <div class="form-group">
+                                <select
+                                  name="family"
+                                  class="form-control"
+                                  v-model="search.family_id"
+                                >
+                                  <option selected :value="null"
+                                    >Select Family</option
+                                  >
+                                  <option
+                                    v-for="family in families"
+                                    :key="family.id"
+                                    :value="family.id"
+                                    >{{ family.name }}</option
+                                  >
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-6 col-md-4">
+                              <div class="form-group">
+                                <select
+                                  name="genera"
+                                  class="form-control"
+                                  v-model="search.genera_id"
+                                >
+                                  <option selected :value="null"
+                                    >Select Genus</option
+                                  >
+                                  <option
+                                    v-for="genus in genera"
+                                    :key="genus.id"
+                                    :value="genus.id"
+                                    >{{ genus.name }}</option
+                                  >
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <input
+                                  type="checkbox"
+                                  name="in_albania"
+                                  id="in_albania"
+                                  v-model="search.in_albania"
+                                />
+                                <label class="mb-0" for="in_albania"
+                                  >In Albania</label
+                                >
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <input
+                                  type="checkbox"
+                                  name="favourite"
+                                  id="favourite"
+                                  v-model="search.favourite"
+                                />
+                                <label class="mb-0" for="favourite"
+                                  >Favorite</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <h5>
+                        {{ selectedStatus }}
+                        <span
+                          v-if="selectedSpecie"
+                          class="ml-1"
+                          style="cursor: pointer;"
+                        >
+                          <inline-svg
+                            :src="require('../../../../svgs/close.svg')"
+                            width="18"
+                            height="18"
+                            @click="clearSearch()"
+                          ></inline-svg>
+                        </span>
+                      </h5>
+                      <hr />
+                    </div>
                     <div class="col-md-6">
                       <h4>Soil Types</h4>
                       <hr />
@@ -131,18 +244,14 @@
 </template>
 
 <script>
-import MapService from "../../services/MapService";
-// import { mapGetters } from "vuex";
+import mapService from "../../services/MapService";
+import familyService from "../../services/FamilyService";
+import speciesService from "../../services/SpeciesService";
 import store from "../../store/store";
 import { latLng } from "leaflet";
-import {
-  LMap,
-  LTileLayer,
-  LMarker,
-  LPopup,
-  LTooltip,
-  LPolygon,
-} from "vue2-leaflet";
+import { LMap, LTileLayer, LPolygon } from "vue2-leaflet";
+import { VueAutosuggest } from "vue-autosuggest";
+import { mapGetters } from "vuex";
 
 export default {
   name: "MapsIndex",
@@ -150,7 +259,7 @@ export default {
     specieProp: {
       type: Object,
     },
-    polygons: {
+    polygonsProp: {
       type: Array,
       required: true,
     },
@@ -164,12 +273,19 @@ export default {
     },
   },
   computed: {
-    // ...mapGetters(["getSoilPolygons"]),
+    ...mapGetters({
+      getLayers: "getAreasArray",
+    }),
+    selectedStatus() {
+      return this.selectedSpecie
+        ? `Selected specie: ${this.selectedSpecie.genera.name} ${this.selectedSpecie.name}`
+        : "No specie selected.";
+    },
   },
   data() {
     return {
       layers: {},
-      selectedSpecie: undefined,
+
       zoom: 7,
       center: latLng(41.09591205639546, 20.026783401808004),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -180,24 +296,121 @@ export default {
       mapOptions: {
         zoomSnap: 0.5,
       },
+
+      selectedSpecie: undefined,
+      species: [
+        {
+          data: [],
+        },
+      ],
+      search: {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "map",
+      },
+
+      families: [],
+      genera: [],
+
+      inputProps: {
+        id: "autosuggest__input",
+        placeholder: "Enter species name",
+        class: "form-control border",
+      },
     };
   },
   methods: {
+    renderSuggestion(suggestion) {
+      return `${suggestion.item.genera.name} ${suggestion.item.name}`;
+    },
+    onSelected(item) {
+      this.selectedSpecie = item.item;
+      this.search.query = "";
+    },
+
     zoomUpdate(zoom) {
       this.currentZoom = zoom;
     },
     centerUpdate(center) {
       this.currentCenter = center;
     },
+
+    searchSpecies() {
+      speciesService.searchSpecies(this.search).then((resp) => {
+        this.species[0].data = resp.data;
+      });
+    },
+    clearSearch() {
+      this.selectedSpecie = null;
+      this.search = {
+        query: null,
+        family_id: null,
+        genera_id: null,
+        favourite: false,
+        in_albania: false,
+        searchFilters: false,
+        view: "map",
+      };
+    },
+  },
+  watch: {
+    selectedSpecie(newValue, oldValue) {
+      // hiqen layerat e species
+      this.polygons = this.polygons.filter(
+        (polygon) => polygon.area.type === "soils"
+      );
+      // ben reset layers
+      this.layers = Object.assign({}, store.getters.getAreasArray);
+
+      if (newValue) {
+        // shtohene layerat e species se re
+        mapService.getSpecieStatusPolygons(newValue.id).then((resp) => {
+          this.polygons = this.polygons.concat(resp.data);
+        });
+      }
+    },
+    "search.searchFilters"(newValue, oldValue) {
+      if (!this.families.length) {
+        familyService
+          .getAllFamilies()
+          .then((resp) => (this.families = resp.data))
+          .catch((err) => console.log("Error: ", err));
+      }
+    },
+    "search.family_id"(newValue, oldValue) {
+      if (newValue) {
+        familyService.getGeneraOfFamily(newValue).then((resp) => {
+          this.genera = resp.data;
+        });
+      } else {
+        this.genera = [];
+        this.search.genera_id = null;
+      }
+    },
+    search: {
+      handler(newValue, oldValue) {
+        this.species = [
+          {
+            data: [],
+          },
+        ];
+      },
+      deep: true,
+    },
   },
   created() {
     this.selectedSpecie = this.specieProp;
     this.layers = this.layersProp;
+    this.polygons = this.polygonsProp;
   },
   beforeRouteEnter: async (to, from, next) => {
     // fetch areas if not already in vuex
     if (!Object.keys(store.getters.getAreas).length) {
-      await MapService.getAreas().then((resp) => {
+      await mapService.getAreas().then((resp) => {
         let areas = {};
         let layers = {};
 
@@ -222,21 +435,21 @@ export default {
 
     // fetch soil polygons if not already in vuex
     if (!store.getters.getSoilPolygons.length) {
-      await MapService.getSoilPolygons().then((resp) => {
+      await mapService.getSoilPolygons().then((resp) => {
         store.dispatch("setSoilPolygons", resp.data);
-        to.params.polygons = resp.data;
+        to.params.polygonsProp = resp.data;
       });
     } else {
-      to.params.polygons = store.getters.getSoilPolygons;
+      to.params.polygonsProp = store.getters.getSoilPolygons;
     }
 
     // fetch plant polygons if plant selected
     if (to.params.specieProp) {
-      await MapService.getSpecieStatusPolygons(to.params.specieProp.id).then(
-        (resp) => {
-          to.params.polygons = to.params.polygons.concat(resp.data);
-        }
-      );
+      await mapService
+        .getSpecieStatusPolygons(to.params.specieProp.id)
+        .then((resp) => {
+          to.params.polygonsProp = to.params.polygonsProp.concat(resp.data);
+        });
     }
 
     next();
@@ -244,12 +457,80 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    LMarker,
-    LPopup,
-    LTooltip,
     LPolygon,
+    VueAutosuggest,
   },
 };
 </script>
 
-<style></style>
+<style>
+#autosuggest__input {
+  outline: none;
+  position: relative;
+  display: block;
+  font-family: monospace;
+  font-size: 20px;
+  border: 1px solid #616161;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+#autosuggest__input.autosuggest__input-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.autosuggest__results-container {
+  position: relative;
+  width: 100%;
+}
+
+.autosuggest__results {
+  font-weight: 300;
+  margin: 0;
+  position: absolute;
+  z-index: 10000001;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: white;
+  padding: 0px;
+  overflow: scroll;
+  max-height: 200px;
+}
+
+.autosuggest__results ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.autosuggest__results .autosuggest__results-item {
+  cursor: pointer;
+  padding: 15px;
+}
+
+#autosuggest ul:nth-child(1) > .autosuggest__results_title {
+  border-top: none;
+}
+
+.autosuggest__results .autosuggest__results_title {
+  color: gray;
+  font-size: 11px;
+  margin-left: 0;
+  padding: 15px 13px 5px;
+  border-top: 1px solid lightgray;
+}
+
+.autosuggest__results .autosuggest__results_item:active,
+.autosuggest__results .autosuggest__results_item:hover,
+.autosuggest__results .autosuggest__results_item:focus,
+.autosuggest__results
+  .autosuggest__results_item.autosuggest__results_item-highlighted {
+  background-color: #ddd;
+}
+</style>
