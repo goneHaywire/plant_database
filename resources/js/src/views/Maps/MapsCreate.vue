@@ -205,6 +205,11 @@ export default {
             ...resp.data,
             visible: false,
           });
+        else
+          this.polygons.push({
+            ...resp.data,
+            visible: false,
+          });
         this.activePolygon.coordinates = [];
         this.activePolygon.area_id = null;
         const oldLayer = Object.values(this.editableLayers._layers)[0];

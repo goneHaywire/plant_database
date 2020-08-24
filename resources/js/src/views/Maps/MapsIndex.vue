@@ -285,6 +285,7 @@ export default {
   data() {
     return {
       layers: {},
+      polygons: [],
 
       zoom: 7,
       center: latLng(41.09591205639546, 20.026783401808004),

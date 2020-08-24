@@ -314,6 +314,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       layers: {},
+      polygons: [],
       zoom: 7,
       center: Object(leaflet__WEBPACK_IMPORTED_MODULE_5__["latLng"])(41.09591205639546, 20.026783401808004),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",

@@ -217,6 +217,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(resp.data);
         if (resp.data.area.type === "soils") _this.$store.dispatch("addSoilPolygon", _objectSpread(_objectSpread({}, resp.data), {}, {
           visible: false
+        }));else _this.polygons.push(_objectSpread(_objectSpread({}, resp.data), {}, {
+          visible: false
         }));
         _this.activePolygon.coordinates = [];
         _this.activePolygon.area_id = null;
