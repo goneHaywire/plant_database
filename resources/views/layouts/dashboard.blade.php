@@ -25,6 +25,7 @@
 <body>
 <div id="app">
     <app-page></app-page>
+    {{-- {{asset('storage/Aphanisma_testy15983523812')}} --}}
 </div>
 @section('scripts')
     @include('layouts.scripts')

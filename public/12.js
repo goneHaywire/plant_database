@@ -38,6 +38,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesShow",
   props: {
@@ -81,19 +95,51 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.specie.genera.name) +
-                      "\n                            " +
-                      _vm._s(_vm.specie.name) +
-                      " Information\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr")
-              ])
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.specie.genera.name) +
+                        "\n              " +
+                        _vm._s(_vm.specie.name) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.specie.photos.length
+                    ? [
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("h5", [_vm._v("Gallery")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "img-grid" },
+                          _vm._l(_vm.specie.photos, function(photo) {
+                            return _c(
+                              "div",
+                              { key: photo.id, staticClass: "img-box" },
+                              [
+                                _c("img", {
+                                  staticClass: "img-fluid",
+                                  attrs: {
+                                    src: "/storage/" + photo.path,
+                                    alt: photo.path
+                                  }
+                                })
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]
+                    : _vm._e()
+                ],
+                2
+              )
             ])
           ])
         ])

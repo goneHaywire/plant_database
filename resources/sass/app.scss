@@ -50,3 +50,26 @@ a:hover {
 .pin-icon {
     fill: #0a5484;
 }
+
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+
+    .img-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        .close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    }
+}
+
+.left-sidebar {
+    position: fixed;
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Genera;
 use App\Http\Controllers\Controller;
+use App\Photo;
 use App\Specie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -19,7 +20,7 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
+        return Specie::with(['genera', 'genera.family', 'photos'])->withCount(['favourites' => function ($query) {
             $query->where('user_id', Auth::user()->id);
         }])->paginate(20);
     }
@@ -116,19 +117,23 @@ class SpeciesController extends Controller
      */
     public function store(Request $request)
     {
-        $specie = Specie::create($request->only(['name', 'common_name', 'in_albania']));
-        $genus = Genera::find($request->get('genera')['id']);
-        if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $photo) {
-                $path = $photo->storeAs('photos', "{$genus->name}_{$specie->name}{$time()}");
-                $specie->photos()->associate($path);
+        $specie = Specie::create($request->only(['name', 'common_name']));
+        $specie->in_albania = $request->get('in_albania') === 'true' ? 1 : null;
+        $genus = Genera::find($request->get('genera_id'));
+        if ($request->hasFile('photo')) {
+            foreach ($request->file('photo') as $photo) {
+                $new_photo = new Photo();
+                $new_photo->specie_id = $specie->id;
+                $path = $photo->store('photos', 'public');
+                $new_photo->path = $path;
+                $new_photo->save();
             }
         }
 
         $specie->genera()->associate($genus);
         $specie->save();
 
-        return $specie;
+        return $specie->load('photos');
     }
 
     /**
