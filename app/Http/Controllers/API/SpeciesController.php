@@ -155,8 +155,8 @@ class SpeciesController extends Controller
         // return $request->all();
         $specie = Specie::find($request->get('id'));
 
-        $specie->name = $request->get('name');
-        $specie->common_name = $request->get('common_name');
+        $specie->name = $request->get('name', '');
+        $specie->common_name = $request->get('common_name', '');
         $specie->ipni = $request->get('ipni');
         $specie->year = $request->get('year');
         $specie->authorship = $request->get('authorship');

@@ -4222,6 +4222,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
+          name: "",
+          common_name: "",
+          in_albania: false,
           genera: {
             family: {}
           }
@@ -4240,11 +4243,7 @@ __webpack_require__.r(__webpack_exports__);
       families: [],
       genera: [],
       selected_family: 0,
-      specie: {
-        genera: {
-          family: {}
-        }
-      },
+      specie: undefined,
       old_images: [],
       images: [],
       image_id: 0

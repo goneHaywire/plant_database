@@ -241,6 +241,9 @@ export default {
       type: Object,
       default: () => {
         return {
+          name: "",
+          common_name: "",
+          in_albania: false,
           genera: {
             family: {},
           },
@@ -257,11 +260,7 @@ export default {
       families: [],
       genera: [],
       selected_family: 0,
-      specie: {
-        genera: {
-          family: {},
-        },
-      },
+      specie: undefined,
       old_images: [],
       images: [],
       image_id: 0,
@@ -307,7 +306,7 @@ export default {
     },
     onFileChange(e) {
       var selectedFiles = e.target.files;
-     
+
       for (let i = 0; i < selectedFiles.length; i++) {
         let image = {};
         image[this.image_id] = selectedFiles[i];
