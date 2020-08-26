@@ -34,6 +34,12 @@ class SpeciesController extends Controller
             ->paginate(20);
     }
 
+    public function photos(Specie $specie)
+    {
+        $specie->load('photos');
+        return $specie['photos'];
+    }
+
     public function search(Request $request)
     {
         // return $request->all();
@@ -145,6 +151,8 @@ class SpeciesController extends Controller
      */
     public function update(Request $request)
     {
+        // return $request->input('name');
+        // return $request->all();
         $specie = Specie::find($request->get('id'));
 
         $specie->name = $request->get('name');
@@ -154,11 +162,21 @@ class SpeciesController extends Controller
         $specie->authorship = $request->get('authorship');
         $specie->in_albania = $request->get('in_albania');
 
-        $specie->genera_id = $request->get('genera')['id'];
-        $specie->genera_name = $request->get('genera')['name'];
+        if ($request->hasFile('photo')) {
+            foreach ($request->file('photo') as $photo) {
+                $new_photo = new Photo();
+                $new_photo->specie_id = $specie->id;
+                $path = $photo->store('photos', 'public');
+                $new_photo->path = $path;
+                $new_photo->save();
+            }
+        }
+
+        $specie->genera_id = $request->get('genera_id');
+        $specie->genera_name = Genera::find($request->get('genera_id'))->pluck('name');
         $specie->save();
 
-        return Specie::with(['genera', 'genera.family'])->find($specie->id);
+        return Specie::with(['genera', 'genera.family', 'photos'])->find($specie->id);
     }
 
     /**

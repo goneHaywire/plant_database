@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import photoService from "../../services/PhotoService";
+
 export default {
   name: "SpeciesShow",
   props: {
@@ -49,6 +51,17 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      photos: [],
+    };
+  },
+  created() {
+    photoService
+      .getPhotos(this.specie.id)
+      .then((resp) => (this.photos = resp.data))
+      .catch((err) => console.log(`Err: ${err}`));
   },
 };
 </script>

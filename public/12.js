@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_PhotoService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/PhotoService */ "./resources/js/src/services/PhotoService.js");
 //
 //
 //
@@ -52,6 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesShow",
   props: {
@@ -59,6 +61,20 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     }
+  },
+  data: function data() {
+    return {
+      photos: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    _services_PhotoService__WEBPACK_IMPORTED_MODULE_0__["default"].getPhotos(this.specie.id).then(function (resp) {
+      return _this.photos = resp.data;
+    })["catch"](function (err) {
+      return console.log("Err: ".concat(err));
+    });
   }
 });
 

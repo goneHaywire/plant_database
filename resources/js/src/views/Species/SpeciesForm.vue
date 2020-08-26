@@ -164,10 +164,11 @@
                       ref="images"
                     />
                     <br />
+                    <br />
                     <div class="img-grid">
                       <div
-                        v-for="(image, key) in images"
-                        :key="key"
+                        v-for="image in old_images"
+                        :key="image.id"
                         class="img-box"
                       >
                         <inline-svg
@@ -175,12 +176,32 @@
                           width="20"
                           height="20"
                           class="close"
-                          @click="removePhoto(key)"
+                          @click="removePhoto(image.id, 'id')"
+                        >
+                        </inline-svg>
+                        <img
+                          v-if="editing"
+                          :src="'/storage/' + image.path"
+                          class="preview img-fluid"
+                          :alt="image.path"
+                        />
+                      </div>
+                      <div
+                        v-for="image in images"
+                        :key="Object.keys(image)[0]"
+                        class="img-box"
+                      >
+                        <inline-svg
+                          :src="require('../../../../svgs/close.svg')"
+                          width="20"
+                          height="20"
+                          class="close"
+                          @click="removePhoto(Object.keys(image)[0], 'index')"
                         >
                         </inline-svg>
                         <img
                           class="preview img-fluid"
-                          :ref="'image' + parseInt(key)"
+                          :ref="'image' + parseInt(Object.keys(image)[0])"
                         />
                       </div>
                     </div>
@@ -211,6 +232,7 @@
 <script>
 import speciesService from "../../services/SpeciesService";
 import familyService from "../../services/FamilyService";
+import photoService from "../../services/PhotoService";
 
 export default {
   name: "SpeciesForm",
@@ -240,22 +262,24 @@ export default {
           family: {},
         },
       },
+      old_images: [],
       images: [],
+      image_id: 0,
     };
   },
   methods: {
     postSpecie() {
+      let specie = new FormData();
+      specie.append("name", this.specie.name);
+      specie.append("common_name", this.specie.common_name);
+      specie.append("in_albania", this.specie.in_albania);
+      specie.append("genera_id", this.specie.genera.id);
+
+      for (var i = 0; i < this.images.length; i++) {
+        specie.append("photo[" + i + "]", Object.values(this.images[i])[0]);
+      }
+
       if (!this.editing) {
-        let specie = new FormData();
-        specie.append("name", this.specie.name);
-        specie.append("common_name", this.specie.common_name);
-        specie.append("in_albania", this.specie.in_albania);
-        specie.append("genera.id", this.specie.genera.id);
-
-        for (var i = 0; i < this.images.length; i++) {
-          specie.append("photo[" + i + "]", this.images[i]);
-        }
-
         speciesService
           .createSpecie(specie)
           .then((resp) => {
@@ -269,7 +293,8 @@ export default {
           })
           .catch((err) => console.log(err));
       } else {
-        speciesService.updateSpecie(this.specie).then((resp) => {
+        specie.append("id", this.specie.id);
+        speciesService.updateSpecie(specie).then((resp) => {
           this.$router.push({
             name: "species.show",
             params: {
@@ -282,8 +307,12 @@ export default {
     },
     onFileChange(e) {
       var selectedFiles = e.target.files;
+     
       for (let i = 0; i < selectedFiles.length; i++) {
-        this.images.push(selectedFiles[i]);
+        let image = {};
+        image[this.image_id] = selectedFiles[i];
+        this.images.push(image);
+        this.image_id++;
       }
 
       for (let i = 0; i < this.images.length; i++) {
@@ -296,11 +325,19 @@ export default {
           false
         ); //add event listener
 
-        reader.readAsDataURL(this.images[i]);
+        reader.readAsDataURL(Object.values(this.images[i])[0]);
       }
     },
-    removePhoto(index) {
-      this.images = this.images.filter((image, i) => i !== index);
+    removePhoto(i, type) {
+      if (type === "id") {
+        photoService.deletePhoto(i).then((resp) => {
+          this.old_images = this.old_images.filter(
+            (image) => parseInt(resp.data) !== image.id
+          );
+        });
+      } else {
+        this.images = this.images.filter((image) => Object.keys(image)[0] != i);
+      }
     },
   },
   created() {
@@ -312,6 +349,9 @@ export default {
       familyService
         .getGeneraOfFamily(this.specie.genera.family.id)
         .then((resp) => (this.genera = resp.data));
+      photoService.getPhotos(this.specie.id).then((resp) => {
+        this.old_images = resp.data;
+      });
     }
   },
   watch: {

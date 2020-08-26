@@ -1395,17 +1395,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/svgs/close.svg":
-/*!**********************************!*\
-  !*** ./resources/svgs/close.svg ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/close.svg?49cbfff07c67b122f00bebbd001a3f4d";
-
-/***/ }),
-
 /***/ "./resources/svgs/eye-closed.svg":
 /*!***************************************!*\
   !*** ./resources/svgs/eye-closed.svg ***!

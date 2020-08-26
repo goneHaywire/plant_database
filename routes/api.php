@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         'users' => 'API\UserController',
     ]);
     Route::apiResource('polygons', 'API\MapController')->only(['store', 'destroy']);
+    Route::apiResource('photos', 'API\PhotoController')->only(['destroy', 'store']);
+    Route::post('/species/{id}', 'API\SpeciesController@update');
+    // Route::delete('/photos/{id}', 'API\PhotoController@destroy');
     Route::get('/stats', 'API\HomeController@stats');
     Route::get('/favourites', 'API\UserController@favouritesIndex');
     Route::post('/favourites/{id}', 'API\UserController@favouriteSpecie');
@@ -37,6 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/polygons/specie/{specie}', 'API\MapController@specie_polygons');
     Route::post('/search', 'API\SpeciesController@search');
     Route::get('/search', 'API\SpeciesController@search');
+    Route::get('/species/{specie}/photos', 'API\SpeciesController@photos');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

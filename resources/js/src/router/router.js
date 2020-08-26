@@ -3,26 +3,30 @@ import Vue from "vue";
 import NProgress from "nprogress";
 import 'nprogress/nprogress.css';
 
+import DashboardPage from '../pages/DashboardPage.vue'
+import HomeView from '../views/HomeView.vue'
 import FamiliesIndex from '../views/Families/FamiliesIndex.vue'
 import GeneraIndex from '../views/Genera/GeneraIndex.vue'
 import SpeciesIndex from '../views/Species/SpeciesIndex.vue'
+import SpeciesForm from '../views/Species/SpeciesForm.vue'
 import AlbanianIndex from '../views/AlbanianIndex.vue'
 import FavouritesIndex from '../views/FavouritesView.vue'
+import LoginPage from '../pages/LoginPage.vue'
 
 Vue.use(VueRouter);
 
 const routes = [{
         path: "/login",
         name: "login",
-        component: () => import("../pages/LoginPage.vue"),
+        component: LoginPage,
     },
     {
         path: "/dashboard",
-        component: () => import("../pages/DashboardPage.vue"),
+        component: DashboardPage,
         children: [{
                 name: "home",
                 path: "/",
-                component: () => import("../views/HomeView.vue"),
+                component: HomeView,
                 props: true
             },
             {
@@ -70,7 +74,7 @@ const routes = [{
             {
                 name: "species.form",
                 path: "species/form",
-                component: () => import("../views/Species/SpeciesForm.vue"),
+                component: SpeciesForm,
                 props: true
             },
             {
