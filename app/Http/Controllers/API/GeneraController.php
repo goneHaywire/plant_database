@@ -68,6 +68,6 @@ class GeneraController extends Controller
     public function destroy($id)
     {
         $genera = Genera::find($id)->delete();
-        return 'Genera deleted';
+        return $id;
     }
 }

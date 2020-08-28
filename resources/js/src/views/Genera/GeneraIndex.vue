@@ -12,94 +12,81 @@
       </template>
     </the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">All Genera</h5>
-              <div class="table-responsive">
-                <table
-                  id="zero_config"
-                  class="table table-striped table-bordered"
-                >
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Family</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="genus in genera" :key="genus.id">
-                      <td>{{ genus.id }}</td>
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'genera.show',
-                            params: {
-                              id: genus.id,
-                              genus: genus,
-                            },
-                          }"
-                        >
-                          {{ genus.name }}
-                        </router-link>
-                      </td>
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'families.show',
-                            params: {
-                              id: genus.family.id,
-                              family: genus.family,
-                            },
-                          }"
-                        >
-                          {{ genus.family.name }}
-                        </router-link>
-                      </td>
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'genera.form',
-                            params: {
-                              editing: true,
-                              genus,
-                            },
-                          }"
-                          class="btn btn-primary"
-                        >
-                          Update
-                        </router-link>
-                        <div
-                          class="btn btn-danger"
-                          @click="deleteGenera(genus.id)"
-                        >
-                          Delete
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Family</th>
-                      <th>Actions</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <pagination
-                v-if="pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                @paginate="fetchGenera()"
-              ></pagination>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table
+                id="zero_config"
+                class="table table-striped table-bordered"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Family</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="genus in genera" :key="genus.id">
+                    <td class="icon-col">{{ genus.id }}</td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'genera.show',
+                          params: {
+                            id: genus.id,
+                            genus: genus,
+                          },
+                        }"
+                      >
+                        {{ genus.name }}
+                      </router-link>
+                    </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'families.show',
+                          params: {
+                            id: genus.family.id,
+                            family: genus.family,
+                          },
+                        }"
+                      >
+                        {{ genus.family.name }}
+                      </router-link>
+                    </td>
+                    <td class="icon-col">
+                      <inline-svg
+                        :src="require('../../../../svgs/trash.svg')"
+                        width="25"
+                        height="25"
+                        @click="deleteGenera(genus.id)"
+                        class="trash-icon icon"
+                      >
+                      </inline-svg>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Family</th>
+                    <th>Delete</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
+
+            <pagination
+              v-if="pagination.last_page > 1"
+              :pagination="pagination"
+              :offset="5"
+              @paginate="fetchGenera()"
+            ></pagination>
           </div>
         </div>
       </div>
@@ -130,7 +117,7 @@ export default {
       generaService
         .deleteGenre(id)
         .then((resp) => {
-          this.genera = this.genera.filter((genre) => genre.id !== id);
+          this.genera = this.genera.filter((genre) => genre.id !== parseInt(resp.data));
           console.log(resp);
         })
         .catch((err) => console.log(err));

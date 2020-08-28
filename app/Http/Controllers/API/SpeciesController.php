@@ -123,6 +123,7 @@ class SpeciesController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $specie = Specie::create($request->only(['name', 'common_name']));
         $specie->in_albania = $request->get('in_albania') === 'true' ? 1 : null;
         $genus = Genera::find($request->get('genera_id'));
@@ -151,16 +152,16 @@ class SpeciesController extends Controller
      */
     public function update(Request $request)
     {
-        // return $request->input('name');
-        // return $request->all();
+        // return $request->get('common_name');
         $specie = Specie::find($request->get('id'));
 
         $specie->name = $request->get('name', '');
-        $specie->common_name = $request->get('common_name', '');
+        if ($request->get('common_name') !== "null")
+            $specie->common_name = $request->get('common_name', '');
         $specie->ipni = $request->get('ipni');
         $specie->year = $request->get('year');
         $specie->authorship = $request->get('authorship');
-        $specie->in_albania = $request->get('in_albania');
+        $specie->in_albania = $request->get('in_albania') === 'true' ? 1 : null;
 
         if ($request->hasFile('photo')) {
             foreach ($request->file('photo') as $photo) {
@@ -188,6 +189,6 @@ class SpeciesController extends Controller
     public function destroy($id)
     {
         $specie = Specie::find($id)->delete();
-        return 'Specie deleted';
+        return $id;
     }
 }

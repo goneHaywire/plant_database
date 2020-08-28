@@ -18,220 +18,214 @@
       </template>
     </the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Map</h5>
-              <div class="row">
-                <div class="col-md-5">
-                  <div id="map" style="height: 600px; width: 100%;">
-                    <l-map
-                      :zoom="zoom"
-                      :center="center"
-                      :options="mapOptions"
-                      style="height: 90%;"
-                      @update:center="centerUpdate"
-                      @update:zoom="zoomUpdate"
-                      ref="map"
-                    >
-                      <l-tile-layer :url="url" :attribution="attribution" />
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-5">
+                <div id="map">
+                  <l-map
+                    :zoom="zoom"
+                    :center="center"
+                    :options="mapOptions"
+                    @update:center="centerUpdate"
+                    @update:zoom="zoomUpdate"
+                    ref="map"
+                  >
+                    <l-tile-layer :url="url" :attribution="attribution" />
 
-                      <l-polygon
-                        v-for="polygon in polygons"
-                        :key="polygon.id"
-                        :visible="layers[polygon.area.name]"
-                        :lat-lngs="JSON.parse(polygon.coordinates)"
-                        :color="polygon.area.color"
-                      >
-                      </l-polygon>
-                    </l-map>
-                  </div>
+                    <l-polygon
+                      v-for="polygon in polygons"
+                      :key="polygon.id"
+                      :visible="layers[polygon.area.name]"
+                      :lat-lngs="JSON.parse(polygon.coordinates)"
+                      :color="polygon.area.color"
+                    >
+                    </l-polygon>
+                  </l-map>
                 </div>
-                <div class="col-md-7">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h5>Search</h5>
-                      <form class="search-form" @submit.prevent="null">
-                        <div class="form-group d-flex justify-content-between">
-                          <div
-                            class="show-filters btn border"
-                            @click="
-                              search.searchFilters = !search.searchFilters
-                            "
-                          >
-                            <inline-svg
-                              width="25"
-                              height="25"
-                              :src="require('../../../../svgs/filter.svg')"
-                            ></inline-svg>
-                          </div>
-                          <vue-autosuggest
-                            :suggestions="species"
-                            :renderSuggestion="renderSuggestion"
-                            :get-suggestion-value="renderSuggestion"
-                            @input="searchSpecies()"
-                            @selected="onSelected"
-                            :input-props="inputProps"
-                            v-model="search.query"
-                            class="w-100"
-                          ></vue-autosuggest>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h5>Search</h5>
+                    <form class="search-form" @submit.prevent="null">
+                      <div class="form-group d-flex justify-content-between">
+                        <div
+                          class="show-filters btn border"
+                          @click="search.searchFilters = !search.searchFilters"
+                        >
+                          <inline-svg
+                            width="25"
+                            height="25"
+                            :src="require('../../../../svgs/filter.svg')"
+                          ></inline-svg>
                         </div>
-                        <div class="filters" v-show="search.searchFilters">
-                          <div class="row align-items-center">
-                            <div class="col-6 col-md-4">
-                              <div class="form-group">
-                                <select
-                                  name="family"
-                                  class="form-control"
-                                  v-model="search.family_id"
+                        <vue-autosuggest
+                          :suggestions="species"
+                          :renderSuggestion="renderSuggestion"
+                          :get-suggestion-value="renderSuggestion"
+                          @input="searchSpecies()"
+                          @selected="onSelected"
+                          :input-props="inputProps"
+                          v-model="search.query"
+                          class="w-100"
+                        ></vue-autosuggest>
+                      </div>
+                      <div class="filters" v-show="search.searchFilters">
+                        <div class="row align-items-center">
+                          <div class="col-6 col-md-4">
+                            <div class="form-group">
+                              <select
+                                name="family"
+                                class="form-control"
+                                v-model="search.family_id"
+                              >
+                                <option selected :value="null"
+                                  >Select Family</option
                                 >
-                                  <option selected :value="null"
-                                    >Select Family</option
-                                  >
-                                  <option
-                                    v-for="family in families"
-                                    :key="family.id"
-                                    :value="family.id"
-                                    >{{ family.name }}</option
-                                  >
-                                </select>
-                              </div>
+                                <option
+                                  v-for="family in families"
+                                  :key="family.id"
+                                  :value="family.id"
+                                  >{{ family.name }}</option
+                                >
+                              </select>
                             </div>
-                            <div class="col-6 col-md-4">
-                              <div class="form-group">
-                                <select
-                                  name="genera"
-                                  class="form-control"
-                                  v-model="search.genera_id"
+                          </div>
+                          <div class="col-6 col-md-4">
+                            <div class="form-group">
+                              <select
+                                name="genera"
+                                class="form-control"
+                                v-model="search.genera_id"
+                              >
+                                <option selected :value="null"
+                                  >Select Genus</option
                                 >
-                                  <option selected :value="null"
-                                    >Select Genus</option
-                                  >
-                                  <option
-                                    v-for="genus in genera"
-                                    :key="genus.id"
-                                    :value="genus.id"
-                                    >{{ genus.name }}</option
-                                  >
-                                </select>
-                              </div>
+                                <option
+                                  v-for="genus in genera"
+                                  :key="genus.id"
+                                  :value="genus.id"
+                                  >{{ genus.name }}</option
+                                >
+                              </select>
                             </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <input
-                                  type="checkbox"
-                                  name="in_albania"
-                                  id="in_albania"
-                                  v-model="search.in_albania"
-                                />
-                                <label class="mb-0" for="in_albania"
-                                  >In Albania</label
-                                >
-                              </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <input
+                                type="checkbox"
+                                name="in_albania"
+                                id="in_albania"
+                                v-model="search.in_albania"
+                              />
+                              <label class="mb-0" for="in_albania"
+                                >In Albania</label
+                              >
                             </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <input
-                                  type="checkbox"
-                                  name="favourite"
-                                  id="favourite"
-                                  v-model="search.favourite"
-                                />
-                                <label class="mb-0" for="favourite"
-                                  >Favorite</label
-                                >
-                              </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <input
+                                type="checkbox"
+                                name="favourite"
+                                id="favourite"
+                                v-model="search.favourite"
+                              />
+                              <label class="mb-0" for="favourite"
+                                >Favorite</label
+                              >
                             </div>
                           </div>
                         </div>
-                      </form>
-                      <h5>
-                        {{ selectedStatus }}
-                        <span
-                          v-if="selectedSpecie"
-                          class="ml-1"
-                          style="cursor: pointer;"
+                      </div>
+                    </form>
+                    <h5>
+                      {{ selectedStatus }}
+                      <span
+                        v-if="selectedSpecie"
+                        class="ml-1"
+                        style="cursor: pointer;"
+                      >
+                        <inline-svg
+                          :src="require('../../../../svgs/close.svg')"
+                          width="18"
+                          height="18"
+                          @click="clearSearch()"
+                        ></inline-svg>
+                      </span>
+                    </h5>
+                    <hr />
+                  </div>
+                  <div class="col-6 col-md-6">
+                    <h4>Soil Types</h4>
+                    <hr />
+                    <template v-for="soil in areas.soils">
+                      <div
+                        :key="soil.name"
+                        class="d-flex align-items-center justify-content-start mb-2"
+                      >
+                        <inline-svg
+                          class="icon icon-checkbox eye-icon"
+                          name="eye"
+                          width="20"
+                          height="20"
+                          :src="
+                            layers[soil.name]
+                              ? require('../../../../svgs/eye-closed.svg')
+                              : require('../../../../svgs/eye-open.svg')
+                          "
+                          :id="soil.name"
+                          @click="layers[soil.name] = !layers[soil.name]"
+                        ></inline-svg>
+                        <label :for="soil.name" class="mb-0">{{
+                          soil.name
+                        }}</label>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="col-6 col-md-6">
+                    <h4>Specie Status</h4>
+                    <hr />
+                    <template v-for="specie_status in areas.specie_status">
+                      <div
+                        :key="specie_status.name"
+                        class="d-flex align-items-center justify-content-start mb-2"
+                      >
+                        <inline-svg
+                          class="icon icon-checkbox eye-icon"
+                          name="eye"
+                          width="20"
+                          height="20"
+                          :src="
+                            layers[specie_status.name]
+                              ? require('../../../../svgs/eye-closed.svg')
+                              : require('../../../../svgs/eye-open.svg')
+                          "
+                          :id="specie_status.name"
+                          @click="
+                            selectedSpecie
+                              ? (layers[specie_status.name] = !layers[
+                                  specie_status.name
+                                ])
+                              : null
+                          "
+                          :style="
+                            selectedSpecie
+                              ? { cursor: 'pointer' }
+                              : { cursor: 'default' }
+                          "
+                        ></inline-svg>
+                        <label
+                          :for="specie_status.name"
+                          class="mb-0"
+                          :class="{ 'text-muted': !selectedSpecie }"
+                          >{{ specie_status.name }}</label
                         >
-                          <inline-svg
-                            :src="require('../../../../svgs/close.svg')"
-                            width="18"
-                            height="18"
-                            @click="clearSearch()"
-                          ></inline-svg>
-                        </span>
-                      </h5>
-                      <hr />
-                    </div>
-                    <div class="col-md-6">
-                      <h4>Soil Types</h4>
-                      <hr />
-                      <template v-for="soil in areas.soils">
-                        <div
-                          :key="soil.name"
-                          class="d-flex align-items-center justify-content-start mb-2"
-                        >
-                          <inline-svg
-                            class="icon icon-checkbox eye-icon"
-                            name="eye"
-                            width="20"
-                            height="20"
-                            :src="
-                              layers[soil.name]
-                                ? require('../../../../svgs/eye-closed.svg')
-                                : require('../../../../svgs/eye-open.svg')
-                            "
-                            :id="soil.name"
-                            @click="layers[soil.name] = !layers[soil.name]"
-                          ></inline-svg>
-                          <label :for="soil.name" class="mb-0">{{
-                            soil.name
-                          }}</label>
-                        </div>
-                      </template>
-                    </div>
-                    <div class="col-md-6">
-                      <h4>Specie Status</h4>
-                      <hr />
-                      <template v-for="specie_status in areas.specie_status">
-                        <div
-                          :key="specie_status.name"
-                          class="d-flex align-items-center justify-content-start mb-2"
-                        >
-                          <inline-svg
-                            class="icon icon-checkbox eye-icon"
-                            name="eye"
-                            width="20"
-                            height="20"
-                            :src="
-                              layers[specie_status.name]
-                                ? require('../../../../svgs/eye-closed.svg')
-                                : require('../../../../svgs/eye-open.svg')
-                            "
-                            :id="specie_status.name"
-                            @click="
-                              selectedSpecie
-                                ? (layers[specie_status.name] = !layers[
-                                    specie_status.name
-                                  ])
-                                : null
-                            "
-                            :style="
-                              selectedSpecie
-                                ? { cursor: 'pointer' }
-                                : { cursor: 'default' }
-                            "
-                          ></inline-svg>
-                          <label
-                            :for="specie_status.name"
-                            class="mb-0"
-                            :class="{ 'text-muted': !selectedSpecie }"
-                            >{{ specie_status.name }}</label
-                          >
-                        </div>
-                      </template>
-                    </div>
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>

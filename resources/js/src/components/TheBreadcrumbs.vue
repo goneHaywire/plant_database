@@ -1,11 +1,13 @@
 <template>
-  <div class="page-breadcrumb mb-3">
-    <div class="row">
-      <div class="col-12 d-flex no-block align-items-center">
-        <h4 class="page-title">{{ current.name }}</h4>
-        <slot name="createBtn"></slot>
+  <div class="breadcrumb-container">
+    <div class="container-fluid">
+      <div class="page-breadcrumb">
+        <h4 class="page-title">{{ title ? title : current.name }}</h4>
+
+        <slot name="createBtn" class="ml-3"></slot>
+
         <div class="ml-auto text-right">
-          <nav aria-label="breadcrumb">
+          <nav aria-label="breadcrumb" class="breadcrumbs">
             <ol class="breadcrumb">
               <li
                 class="breadcrumb-item"
@@ -40,6 +42,7 @@ export default {
       type: Array,
       required: true,
     },
+    title: String,
   },
   data() {
     return {

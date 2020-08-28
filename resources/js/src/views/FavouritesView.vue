@@ -4,142 +4,136 @@
       :paths="[{ name: 'Favourites', route: 'favourites.index' }]"
     ></the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <!-- <h5 class="card-title">Favourites for {{ user.name }}</h5> -->
-              <div class="table-responsive">
-                <table
-                  id="zero_config"
-                  class="table table-striped table-bordered"
-                >
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Genus</th>
-                      <th>Family</th>
-                      <th>Common Name</th>
-                      <th>In Albania</th>
-                      <th>Map</th>
-                      <th>Favourite</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="favourite in favourites"
-                      :key="favourite.specie.id"
-                    >
-                      <td>{{ favourite.specie.id }}</td>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table
+                id="zero_config"
+                class="table table-striped table-bordered"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Genus</th>
+                    <th>Family</th>
+                    <th>Common Name</th>
+                    <th>In Albania</th>
+                    <th>Map</th>
+                    <th>Favourite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="favourite in favourites"
+                    :key="favourite.specie.id"
+                  >
+                    <td class="icon-col">{{ favourite.specie.id }}</td>
 
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'species.show',
-                            params: {
-                              specie: favourite.specie,
-                              id: favourite.specie.id,
-                            },
-                          }"
-                        >
-                          {{ favourite.specie.genera.name }}
-                          {{ favourite.specie.name }}
-                        </router-link>
-                      </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'species.show',
+                          params: {
+                            specie: favourite.specie,
+                            id: favourite.specie.id,
+                          },
+                        }"
+                      >
+                        {{ favourite.specie.genera.name }}
+                        {{ favourite.specie.name }}
+                      </router-link>
+                    </td>
 
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'genera.show',
-                            params: {
-                              genus: favourite.specie.genera,
-                              id: favourite.specie.genera.id,
-                            },
-                          }"
-                          >{{ favourite.specie.genera.name }}
-                        </router-link>
-                      </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'genera.show',
+                          params: {
+                            genus: favourite.specie.genera,
+                            id: favourite.specie.genera.id,
+                          },
+                        }"
+                        >{{ favourite.specie.genera.name }}
+                      </router-link>
+                    </td>
 
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'families.show',
-                            params: {
-                              family: favourite.specie.genera.family,
-                              id: favourite.specie.genera.family.id,
-                            },
-                          }"
-                        >
-                          {{ favourite.specie.genera.family.name }}
-                        </router-link>
-                      </td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'families.show',
+                          params: {
+                            family: favourite.specie.genera.family,
+                            id: favourite.specie.genera.family.id,
+                          },
+                        }"
+                      >
+                        {{ favourite.specie.genera.family.name }}
+                      </router-link>
+                    </td>
 
-                      <td>
-                        {{ favourite.specie.common_name }}
-                      </td>
+                    <td>
+                      {{ favourite.specie.common_name }}
+                    </td>
 
-                      <td>
-                        {{ favourite.specie.in_albania ? "True" : "False" }}
-                      </td>
+                    <td>
+                      {{ favourite.specie.in_albania ? "True" : "False" }}
+                    </td>
 
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'maps.index',
-                            params: {
-                              specieProp: favourite.specie,
-                            },
-                          }"
-                        >
-                          <inline-svg
-                            class="icon pin-icon"
-                            width="25"
-                            height="25"
-                            :src="require('../../../svgs/pin.svg')"
-                          ></inline-svg>
-                        </router-link>
-                      </td>
+                    <td class="icon-col">
+                      <router-link
+                        :to="{
+                          name: 'maps.index',
+                          params: {
+                            specieProp: favourite.specie,
+                          },
+                        }"
+                      >
+                        <inline-svg
+                          class="icon pin-icon"
+                          width="25"
+                          height="25"
+                          :src="require('../../../svgs/pin.svg')"
+                        ></inline-svg>
+                      </router-link>
+                    </td>
 
-                      <td>
-                        <div
-                          class="centerize"
-                          @click="removeFavourite(favourite.specie.id)"
-                        >
-                          <inline-svg
-                            class="icon star-icon"
-                            name="star-solid"
-                            width="25"
-                            height="25"
-                            :src="require('../../../svgs/star-solid.svg')"
-                          ></inline-svg>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Genus</th>
-                      <th>Family</th>
-                      <th>Common Name</th>
-                      <th>In Albania</th>
-                      <th>Map</th>
-                      <th>Favourite</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <pagination
-                v-if="pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                @paginate="fetchFavourites()"
-              ></pagination>
+                    <td class="icon-col">
+                      <div @click="removeFavourite(favourite.specie.id)">
+                        <inline-svg
+                          class="icon star-icon"
+                          name="star-solid"
+                          width="25"
+                          height="25"
+                          :src="require('../../../svgs/star-solid.svg')"
+                        ></inline-svg>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Genus</th>
+                    <th>Family</th>
+                    <th>Common Name</th>
+                    <th>In Albania</th>
+                    <th>Map</th>
+                    <th>Favourite</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
+
+            <pagination
+              v-if="pagination.last_page > 1"
+              :pagination="pagination"
+              :offset="5"
+              @paginate="fetchFavourites()"
+            ></pagination>
           </div>
         </div>
       </div>

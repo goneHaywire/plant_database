@@ -1,59 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/GeneraService */ "./resources/js/src/services/GeneraService.js");
+/* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
 //
 //
 //
@@ -141,10 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "FamiliesForm",
+  name: "GeneraForm",
   props: {
-    family: {
+    genus: {
       type: Object,
       "default": function _default() {
         return {};
@@ -157,16 +115,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  data: function data() {
+    return {
+      families: []
+    };
+  },
   methods: {
-    postFamily: function postFamily() {
+    postGenus: function postGenus() {
       var _this = this;
 
       if (!this.editing) {
-        _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].createFamily(this.family).then(function (resp) {
+        _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].createGenre(this.genus).then(function (resp) {
           _this.$router.push({
-            name: "families.show",
+            name: "genera.show",
             params: {
-              family: resp.data,
+              genus: resp.data,
               id: resp.data.id
             }
           });
@@ -174,11 +137,11 @@ __webpack_require__.r(__webpack_exports__);
           return console.log(err);
         });
       } else {
-        _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].updateFamily(this.family).then(function (resp) {
-          return _this.$router.push({
-            name: "families.show",
+        _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].updateGenera(this.genus).then(function (resp) {
+          _this.$router.push({
+            name: "genera.show",
             params: {
-              family: resp.data,
+              genus: resp.data,
               id: resp.data.id
             }
           });
@@ -188,23 +151,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  // data() {
-  //     return {
-  //         family: {
-  //             name: ""
-  //         }
-  //     };
-  // },
-  created: function created() {// this.family = this.familyProp;
+  created: function created() {
+    var _this2 = this;
+
+    _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getAllFamilies().then(function (resp) {
+      _this2.families = resp.data;
+    });
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e& ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -222,16 +183,17 @@ var render = function() {
       _c("the-breadcrumbs", {
         attrs: {
           paths: [
-            { name: "Families", route: "families.index" },
-            { name: "Create Family", route: "families.form" }
-          ]
+            { name: "Genera", route: "genera.index" },
+            { name: "Create Genre", route: "genera.form" }
+          ],
+          title: _vm.editing ? "Updating " + _vm.genus.name : "Create Genus"
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "content-wrapper" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12" }, [
               _c(
                 "form",
                 {
@@ -239,264 +201,159 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.postFamily()
+                      return _vm.postGenus()
                     }
                   }
                 },
                 [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h4", { staticClass: "card-title" }, [
-                      _vm._v("Family Data")
-                    ]),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "col-sm-3 text-right control-label col-form-label",
+                        attrs: { for: "fname" }
+                      },
+                      [_vm._v("Genera Name")]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "fname" }
-                        },
-                        [_vm._v("Family Name")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.family.name,
-                              expression: "family.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "name",
-                            name: "name",
-                            required: "",
-                            placeholder: "Family Name Here"
-                          },
-                          domProps: { value: _vm.family.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.family, "name", $event.target.value)
-                            }
+                    _c("div", { staticClass: "col-sm-9" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.genus.name,
+                            expression: "genus.name"
                           }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "cono1" }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          required: "",
+                          placeholder: "Genera Name Here"
                         },
-                        [_vm._v("Family Description")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("textarea", {
+                        domProps: { value: _vm.genus.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.genus, "name", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "col-sm-3 text-right control-label col-form-label"
+                      },
+                      [_vm._v("Family Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-9" }, [
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.family.description,
-                              expression: "family.description"
+                              value: _vm.genus.family_id,
+                              expression: "genus.family_id"
                             }
                           ],
-                          staticClass: "form-control",
-                          attrs: { name: "desc" },
-                          domProps: { value: _vm.family.description },
+                          staticClass: "select2 form-control custom-select",
+                          staticStyle: { width: "100%", height: "36px" },
+                          attrs: { name: "family", required: "" },
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
                               _vm.$set(
-                                _vm.family,
-                                "description",
-                                $event.target.value
+                                _vm.genus,
+                                "family_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
                               )
                             }
                           }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "cono1" }
                         },
-                        [_vm._v("Leaves Description")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.family.leaves,
-                              expression: "family.leaves"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "leaves" },
-                          domProps: { value: _vm.family.leaves },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.family,
-                                "leaves",
-                                $event.target.value
+                        [
+                          _c(
+                            "option",
+                            { attrs: { selected: "", disabled: "" } },
+                            [
+                              _vm._v(
+                                "\n                    Select Family\n                  "
                               )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "cono1" }
-                        },
-                        [_vm._v("Flowers Description")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.family.flowers,
-                              expression: "family.flowers"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "flowers" },
-                          domProps: { value: _vm.family.flowers },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.family,
-                                "flowers",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "cono1" }
-                        },
-                        [_vm._v("Seeds Description")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.family.seeds,
-                              expression: "family.seeds"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "seeds" },
-                          domProps: { value: _vm.family.seeds },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.family, "seeds", $event.target.value)
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "col-sm-3 text-right control-label col-form-label",
-                          attrs: { for: "cono1" }
-                        },
-                        [_vm._v("Family Characteristics")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-9" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.family.characteristics,
-                              expression: "family.characteristics"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "characteristics" },
-                          domProps: { value: _vm.family.characteristics },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.family,
-                                "characteristics",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.editing
+                            ? _vm._l(_vm.families, function(family) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: family.id,
+                                    domProps: {
+                                      value: family.id,
+                                      selected:
+                                        family.id === _vm.genus.family_id
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(family.name) +
+                                        "\n                    "
+                                    )
+                                  ]
+                                )
+                              })
+                            : _vm._l(_vm.families, function(family) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: family.id,
+                                    domProps: { value: family.id }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                      " +
+                                        _vm._s(family.name) +
+                                        "\n                    "
+                                    )
+                                  ]
+                                )
+                              })
+                        ],
+                        2
+                      )
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "border-top" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("input", {
-                        staticClass: "btn",
-                        class: _vm.editing ? "btn-primary" : "btn-success",
-                        attrs: { type: "submit" },
-                        domProps: { value: _vm.editing ? "Update" : "Create" }
-                      })
-                    ])
+                    _c("input", {
+                      staticClass: "btn",
+                      class: _vm.editing ? "btn-primary" : "btn-success",
+                      attrs: { type: "submit" },
+                      domProps: { value: _vm.editing ? "Update" : "Create" }
+                    })
                   ])
                 ]
               )
@@ -515,17 +372,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/src/views/Families/FamiliesForm.vue":
-/*!**********************************************************!*\
-  !*** ./resources/js/src/views/Families/FamiliesForm.vue ***!
-  \**********************************************************/
+/***/ "./resources/js/src/views/Genera/GeneraForm.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/src/views/Genera/GeneraForm.vue ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FamiliesForm.vue?vue&type=template&id=7036128e& */ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&");
-/* harmony import */ var _FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FamiliesForm.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GeneraForm.vue?vue&type=template&id=64a3f6b9& */ "./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9&");
+/* harmony import */ var _GeneraForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GeneraForm.vue?vue&type=script&lang=js& */ "./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -535,9 +392,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _GeneraForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -547,38 +404,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/src/views/Families/FamiliesForm.vue"
+component.options.__file = "resources/js/src/views/Genera/GeneraForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FamiliesForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneraForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneraForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneraForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e& ***!
-  \*****************************************************************************************/
+/***/ "./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9& ***!
+  \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FamiliesForm.vue?vue&type=template&id=7036128e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Families/FamiliesForm.vue?vue&type=template&id=7036128e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GeneraForm.vue?vue&type=template&id=64a3f6b9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/views/Genera/GeneraForm.vue?vue&type=template&id=64a3f6b9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FamiliesForm_vue_vue_type_template_id_7036128e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GeneraForm_vue_vue_type_template_id_64a3f6b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

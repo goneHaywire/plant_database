@@ -55,7 +55,7 @@
                       </td>
                       <td>
                         <div class="star-container">
-                          <div class="centerize" @click="Favourite(specie.id)">
+                          <div @click="Favourite(specie.id)">
                             <inline-svg
                               v-if="specie.favourites.length > 0"
                               name="star-solid"

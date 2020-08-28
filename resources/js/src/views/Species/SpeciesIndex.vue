@@ -12,255 +12,243 @@
       </template>
     </the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5>Search</h5>
-              <form class="search-form" @submit.prevent="searchSpecies()">
-                <div class="form-group d-flex justify-content-between">
-                  <div
-                    class="show-filters btn border"
-                    @click="search.searchFilters = !search.searchFilters"
-                  >
-                    <inline-svg
-                      width="25"
-                      height="25"
-                      :src="require('../../../../svgs/filter.svg')"
-                    ></inline-svg>
-                  </div>
-                  <input
-                    type="text"
-                    v-model="search.query"
-                    placeholder="Search Species"
-                    class="form-control"
-                  />
-                </div>
-                <div class="filters" v-show="search.searchFilters">
-                  <div class="row align-items-center">
-                    <div class="col-6 col-md-4">
-                      <div class="form-group">
-                        <select
-                          name="family"
-                          class="form-control"
-                          v-model="search.family_id"
-                        >
-                          <option selected :value="null">Select Family</option>
-                          <option
-                            v-for="family in families"
-                            :key="family.id"
-                            :value="family.id"
-                            >{{ family.name }}</option
-                          >
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-4">
-                      <div class="form-group">
-                        <select
-                          name="genera"
-                          class="form-control"
-                          v-model="search.genera_id"
-                        >
-                          <option selected :value="null">Select Genus</option>
-                          <option
-                            v-for="genus in genera"
-                            :key="genus.id"
-                            :value="genus.id"
-                            >{{ genus.name }}</option
-                          >
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <input
-                          type="checkbox"
-                          name="in_albania"
-                          id="in_albania"
-                          v-model="search.in_albania"
-                        />
-                        <label class="mb-0" for="in_albania">In Albania</label>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <div class="form-group">
-                        <input
-                          type="checkbox"
-                          name="favourite"
-                          id="favourite"
-                          v-model="search.favourite"
-                        />
-                        <label class="mb-0" for="favourite">Favorite</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <hr />
-              <h5>
-                {{ tableTitle }}
-                <span
-                  v-show="justSearched"
-                  class="btn btn-danger"
-                  @click="clearSearch()"
-                  >Clear Search</span
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <h5>Search</h5>
+            <form class="search-form" @submit.prevent="searchSpecies()">
+              <div class="form-group d-flex justify-content-between">
+                <div
+                  class="show-filters btn border"
+                  @click="search.searchFilters = !search.searchFilters"
                 >
-              </h5>
-              <div class="table-responsive" v-if="species.length > 0">
-                <table
-                  id="zero_config"
-                  class="table table-striped table-bordered"
-                >
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Genus</th>
-                      <th>Family</th>
-                      <th>Common Name</th>
-                      <th>In Albania</th>
-                      <th>Map</th>
-                      <th>Favourite</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="specie in species" :key="specie.id">
-                      <td>{{ specie.id }}</td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'species.show',
-                            params: {
-                              specie,
-                              id: specie.id,
-                            },
-                          }"
-                        >
-                          {{ specie.genera.name }}
-                          {{ specie.name }}
-                        </router-link>
-                      </td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'genera.show',
-                            params: {
-                              genus: specie.genera,
-                              id: specie.genera.id,
-                            },
-                          }"
-                          >{{ specie.genera.name }}
-                        </router-link>
-                      </td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'families.show',
-                            params: {
-                              family: specie.genera.family,
-                              id: specie.genera.family.id,
-                            },
-                          }"
-                        >
-                          {{ specie.genera.family.name }}
-                        </router-link>
-                      </td>
-
-                      <td>{{ specie.common_name }}</td>
-
-                      <td>
-                        {{ specie.in_albania ? "True" : "False" }}
-                      </td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'maps.index',
-                            params: {
-                              specieProp: specie,
-                            },
-                          }"
-                        >
-                          <inline-svg
-                            class="icon pin-icon"
-                            width="25"
-                            height="25"
-                            :src="require('../../../../svgs/pin.svg')"
-                          ></inline-svg>
-                        </router-link>
-                      </td>
-
-                      <td>
-                        <div class="centerize" @click="favourite(specie.id)">
-                          <inline-svg
-                            class="icon star-icon"
-                            name="star-solid"
-                            width="25"
-                            height="25"
-                            :src="
-                              specie.favourites_count
-                                ? require('../../../../svgs/star-solid.svg')
-                                : require('../../../../svgs/star-regular.svg')
-                            "
-                          ></inline-svg>
-                        </div>
-                      </td>
-
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'species.form',
-                            params: {
-                              editing: true,
-                              specieProp: specie,
-                            },
-                          }"
-                          class="btn btn-primary"
-                        >
-                          Update
-                        </router-link>
-                        <div
-                          @click="deleteSpecie(specie.id)"
-                          class="btn btn-danger"
-                        >
-                          Delete
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Full Name</th>
-                      <th>Genus</th>
-                      <th>Family</th>
-                      <th>Common Name</th>
-                      <th>In Albania</th>
-                      <th>Map</th>
-                      <th>Favourite</th>
-                      <th>Actions</th>
-                    </tr>
-                  </tfoot>
-                </table>
+                  <inline-svg
+                    width="25"
+                    height="25"
+                    :src="require('../../../../svgs/filter.svg')"
+                  ></inline-svg>
+                </div>
+                <input
+                  type="text"
+                  v-model="search.query"
+                  placeholder="Search Species"
+                  class="form-control"
+                />
               </div>
+              <div class="filters" v-show="search.searchFilters">
+                <div class="row align-items-center">
+                  <div class="col-6 col-md-4">
+                    <div class="form-group">
+                      <select
+                        name="family"
+                        class="form-control"
+                        v-model="search.family_id"
+                      >
+                        <option selected :value="null">Select Family</option>
+                        <option
+                          v-for="family in families"
+                          :key="family.id"
+                          :value="family.id"
+                          >{{ family.name }}</option
+                        >
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="form-group">
+                      <select
+                        name="genera"
+                        class="form-control"
+                        v-model="search.genera_id"
+                      >
+                        <option selected :value="null">Select Genus</option>
+                        <option
+                          v-for="genus in genera"
+                          :key="genus.id"
+                          :value="genus.id"
+                          >{{ genus.name }}</option
+                        >
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input
+                        type="checkbox"
+                        name="in_albania"
+                        id="in_albania"
+                        v-model="search.in_albania"
+                      />
+                      <label class="mb-0" for="in_albania">In Albania</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input
+                        type="checkbox"
+                        name="favourite"
+                        id="favourite"
+                        v-model="search.favourite"
+                      />
+                      <label class="mb-0" for="favourite">Favorite</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <hr />
+            <h5>
+              {{ tableTitle }}
+              <span
+                v-show="justSearched"
+                class="btn btn-danger"
+                @click="clearSearch()"
+                >Clear Search</span
+              >
+            </h5>
+            <div class="table-responsive" v-if="species.length > 0">
+              <table
+                id="zero_config"
+                class="table table-striped table-bordered"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Genus</th>
+                    <th>Family</th>
+                    <th>Common Name</th>
+                    <th>In Albania</th>
+                    <th>Map</th>
+                    <th>Favourite</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="specie in species" :key="specie.id">
+                    <td class="icon-col">{{ specie.id }}</td>
 
-              <pagination
-                v-if="pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                @paginate="
-                  {
-                    justSearched ? searchSpecies() : fetchSpecies();
-                  }
-                "
-              ></pagination>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'species.show',
+                          params: {
+                            specie,
+                            id: specie.id,
+                          },
+                        }"
+                      >
+                        {{ specie.genera.name }}
+                        {{ specie.name }}
+                      </router-link>
+                    </td>
+
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'genera.show',
+                          params: {
+                            genus: specie.genera,
+                            id: specie.genera.id,
+                          },
+                        }"
+                        >{{ specie.genera.name }}
+                      </router-link>
+                    </td>
+
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'families.show',
+                          params: {
+                            family: specie.genera.family,
+                            id: specie.genera.family.id,
+                          },
+                        }"
+                      >
+                        {{ specie.genera.family.name }}
+                      </router-link>
+                    </td>
+
+                    <td>{{ specie.common_name }}</td>
+
+                    <td>
+                      {{ specie.in_albania ? "True" : "False" }}
+                    </td>
+
+                    <td class="icon-col">
+                      <router-link
+                        :to="{
+                          name: 'maps.index',
+                          params: {
+                            specieProp: specie,
+                          },
+                        }"
+                      >
+                        <inline-svg
+                          class="icon pin-icon"
+                          width="25"
+                          height="25"
+                          :src="require('../../../../svgs/pin.svg')"
+                        ></inline-svg>
+                      </router-link>
+                    </td>
+
+                    <td class="icon-col">
+                      <div @click="favourite(specie.id)">
+                        <inline-svg
+                          class="icon star-icon"
+                          name="star-solid"
+                          width="25"
+                          height="25"
+                          :src="
+                            specie.favourites_count
+                              ? require('../../../../svgs/star-solid.svg')
+                              : require('../../../../svgs/star-regular.svg')
+                          "
+                        ></inline-svg>
+                      </div>
+                    </td>
+
+                    <td class="icon-col">
+                      <inline-svg
+                        :src="require('../../../../svgs/trash.svg')"
+                        width="25"
+                        height="25"
+                        @click="deleteSpecie(specie.id)"
+                        class="trash-icon icon"
+                      >
+                      </inline-svg>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Genus</th>
+                    <th>Family</th>
+                    <th>Common Name</th>
+                    <th>In Albania</th>
+                    <th>Map</th>
+                    <th>Favourite</th>
+                    <th>Delete</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
+
+            <pagination
+              v-if="pagination.last_page > 1"
+              :pagination="pagination"
+              :offset="5"
+              @paginate="
+                {
+                  justSearched ? searchSpecies() : fetchSpecies();
+                }
+              "
+            ></pagination>
           </div>
         </div>
       </div>
@@ -307,7 +295,9 @@ export default {
       speciesService
         .deleteSpecie(id)
         .then((resp) => {
-          this.species = this.species.filter((specie) => specie.id !== id);
+          this.species = this.species.filter(
+            (specie) => specie.id !== parseInt(resp.data)
+          );
         })
         .catch((err) => console.log(err));
     },

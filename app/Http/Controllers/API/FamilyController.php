@@ -65,6 +65,6 @@ class FamilyController extends Controller
     public function destroy($id)
     {
         $family = Family::find($id)->delete();
-        return 'Family deleted';
+        return $id;
     }
 }

@@ -271,12 +271,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -630,634 +624,592 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Map")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-5" }, [
-                    _c(
-                      "div",
-                      {
-                        staticStyle: { height: "600px", width: "100%" },
-                        attrs: { id: "map" }
-                      },
-                      [
-                        _c(
-                          "l-map",
-                          {
-                            ref: "map",
-                            staticStyle: { height: "90%" },
+      _c("div", { staticClass: "content-wrapper" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-5" }, [
+                  _c(
+                    "div",
+                    { attrs: { id: "map" } },
+                    [
+                      _c(
+                        "l-map",
+                        {
+                          ref: "map",
+                          attrs: {
+                            zoom: _vm.zoom,
+                            center: _vm.center,
+                            options: _vm.mapOptions
+                          },
+                          on: {
+                            "update:center": _vm.centerUpdate,
+                            "update:zoom": _vm.zoomUpdate
+                          }
+                        },
+                        [
+                          _c("l-tile-layer", {
                             attrs: {
-                              zoom: _vm.zoom,
-                              center: _vm.center,
-                              options: _vm.mapOptions
-                            },
-                            on: {
-                              "update:center": _vm.centerUpdate,
-                              "update:zoom": _vm.zoomUpdate
+                              url: _vm.url,
+                              attribution: _vm.attribution
                             }
-                          },
-                          [
-                            _c("l-tile-layer", {
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.polygons, function(polygon) {
+                            return _c("l-polygon", {
+                              key: polygon.id,
                               attrs: {
-                                url: _vm.url,
-                                attribution: _vm.attribution
+                                visible: _vm.layers[polygon.area.name],
+                                "lat-lngs": JSON.parse(polygon.coordinates),
+                                color: polygon.area.color
                               }
-                            }),
-                            _vm._v(" "),
-                            _vm._l(_vm.polygons, function(polygon) {
-                              return _c("l-polygon", {
-                                key: polygon.id,
-                                attrs: {
-                                  visible: _vm.layers[polygon.area.name],
-                                  "lat-lngs": JSON.parse(polygon.coordinates),
-                                  color: polygon.area.color
-                                }
-                              })
                             })
-                          ],
-                          2
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-7" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _c("h5", [_vm._v("Search")]),
-                        _vm._v(" "),
-                        _c(
-                          "form",
-                          {
-                            staticClass: "search-form",
-                            on: {
-                              submit: function($event) {
-                                $event.preventDefault()
-                                return null($event)
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "form-group d-flex justify-content-between"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "show-filters btn border",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.search.searchFilters = !_vm.search
-                                          .searchFilters
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("inline-svg", {
-                                      attrs: {
-                                        width: "25",
-                                        height: "25",
-                                        src: __webpack_require__(/*! ../../../../svgs/filter.svg */ "./resources/svgs/filter.svg")
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("vue-autosuggest", {
-                                  staticClass: "w-100",
-                                  attrs: {
-                                    suggestions: _vm.species,
-                                    renderSuggestion: _vm.renderSuggestion,
-                                    "get-suggestion-value":
-                                      _vm.renderSuggestion,
-                                    "input-props": _vm.inputProps
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      return _vm.searchSpecies()
-                                    },
-                                    selected: _vm.onSelected
-                                  },
-                                  model: {
-                                    value: _vm.search.query,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.search, "query", $$v)
-                                    },
-                                    expression: "search.query"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.search.searchFilters,
-                                    expression: "search.searchFilters"
-                                  }
-                                ],
-                                staticClass: "filters"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "row align-items-center" },
-                                  [
-                                    _c(
-                                      "div",
-                                      { staticClass: "col-6 col-md-4" },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "form-group" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.search.family_id,
-                                                    expression:
-                                                      "search.family_id"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { name: "family" },
-                                                on: {
-                                                  change: function($event) {
-                                                    var $$selectedVal = Array.prototype.filter
-                                                      .call(
-                                                        $event.target.options,
-                                                        function(o) {
-                                                          return o.selected
-                                                        }
-                                                      )
-                                                      .map(function(o) {
-                                                        var val =
-                                                          "_value" in o
-                                                            ? o._value
-                                                            : o.value
-                                                        return val
-                                                      })
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "family_id",
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  {
-                                                    attrs: { selected: "" },
-                                                    domProps: { value: null }
-                                                  },
-                                                  [_vm._v("Select Family")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(_vm.families, function(
-                                                  family
-                                                ) {
-                                                  return _c(
-                                                    "option",
-                                                    {
-                                                      key: family.id,
-                                                      domProps: {
-                                                        value: family.id
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(family.name)
-                                                      )
-                                                    ]
-                                                  )
-                                                })
-                                              ],
-                                              2
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "col-6 col-md-4" },
-                                      [
-                                        _c(
-                                          "div",
-                                          { staticClass: "form-group" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.search.genera_id,
-                                                    expression:
-                                                      "search.genera_id"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { name: "genera" },
-                                                on: {
-                                                  change: function($event) {
-                                                    var $$selectedVal = Array.prototype.filter
-                                                      .call(
-                                                        $event.target.options,
-                                                        function(o) {
-                                                          return o.selected
-                                                        }
-                                                      )
-                                                      .map(function(o) {
-                                                        var val =
-                                                          "_value" in o
-                                                            ? o._value
-                                                            : o.value
-                                                        return val
-                                                      })
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "genera_id",
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  {
-                                                    attrs: { selected: "" },
-                                                    domProps: { value: null }
-                                                  },
-                                                  [_vm._v("Select Genus")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(_vm.genera, function(
-                                                  genus
-                                                ) {
-                                                  return _c(
-                                                    "option",
-                                                    {
-                                                      key: genus.id,
-                                                      domProps: {
-                                                        value: genus.id
-                                                      }
-                                                    },
-                                                    [_vm._v(_vm._s(genus.name))]
-                                                  )
-                                                })
-                                              ],
-                                              2
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-2" }, [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.search.in_albania,
-                                              expression: "search.in_albania"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "checkbox",
-                                            name: "in_albania",
-                                            id: "in_albania"
-                                          },
-                                          domProps: {
-                                            checked: Array.isArray(
-                                              _vm.search.in_albania
-                                            )
-                                              ? _vm._i(
-                                                  _vm.search.in_albania,
-                                                  null
-                                                ) > -1
-                                              : _vm.search.in_albania
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = _vm.search.in_albania,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = null,
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "in_albania",
-                                                      $$a.concat([$$v])
-                                                    )
-                                                } else {
-                                                  $$i > -1 &&
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "in_albania",
-                                                      $$a
-                                                        .slice(0, $$i)
-                                                        .concat(
-                                                          $$a.slice($$i + 1)
-                                                        )
-                                                    )
-                                                }
-                                              } else {
-                                                _vm.$set(
-                                                  _vm.search,
-                                                  "in_albania",
-                                                  $$c
-                                                )
-                                              }
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "mb-0",
-                                            attrs: { for: "in_albania" }
-                                          },
-                                          [_vm._v("In Albania")]
-                                        )
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-2" }, [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.search.favourite,
-                                              expression: "search.favourite"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "checkbox",
-                                            name: "favourite",
-                                            id: "favourite"
-                                          },
-                                          domProps: {
-                                            checked: Array.isArray(
-                                              _vm.search.favourite
-                                            )
-                                              ? _vm._i(
-                                                  _vm.search.favourite,
-                                                  null
-                                                ) > -1
-                                              : _vm.search.favourite
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = _vm.search.favourite,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = null,
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "favourite",
-                                                      $$a.concat([$$v])
-                                                    )
-                                                } else {
-                                                  $$i > -1 &&
-                                                    _vm.$set(
-                                                      _vm.search,
-                                                      "favourite",
-                                                      $$a
-                                                        .slice(0, $$i)
-                                                        .concat(
-                                                          $$a.slice($$i + 1)
-                                                        )
-                                                    )
-                                                }
-                                              } else {
-                                                _vm.$set(
-                                                  _vm.search,
-                                                  "favourite",
-                                                  $$c
-                                                )
-                                              }
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass: "mb-0",
-                                            attrs: { for: "favourite" }
-                                          },
-                                          [_vm._v("Favorite")]
-                                        )
-                                      ])
-                                    ])
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("h5", [
-                          _vm._v(
-                            "\n                      " +
-                              _vm._s(_vm.selectedStatus) +
-                              "\n                      "
-                          ),
-                          _vm.selectedSpecie
-                            ? _c(
-                                "span",
-                                {
-                                  staticClass: "ml-1",
-                                  staticStyle: { cursor: "pointer" }
-                                },
-                                [
-                                  _c("inline-svg", {
-                                    attrs: {
-                                      src: __webpack_require__(/*! ../../../../svgs/close.svg */ "./resources/svgs/close.svg"),
-                                      width: "18",
-                                      height: "18"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.clearSearch()
-                                      }
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("hr")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6" },
-                        [
-                          _c("h4", [_vm._v("Soil Types")]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _vm._l(_vm.areas.soils, function(soil) {
-                            return [
-                              _c(
-                                "div",
-                                {
-                                  key: soil.name,
-                                  staticClass:
-                                    "d-flex align-items-center justify-content-start mb-2"
-                                },
-                                [
-                                  _c("inline-svg", {
-                                    staticClass: "icon icon-checkbox eye-icon",
-                                    attrs: {
-                                      name: "eye",
-                                      width: "20",
-                                      height: "20",
-                                      src: _vm.layers[soil.name]
-                                        ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
-                                        : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
-                                      id: soil.name
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.layers[soil.name] = !_vm.layers[
-                                          soil.name
-                                        ]
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "mb-0",
-                                      attrs: { for: soil.name }
-                                    },
-                                    [_vm._v(_vm._s(soil.name))]
-                                  )
-                                ],
-                                1
-                              )
-                            ]
-                          })
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6" },
-                        [
-                          _c("h4", [_vm._v("Specie Status")]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _vm._l(_vm.areas.specie_status, function(
-                            specie_status
-                          ) {
-                            return [
-                              _c(
-                                "div",
-                                {
-                                  key: specie_status.name,
-                                  staticClass:
-                                    "d-flex align-items-center justify-content-start mb-2"
-                                },
-                                [
-                                  _c("inline-svg", {
-                                    staticClass: "icon icon-checkbox eye-icon",
-                                    style: _vm.selectedSpecie
-                                      ? { cursor: "pointer" }
-                                      : { cursor: "default" },
-                                    attrs: {
-                                      name: "eye",
-                                      width: "20",
-                                      height: "20",
-                                      src: _vm.layers[specie_status.name]
-                                        ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
-                                        : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
-                                      id: specie_status.name
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.selectedSpecie
-                                          ? (_vm.layers[
-                                              specie_status.name
-                                            ] = !_vm.layers[specie_status.name])
-                                          : null
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "mb-0",
-                                      class: {
-                                        "text-muted": !_vm.selectedSpecie
-                                      },
-                                      attrs: { for: specie_status.name }
-                                    },
-                                    [_vm._v(_vm._s(specie_status.name))]
-                                  )
-                                ],
-                                1
-                              )
-                            ]
                           })
                         ],
                         2
                       )
-                    ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-7" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("h5", [_vm._v("Search")]),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          staticClass: "search-form",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return null($event)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "form-group d-flex justify-content-between"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "show-filters btn border",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.search.searchFilters = !_vm.search
+                                        .searchFilters
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("inline-svg", {
+                                    attrs: {
+                                      width: "25",
+                                      height: "25",
+                                      src: __webpack_require__(/*! ../../../../svgs/filter.svg */ "./resources/svgs/filter.svg")
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("vue-autosuggest", {
+                                staticClass: "w-100",
+                                attrs: {
+                                  suggestions: _vm.species,
+                                  renderSuggestion: _vm.renderSuggestion,
+                                  "get-suggestion-value": _vm.renderSuggestion,
+                                  "input-props": _vm.inputProps
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.searchSpecies()
+                                  },
+                                  selected: _vm.onSelected
+                                },
+                                model: {
+                                  value: _vm.search.query,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.search, "query", $$v)
+                                  },
+                                  expression: "search.query"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.search.searchFilters,
+                                  expression: "search.searchFilters"
+                                }
+                              ],
+                              staticClass: "filters"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "row align-items-center" },
+                                [
+                                  _c("div", { staticClass: "col-6 col-md-4" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.search.family_id,
+                                              expression: "search.family_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "family" },
+                                          on: {
+                                            change: function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                _vm.search,
+                                                "family_id",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "option",
+                                            {
+                                              attrs: { selected: "" },
+                                              domProps: { value: null }
+                                            },
+                                            [_vm._v("Select Family")]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._l(_vm.families, function(
+                                            family
+                                          ) {
+                                            return _c(
+                                              "option",
+                                              {
+                                                key: family.id,
+                                                domProps: { value: family.id }
+                                              },
+                                              [_vm._v(_vm._s(family.name))]
+                                            )
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-6 col-md-4" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "select",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.search.genera_id,
+                                              expression: "search.genera_id"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: { name: "genera" },
+                                          on: {
+                                            change: function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                _vm.search,
+                                                "genera_id",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "option",
+                                            {
+                                              attrs: { selected: "" },
+                                              domProps: { value: null }
+                                            },
+                                            [_vm._v("Select Genus")]
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._l(_vm.genera, function(genus) {
+                                            return _c(
+                                              "option",
+                                              {
+                                                key: genus.id,
+                                                domProps: { value: genus.id }
+                                              },
+                                              [_vm._v(_vm._s(genus.name))]
+                                            )
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-2" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.search.in_albania,
+                                            expression: "search.in_albania"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          name: "in_albania",
+                                          id: "in_albania"
+                                        },
+                                        domProps: {
+                                          checked: Array.isArray(
+                                            _vm.search.in_albania
+                                          )
+                                            ? _vm._i(
+                                                _vm.search.in_albania,
+                                                null
+                                              ) > -1
+                                            : _vm.search.in_albania
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.search.in_albania,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.search,
+                                                    "in_albania",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.search,
+                                                    "in_albania",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(
+                                                _vm.search,
+                                                "in_albania",
+                                                $$c
+                                              )
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          staticClass: "mb-0",
+                                          attrs: { for: "in_albania" }
+                                        },
+                                        [_vm._v("In Albania")]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-2" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.search.favourite,
+                                            expression: "search.favourite"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          name: "favourite",
+                                          id: "favourite"
+                                        },
+                                        domProps: {
+                                          checked: Array.isArray(
+                                            _vm.search.favourite
+                                          )
+                                            ? _vm._i(
+                                                _vm.search.favourite,
+                                                null
+                                              ) > -1
+                                            : _vm.search.favourite
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.search.favourite,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.search,
+                                                    "favourite",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.search,
+                                                    "favourite",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(
+                                                _vm.search,
+                                                "favourite",
+                                                $$c
+                                              )
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          staticClass: "mb-0",
+                                          attrs: { for: "favourite" }
+                                        },
+                                        [_vm._v("Favorite")]
+                                      )
+                                    ])
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.selectedStatus) +
+                            "\n                    "
+                        ),
+                        _vm.selectedSpecie
+                          ? _c(
+                              "span",
+                              {
+                                staticClass: "ml-1",
+                                staticStyle: { cursor: "pointer" }
+                              },
+                              [
+                                _c("inline-svg", {
+                                  attrs: {
+                                    src: __webpack_require__(/*! ../../../../svgs/close.svg */ "./resources/svgs/close.svg"),
+                                    width: "18",
+                                    height: "18"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.clearSearch()
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("hr")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-6 col-md-6" },
+                      [
+                        _c("h4", [_vm._v("Soil Types")]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm._l(_vm.areas.soils, function(soil) {
+                          return [
+                            _c(
+                              "div",
+                              {
+                                key: soil.name,
+                                staticClass:
+                                  "d-flex align-items-center justify-content-start mb-2"
+                              },
+                              [
+                                _c("inline-svg", {
+                                  staticClass: "icon icon-checkbox eye-icon",
+                                  attrs: {
+                                    name: "eye",
+                                    width: "20",
+                                    height: "20",
+                                    src: _vm.layers[soil.name]
+                                      ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                      : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
+                                    id: soil.name
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.layers[soil.name] = !_vm.layers[
+                                        soil.name
+                                      ]
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0",
+                                    attrs: { for: soil.name }
+                                  },
+                                  [_vm._v(_vm._s(soil.name))]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-6 col-md-6" },
+                      [
+                        _c("h4", [_vm._v("Specie Status")]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm._l(_vm.areas.specie_status, function(
+                          specie_status
+                        ) {
+                          return [
+                            _c(
+                              "div",
+                              {
+                                key: specie_status.name,
+                                staticClass:
+                                  "d-flex align-items-center justify-content-start mb-2"
+                              },
+                              [
+                                _c("inline-svg", {
+                                  staticClass: "icon icon-checkbox eye-icon",
+                                  style: _vm.selectedSpecie
+                                    ? { cursor: "pointer" }
+                                    : { cursor: "default" },
+                                  attrs: {
+                                    name: "eye",
+                                    width: "20",
+                                    height: "20",
+                                    src: _vm.layers[specie_status.name]
+                                      ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                      : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
+                                    id: specie_status.name
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectedSpecie
+                                        ? (_vm.layers[specie_status.name] = !_vm
+                                            .layers[specie_status.name])
+                                        : null
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0",
+                                    class: {
+                                      "text-muted": !_vm.selectedSpecie
+                                    },
+                                    attrs: { for: specie_status.name }
+                                  },
+                                  [_vm._v(_vm._s(specie_status.name))]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        })
+                      ],
+                      2
+                    )
                   ])
                 ])
               ])

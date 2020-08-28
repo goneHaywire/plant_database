@@ -12,79 +12,66 @@
       </template>
     </the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">All Families</h5>
-              <div class="table-responsive">
-                <table
-                  id="zero_config"
-                  class="table table-striped table-bordered"
-                >
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="family in families" :key="family.id">
-                      <td>{{ family.id }}</td>
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'families.show',
-                            params: {
-                              family: family,
-                              id: family.id,
-                            },
-                          }"
-                        >
-                          {{ family.name }}
-                        </router-link>
-                      </td>
-                      <td>
-                        <router-link
-                          :to="{
-                            name: 'families.form',
-                            params: {
-                              editing: true,
-                              family,
-                            },
-                          }"
-                          class="btn btn-primary"
-                        >
-                          Update
-                        </router-link>
-                        <div
-                          class="btn btn-danger"
-                          @click="deleteFamily(family.id)"
-                        >
-                          Delete
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Actions</th>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <pagination
-                v-if="pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                @paginate="fetchFamilies()"
-              ></pagination>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table
+                id="zero_config"
+                class="table table-striped table-bordered"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="family in families" :key="family.id">
+                    <td class="icon-col">{{ family.id }}</td>
+                    <td>
+                      <router-link
+                        :to="{
+                          name: 'families.show',
+                          params: {
+                            family: family,
+                            id: family.id,
+                          },
+                        }"
+                      >
+                        {{ family.name }}
+                      </router-link>
+                    </td>
+                    <td class="icon-col">
+                      <inline-svg
+                        :src="require('../../../../svgs/trash.svg')"
+                        width="25"
+                        height="25"
+                        @click="deleteFamily(family.id)"
+                        class="trash-icon icon"
+                      >
+                      </inline-svg>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Delete</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
+
+            <pagination
+              v-if="pagination.last_page > 1"
+              :pagination="pagination"
+              :offset="5"
+              @paginate="fetchFamilies()"
+            ></pagination>
           </div>
         </div>
       </div>
@@ -116,7 +103,9 @@ export default {
         .deleteFamily(id)
         .then((resp) => {
           console.log(resp);
-          this.families = this.families.filter((family) => family.id !== id);
+          this.families = this.families.filter(
+            (family) => family.id !== parseInt(resp.data)
+          );
         })
         .catch((err) => console.log(err));
     },

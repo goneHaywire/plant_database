@@ -7,133 +7,129 @@
       ]"
     ></the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Create Polygons</h5>
-              <div class="row">
-                <div class="col-md-5">
-                  <div id="map" style="height: 600px; width: 100%;">
-                    <l-map
-                      :zoom="zoom"
-                      :center="center"
-                      :options="mapOptions"
-                      style="height: 90%;"
-                      @update:center="centerUpdate"
-                      @update:zoom="zoomUpdate"
-                      ref="map"
-                    >
-                      <l-tile-layer :url="url" :attribution="attribution" />
-                      <!-- <l-draw-toolbar position="topright" /> -->
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-5">
+                <div id="map">
+                  <l-map
+                    :zoom="zoom"
+                    :center="center"
+                    :options="mapOptions"
+                    @update:center="centerUpdate"
+                    @update:zoom="zoomUpdate"
+                    ref="map"
+                  >
+                    <l-tile-layer :url="url" :attribution="attribution" />
+                    <!-- <l-draw-toolbar position="topright" /> -->
 
-                      <l-polygon
-                        v-for="polygon in polygons"
-                        :key="polygon.id"
-                        :visible="polygon.visible"
-                        :lat-lngs="JSON.parse(polygon.coordinates)"
-                        :color="polygon.area.color"
-                        :opacity="0.4"
-                      >
-                      </l-polygon>
-                    </l-map>
+                    <l-polygon
+                      v-for="polygon in polygons"
+                      :key="polygon.id"
+                      :visible="polygon.visible"
+                      :lat-lngs="JSON.parse(polygon.coordinates)"
+                      :color="polygon.area.color"
+                      :opacity="0.4"
+                    >
+                    </l-polygon>
+                  </l-map>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <form @submit.prevent="createPolygon()">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Soil Types</h4>
+                      <hr />
+                      <template v-for="soil in areas.soils">
+                        <div :key="soil.name">
+                          <input
+                            type="radio"
+                            :value="soil.id"
+                            name="area"
+                            v-model="activePolygon.area_id"
+                            :id="soil.name"
+                            required
+                          />
+                          <label :for="soil.name">{{ soil.name }}</label>
+                        </div>
+                      </template>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>Specie Status</h4>
+                      <hr />
+                      <template v-for="specie_status in areas.specie_status">
+                        <div :key="specie_status.name">
+                          <input
+                            type="radio"
+                            :value="specie_status.id"
+                            name="area"
+                            v-model="activePolygon.area_id"
+                            :id="specie_status.name"
+                            :disabled="!activePolygon.specie_id"
+                            required
+                          />
+                          <label
+                            :for="specie_status.name"
+                            :class="{
+                              'text-muted': !activePolygon.specie_id,
+                            }"
+                            >{{ specie_status.name }}</label
+                          >
+                        </div>
+                      </template>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-7">
-                  <form @submit.prevent="createPolygon()">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <h4>Soil Types</h4>
-                        <hr />
-                        <template v-for="soil in areas.soils">
-                          <div :key="soil.name">
-                            <input
-                              type="radio"
-                              :value="soil.id"
-                              name="area"
-                              v-model="activePolygon.area_id"
-                              :id="soil.name"
-                              required
-                            />
-                            <label :for="soil.name">{{ soil.name }}</label>
-                          </div>
-                        </template>
-                      </div>
-                      <div class="col-md-6">
-                        <h4>Specie Status</h4>
-                        <hr />
-                        <template v-for="specie_status in areas.specie_status">
-                          <div :key="specie_status.name">
-                            <input
-                              type="radio"
-                              :value="specie_status.id"
-                              name="area"
-                              v-model="activePolygon.area_id"
-                              :id="specie_status.name"
-                              :disabled="!activePolygon.specie_id"
-                              required
-                            />
-                            <label
-                              :for="specie_status.name"
-                              :class="{
-                                'text-muted': !activePolygon.specie_id,
-                              }"
-                              >{{ specie_status.name }}</label
-                            >
-                          </div>
-                        </template>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="form-group">
-                      <input
-                        type="submit"
-                        value="Add Polygon"
-                        class="btn btn-success"
-                      />
-                    </div>
-                    <hr />
-                    <table class="table table-striped table-bordered">
-                      <thead>
-                        <td>ID</td>
-                        <td>Toggle</td>
-                        <td>Name</td>
-                        <td>Type</td>
-                        <td>Remove</td>
-                      </thead>
-                      <tr v-for="polygon in polygons" :key="polygon.id">
-                        <td>{{ polygon.id }}</td>
-                        <td>
-                          <inline-svg
-                            class="icon eye-icon"
-                            :name="polygon.visible ? 'eye-closed' : 'eye-open'"
-                            width="25"
-                            height="25"
-                            :src="
-                              polygon.visible
-                                ? require('../../../../svgs/eye-closed.svg')
-                                : require('../../../../svgs/eye-open.svg')
-                            "
-                            @click="polygon.visible = !polygon.visible"
-                          ></inline-svg>
-                        </td>
-                        <td>{{ polygon.area.name }}</td>
-                        <td>{{ polygon.area.type | cleanType }}</td>
-                        <td>
-                          <inline-svg
-                            class="icon trash-icon"
-                            name="trash"
-                            width="25"
-                            height="25"
-                            :src="require('../../../../svgs/trash.svg')"
-                            @click="deletePolygon(polygon.id)"
-                          ></inline-svg>
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
-                </div>
+                  <hr />
+                  <div class="form-group">
+                    <input
+                      type="submit"
+                      value="Add Polygon"
+                      class="btn btn-success"
+                    />
+                  </div>
+                  <hr />
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                      <td>ID</td>
+                      <td>Toggle</td>
+                      <td>Name</td>
+                      <td>Type</td>
+                      <td>Remove</td>
+                    </thead>
+                    <tr v-for="polygon in polygons" :key="polygon.id">
+                      <td class="icon-col">{{ polygon.id }}</td>
+                      <td class="icon-col">
+                        <inline-svg
+                          class="icon eye-icon"
+                          :name="polygon.visible ? 'eye-closed' : 'eye-open'"
+                          width="25"
+                          height="25"
+                          :src="
+                            polygon.visible
+                              ? require('../../../../svgs/eye-closed.svg')
+                              : require('../../../../svgs/eye-open.svg')
+                          "
+                          @click="polygon.visible = !polygon.visible"
+                        ></inline-svg>
+                      </td>
+                      <td>{{ polygon.area.name }}</td>
+                      <td>{{ polygon.area.type | cleanType }}</td>
+                      <td class="icon-col">
+                        <inline-svg
+                          class="icon trash-icon"
+                          name="trash"
+                          width="25"
+                          height="25"
+                          :src="require('../../../../svgs/trash.svg')"
+                          @click="deletePolygon(polygon.id)"
+                        ></inline-svg>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
               </div>
             </div>
           </div>

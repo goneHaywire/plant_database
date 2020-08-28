@@ -5,221 +5,215 @@
         { name: 'Species', route: 'species.index' },
         { name: 'Create Species', route: 'species.form' },
       ]"
+      :title="
+        editing
+          ? `Updating ${specie.genera.name} ${specie.name}`
+          : 'Create Specie'
+      "
     ></the-breadcrumbs>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
             <form class="form-horizontal" @submit.prevent="postSpecie()">
-              <div class="card-body">
-                <h4 class="card-title">Species Data</h4>
-                <div class="form-group row">
-                  <label
-                    for="name"
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >Species Name</label
-                  >
-                  <div class="col-sm-9">
+              <div class="form-group row">
+                <label
+                  for="name"
+                  class="col-sm-3 text-right control-label col-form-label"
+                  >Species Name</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    v-model="specie.name"
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Species Name Here"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label
+                  for="cname"
+                  class="col-sm-3 text-right control-label col-form-label"
+                  >Common Name</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    v-model="specie.common_name"
+                    type="text"
+                    class="form-control"
+                    id="cname"
+                    name="common_name"
+                    placeholder="Common Name Here"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 text-right control-label col-form-label"
+                  >In Albania</label
+                >
+                <div class="col-sm-9 d-flex align-items-center">
+                  <div class="custom-control custom-checkbox mr-sm-2 pl-1">
                     <input
-                      v-model="specie.name"
-                      type="text"
-                      class="form-control"
-                      id="name"
-                      name="name"
-                      required
-                      placeholder="Species Name Here"
+                      v-model="specie.in_albania"
+                      type="checkbox"
+                      class="custom-control-input"
+                      name="in_albania"
+                      id="in_albania"
                     />
+                    <label
+                      class="custom-control-label"
+                      for="in_albania"
+                    ></label>
                   </div>
                 </div>
+              </div>
 
-                <div class="form-group row">
-                  <label
-                    for="cname"
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >Common Name</label
+              <div class="form-group row">
+                <label class="col-sm-3 text-right control-label col-form-label"
+                  >Family Name</label
+                >
+                <div class="col-md-9">
+                  <select
+                    name="family"
+                    class="select2 form-control custom-select"
+                    style="width: 100%; height: 36px;"
+                    required
+                    v-model="specie.genera.family.id"
                   >
-                  <div class="col-sm-9">
-                    <input
-                      v-model="specie.common_name"
-                      type="text"
-                      class="form-control"
-                      id="cname"
-                      name="common_name"
-                      placeholder="Common Name Here"
-                    />
-                  </div>
+                    <option selected disabled>
+                      Select Family
+                    </option>
+                    <template v-if="editing">
+                      <option
+                        :value="family.id"
+                        v-for="family in families"
+                        :key="family.id"
+                        :selected="family.id === specie.genera.family.id"
+                      >
+                        {{ family.name }}
+                      </option>
+                    </template>
+                    <template v-else>
+                      <option
+                        :value="family.id"
+                        v-for="family in families"
+                        :key="family.id"
+                      >
+                        {{ family.name }}
+                      </option>
+                    </template>
+                  </select>
                 </div>
+              </div>
 
-                <div class="form-group row">
-                  <label
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >In Albania</label
+              <div class="form-group row" v-if="specie.genera.family.id">
+                <label class="col-sm-3 text-right control-label col-form-label"
+                  >Genera Name</label
+                >
+                <div class="col-md-9">
+                  <select
+                    name="genera"
+                    class="select2 form-control custom-select"
+                    style="width: 100%; height: 36px;"
+                    required
+                    v-model="specie.genera.id"
                   >
-                  <div class="col-sm-9 d-flex align-items-center">
-                    <div class="custom-control custom-checkbox mr-sm-2 pl-1">
-                      <input
-                        v-model="specie.in_albania"
-                        type="checkbox"
-                        class="custom-control-input"
-                        name="in_albania"
-                        id="in_albania"
+                    <option selected disabled>
+                      Select Genus
+                    </option>
+                    <template v-if="editing">
+                      <option
+                        :value="genus.id"
+                        v-for="genus in genera"
+                        :key="genus.id"
+                        :selected="genus.id === specie.genera.id"
+                      >
+                        {{ genus.name }}
+                      </option>
+                    </template>
+                    <template v-else>
+                      <option
+                        :value="genus.id"
+                        v-for="genus in genera"
+                        :key="genus.id"
+                      >
+                        {{ genus.name }}
+                      </option>
+                    </template>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 text-right control-label col-form-label"
+                  >Photos</label
+                >
+                <div class="col-md-9">
+                  <input
+                    type="file"
+                    @change="onFileChange"
+                    multiple
+                    ref="images"
+                  />
+                  <br />
+                  <br />
+                  <div class="img-grid">
+                    <div
+                      v-for="image in old_images"
+                      :key="image.id"
+                      class="img-box"
+                    >
+                      <inline-svg
+                        :src="require('../../../../svgs/close.svg')"
+                        width="20"
+                        height="20"
+                        class="close"
+                        @click="removePhoto(image.id, 'id')"
+                      >
+                      </inline-svg>
+                      <img
+                        v-if="editing"
+                        :src="'/storage/' + image.path"
+                        class="preview img-fluid"
+                        :alt="image.path"
                       />
-                      <label
-                        class="custom-control-label"
-                        for="in_albania"
-                      ></label>
+                    </div>
+                    <div
+                      v-for="image in images"
+                      :key="Object.keys(image)[0]"
+                      class="img-box"
+                    >
+                      <inline-svg
+                        :src="require('../../../../svgs/close.svg')"
+                        width="20"
+                        height="20"
+                        class="close"
+                        @click="removePhoto(Object.keys(image)[0], 'index')"
+                      >
+                      </inline-svg>
+                      <img
+                        class="preview img-fluid"
+                        :ref="'image' + parseInt(Object.keys(image)[0])"
+                      />
                     </div>
                   </div>
                 </div>
-
-                <div class="form-group row">
-                  <label
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >Family Name</label
-                  >
-                  <div class="col-md-9">
-                    <select
-                      name="family"
-                      class="select2 form-control custom-select"
-                      style="width: 100%; height: 36px;"
-                      required
-                      v-model="specie.genera.family.id"
-                    >
-                      <option selected disabled>
-                        Select Family
-                      </option>
-                      <template v-if="editing">
-                        <option
-                          :value="family.id"
-                          v-for="family in families"
-                          :key="family.id"
-                          :selected="family.id === specie.genera.family.id"
-                        >
-                          {{ family.name }}
-                        </option>
-                      </template>
-                      <template v-else>
-                        <option
-                          :value="family.id"
-                          v-for="family in families"
-                          :key="family.id"
-                        >
-                          {{ family.name }}
-                        </option>
-                      </template>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group row" v-if="specie.genera.family.id">
-                  <label
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >Genera Name</label
-                  >
-                  <div class="col-md-9">
-                    <select
-                      name="genera"
-                      class="select2 form-control custom-select"
-                      style="width: 100%; height: 36px;"
-                      required
-                      v-model="specie.genera.id"
-                    >
-                      <option selected disabled>
-                        Select Genus
-                      </option>
-                      <template v-if="editing">
-                        <option
-                          :value="genus.id"
-                          v-for="genus in genera"
-                          :key="genus.id"
-                          :selected="genus.id === specie.genera.id"
-                        >
-                          {{ genus.name }}
-                        </option>
-                      </template>
-                      <template v-else>
-                        <option
-                          :value="genus.id"
-                          v-for="genus in genera"
-                          :key="genus.id"
-                        >
-                          {{ genus.name }}
-                        </option>
-                      </template>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label
-                    class="col-sm-3 text-right control-label col-form-label"
-                    >Photos</label
-                  >
-                  <div class="col-md-9">
-                    <input
-                      type="file"
-                      @change="onFileChange"
-                      multiple
-                      ref="images"
-                    />
-                    <br />
-                    <br />
-                    <div class="img-grid">
-                      <div
-                        v-for="image in old_images"
-                        :key="image.id"
-                        class="img-box"
-                      >
-                        <inline-svg
-                          :src="require('../../../../svgs/close.svg')"
-                          width="20"
-                          height="20"
-                          class="close"
-                          @click="removePhoto(image.id, 'id')"
-                        >
-                        </inline-svg>
-                        <img
-                          v-if="editing"
-                          :src="'/storage/' + image.path"
-                          class="preview img-fluid"
-                          :alt="image.path"
-                        />
-                      </div>
-                      <div
-                        v-for="image in images"
-                        :key="Object.keys(image)[0]"
-                        class="img-box"
-                      >
-                        <inline-svg
-                          :src="require('../../../../svgs/close.svg')"
-                          width="20"
-                          height="20"
-                          class="close"
-                          @click="removePhoto(Object.keys(image)[0], 'index')"
-                        >
-                        </inline-svg>
-                        <img
-                          class="preview img-fluid"
-                          :ref="'image' + parseInt(Object.keys(image)[0])"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group row"></div>
               </div>
 
               <div class="border-top">
-                <div class="card-body">
-                  <input
-                    type="submit"
-                    class="btn"
-                    :class="editing ? 'btn-primary' : 'btn-success'"
-                    :value="editing ? 'Update' : 'Create'"
-                  />
-                </div>
+                <input
+                  type="submit"
+                  class="btn"
+                  :class="editing ? 'btn-primary' : 'btn-success'"
+                  :value="editing ? 'Update' : 'Create'"
+                />
               </div>
             </form>
           </div>
@@ -270,7 +264,7 @@ export default {
     postSpecie() {
       let specie = new FormData();
       specie.append("name", this.specie.name);
-      specie.append("common_name", this.specie.common_name);
+      specie.append("common_name", this.specie.common_name ?? null);
       specie.append("in_albania", this.specie.in_albania);
       specie.append("genera_id", this.specie.genera.id);
 

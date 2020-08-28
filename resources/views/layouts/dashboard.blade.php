@@ -7,6 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+<link rel="icon" type="image/x-icon" href="images/favicon.ico"/>
+
+
     <title>{{ config('app.name', 'Plant Database') }}</title>
 
     <!-- Fonts -->
@@ -25,7 +28,6 @@
 <body>
 <div id="app">
     <app-page></app-page>
-    {{-- {{asset('storage/Aphanisma_testy15983523812')}} --}}
 </div>
 @section('scripts')
     @include('layouts.scripts')
