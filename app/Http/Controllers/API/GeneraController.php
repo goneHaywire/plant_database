@@ -16,7 +16,7 @@ class GeneraController extends Controller
      */
     public function index()
     {
-        return Genera::with('family')->paginate(20);
+        return Genera::with('family')->withCount('species')->paginate(20);
     }
 
     public function speciesOfGenera(Genera $genera)

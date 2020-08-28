@@ -25,6 +25,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Genera Amount</th>
                     <th>Delete</th>
                   </tr>
                 </thead>
@@ -44,6 +45,9 @@
                         {{ family.name }}
                       </router-link>
                     </td>
+                    <td>
+                      {{ family.genera_count }}
+                    </td>
                     <td class="icon-col">
                       <inline-svg
                         :src="require('../../../../svgs/trash.svg')"
@@ -60,6 +64,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Genera Amount</th>
                     <th>Delete</th>
                   </tr>
                 </tfoot>

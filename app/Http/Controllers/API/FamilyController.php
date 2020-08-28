@@ -15,7 +15,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        return Family::paginate(20);
+        return Family::withCount('genera')->paginate(20);
     }
 
     public function allFamilies()

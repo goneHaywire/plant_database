@@ -25,6 +25,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Species Amount</th>
                     <th>Family</th>
                     <th>Delete</th>
                   </tr>
@@ -45,6 +46,7 @@
                         {{ genus.name }}
                       </router-link>
                     </td>
+                    <td>{{ genus.species_count }}</td>
                     <td>
                       <router-link
                         :to="{
@@ -74,6 +76,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Species Amount</th>
                     <th>Family</th>
                     <th>Delete</th>
                   </tr>
@@ -117,7 +120,9 @@ export default {
       generaService
         .deleteGenre(id)
         .then((resp) => {
-          this.genera = this.genera.filter((genre) => genre.id !== parseInt(resp.data));
+          this.genera = this.genera.filter(
+            (genre) => genre.id !== parseInt(resp.data)
+          );
           console.log(resp);
         })
         .catch((err) => console.log(err));

@@ -15,7 +15,6 @@ class AddDistrictToPolygonsTable extends Migration
     {
         Schema::table('polygons', function (Blueprint $table) {
             $table->unsignedBigInteger('district_id')->nullable();
-            // $table->index('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('set null');
         });
     }
@@ -28,8 +27,8 @@ class AddDistrictToPolygonsTable extends Migration
     public function down()
     {
         Schema::table('polygons', function (Blueprint $table) {
-            // $table->dropIndex('polygons_district_id_index');
-            $table->dropForeign('district_id');
+            $table->dropForeign('polygons_district_id_foreign');
+            $table->dropColumn('district_id');
         });
     }
 }

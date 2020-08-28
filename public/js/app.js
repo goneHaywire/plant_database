@@ -2889,6 +2889,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3191,6 +3196,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/GeneraService */ "./resources/js/src/services/GeneraService.js");
+//
+//
+//
 //
 //
 //
@@ -43685,6 +43693,14 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(family.genera_count) +
+                                  "\n                  "
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c(
                               "td",
                               { staticClass: "icon-col" },
@@ -43746,6 +43762,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Genera Amount")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Delete")])
       ])
     ])
@@ -43759,6 +43777,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Genera Amount")]),
         _vm._v(" "),
         _c("th", [_vm._v("Delete")])
       ])
@@ -44163,6 +44183,8 @@ var render = function() {
                               1
                             ),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(genus.species_count))]),
+                            _vm._v(" "),
                             _c(
                               "td",
                               [
@@ -44252,6 +44274,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Species Amount")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Family")]),
         _vm._v(" "),
         _c("th", [_vm._v("Delete")])
@@ -44267,6 +44291,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Species Amount")]),
         _vm._v(" "),
         _c("th", [_vm._v("Family")]),
         _vm._v(" "),
