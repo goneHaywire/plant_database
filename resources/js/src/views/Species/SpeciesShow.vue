@@ -27,6 +27,29 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
+            <template v-if="specie.common_name">
+              <h6>Common Name: {{ specie.common_name }}</h6>
+            </template>
+            <h6 v-else class="text-muted">
+              This specie has no common name.
+            </h6>
+
+            <h6>In Albania: {{ specie.in_albania ? "True" : "False" }}</h6>
+
+            <template v-if="specie.ipni">
+              <h6>IPNI: {{ specie.ipni }}</h6>
+            </template>
+            <h6 v-else class="text-muted">
+              This specie has no IPNI information.
+            </h6>
+
+            <template v-if="specie.year">
+              <h6>Year: {{ specie.year }}</h6>
+            </template>
+            <h6 v-else class="text-muted">
+              This specie has no year information.
+            </h6>
+
             <template v-if="photos.length">
               <h5>Gallery</h5>
               <div class="img-grid">

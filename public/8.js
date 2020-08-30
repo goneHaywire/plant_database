@@ -58,6 +58,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesShow",
@@ -146,6 +169,41 @@ var render = function() {
               "div",
               { staticClass: "col-12" },
               [
+                _vm.specie.common_name
+                  ? [
+                      _c("h6", [
+                        _vm._v("Common Name: " + _vm._s(_vm.specie.common_name))
+                      ])
+                    ]
+                  : _c("h6", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n            This specie has no common name.\n          "
+                      )
+                    ]),
+                _vm._v(" "),
+                _c("h6", [
+                  _vm._v(
+                    "In Albania: " +
+                      _vm._s(_vm.specie.in_albania ? "True" : "False")
+                  )
+                ]),
+                _vm._v(" "),
+                _vm.specie.ipni
+                  ? [_c("h6", [_vm._v("IPNI: " + _vm._s(_vm.specie.ipni))])]
+                  : _c("h6", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n            This specie has no IPNI information.\n          "
+                      )
+                    ]),
+                _vm._v(" "),
+                _vm.specie.year
+                  ? [_c("h6", [_vm._v("Year: " + _vm._s(_vm.specie.year))])]
+                  : _c("h6", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n            This specie has no year information.\n          "
+                      )
+                    ]),
+                _vm._v(" "),
                 _vm.photos.length
                   ? [
                       _c("h5", [_vm._v("Gallery")]),

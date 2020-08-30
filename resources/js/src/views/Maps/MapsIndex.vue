@@ -227,6 +227,43 @@
                       </div>
                     </template>
                   </div>
+                  <div class="col-12">
+                    <hr />
+                    <template v-if="available_families.length">
+                      <h3>
+                        Families eligible for growing in selected soils.
+                      </h3>
+                      <table class="table table-striped table-bordered">
+                        <thead>
+                          <td>ID</td>
+                          <td>Name</td>
+                          <td>Soil</td>
+                        </thead>
+                        <tr
+                          v-for="family in available_families"
+                          :key="family.id"
+                        >
+                          <td class="icon-col">{{ family.id }}</td>
+                          <td>
+                            <router-link
+                              :to="{
+                                name: 'families.show',
+                                params: { id: family.id },
+                              }"
+                              >{{ family.name }}</router-link
+                            >
+                          </td>
+                          <td>{{ family.soil.name }}</td>
+                        </tr>
+                        <thead>
+                          <td>ID</td>
+                          <td>Name</td>
+                          <td>Soil</td>
+                        </thead>
+                      </table>
+                    </template>
+                    <h4 v-else>No Soil types selected.</h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -274,6 +311,16 @@ export default {
       return this.selectedSpecie
         ? `Selected specie: ${this.selectedSpecie.genera.name} ${this.selectedSpecie.name}`
         : "No specie selected.";
+    },
+    available_families() {
+      let families = [];
+      this.areas.soils.forEach((soil) => {
+        if (this.layers[soil.name]) {
+          console.log("selected: ", soil);
+          families = [...families, ...soil.families];
+        }
+      });
+      return families;
     },
   },
   data() {

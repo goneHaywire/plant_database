@@ -17,7 +17,7 @@ class MapController extends Controller
      */
     public function areas()
     {
-        return Area::all()->toJson();
+        return Area::with(['families', 'families.soil'])->get()->toJson();
     }
 
     public function soil_polygons()

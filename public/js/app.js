@@ -42986,7 +42986,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("span", { staticClass: "title" }, [
-              _vm._v("\n        Plant Database\n      ")
+              _vm._v("\n        Herbarium\n      ")
             ])
           ]
         ),
@@ -43266,7 +43266,7 @@ var staticRenderFns = [
       }),
       _vm._v(" "),
       _c("span", { staticClass: "title" }, [
-        _vm._v("\n        Plant Database\n      ")
+        _vm._v("\n        Herbarium\n      ")
       ])
     ])
   },

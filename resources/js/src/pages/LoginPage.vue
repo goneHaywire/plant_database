@@ -6,7 +6,7 @@
       <div class="login-header">
         <img src="images/logo.png" alt="Logo" width="15%" />
         <span class="title">
-          Plant Database
+          Herbarium
         </span>
       </div>
       <div id="loginform">

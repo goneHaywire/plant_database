@@ -90,14 +90,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FamiliesShow",
   props: {
     family: {
-      type: Object,
-      required: true
+      type: Object
     },
+    id: Number,
     genera: {
       type: Array,
       required: true
@@ -109,11 +118,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].getGeneraOfFamily(to.params.id).then(function (resp) {
+    if (to.params.family) _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].getGeneraOfFamily(to.params.id).then(function (resp) {
       to.params.genera = resp.data;
       next();
     })["catch"](function (err) {
       return console.log(err);
+    });else _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].fetchFamily(to.params.id).then(function (resp) {
+      to.params.family = resp.data;
+      _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].getGeneraOfFamily(to.params.id).then(function (resp) {
+        to.params.genera = resp.data;
+        next();
+      });
     });
   }
 });
@@ -240,6 +255,22 @@ var render = function() {
                         "\n            This family has no characteristics information.\n          "
                       )
                     ]),
+                _vm._v(" "),
+                _vm.family.soil
+                  ? [
+                      _c("h6", [
+                        _vm._v(
+                          "Family Soil Type: " + _vm._s(_vm.family.soil.name)
+                        )
+                      ])
+                    ]
+                  : _c("p", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n            This family has no associated soil type information.\n          "
+                      )
+                    ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("h6", [
                   _vm._v(

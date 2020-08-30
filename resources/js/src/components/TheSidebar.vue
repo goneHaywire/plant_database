@@ -4,7 +4,7 @@
       <router-link class="logo-container" tag="div" :to="{ name: 'home' }">
         <img src="images/logo.png" alt="Logo" width="15%" />
         <span class="title">
-          Plant Database
+          Herbarium
         </span>
       </router-link>
 

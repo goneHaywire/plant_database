@@ -1,7 +1,8 @@
 <template>
   <div>
     <the-breadcrumbs :paths="[{ name: 'Users', route: 'users.index' }]">
-      <template v-slot:createBtn>
+      <!-- TO IMPLEMENT LATER -->
+      <!-- <template v-slot:createBtn>
         <router-link
           tag="div"
           :to="{ name: 'users.create' }"
@@ -9,7 +10,7 @@
         >
           Create User
         </router-link>
-      </template>
+      </template> -->
     </the-breadcrumbs>
 
     <div class="content-wrapper">

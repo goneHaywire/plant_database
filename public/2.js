@@ -26,12 +26,61 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -303,6 +352,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     selectedStatus: function selectedStatus() {
       return this.selectedSpecie ? "Selected specie: ".concat(this.selectedSpecie.genera.name, " ").concat(this.selectedSpecie.name) : "No specie selected.";
+    },
+    available_families: function available_families() {
+      var _this = this;
+
+      var families = [];
+      this.areas.soils.forEach(function (soil) {
+        if (_this.layers[soil.name]) {
+          console.log("selected: ", soil);
+          families = [].concat(_toConsumableArray(families), _toConsumableArray(soil.families));
+        }
+      });
+      return families;
     }
   }),
   data: function data() {
@@ -355,10 +416,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.currentCenter = center;
     },
     searchSpecies: function searchSpecies() {
-      var _this = this;
+      var _this2 = this;
 
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_3__["default"].searchSpecies(this.search).then(function (resp) {
-        _this.species[0].data = resp.data;
+        _this2.species[0].data = resp.data;
       });
     },
     clearSearch: function clearSearch() {
@@ -376,7 +437,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   watch: {
     selectedSpecie: function selectedSpecie(newValue, oldValue) {
-      var _this2 = this;
+      var _this3 = this;
 
       // hiqen layerat e species
       this.polygons = this.polygons.filter(function (polygon) {
@@ -388,27 +449,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (newValue) {
         // shtohene layerat e species se re
         _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(newValue.id).then(function (resp) {
-          _this2.polygons = _this2.polygons.concat(resp.data);
+          _this3.polygons = _this3.polygons.concat(resp.data);
         });
       }
     },
     "search.searchFilters": function searchSearchFilters(newValue, oldValue) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (!this.families.length) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getAllFamilies().then(function (resp) {
-          return _this3.families = resp.data;
+          return _this4.families = resp.data;
         })["catch"](function (err) {
           return console.log("Error: ", err);
         });
       }
     },
     "search.family_id": function searchFamily_id(newValue, oldValue) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (newValue) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getGeneraOfFamily(newValue).then(function (resp) {
-          _this4.genera = resp.data;
+          _this5.genera = resp.data;
         });
       } else {
         this.genera = [];
@@ -1209,6 +1270,72 @@ var render = function() {
                         })
                       ],
                       2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm.available_families.length
+                          ? [
+                              _c("h3", [
+                                _vm._v(
+                                  "\n                      Families eligible for growing in selected soils.\n                    "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                {
+                                  staticClass:
+                                    "table table-striped table-bordered"
+                                },
+                                [
+                                  _vm._m(0),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.available_families, function(
+                                    family
+                                  ) {
+                                    return _c("tr", { key: family.id }, [
+                                      _c("td", { staticClass: "icon-col" }, [
+                                        _vm._v(_vm._s(family.id))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        [
+                                          _c(
+                                            "router-link",
+                                            {
+                                              attrs: {
+                                                to: {
+                                                  name: "families.show",
+                                                  params: { id: family.id }
+                                                }
+                                              }
+                                            },
+                                            [_vm._v(_vm._s(family.name))]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(family.soil.name))
+                                      ])
+                                    ])
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(1)
+                                ],
+                                2
+                              )
+                            ]
+                          : _c("h4", [_vm._v("No Soil types selected.")])
+                      ],
+                      2
                     )
                   ])
                 ])
@@ -1221,7 +1348,32 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("td", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Soil")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("td", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Soil")])
+    ])
+  }
+]
 render._withStripped = true
 
 

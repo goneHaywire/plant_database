@@ -15,7 +15,7 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        return Family::withCount('genera')->paginate(20);
+        return Family::with('soil')->withCount('genera')->paginate(20);
     }
 
     public function allFamilies()
@@ -26,6 +26,12 @@ class FamilyController extends Controller
     public function generaOfFamily(Family $family)
     {
         return $family->load('genera')->genera;
+    }
+
+    public function show(Request $request, $id)
+    {
+        $family = Family::with('soil')->findOrFail($id);
+        return $family;
     }
 
     /**

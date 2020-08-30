@@ -18,5 +18,4 @@ class Genera extends Model
     {
         return $this->hasMany('App\Specie');
     }
-
 }

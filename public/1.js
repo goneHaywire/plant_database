@@ -71,6 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -149,25 +150,7 @@ var render = function() {
     "div",
     [
       _c("the-breadcrumbs", {
-        attrs: { paths: [{ name: "Users", route: "users.index" }] },
-        scopedSlots: _vm._u([
-          {
-            key: "createBtn",
-            fn: function() {
-              return [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success ml-3",
-                    attrs: { tag: "div", to: { name: "users.create" } }
-                  },
-                  [_vm._v("\n        Create User\n      ")]
-                )
-              ]
-            },
-            proxy: true
-          }
-        ])
+        attrs: { paths: [{ name: "Users", route: "users.index" }] }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "content-wrapper" }, [

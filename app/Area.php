@@ -12,4 +12,9 @@ class Area extends Model
     {
         return $this->belongsTo('App\Polygon');
     }
+
+    public function families()
+    {
+        return $this->hasMany('App\Family', 'soil_id');
+    }
 }

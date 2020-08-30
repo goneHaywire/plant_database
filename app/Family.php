@@ -13,4 +13,9 @@ class Family extends Model
     {
         return $this->hasMany('App\Genera');
     }
+
+    public function soil()
+    {
+        return $this->belongsTo('App\Area');
+    }
 }

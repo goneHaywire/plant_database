@@ -67,6 +67,15 @@
               This family has no characteristics information.
             </p>
 
+            <template v-if="family.soil">
+              <h6>Family Soil Type: {{ family.soil.name }}</h6>
+            </template>
+            <p v-else class="text-muted">
+              This family has no associated soil type information.
+            </p>
+
+            <hr />
+
             <h6>Genera for {{ family.name }} ({{ generaCount }})</h6>
             <li v-for="genus in genera" :key="genus.id">
               {{ genus.name }}
@@ -86,8 +95,8 @@ export default {
   props: {
     family: {
       type: Object,
-      required: true,
     },
+    id: Number,
     genera: {
       type: Array,
       required: true,
@@ -99,13 +108,22 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    familyService
-      .getGeneraOfFamily(to.params.id)
-      .then((resp) => {
-        to.params.genera = resp.data;
-        next();
-      })
-      .catch((err) => console.log(err));
+    if (to.params.family)
+      familyService
+        .getGeneraOfFamily(to.params.id)
+        .then((resp) => {
+          to.params.genera = resp.data;
+          next();
+        })
+        .catch((err) => console.log(err));
+    else
+      familyService.fetchFamily(to.params.id).then((resp) => {
+        to.params.family = resp.data;
+        familyService.getGeneraOfFamily(to.params.id).then((resp) => {
+          to.params.genera = resp.data;
+          next();
+        });
+      });
   },
 };
 </script>
