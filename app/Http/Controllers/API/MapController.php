@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Area;
+use App\District;
 use App\Http\Controllers\Controller;
 use App\Polygon;
 use App\Specie;
@@ -20,14 +21,24 @@ class MapController extends Controller
         return Area::with(['families', 'families.soil'])->get()->toJson();
     }
 
+    public function soils()
+    {
+        return Area::where('type', 'soils')->get()->toJson();
+    }
+
+    public function districts()
+    {
+        return District::all()->toJson();
+    }
+
     public function soil_polygons()
     {
-        return Polygon::with('area')->soilOnly()->get();
+        return Polygon::with(['area', 'district', 'area.families', 'area.families.soil'])->soilOnly()->get();
     }
 
     public function specie_polygons(Specie $specie)
     {
-        return $specie->load(['polygons', 'polygons.area'])->polygons;
+        return $specie->load(['polygons', 'polygons.area', 'polygons.district', 'polygons.area.families', 'polygons.area.families.soil'])->polygons;
     }
 
     /**
@@ -44,8 +55,9 @@ class MapController extends Controller
         $polygon->coordinates = json_encode($request->get('coordinates'));
         $polygon->specie_id = $request->get('specie_id');
         $polygon->area_id = $request->get('area_id');
+        $polygon->district_id = $request->get('district_id');
         $polygon->save();
-        return $polygon->load('area');
+        return $polygon->load(['area', 'district']);
     }
 
     /**

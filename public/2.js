@@ -320,6 +320,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -348,7 +365,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_8__["mapGetters"])({
-    getLayers: "getAreasArray"
+    getLayers: "getAreasArray",
+    districts: "getDistricts"
   })), {}, {
     selectedStatus: function selectedStatus() {
       return this.selectedSpecie ? "Selected specie: ".concat(this.selectedSpecie.genera.name, " ").concat(this.selectedSpecie.name) : "No specie selected.";
@@ -364,12 +382,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
       return families;
+    },
+    visible_polygons: function visible_polygons() {
+      var _this2 = this;
+
+      return this.polygons.filter(function (polygon) {
+        return _this2.layers[polygon.area.name];
+      }).filter(function (polygon) {
+        if (_this2.selectedDistrict === 0) return true;else return _this2.selectedDistrict === polygon.district.id;
+      });
     }
   }),
   data: function data() {
     return {
       layers: {},
       polygons: [],
+      selectedDistrict: 0,
       zoom: 7,
       center: Object(leaflet__WEBPACK_IMPORTED_MODULE_5__["latLng"])(41.09591205639546, 20.026783401808004),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -416,10 +444,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.currentCenter = center;
     },
     searchSpecies: function searchSpecies() {
-      var _this2 = this;
+      var _this3 = this;
 
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_3__["default"].searchSpecies(this.search).then(function (resp) {
-        _this2.species[0].data = resp.data;
+        _this3.species[0].data = resp.data;
       });
     },
     clearSearch: function clearSearch() {
@@ -437,7 +465,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   watch: {
     selectedSpecie: function selectedSpecie(newValue, oldValue) {
-      var _this3 = this;
+      var _this4 = this;
 
       // hiqen layerat e species
       this.polygons = this.polygons.filter(function (polygon) {
@@ -449,27 +477,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (newValue) {
         // shtohene layerat e species se re
         _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(newValue.id).then(function (resp) {
-          _this3.polygons = _this3.polygons.concat(resp.data);
+          _this4.polygons = _this4.polygons.concat(resp.data);
         });
       }
     },
     "search.searchFilters": function searchSearchFilters(newValue, oldValue) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (!this.families.length) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getAllFamilies().then(function (resp) {
-          return _this4.families = resp.data;
+          return _this5.families = resp.data;
         })["catch"](function (err) {
           return console.log("Error: ", err);
         });
       }
     },
     "search.family_id": function searchFamily_id(newValue, oldValue) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (newValue) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getGeneraOfFamily(newValue).then(function (resp) {
-          _this5.genera = resp.data;
+          _this6.genera = resp.data;
         });
       } else {
         this.genera = [];
@@ -496,12 +524,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (Object.keys(_store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getAreas).length) {
-                _context.next = 5;
+              if (_store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getDistricts.length) {
+                _context.next = 3;
                 break;
               }
 
               _context.next = 3;
+              return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getDistricts().then(function (resp) {
+                _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch("setDistricts", resp.data);
+              });
+
+            case 3:
+              if (Object.keys(_store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getAreas).length) {
+                _context.next = 8;
+                break;
+              }
+
+              _context.next = 6;
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getAreas().then(function (resp) {
                 var areas = {};
                 var layers = {}; // separate areas
@@ -522,48 +561,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 to.params.layersProp = layers;
               });
 
-            case 3:
-              _context.next = 7;
+            case 6:
+              _context.next = 10;
               break;
 
-            case 5:
+            case 8:
               to.params.areas = _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getAreas;
               to.params.layersProp = Object.assign({}, _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getAreasArray);
 
-            case 7:
+            case 10:
               if (_store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getSoilPolygons.length) {
-                _context.next = 12;
+                _context.next = 15;
                 break;
               }
 
-              _context.next = 10;
+              _context.next = 13;
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSoilPolygons().then(function (resp) {
                 _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch("setSoilPolygons", resp.data);
                 to.params.polygonsProp = resp.data;
               });
 
-            case 10:
-              _context.next = 13;
+            case 13:
+              _context.next = 16;
               break;
 
-            case 12:
+            case 15:
               to.params.polygonsProp = _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getSoilPolygons;
 
-            case 13:
+            case 16:
               if (!to.params.specieProp) {
-                _context.next = 16;
+                _context.next = 19;
                 break;
               }
 
-              _context.next = 16;
+              _context.next = 19;
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(to.params.specieProp.id).then(function (resp) {
                 to.params.polygonsProp = to.params.polygonsProp.concat(resp.data);
               });
 
-            case 16:
+            case 19:
               next();
 
-            case 17:
+            case 20:
             case "end":
               return _context.stop();
           }
@@ -717,11 +756,10 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm._l(_vm.polygons, function(polygon) {
+                          _vm._l(_vm.visible_polygons, function(polygon) {
                             return _c("l-polygon", {
                               key: polygon.id,
                               attrs: {
-                                visible: _vm.layers[polygon.area.name],
                                 "lat-lngs": JSON.parse(polygon.coordinates),
                                 color: polygon.area.color
                               }
@@ -1155,7 +1193,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-6 col-md-6" },
+                      { staticClass: "col-6 col-md-4" },
                       [
                         _c("h4", [_vm._v("Soil Types")]),
                         _vm._v(" "),
@@ -1210,7 +1248,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-6 col-md-6" },
+                      { staticClass: "col-6 col-md-4" },
                       [
                         _c("h4", [_vm._v("Specie Status")]),
                         _vm._v(" "),
@@ -1271,6 +1309,65 @@ var render = function() {
                       ],
                       2
                     ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 col-md-4" }, [
+                      _c("h4", [_vm._v("Districts")]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "district" } }, [
+                        _vm._v("Select Polygon District")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedDistrict,
+                              expression: "selectedDistrict"
+                            }
+                          ],
+                          attrs: { name: "district", id: "district" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedDistrict = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { selected: "" }, domProps: { value: 0 } },
+                            [_vm._v("All districts")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.districts, function(district) {
+                            return _c(
+                              "option",
+                              {
+                                key: district.id,
+                                domProps: { value: district.id }
+                              },
+                              [_vm._v(_vm._s(district.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -1406,6 +1503,12 @@ var mapService = {
   },
   deletePolygon: function deletePolygon(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/polygons/".concat(id));
+  },
+  getDistricts: function getDistricts() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/districts');
+  },
+  getSoils: function getSoils() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/soils');
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mapService);

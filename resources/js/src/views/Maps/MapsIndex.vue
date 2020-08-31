@@ -36,9 +36,8 @@
                     <l-tile-layer :url="url" :attribution="attribution" />
 
                     <l-polygon
-                      v-for="polygon in polygons"
+                      v-for="polygon in visible_polygons"
                       :key="polygon.id"
-                      :visible="layers[polygon.area.name]"
                       :lat-lngs="JSON.parse(polygon.coordinates)"
                       :color="polygon.area.color"
                     >
@@ -159,7 +158,7 @@
                     </h5>
                     <hr />
                   </div>
-                  <div class="col-6 col-md-6">
+                  <div class="col-6 col-md-4">
                     <h4>Soil Types</h4>
                     <hr />
                     <template v-for="soil in areas.soils">
@@ -186,7 +185,7 @@
                       </div>
                     </template>
                   </div>
-                  <div class="col-6 col-md-6">
+                  <div class="col-6 col-md-4">
                     <h4>Specie Status</h4>
                     <hr />
                     <template v-for="specie_status in areas.specie_status">
@@ -226,6 +225,24 @@
                         >
                       </div>
                     </template>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <h4>Districts</h4>
+                    <hr />
+                    <label for="district">Select Polygon District</label>
+                    <select
+                      name="district"
+                      id="district"
+                      v-model="selectedDistrict"
+                    >
+                      <option :value="0" selected>All districts</option>
+                      <option
+                        :value="district.id"
+                        v-for="district in districts"
+                        :key="district.id"
+                        >{{ district.name }}</option
+                      >
+                    </select>
                   </div>
                   <div class="col-12">
                     <hr />
@@ -306,6 +323,7 @@ export default {
   computed: {
     ...mapGetters({
       getLayers: "getAreasArray",
+      districts: "getDistricts",
     }),
     selectedStatus() {
       return this.selectedSpecie
@@ -322,11 +340,22 @@ export default {
       });
       return families;
     },
+    visible_polygons() {
+      return this.polygons
+        .filter((polygon) => {
+          return this.layers[polygon.area.name];
+        })
+        .filter((polygon) => {
+          if (this.selectedDistrict === 0) return true;
+          else return this.selectedDistrict === polygon.district.id;
+        });
+    },
   },
   data() {
     return {
       layers: {},
       polygons: [],
+      selectedDistrict: 0,
 
       zoom: 7,
       center: latLng(41.09591205639546, 20.026783401808004),
@@ -450,6 +479,13 @@ export default {
     this.polygons = this.polygonsProp;
   },
   beforeRouteEnter: async (to, from, next) => {
+    // fetch districts if not already in vuex
+    if (!store.getters.getDistricts.length) {
+      await mapService.getDistricts().then((resp) => {
+        store.dispatch("setDistricts", resp.data);
+      });
+    }
+
     // fetch areas if not already in vuex
     if (!Object.keys(store.getters.getAreas).length) {
       await mapService.getAreas().then((resp) => {

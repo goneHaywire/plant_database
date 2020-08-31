@@ -45,8 +45,10 @@ class FamilyController extends Controller
         $family = Family::create(
             $request->only(['name', 'description', 'leaves', 'flowers', 'seeds', 'characteristics'])
         );
+        $family->soil_id = $request->get('soil_id');
+        $family->save();
 
-        return $family;
+        return $family->load('soil');
     }
 
     /**
@@ -59,7 +61,10 @@ class FamilyController extends Controller
     public function update(Request $request, Family $family)
     {
         $family->update($request->only(['name', 'description', 'leaves', 'flowers', 'seeds', 'characteristics']));
-        return $family;
+        $family->soil_id = $request->get('soil_id');
+        $family->save();
+
+        return $family->load('soil');
     }
 
     /**

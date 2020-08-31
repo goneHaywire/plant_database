@@ -11,7 +11,8 @@ const store = new Vuex.Store({
         stats: null,
         soilPolygons: [],
         areas: {},
-        areasArray: []
+        areasArray: [],
+        districts: []
     },
     getters: {
         getUser: (state) => state.user,
@@ -19,8 +20,9 @@ const store = new Vuex.Store({
         getSoilPolygons: (state) => state.soilPolygons,
         // getSoilPolygonsLength: (state) => state.soilPolygons.length,
         getAreas: state => state.areas,
-        getAreasArray: state => state.areasArray
-        // getAreasLength: state => state.areas.length
+        getAreasArray: state => state.areasArray,
+        // getAreasLength: state => state.areas.length,
+        getDistricts: state => state.districts
     },
     mutations: {
         SET_USER_DATA: (state, user) => {
@@ -40,6 +42,7 @@ const store = new Vuex.Store({
         SET_AREAS_ARRAY: (state, areasArray) => state.areasArray = areasArray,
         ADD_SOIL_POLYGON: (state, soilPolygon) => state.soilPolygons.push(soilPolygon),
         REMOVE_SOIL_POLYGON: (state, id) => state.soilPolygons = state.soilPolygons.filter(polygon => polygon.id !== id),
+        SET_DISTRICTS: (state, districts) => state.districts = districts,
     },
     actions: {
         login: function ({
@@ -89,6 +92,11 @@ const store = new Vuex.Store({
             commit
         }, id) => {
             commit('REMOVE_SOIL_POLYGON', id)
+        },
+        setDistricts: ({
+            commit
+        }, districts) => {
+            commit('SET_DISTRICTS', districts)
         }
 
     }

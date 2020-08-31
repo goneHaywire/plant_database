@@ -164,6 +164,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -183,14 +205,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])({
     areas: "getAreas",
-    soilPolygons: "getSoilPolygons"
+    soilPolygons: "getSoilPolygons",
+    districts: "getDistricts"
   })),
   data: function data() {
     return {
       activePolygon: {
         coordinates: [],
         area_id: null,
-        specie_id: null
+        specie_id: null,
+        district_id: null
       },
       polygons: [],
       editableLayers: undefined,
@@ -218,6 +242,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }));
         _this.activePolygon.coordinates = [];
         _this.activePolygon.area_id = null;
+        _this.activePolygon.district_id = null;
         var oldLayer = Object.values(_this.editableLayers._layers)[0];
 
         _this.editableLayers.removeLayer(oldLayer);
@@ -407,7 +432,7 @@ var render = function() {
                       _c("div", { staticClass: "row" }, [
                         _c(
                           "div",
-                          { staticClass: "col-md-6" },
+                          { staticClass: "col-6 col-md-4" },
                           [
                             _c("h4", [_vm._v("Soil Types")]),
                             _vm._v(" "),
@@ -461,7 +486,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "col-md-6" },
+                          { staticClass: "col-6 col-md-4" },
                           [
                             _c("h4", [_vm._v("Specie Status")]),
                             _vm._v(" "),
@@ -522,7 +547,74 @@ var render = function() {
                             })
                           ],
                           2
-                        )
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-12 col-md-4" }, [
+                          _c("h4", [_vm._v("District")]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("label", { attrs: { for: "district" } }, [
+                            _vm._v("Select Polygon District")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.activePolygon.district_id,
+                                  expression: "activePolygon.district_id"
+                                }
+                              ],
+                              attrs: { name: "district", id: "district" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.activePolygon,
+                                    "district_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                {
+                                  attrs: { selected: "", disabled: "" },
+                                  domProps: { value: null }
+                                },
+                                [_vm._v("Select district")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.districts, function(district) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: district.id,
+                                    domProps: { value: district.id }
+                                  },
+                                  [_vm._v(_vm._s(district.name))]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("hr"),
@@ -576,6 +668,8 @@ var render = function() {
                                   _vm._s(_vm._f("cleanType")(polygon.area.type))
                                 )
                               ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(polygon.district.name))]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -640,6 +734,8 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("td", [_vm._v("Type")]),
       _vm._v(" "),
+      _c("td", [_vm._v("District")]),
+      _vm._v(" "),
       _c("td", [_vm._v("Remove")])
     ])
   }
@@ -676,6 +772,12 @@ var mapService = {
   },
   deletePolygon: function deletePolygon(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/polygons/".concat(id));
+  },
+  getDistricts: function getDistricts() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/districts');
+  },
+  getSoils: function getSoils() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/soils');
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mapService);

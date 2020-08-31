@@ -63372,14 +63372,14 @@ var routes = [{
     name: "maps.index",
     path: "/maps",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(10), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     },
     props: true
   }, {
     name: "maps.create",
     path: '/maps/create',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(9), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
     },
     props: true
   }]
@@ -63627,7 +63627,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     stats: null,
     soilPolygons: [],
     areas: {},
-    areasArray: []
+    areasArray: [],
+    districts: []
   },
   getters: {
     getUser: function getUser(state) {
@@ -63645,8 +63646,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     },
     getAreasArray: function getAreasArray(state) {
       return state.areasArray;
-    } // getAreasLength: state => state.areas.length
-
+    },
+    // getAreasLength: state => state.areas.length,
+    getDistricts: function getDistricts(state) {
+      return state.districts;
+    }
   },
   mutations: {
     SET_USER_DATA: function SET_USER_DATA(state, user) {
@@ -63681,6 +63685,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
       return state.soilPolygons = state.soilPolygons.filter(function (polygon) {
         return polygon.id !== id;
       });
+    },
+    SET_DISTRICTS: function SET_DISTRICTS(state, districts) {
+      return state.districts = districts;
     }
   },
   actions: {
@@ -63722,6 +63729,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     removeSoilPolygon: function removeSoilPolygon(_ref9, id) {
       var commit = _ref9.commit;
       commit('REMOVE_SOIL_POLYGON', id);
+    },
+    setDistricts: function setDistricts(_ref10, districts) {
+      var commit = _ref10.commit;
+      commit('SET_DISTRICTS', districts);
     }
   }
 });

@@ -5,9 +5,7 @@
         { name: 'Families', route: 'families.index' },
         { name: 'Create Family', route: 'families.form' },
       ]"
-      :title="
-        editing ? `Updating ${family.name}` : 'Create Family'
-      "
+      :title="editing ? `Updating ${family.name}` : 'Create Family'"
     ></the-breadcrumbs>
 
     <div class="content-wrapper">
@@ -103,6 +101,29 @@
                   ></textarea>
                 </div>
               </div>
+
+              <div class="form-group row">
+                <label
+                  for="soil"
+                  class="col-sm-3 text-right control-label col-form-label"
+                  >Soil Type</label
+                >
+                <div class="col-sm-9">
+                  <select name="soil" id="soil" v-model="family.soil_id">
+                    <option :value="null" selected disabled
+                      >Select Soil Type</option
+                    >
+                    <option
+                      :value="soil.id"
+                      v-for="soil in soils"
+                      :key="soil.id"
+                      :selected="soil.id === family.soil_id"
+                      >{{ soil.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+
               <div class="border-top">
                 <input
                   type="submit"
@@ -121,6 +142,7 @@
 
 <script>
 import familyService from "../../services/FamilyService";
+import mapService from "../../services/MapService";
 
 export default {
   name: "FamiliesForm",
@@ -135,6 +157,15 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    soils: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      soils: [],
+    };
   },
   methods: {
     postFamily() {
@@ -166,6 +197,15 @@ export default {
           .catch((err) => console.log(err));
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    mapService
+      .getSoils()
+      .then((resp) => {
+        to.params.soils = resp.data;
+        next();
+      })
+      .catch((err) => console.log("Err: ", err));
   },
   // data() {
   //     return {

@@ -19,6 +19,11 @@ class Polygon extends Model
         return $this->belongsTo('App\Area');
     }
 
+    public function district()
+    {
+        return $this->belongsTo('App\District');
+    }
+
     public function scopeSoilOnly($query)
     {
         return $query->whereNull('specie_id');

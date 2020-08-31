@@ -40,7 +40,7 @@
               <div class="col-md-7">
                 <form @submit.prevent="createPolygon()">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6 col-md-4">
                       <h4>Soil Types</h4>
                       <hr />
                       <template v-for="soil in areas.soils">
@@ -57,7 +57,7 @@
                         </div>
                       </template>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6 col-md-4">
                       <h4>Specie Status</h4>
                       <hr />
                       <template v-for="specie_status in areas.specie_status">
@@ -81,6 +81,26 @@
                         </div>
                       </template>
                     </div>
+                    <div class="col-12 col-md-4">
+                      <h4>District</h4>
+                      <hr />
+                      <label for="district">Select Polygon District</label>
+                      <select
+                        name="district"
+                        id="district"
+                        v-model="activePolygon.district_id"
+                      >
+                        <option :value="null" selected disabled
+                          >Select district</option
+                        >
+                        <option
+                          :value="district.id"
+                          v-for="district in districts"
+                          :key="district.id"
+                          >{{ district.name }}</option
+                        >
+                      </select>
+                    </div>
                   </div>
                   <hr />
                   <div class="form-group">
@@ -97,6 +117,7 @@
                       <td>Toggle</td>
                       <td>Name</td>
                       <td>Type</td>
+                      <td>District</td>
                       <td>Remove</td>
                     </thead>
                     <tr v-for="polygon in polygons" :key="polygon.id">
@@ -117,6 +138,7 @@
                       </td>
                       <td>{{ polygon.area.name }}</td>
                       <td>{{ polygon.area.type | cleanType }}</td>
+                      <td>{{ polygon.district.name }}</td>
                       <td class="icon-col">
                         <inline-svg
                           class="icon trash-icon"
@@ -169,6 +191,7 @@ export default {
     ...mapGetters({
       areas: "getAreas",
       soilPolygons: "getSoilPolygons",
+      districts: "getDistricts",
     }),
   },
   data() {
@@ -177,6 +200,7 @@ export default {
         coordinates: [],
         area_id: null,
         specie_id: null,
+        district_id: null,
       },
       polygons: [],
       editableLayers: undefined,
@@ -208,6 +232,7 @@ export default {
           });
         this.activePolygon.coordinates = [];
         this.activePolygon.area_id = null;
+        this.activePolygon.district_id = null;
         const oldLayer = Object.values(this.editableLayers._layers)[0];
         this.editableLayers.removeLayer(oldLayer);
         this.editableLayers._map.removeLayer(oldLayer);

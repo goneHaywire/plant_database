@@ -10,6 +10,28 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
+/* harmony import */ var _services_MapService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/MapService */ "./resources/js/src/services/MapService.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -132,6 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FamiliesForm",
   props: {
@@ -146,7 +169,16 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return false;
       }
+    },
+    soils: {
+      type: Array,
+      required: true
     }
+  },
+  data: function data() {
+    return {
+      soils: []
+    };
   },
   methods: {
     postFamily: function postFamily() {
@@ -178,6 +210,14 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSoils().then(function (resp) {
+      to.params.soils = resp.data;
+      next();
+    })["catch"](function (err) {
+      return console.log("Err: ", err);
+    });
   },
   // data() {
   //     return {
@@ -466,6 +506,79 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "col-sm-3 text-right control-label col-form-label",
+                        attrs: { for: "soil" }
+                      },
+                      [_vm._v("Soil Type")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-9" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.family.soil_id,
+                              expression: "family.soil_id"
+                            }
+                          ],
+                          attrs: { name: "soil", id: "soil" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.family,
+                                "soil_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { selected: "", disabled: "" },
+                              domProps: { value: null }
+                            },
+                            [_vm._v("Select Soil Type")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.soils, function(soil) {
+                            return _c(
+                              "option",
+                              {
+                                key: soil.id,
+                                domProps: {
+                                  value: soil.id,
+                                  selected: soil.id === _vm.family.soil_id
+                                }
+                              },
+                              [_vm._v(_vm._s(soil.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "border-top" }, [
                     _c("input", {
                       staticClass: "btn",
@@ -488,6 +601,44 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/src/services/MapService.js":
+/*!*************************************************!*\
+  !*** ./resources/js/src/services/MapService.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./resources/js/src/services/Api.js");
+
+var mapService = {
+  getAreas: function getAreas() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/areas');
+  },
+  getSoilPolygons: function getSoilPolygons() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/polygons/soil');
+  },
+  getSpecieStatusPolygons: function getSpecieStatusPolygons(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/polygons/specie/".concat(id));
+  },
+  createPolygon: function createPolygon(polygon) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post('/polygons', polygon);
+  },
+  deletePolygon: function deletePolygon(id) {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/polygons/".concat(id));
+  },
+  getDistricts: function getDistricts() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/districts');
+  },
+  getSoils: function getSoils() {
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/soils');
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (mapService);
 
 /***/ }),
 
