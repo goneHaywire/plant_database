@@ -77,9 +77,14 @@
             <hr />
 
             <h6>Genera for {{ family.name }} ({{ generaCount }})</h6>
-            <li v-for="genus in genera" :key="genus.id">
+            <router-link
+              class="d-block"
+              :to="{ name: 'genera.show', params: { id: genus.id } }"
+              v-for="genus in genera"
+              :key="genus.id"
+            >
               {{ genus.name }}
-            </li>
+            </router-link>
           </div>
         </div>
       </div>

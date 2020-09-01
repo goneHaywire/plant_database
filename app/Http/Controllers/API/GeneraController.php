@@ -41,6 +41,12 @@ class GeneraController extends Controller
         return $genus;
     }
 
+    public function show(Request $request, $id)
+    {
+        $genus = Genera::with('family')->findOrFail($id);
+        return $genus;
+    }
+
     /**
      * Update the specified resource in storage.
      *

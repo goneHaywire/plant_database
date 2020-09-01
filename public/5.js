@@ -99,6 +99,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FamiliesShow",
@@ -283,11 +288,21 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm._l(_vm.genera, function(genus) {
-                  return _c("li", { key: genus.id }, [
-                    _vm._v(
-                      "\n            " + _vm._s(genus.name) + "\n          "
-                    )
-                  ])
+                  return _c(
+                    "router-link",
+                    {
+                      key: genus.id,
+                      staticClass: "d-block",
+                      attrs: {
+                        to: { name: "genera.show", params: { id: genus.id } }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(genus.name) + "\n          "
+                      )
+                    ]
+                  )
                 })
               ],
               2

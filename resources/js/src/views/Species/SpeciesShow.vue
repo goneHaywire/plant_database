@@ -71,19 +71,28 @@
 
 <script>
 import photoService from "../../services/PhotoService";
+import speciesService from "../../services/SpeciesService";
 
 export default {
   name: "SpeciesShow",
   props: {
     specie: {
       type: Object,
-      required: true,
     },
+    id: Number,
   },
   data() {
     return {
       photos: [],
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (to.params.specie) next();
+    else
+      speciesService.fetchSpecie(to.params.id).then((resp) => {
+        to.params.specie = resp.data;
+        next();
+      });
   },
   created() {
     photoService

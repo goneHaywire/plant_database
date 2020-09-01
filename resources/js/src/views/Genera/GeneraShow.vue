@@ -31,9 +31,14 @@
             <p>{{ genus.family.name }}</p>
 
             <h6>Species for {{ genus.name }} ({{ speciesCount }})</h6>
-            <li v-for="specie in species" :key="specie.id">
+            <router-link
+              class="d-block"
+              :to="{ name: 'species.show', params: { id: specie.id } }"
+              v-for="specie in species"
+              :key="specie.id"
+            >
               {{ specie.name }}
-            </li>
+            </router-link>
           </div>
         </div>
       </div>
@@ -47,9 +52,9 @@ import generaService from "../../services/GeneraService";
 export default {
   name: "GeneraShow",
   props: {
+    id: Number,
     genus: {
       type: Object,
-      required: true,
     },
     species: {
       type: Array,
@@ -62,13 +67,22 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    generaService
-      .getSpeciesOfGenera(to.params.id)
-      .then((resp) => {
-        to.params.species = resp.data;
-        next();
-      })
-      .catch((err) => console.log(err));
+    if (to.params.genera)
+      generaService
+        .getSpeciesOfGenera(to.params.id)
+        .then((resp) => {
+          to.params.species = resp.data;
+          next();
+        })
+        .catch((err) => console.log(err));
+    else
+      generaService.fetchGenre(to.params.id).then((resp) => {
+        to.params.genus = resp.data;
+        generaService.getSpeciesOfGenera(to.params.id).then((resp) => {
+          to.params.species = resp.data;
+          next();
+        });
+      });
   },
 };
 </script>

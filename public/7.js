@@ -53,13 +53,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GeneraShow",
   props: {
+    id: Number,
     genus: {
-      type: Object,
-      required: true
+      type: Object
     },
     species: {
       type: Array,
@@ -72,11 +77,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].getSpeciesOfGenera(to.params.id).then(function (resp) {
+    if (to.params.genera) _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].getSpeciesOfGenera(to.params.id).then(function (resp) {
       to.params.species = resp.data;
       next();
     })["catch"](function (err) {
       return console.log(err);
+    });else _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].fetchGenre(to.params.id).then(function (resp) {
+      to.params.genus = resp.data;
+      _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].getSpeciesOfGenera(to.params.id).then(function (resp) {
+        to.params.species = resp.data;
+        next();
+      });
     });
   }
 });
@@ -159,11 +170,21 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm._l(_vm.species, function(specie) {
-                  return _c("li", { key: specie.id }, [
-                    _vm._v(
-                      "\n            " + _vm._s(specie.name) + "\n          "
-                    )
-                  ])
+                  return _c(
+                    "router-link",
+                    {
+                      key: specie.id,
+                      staticClass: "d-block",
+                      attrs: {
+                        to: { name: "species.show", params: { id: specie.id } }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(specie.name) + "\n          "
+                      )
+                    ]
+                  )
                 })
               ],
               2

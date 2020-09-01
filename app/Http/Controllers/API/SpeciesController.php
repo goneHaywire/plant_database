@@ -20,7 +20,7 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        return Specie::with(['genera', 'genera.family', 'photos'])->withCount(['favourites' => function ($query) {
+        return Specie::with(['genera', 'genera.family'])->withCount(['favourites' => function ($query) {
             $query->where('user_id', Auth::user()->id);
         }])->paginate(20);
     }
@@ -141,6 +141,12 @@ class SpeciesController extends Controller
         $specie->save();
 
         return $specie->load('photos');
+    }
+
+    public function show(Request $request, $id)
+    {
+        $specie = Specie::with(['genera', 'genera.family'])->findOrFail($id);
+        return $specie;
     }
 
     /**

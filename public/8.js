@@ -10,6 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_PhotoService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/PhotoService */ "./resources/js/src/services/PhotoService.js");
+/* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
 //
 //
 //
@@ -82,18 +83,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SpeciesShow",
   props: {
     specie: {
-      type: Object,
-      required: true
-    }
+      type: Object
+    },
+    id: Number
   },
   data: function data() {
     return {
       photos: []
     };
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    if (to.params.specie) next();else _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecie(to.params.id).then(function (resp) {
+      to.params.specie = resp.data;
+      next();
+    });
   },
   created: function created() {
     var _this = this;
