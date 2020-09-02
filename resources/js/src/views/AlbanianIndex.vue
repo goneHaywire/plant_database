@@ -137,6 +137,7 @@
 <script>
 import Pagination from "../components/Pagination";
 import speciesService from "../services/SpeciesService";
+import Vue from "vue";
 
 export default {
   name: "AlbanianIndex",
@@ -151,7 +152,7 @@ export default {
             last_page: resp.data.last_page,
           };
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch species"));
     },
     favourite(id) {
       speciesService
@@ -166,7 +167,9 @@ export default {
               : (this.species[fav_index].favourites_count = 1);
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot favourite/unfavourite specie")
+        );
     },
   },
   props: {
@@ -198,7 +201,9 @@ export default {
         };
         next();
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch species")
+      );
   },
   components: { Pagination },
 };

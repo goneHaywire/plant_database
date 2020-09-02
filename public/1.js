@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/Pagination */ "./resources/js/src/components/Pagination.vue");
 /* harmony import */ var _services_UserService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/UserService */ "./resources/js/src/services/UserService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -72,6 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -86,18 +89,10 @@ __webpack_require__.r(__webpack_exports__);
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
+      })["catch"](function (err) {
+        return _this.$helpers.handleError(err, "Cannot fetch users");
       });
-    } //     axios
-    //         .get("/users?page=" + this.pagination.current_page)
-    //         .then(response => {
-    //             this.users = response.data.data.data;
-    //             this.pagination = response.data.pagination;
-    //         })
-    //         .catch(error => {
-    //             console.log(error.response.data);
-    //         });
-    // }
-
+    }
   },
   props: {
     users: {
@@ -109,9 +104,6 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  // created() {
-  //     this.users = this.usersProp;
-  // },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchUsers().then(function (resp) {
       to.params.users = resp.data.data;
@@ -121,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       next();
     })["catch"](function (err) {
-      return console.log(err);
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$helpers.handleError(err, "Cannot fetch users");
     });
   },
   components: {

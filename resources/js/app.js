@@ -14,6 +14,15 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-draw/dist/leaflet.draw-src.css';
 
+import helpers from './src/use/helpers.js'
+
+const plugin = {
+    install() {
+        Vue.helpers = helpers
+        Vue.prototype.$helpers = helpers
+    }
+}
+
 window.Vue = require("vue");
 
 /**
@@ -27,12 +36,14 @@ window.Vue = require("vue");
 // const files = require.context('./src/pages', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.use(plugin)
 Vue.component("AppPage", require("./src/pages/AppPage.vue").default);
 Vue.component(
     "TheBreadcrumbs",
     require("./src/components/TheBreadcrumbs.vue").default
 );
 Vue.component('BaseButton', require('./src/components/BaseButton.vue').default);
+Vue.component('AlertContainer', require('./src/components/AlertContainer.vue').default)
 // Vue.component('InlineSvg', require('./src/components/InlineSvg.js').default)
 Vue.component('inline-svg', InlineSvg);
 /**
@@ -57,6 +68,7 @@ const app = new Vue({
                 })
                 .catch(error => {
                     if (error.response.status === 401) {
+                        this.$helpers.handleError(error, 'Invalid token, logging out ')
                         this.$store.dispatch("logout");
                     }
                 });
@@ -70,6 +82,7 @@ const app = new Vue({
             error => {
                 if (error.response.status === 401) {
                     this.$store.dispatch("logout");
+                    this.$helpers.handleError(error, 'Invalid token, logging out')
                     return Promise.reject(error);
                 }
             }

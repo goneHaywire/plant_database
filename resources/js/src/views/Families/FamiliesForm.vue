@@ -143,6 +143,7 @@
 <script>
 import familyService from "../../services/FamilyService";
 import mapService from "../../services/MapService";
+import Vue from "vue";
 
 export default {
   name: "FamiliesForm",
@@ -162,17 +163,15 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      soils: [],
-    };
-  },
   methods: {
     postFamily() {
       if (!this.editing) {
         familyService
           .createFamily(this.family)
           .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Family ${resp.data.name} was created successfully`
+            );
             this.$router.push({
               name: "families.show",
               params: {
@@ -181,20 +180,27 @@ export default {
               },
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot create family")
+          );
       } else {
         familyService
           .updateFamily(this.family)
-          .then((resp) =>
+          .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Family ${resp.data.name} was updated successfully`
+            );
             this.$router.push({
               name: "families.show",
               params: {
                 family: resp.data,
                 id: resp.data.id,
               },
-            })
-          )
-          .catch((err) => console.log(err));
+            });
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot update family")
+          );
       }
     },
   },
@@ -205,17 +211,9 @@ export default {
         to.params.soils = resp.data;
         next();
       })
-      .catch((err) => console.log("Err: ", err));
-  },
-  // data() {
-  //     return {
-  //         family: {
-  //             name: ""
-  //         }
-  //     };
-  // },
-  created() {
-    // this.family = this.familyProp;
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch soils")
+      );
   },
 };
 </script>

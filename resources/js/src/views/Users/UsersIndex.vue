@@ -62,29 +62,23 @@
 <script>
 import pagination from "../../components/Pagination";
 import userService from "../../services/UserService";
+import Vue from "vue";
 
 export default {
   name: "users-index",
   methods: {
     fetchUsers() {
-      userService.fetchUsers().then((resp) => {
-        this.users = resp.data.data;
-        this.pagination = {
-          current_page: resp.data.current_page,
-          last_page: resp.data.last_page,
-        };
-      });
+      userService
+        .fetchUsers()
+        .then((resp) => {
+          this.users = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch users"));
     },
-    //     axios
-    //         .get("/users?page=" + this.pagination.current_page)
-    //         .then(response => {
-    //             this.users = response.data.data.data;
-    //             this.pagination = response.data.pagination;
-    //         })
-    //         .catch(error => {
-    //             console.log(error.response.data);
-    //         });
-    // }
   },
   props: {
     users: {
@@ -96,9 +90,6 @@ export default {
       required: true,
     },
   },
-  // created() {
-  //     this.users = this.usersProp;
-  // },
   beforeRouteEnter: (to, from, next) => {
     userService
       .fetchUsers()
@@ -110,7 +101,9 @@ export default {
         };
         next();
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch users")
+      );
   },
   components: { pagination },
 };

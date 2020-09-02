@@ -300,6 +300,7 @@ import { latLng } from "leaflet";
 import { LMap, LTileLayer, LPolygon } from "vue2-leaflet";
 import { VueAutosuggest } from "vue-autosuggest";
 import { mapGetters } from "vuex";
+import Vue from "vue";
 
 export default {
   name: "MapsIndex",
@@ -411,9 +412,14 @@ export default {
     },
 
     searchSpecies() {
-      speciesService.searchSpecies(this.search).then((resp) => {
-        this.species[0].data = resp.data;
-      });
+      speciesService
+        .searchSpecies(this.search)
+        .then((resp) => {
+          this.species[0].data = resp.data;
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch search results")
+        );
     },
     clearSearch() {
       this.selectedSpecie = null;
@@ -439,9 +445,14 @@ export default {
 
       if (newValue) {
         // shtohene layerat e species se re
-        mapService.getSpecieStatusPolygons(newValue.id).then((resp) => {
-          this.polygons = this.polygons.concat(resp.data);
-        });
+        mapService
+          .getSpecieStatusPolygons(newValue.id)
+          .then((resp) => {
+            this.polygons = this.polygons.concat(resp.data);
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot fetch specie's polygons")
+          );
       }
     },
     "search.searchFilters"(newValue, oldValue) {
@@ -449,14 +460,21 @@ export default {
         familyService
           .getAllFamilies()
           .then((resp) => (this.families = resp.data))
-          .catch((err) => console.log("Error: ", err));
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot fetch families")
+          );
       }
     },
     "search.family_id"(newValue, oldValue) {
       if (newValue) {
-        familyService.getGeneraOfFamily(newValue).then((resp) => {
-          this.genera = resp.data;
-        });
+        familyService
+          .getGeneraOfFamily(newValue)
+          .then((resp) => {
+            this.genera = resp.data;
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot fetch family's genera")
+          );
       } else {
         this.genera = [];
         this.search.genera_id = null;
@@ -481,31 +499,44 @@ export default {
   beforeRouteEnter: async (to, from, next) => {
     // fetch districts if not already in vuex
     if (!store.getters.getDistricts.length) {
-      await mapService.getDistricts().then((resp) => {
-        store.dispatch("setDistricts", resp.data);
-      });
+      await mapService
+        .getDistricts()
+        .then((resp) => {
+          store.dispatch("setDistricts", resp.data);
+        })
+        .catch((err) =>
+          Vue.prototype.$$helpers.handleError(
+            err,
+            "Cannot get Albania's districts"
+          )
+        );
     }
 
     // fetch areas if not already in vuex
     if (!Object.keys(store.getters.getAreas).length) {
-      await mapService.getAreas().then((resp) => {
-        let areas = {};
-        let layers = {};
+      await mapService
+        .getAreas()
+        .then((resp) => {
+          let areas = {};
+          let layers = {};
 
-        // separate areas
-        areas.soils = resp.data.filter((area) => area.type === "soils");
-        areas.specie_status = resp.data.filter(
-          (area) => area.type === "specie_status"
+          // separate areas
+          areas.soils = resp.data.filter((area) => area.type === "soils");
+          areas.specie_status = resp.data.filter(
+            (area) => area.type === "specie_status"
+          );
+
+          // create layers object
+          resp.data.forEach((area) => (layers[area.name] = false));
+
+          store.dispatch("setAreasArray", layers);
+          store.dispatch("setAreas", areas);
+          to.params.areas = areas;
+          to.params.layersProp = layers;
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch layers")
         );
-
-        // create layers object
-        resp.data.forEach((area) => (layers[area.name] = false));
-
-        store.dispatch("setAreasArray", layers);
-        store.dispatch("setAreas", areas);
-        to.params.areas = areas;
-        to.params.layersProp = layers;
-      });
     } else {
       to.params.areas = store.getters.getAreas;
       to.params.layersProp = Object.assign({}, store.getters.getAreasArray);
@@ -513,10 +544,15 @@ export default {
 
     // fetch soil polygons if not already in vuex
     if (!store.getters.getSoilPolygons.length) {
-      await mapService.getSoilPolygons().then((resp) => {
-        store.dispatch("setSoilPolygons", resp.data);
-        to.params.polygonsProp = resp.data;
-      });
+      await mapService
+        .getSoilPolygons()
+        .then((resp) => {
+          store.dispatch("setSoilPolygons", resp.data);
+          to.params.polygonsProp = resp.data;
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch soil polygons")
+        );
     } else {
       to.params.polygonsProp = store.getters.getSoilPolygons;
     }
@@ -527,7 +563,13 @@ export default {
         .getSpecieStatusPolygons(to.params.specieProp.id)
         .then((resp) => {
           to.params.polygonsProp = to.params.polygonsProp.concat(resp.data);
-        });
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(
+            err,
+            "Cannot fetch species polygons"
+          )
+        );
     }
 
     next();

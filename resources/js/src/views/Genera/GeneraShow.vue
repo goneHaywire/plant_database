@@ -48,6 +48,7 @@
 
 <script>
 import generaService from "../../services/GeneraService";
+import Vue from "vue";
 
 export default {
   name: "GeneraShow",
@@ -74,15 +75,30 @@ export default {
           to.params.species = resp.data;
           next();
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch genus' species")
+        );
     else
-      generaService.fetchGenre(to.params.id).then((resp) => {
-        to.params.genus = resp.data;
-        generaService.getSpeciesOfGenera(to.params.id).then((resp) => {
-          to.params.species = resp.data;
-          next();
-        });
-      });
+      generaService
+        .fetchGenre(to.params.id)
+        .then((resp) => {
+          to.params.genus = resp.data;
+          generaService
+            .getSpeciesOfGenera(to.params.id)
+            .then((resp) => {
+              to.params.species = resp.data;
+              next();
+            })
+            .catch((err) =>
+              Vue.prototype.$helpers.handleError(
+                err,
+                "Cannot fetch genus' species"
+              )
+            );
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch genera")
+        );
   },
 };
 </script>

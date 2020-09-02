@@ -113,6 +113,9 @@ export default {
         generaService
           .createGenre(this.genus)
           .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Genus ${resp.data.name} created successfully`
+            );
             this.$router.push({
               name: "genera.show",
               params: {
@@ -121,11 +124,16 @@ export default {
               },
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot create genus")
+          );
       } else {
         generaService
           .updateGenera(this.genus)
           .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Genus ${resp.data.name} updated successfully`
+            );
             this.$router.push({
               name: "genera.show",
               params: {
@@ -134,14 +142,21 @@ export default {
               },
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot update genus")
+          );
       }
     },
   },
   created() {
-    familyService.getAllFamilies().then((resp) => {
-      this.families = resp.data;
-    });
+    familyService
+      .getAllFamilies()
+      .then((resp) => {
+        this.families = resp.data;
+      })
+      .catch((err) =>
+        this.$helpers.handleError(err, "Cannot fetch all families")
+      );
   },
 };
 </script>

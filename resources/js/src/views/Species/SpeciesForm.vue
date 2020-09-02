@@ -276,6 +276,9 @@ export default {
         speciesService
           .createSpecie(specie)
           .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Specie ${resp.data.name} created successfully`
+            );
             this.$router.push({
               name: "species.show",
               params: {
@@ -284,18 +287,26 @@ export default {
               },
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => this.$helpers.handleError("Cannot create specie"));
       } else {
         specie.append("id", this.specie.id);
-        speciesService.updateSpecie(specie).then((resp) => {
-          this.$router.push({
-            name: "species.show",
-            params: {
-              id: resp.data.id,
-              specie: resp.data,
-            },
-          });
-        });
+        speciesService
+          .updateSpecie(specie)
+          .then((resp) => {
+            this.$helpers.handleSuccess(
+              `Specie ${resp.data.name} updated successfully`
+            );
+            this.$router.push({
+              name: "species.show",
+              params: {
+                id: resp.data.id,
+                specie: resp.data,
+              },
+            });
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot update specie")
+          );
       }
     },
     onFileChange(e) {
@@ -323,11 +334,16 @@ export default {
     },
     removePhoto(i, type) {
       if (type === "id") {
-        photoService.deletePhoto(i).then((resp) => {
-          this.old_images = this.old_images.filter(
-            (image) => parseInt(resp.data) !== image.id
+        photoService
+          .deletePhoto(i)
+          .then((resp) => {
+            this.old_images = this.old_images.filter(
+              (image) => parseInt(resp.data) !== image.id
+            );
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot delete photo")
           );
-        });
       } else {
         this.images = this.images.filter((image) => Object.keys(image)[0] != i);
       }
@@ -335,16 +351,27 @@ export default {
   },
   created() {
     this.specie = this.specieProp;
-    familyService.getAllFamilies().then((resp) => {
-      this.families = resp.data;
-    });
+    familyService
+      .getAllFamilies()
+      .then((resp) => {
+        this.families = resp.data;
+      })
+      .catch((err) =>
+        this.$helpers.handleError(err, "Cannot fetch all families")
+      );
     if (this.editing) {
       familyService
         .getGeneraOfFamily(this.specie.genera.family.id)
-        .then((resp) => (this.genera = resp.data));
-      photoService.getPhotos(this.specie.id).then((resp) => {
-        this.old_images = resp.data;
-      });
+        .then((resp) => (this.genera = resp.data))
+        .catch((err) =>
+          this.$$helpers.handleError(err, "Cannot fetch family's genera")
+        );
+      photoService
+        .getPhotos(this.specie.id)
+        .then((resp) => {
+          this.old_images = resp.data;
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch photos"));
     }
   },
   watch: {
@@ -352,7 +379,10 @@ export default {
       // this.specie.genera.family.id = this.selected_family;
       familyService
         .getGeneraOfFamily(this.specie.genera.family.id)
-        .then((resp) => (this.genera = resp.data));
+        .then((resp) => (this.genera = resp.data))
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch family's genera")
+        );
     },
   },
 };

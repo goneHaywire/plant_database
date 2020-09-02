@@ -72,6 +72,7 @@
 <script>
 import photoService from "../../services/PhotoService";
 import speciesService from "../../services/SpeciesService";
+import Vue from "vue";
 
 export default {
   name: "SpeciesShow",
@@ -89,16 +90,23 @@ export default {
   beforeRouteEnter(to, from, next) {
     if (to.params.specie) next();
     else
-      speciesService.fetchSpecie(to.params.id).then((resp) => {
-        to.params.specie = resp.data;
-        next();
-      });
+      speciesService
+        .fetchSpecie(to.params.id)
+        .then((resp) => {
+          to.params.specie = resp.data;
+          next();
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch specie")
+        );
   },
   created() {
     photoService
       .getPhotos(this.specie.id)
       .then((resp) => (this.photos = resp.data))
-      .catch((err) => console.log(`Err: ${err}`));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch photos")
+      );
   },
 };
 </script>

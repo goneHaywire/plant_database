@@ -1,5 +1,6 @@
 <template>
   <div id="app-wrapper">
+    <alert-container></alert-container>
     <router-view></router-view>
   </div>
 </template>
@@ -10,4 +11,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

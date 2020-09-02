@@ -233,6 +233,7 @@
 <script>
 import clientApi from "../services/Api";
 import store from "../store/store";
+import Vue from "vue";
 
 export default {
   name: "HomeView",
@@ -259,19 +260,20 @@ export default {
     this.token = JSON.parse(localStorage.getItem("user")).access_token;
   },
   beforeRouteEnter: (to, from, next) => {
-    console.log(store);
     if (!!store.getters.getStats) {
-      console.log("e ka!");
-      console.log(store.getters.getStats);
       to.params.stats = store.getters.getStats;
       next();
     } else {
-      clientApi.get("/stats").then((resp) => {
-        console.log("se ka!");
-        to.params.stats = resp.data;
-        store.dispatch("setStats", resp.data);
-        next();
-      });
+      clientApi
+        .get("/stats")
+        .then((resp) => {
+          to.params.stats = resp.data;
+          store.dispatch("setStats", resp.data);
+          next();
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch stats")
+        );
     }
   },
 };

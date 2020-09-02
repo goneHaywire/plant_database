@@ -20,6 +20,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
 /* harmony import */ var vue_autosuggest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-autosuggest */ "./node_modules/vue-autosuggest/dist/vue-autosuggest.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_9__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -345,6 +347,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MapsIndex",
   props: {
@@ -448,6 +451,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_3__["default"].searchSpecies(this.search).then(function (resp) {
         _this3.species[0].data = resp.data;
+      })["catch"](function (err) {
+        return _this3.$helpers.handleError(err, "Cannot fetch search results");
       });
     },
     clearSearch: function clearSearch() {
@@ -478,6 +483,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         // shtohene layerat e species se re
         _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(newValue.id).then(function (resp) {
           _this4.polygons = _this4.polygons.concat(resp.data);
+        })["catch"](function (err) {
+          return _this4.$helpers.handleError(err, "Cannot fetch specie's polygons");
         });
       }
     },
@@ -488,7 +495,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getAllFamilies().then(function (resp) {
           return _this5.families = resp.data;
         })["catch"](function (err) {
-          return console.log("Error: ", err);
+          return _this5.$helpers.handleError(err, "Cannot fetch families");
         });
       }
     },
@@ -498,6 +505,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (newValue) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getGeneraOfFamily(newValue).then(function (resp) {
           _this6.genera = resp.data;
+        })["catch"](function (err) {
+          return _this6.$helpers.handleError(err, "Cannot fetch family's genera");
         });
       } else {
         this.genera = [];
@@ -532,6 +541,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _context.next = 3;
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getDistricts().then(function (resp) {
                 _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch("setDistricts", resp.data);
+              })["catch"](function (err) {
+                return vue__WEBPACK_IMPORTED_MODULE_9___default.a.prototype.$$helpers.handleError(err, "Cannot get Albania's districts");
               });
 
             case 3:
@@ -559,6 +570,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch("setAreas", areas);
                 to.params.areas = areas;
                 to.params.layersProp = layers;
+              })["catch"](function (err) {
+                return vue__WEBPACK_IMPORTED_MODULE_9___default.a.prototype.$helpers.handleError(err, "Cannot fetch layers");
               });
 
             case 6:
@@ -579,6 +592,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSoilPolygons().then(function (resp) {
                 _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch("setSoilPolygons", resp.data);
                 to.params.polygonsProp = resp.data;
+              })["catch"](function (err) {
+                return vue__WEBPACK_IMPORTED_MODULE_9___default.a.prototype.$helpers.handleError(err, "Cannot fetch soil polygons");
               });
 
             case 13:
@@ -597,6 +612,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _context.next = 19;
               return _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(to.params.specieProp.id).then(function (resp) {
                 to.params.polygonsProp = to.params.polygonsProp.concat(resp.data);
+              })["catch"](function (err) {
+                return vue__WEBPACK_IMPORTED_MODULE_9___default.a.prototype.$helpers.handleError(err, "Cannot fetch species polygons");
               });
 
             case 19:

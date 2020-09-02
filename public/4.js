@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
 /* harmony import */ var _services_MapService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/MapService */ "./resources/js/src/services/MapService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -153,6 +155,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -175,17 +178,14 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  data: function data() {
-    return {
-      soils: []
-    };
-  },
   methods: {
     postFamily: function postFamily() {
       var _this = this;
 
       if (!this.editing) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].createFamily(this.family).then(function (resp) {
+          _this.$helpers.handleSuccess("Family ".concat(resp.data.name, " was created successfully"));
+
           _this.$router.push({
             name: "families.show",
             params: {
@@ -194,11 +194,13 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         })["catch"](function (err) {
-          return console.log(err);
+          return _this.$helpers.handleError(err, "Cannot create family");
         });
       } else {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].updateFamily(this.family).then(function (resp) {
-          return _this.$router.push({
+          _this.$helpers.handleSuccess("Family ".concat(resp.data.name, " was updated successfully"));
+
+          _this.$router.push({
             name: "families.show",
             params: {
               family: resp.data,
@@ -206,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         })["catch"](function (err) {
-          return console.log(err);
+          return _this.$helpers.handleError(err, "Cannot update family");
         });
       }
     }
@@ -216,17 +218,8 @@ __webpack_require__.r(__webpack_exports__);
       to.params.soils = resp.data;
       next();
     })["catch"](function (err) {
-      return console.log("Err: ", err);
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$helpers.handleError(err, "Cannot fetch soils");
     });
-  },
-  // data() {
-  //     return {
-  //         family: {
-  //             name: ""
-  //         }
-  //     };
-  // },
-  created: function created() {// this.family = this.familyProp;
   }
 });
 

@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_PhotoService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/PhotoService */ "./resources/js/src/services/PhotoService.js");
 /* harmony import */ var _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/SpeciesService */ "./resources/js/src/services/SpeciesService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -82,6 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -101,6 +104,8 @@ __webpack_require__.r(__webpack_exports__);
     if (to.params.specie) next();else _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecie(to.params.id).then(function (resp) {
       to.params.specie = resp.data;
       next();
+    })["catch"](function (err) {
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$helpers.handleError(err, "Cannot fetch specie");
     });
   },
   created: function created() {
@@ -109,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
     _services_PhotoService__WEBPACK_IMPORTED_MODULE_0__["default"].getPhotos(this.specie.id).then(function (resp) {
       return _this.photos = resp.data;
     })["catch"](function (err) {
-      return console.log("Err: ".concat(err));
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.$helpers.handleError(err, "Cannot fetch photos");
     });
   }
 });

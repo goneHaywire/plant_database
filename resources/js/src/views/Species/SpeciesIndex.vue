@@ -260,6 +260,7 @@
 import Pagination from "../../components/Pagination";
 import speciesService from "../../services/SpeciesService";
 import familyService from "../../services/FamilyService";
+import Vue from "vue";
 
 export default {
   name: "SpeciesIndex",
@@ -274,7 +275,7 @@ export default {
             last_page: resp.data.last_page,
           };
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch species"));
     },
     favourite(id) {
       speciesService
@@ -289,7 +290,9 @@ export default {
               : (this.species[fav_index].favourites_count = 1);
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot favourite/unfavourite specie")
+        );
     },
     deleteSpecie(id) {
       speciesService
@@ -298,8 +301,9 @@ export default {
           this.species = this.species.filter(
             (specie) => specie.id !== parseInt(resp.data)
           );
+          this.$helpers.handleSuccess("Specie deleted successfully");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot delete specie"));
     },
     searchSpecies() {
       speciesService
@@ -315,7 +319,10 @@ export default {
             current_page: resp.data.current_page,
             last_page: resp.data.last_page,
           };
-        });
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch search results")
+        );
     },
     clearSearch() {
       this.justSearched = false;
@@ -329,13 +336,16 @@ export default {
         view: "species",
       };
       this.tableTitle = "All Species";
-      speciesService.fetchSpecies().then((resp) => {
-        this.species = resp.data.data;
-        this.pagination = {
-          current_page: resp.data.current_page,
-          last_page: resp.data.last_page,
-        };
-      });
+      speciesService
+        .fetchSpecies()
+        .then((resp) => {
+          this.species = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch species"));
     },
   },
   data() {
@@ -373,14 +383,21 @@ export default {
         familyService
           .getAllFamilies()
           .then((resp) => (this.families = resp.data))
-          .catch((err) => console.log("Error: ", err));
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot fetch all families")
+          );
       }
     },
     "search.family_id"(newValue, oldValue) {
       if (newValue) {
-        familyService.getGeneraOfFamily(newValue).then((resp) => {
-          this.genera = resp.data;
-        });
+        familyService
+          .getGeneraOfFamily(newValue)
+          .then((resp) => {
+            this.genera = resp.data;
+          })
+          .catch((err) =>
+            this.$helpers.handleError(err, "Cannot fetch family's genera")
+          );
       }
     },
     search: {
@@ -395,14 +412,19 @@ export default {
     this.pagination = this.paginationProp;
   },
   beforeRouteEnter: (to, from, next) => {
-    speciesService.fetchSpecies().then((resp) => {
-      to.params.speciesProp = resp.data.data;
-      to.params.paginationProp = {
-        current_page: resp.data.current_page,
-        last_page: resp.data.last_page,
-      };
-      next();
-    });
+    speciesService
+      .fetchSpecies()
+      .then((resp) => {
+        to.params.speciesProp = resp.data.data;
+        to.params.paginationProp = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page,
+        };
+        next();
+      })
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch species")
+      );
   },
   components: {
     Pagination,

@@ -126,6 +126,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.editing) {
         _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].createGenre(this.genus).then(function (resp) {
+          _this.$helpers.handleSuccess("Genus ".concat(resp.data.name, " created successfully"));
+
           _this.$router.push({
             name: "genera.show",
             params: {
@@ -134,10 +136,12 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         })["catch"](function (err) {
-          return console.log(err);
+          return _this.$helpers.handleError(err, "Cannot create genus");
         });
       } else {
         _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].updateGenera(this.genus).then(function (resp) {
+          _this.$helpers.handleSuccess("Genus ".concat(resp.data.name, " updated successfully"));
+
           _this.$router.push({
             name: "genera.show",
             params: {
@@ -146,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         })["catch"](function (err) {
-          return console.log(err);
+          return _this.$helpers.handleError(err, "Cannot update genus");
         });
       }
     }
@@ -156,6 +160,8 @@ __webpack_require__.r(__webpack_exports__);
 
     _services_FamilyService__WEBPACK_IMPORTED_MODULE_1__["default"].getAllFamilies().then(function (resp) {
       _this2.families = resp.data;
+    })["catch"](function (err) {
+      return _this2.$helpers.handleError(err, "Cannot fetch all families");
     });
   }
 });

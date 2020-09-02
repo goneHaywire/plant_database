@@ -10,6 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/GeneraService */ "./resources/js/src/services/GeneraService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -59,6 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GeneraShow",
   props: {
@@ -81,13 +84,17 @@ __webpack_require__.r(__webpack_exports__);
       to.params.species = resp.data;
       next();
     })["catch"](function (err) {
-      return console.log(err);
+      return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch genus' species");
     });else _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].fetchGenre(to.params.id).then(function (resp) {
       to.params.genus = resp.data;
       _services_GeneraService__WEBPACK_IMPORTED_MODULE_0__["default"].getSpeciesOfGenera(to.params.id).then(function (resp) {
         to.params.species = resp.data;
         next();
+      })["catch"](function (err) {
+        return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch genus' species");
       });
+    })["catch"](function (err) {
+      return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch genera");
     });
   }
 });

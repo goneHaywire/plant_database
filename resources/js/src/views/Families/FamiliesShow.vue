@@ -94,6 +94,7 @@
 
 <script>
 import familyService from "../../services/FamilyService";
+import Vue from "vue";
 
 export default {
   name: "FamiliesShow",
@@ -120,15 +121,33 @@ export default {
           to.params.genera = resp.data;
           next();
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(
+            err,
+            "Cannot fetch family's genera"
+          )
+        );
     else
-      familyService.fetchFamily(to.params.id).then((resp) => {
-        to.params.family = resp.data;
-        familyService.getGeneraOfFamily(to.params.id).then((resp) => {
-          to.params.genera = resp.data;
-          next();
-        });
-      });
+      familyService
+        .fetchFamily(to.params.id)
+        .then((resp) => {
+          to.params.family = resp.data;
+          familyService
+            .getGeneraOfFamily(to.params.id)
+            .then((resp) => {
+              to.params.genera = resp.data;
+              next();
+            })
+            .catch((err) =>
+              Vue.prototype.$helpers.handleError(
+                err,
+                "Cannot fetch family's genera"
+              )
+            );
+        })
+        .catch((err) =>
+          Vue.prototype.$helpers.handleError(err, "Cannot fetch family")
+        );
   },
 };
 </script>

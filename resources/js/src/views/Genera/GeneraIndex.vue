@@ -100,6 +100,7 @@
 <script>
 import Pagination from "./../../components/Pagination";
 import generaService from "../../services/GeneraService";
+import Vue from "vue";
 
 export default {
   name: "GeneraIndex",
@@ -114,7 +115,7 @@ export default {
             last_page: resp.data.last_page,
           };
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch genera"));
     },
     deleteGenera(id) {
       generaService
@@ -123,9 +124,9 @@ export default {
           this.genera = this.genera.filter(
             (genre) => genre.id !== parseInt(resp.data)
           );
-          console.log(resp);
+          this.$helpers.handleSuccess("Genus deleted successfully");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot delete genus"));
     },
   },
   props: {
@@ -157,7 +158,9 @@ export default {
         };
         next();
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch genera")
+      );
   },
   components: { Pagination },
 };

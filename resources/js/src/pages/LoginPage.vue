@@ -99,15 +99,18 @@ export default {
 
       const user = {};
 
-      AuthService.login(payload).then((data) => {
-        const user = {
-          access_token: data.data.access_token,
-          id: data.data.user.id,
-          name: data.data.user.name,
-          email: data.data.user.email,
-        };
-        this.login(user);
-      });
+      AuthService.login(payload)
+        .then((data) => {
+          const user = {
+            access_token: data.data.access_token,
+            id: data.data.user.id,
+            name: data.data.user.name,
+            email: data.data.user.email,
+          };
+          this.login(user);
+          this.$helpers.handleSuccess("Successfully logged in");
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot login"));
     },
   },
 };

@@ -144,18 +144,24 @@
 <script>
 import pagination from "../components/Pagination";
 import speciesService from "../services/SpeciesService";
+import Vue from "vue";
 
 export default {
   name: "FavouritesView",
   methods: {
     fetchFavourites() {
-      speciesService.fetchFavourites().then((resp) => {
-        this.favourites = resp.data.data;
-        this.pagination = {
-          current_page: resp.data.current_page,
-          last_page: resp.data.last_page,
-        };
-      });
+      speciesService
+        .fetchFavourites()
+        .then((resp) => {
+          this.favourites = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch favourites")
+        );
     },
     removeFavourite(id) {
       speciesService
@@ -168,7 +174,9 @@ export default {
             this.favourites.splice(fav_index, 1);
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot remove favourite")
+        );
     },
   },
   props: {
@@ -200,7 +208,9 @@ export default {
         };
         next();
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch favourites")
+      );
   },
   components: { pagination },
 };

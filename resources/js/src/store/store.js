@@ -12,7 +12,9 @@ const store = new Vuex.Store({
         soilPolygons: [],
         areas: {},
         areasArray: [],
-        districts: []
+        districts: [],
+        alerts: [],
+        alert_id: 1
     },
     getters: {
         getUser: (state) => state.user,
@@ -22,7 +24,9 @@ const store = new Vuex.Store({
         getAreas: state => state.areas,
         getAreasArray: state => state.areasArray,
         // getAreasLength: state => state.areas.length,
-        getDistricts: state => state.districts
+        getDistricts: state => state.districts,
+        getAlerts: store => store.alerts,
+
     },
     mutations: {
         SET_USER_DATA: (state, user) => {
@@ -43,6 +47,8 @@ const store = new Vuex.Store({
         ADD_SOIL_POLYGON: (state, soilPolygon) => state.soilPolygons.push(soilPolygon),
         REMOVE_SOIL_POLYGON: (state, id) => state.soilPolygons = state.soilPolygons.filter(polygon => polygon.id !== id),
         SET_DISTRICTS: (state, districts) => state.districts = districts,
+        ADD_ALERT: (state, alert) => state.alerts.push(alert),
+        REMOVE_ALERT: (state, id) => state.alerts = state.alerts.filter(alert => alert.id !== id)
     },
     actions: {
         login: function ({
@@ -97,6 +103,16 @@ const store = new Vuex.Store({
             commit
         }, districts) => {
             commit('SET_DISTRICTS', districts)
+        },
+        createAlert: ({
+            commit,
+            state
+        }, alert) => {
+            const alert_id = state.alert_id
+            alert.id = alert_id
+            commit('ADD_ALERT', alert)
+            setTimeout(() => commit('REMOVE_ALERT', alert_id), 5000)
+            state.alert_id++;
         }
 
     }

@@ -87,6 +87,8 @@
 <script>
 import pagination from "../../components/Pagination";
 import familyService from "../../services/FamilyService.js";
+import store from "../../store/store";
+import Vue from "vue";
 
 export default {
   name: "FamiliesIndex",
@@ -101,18 +103,20 @@ export default {
             last_page: resp.data.last_page,
           };
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch families")
+        );
     },
     deleteFamily(id) {
       familyService
         .deleteFamily(id)
         .then((resp) => {
-          console.log(resp);
           this.families = this.families.filter(
             (family) => family.id !== parseInt(resp.data)
           );
+          this.$helpers.handleSuccess("Family deleted successfully");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$helpers.handleError(err, "Cannot delete family"));
     },
   },
   props: {
@@ -144,7 +148,9 @@ export default {
         };
         next();
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        Vue.prototype.$helpers.handleError(err, "Cannot fetch families")
+      );
   },
   components: { pagination },
 };

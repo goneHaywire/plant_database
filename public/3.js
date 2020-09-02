@@ -234,7 +234,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       _services_MapService__WEBPACK_IMPORTED_MODULE_0__["default"].createPolygon(this.activePolygon).then(function (resp) {
-        console.log(resp.data);
         if (resp.data.area.type === "soils") _this.$store.dispatch("addSoilPolygon", _objectSpread(_objectSpread({}, resp.data), {}, {
           visible: false
         }));else _this.polygons.push(_objectSpread(_objectSpread({}, resp.data), {}, {
@@ -248,6 +247,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.editableLayers.removeLayer(oldLayer);
 
         _this.editableLayers._map.removeLayer(oldLayer);
+
+        _this.$helpers.handleSuccess("Polygon created successfully");
+      })["catch"](function (err) {
+        return _this.$helpers.handleError(err, "Cannot create polygon");
       });
     },
     deletePolygon: function deletePolygon(id) {
@@ -259,6 +262,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.polygons = _this2.polygons.filter(function (polygon) {
           return polygon.id !== id;
         });
+
+        _this2.$helpers.handleSuccess("Polygon deleted successfully");
+      })["catch"](function (err) {
+        return _this2.$helpers.handleError(err, "Cannot delete polygon");
       });
     },
     zoomUpdate: function zoomUpdate(zoom) {

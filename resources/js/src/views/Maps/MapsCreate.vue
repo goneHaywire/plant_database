@@ -218,31 +218,40 @@ export default {
   },
   methods: {
     createPolygon() {
-      MapService.createPolygon(this.activePolygon).then((resp) => {
-        console.log(resp.data);
-        if (resp.data.area.type === "soils")
-          this.$store.dispatch("addSoilPolygon", {
-            ...resp.data,
-            visible: false,
-          });
-        else
-          this.polygons.push({
-            ...resp.data,
-            visible: false,
-          });
-        this.activePolygon.coordinates = [];
-        this.activePolygon.area_id = null;
-        this.activePolygon.district_id = null;
-        const oldLayer = Object.values(this.editableLayers._layers)[0];
-        this.editableLayers.removeLayer(oldLayer);
-        this.editableLayers._map.removeLayer(oldLayer);
-      });
+      MapService.createPolygon(this.activePolygon)
+        .then((resp) => {
+          if (resp.data.area.type === "soils")
+            this.$store.dispatch("addSoilPolygon", {
+              ...resp.data,
+              visible: false,
+            });
+          else
+            this.polygons.push({
+              ...resp.data,
+              visible: false,
+            });
+          this.activePolygon.coordinates = [];
+          this.activePolygon.area_id = null;
+          this.activePolygon.district_id = null;
+          const oldLayer = Object.values(this.editableLayers._layers)[0];
+          this.editableLayers.removeLayer(oldLayer);
+          this.editableLayers._map.removeLayer(oldLayer);
+          this.$helpers.handleSuccess("Polygon created successfully");
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot create polygon")
+        );
     },
     deletePolygon(id) {
-      MapService.deletePolygon(id).then((resp) => {
-        this.$store.dispatch("removeSoilPolygon", id);
-        this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
-      });
+      MapService.deletePolygon(id)
+        .then((resp) => {
+          this.$store.dispatch("removeSoilPolygon", id);
+          this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
+          this.$helpers.handleSuccess("Polygon deleted successfully");
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot delete polygon")
+        );
     },
     zoomUpdate(zoom) {
       this.currentZoom = zoom;

@@ -10,6 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/FamilyService */ "./resources/js/src/services/FamilyService.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -105,6 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FamiliesShow",
   props: {
@@ -127,13 +130,17 @@ __webpack_require__.r(__webpack_exports__);
       to.params.genera = resp.data;
       next();
     })["catch"](function (err) {
-      return console.log(err);
+      return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch family's genera");
     });else _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].fetchFamily(to.params.id).then(function (resp) {
       to.params.family = resp.data;
       _services_FamilyService__WEBPACK_IMPORTED_MODULE_0__["default"].getGeneraOfFamily(to.params.id).then(function (resp) {
         to.params.genera = resp.data;
         next();
+      })["catch"](function (err) {
+        return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch family's genera");
       });
+    })["catch"](function (err) {
+      return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$helpers.handleError(err, "Cannot fetch family");
     });
   }
 });
