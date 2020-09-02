@@ -16,10 +16,31 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
+            <h5>Search</h5>
+            <form class="search-form" @submit.prevent="searchGenera()">
+              <div class="form-group d-flex justify-content-between">
+                <input
+                  type="text"
+                  v-model="search.query"
+                  placeholder="Search Genera"
+                  class="form-control"
+                />
+              </div>
+            </form>
+            <h5>
+              {{ tableTitle }}
+              <span
+                v-show="justSearched"
+                class="btn btn-danger"
+                @click="clearSearch()"
+                >Clear Search</span
+              >
+            </h5>
             <div class="table-responsive">
               <table
                 id="zero_config"
                 class="table table-striped table-bordered"
+                v-show="genera.length"
               >
                 <thead>
                   <tr>
@@ -88,7 +109,11 @@
               v-if="pagination.last_page > 1"
               :pagination="pagination"
               :offset="5"
-              @paginate="fetchGenera()"
+              @paginate="
+                {
+                  justSearched ? searchGenera() : fetchGenera();
+                }
+              "
             ></pagination>
           </div>
         </div>
@@ -128,6 +153,40 @@ export default {
         })
         .catch((err) => this.$helpers.handleError(err, "Cannot delete genus"));
     },
+    searchGenera() {
+      generaService
+        .searchGenera(this.search, this.pagination.current_page)
+        .then((resp) => {
+          if (!resp.data.data.length)
+            this.tableTitle = `No Genera found for: ${this.search.query}`;
+          else this.tableTitle = `Search results for: ${this.search.query}`;
+
+          this.justSearched = true;
+          this.genera = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        })
+        .catch((err) =>
+          this.$helpers.handleError(err, "Cannot fetch search results")
+        );
+    },
+    clearSearch() {
+      this.justSearched = false;
+      this.search = { query: null };
+      this.tableTitle = "All Genera";
+      generaService
+        .fetchGenera()
+        .then((resp) => {
+          this.genera = resp.data.data;
+          this.pagination = {
+            current_page: resp.data.current_page,
+            last_page: resp.data.last_page,
+          };
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot fetch genera"));
+    },
   },
   props: {
     generaProp: {
@@ -142,7 +201,15 @@ export default {
   data() {
     return {
       genera: [],
+      justSearched: false,
+      tableTitle: "All Families",
+      search: { query: null },
     };
+  },
+  watch: {
+    "search.query"() {
+      this.pagination.current_page = 1;
+    },
   },
   created() {
     this.genera = this.generaProp;

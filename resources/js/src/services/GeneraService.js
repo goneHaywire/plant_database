@@ -13,5 +13,6 @@ const generaService = {
         apiClient.delete(`/genera/${id}`),
     getSpeciesOfGenera: id =>
         apiClient.get(`/genera/${id}/species`),
+    searchGenera: (query, page = 1) => apiClient.post(`/genera/search?page=${page}`, query),
 }
 export default generaService

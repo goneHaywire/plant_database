@@ -40,8 +40,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/districts', 'API\MapController@districts');
     Route::get('/polygons/soil', 'API\MapController@soil_polygons');
     Route::get('/polygons/specie/{specie}', 'API\MapController@specie_polygons');
-    Route::post('/search', 'API\SpeciesController@search');
-    Route::get('/search', 'API\SpeciesController@search');
+    Route::post('/species/search', 'API\SpeciesController@search');
+    Route::post('/genera/search', 'API\GeneraController@search');
+    Route::post('/families/search', 'API\FamilyController@search');
+    // Route::get('/search', 'API\SpeciesController@search');
     Route::get('/species/{specie}/photos', 'API\SpeciesController@photos');
 });
 

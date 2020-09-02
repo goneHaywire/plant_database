@@ -19,6 +19,13 @@ class GeneraController extends Controller
         return Genera::with('family')->withCount('species')->paginate(20);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $genera = Genera::with('family')->withCount('species')->where('name', 'like', "%{$query}%")->paginate(20);
+        return $genera;
+    }
+
     public function speciesOfGenera(Genera $genera)
     {
         return $genera->load('species')->species;

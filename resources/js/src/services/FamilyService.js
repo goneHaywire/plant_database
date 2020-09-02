@@ -14,6 +14,7 @@ var familyService = {
     getAllFamilies: () =>
         ApiClient.get('/families/all'),
     getGeneraOfFamily: id =>
-        ApiClient.get(`/families/${id}/genera`)
+        ApiClient.get(`/families/${id}/genera`),
+    searchFamilies: (query, page = 1) => ApiClient.post(`/families/search?page=${page}`, query),
 }
 export default familyService

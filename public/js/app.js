@@ -2947,6 +2947,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2979,6 +3004,39 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return _this2.$helpers.handleError(err, "Cannot delete family");
       });
+    },
+    searchFamilies: function searchFamilies() {
+      var _this3 = this;
+
+      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].searchFamilies(this.search, this.pagination.current_page).then(function (resp) {
+        if (!resp.data.data.length) _this3.tableTitle = "No Families found for: ".concat(_this3.search.query);else _this3.tableTitle = "Search results for: ".concat(_this3.search.query);
+        _this3.justSearched = true;
+        _this3.families = resp.data.data;
+        _this3.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      })["catch"](function (err) {
+        return _this3.$helpers.handleError(err, "Cannot fetch search results");
+      });
+    },
+    clearSearch: function clearSearch() {
+      var _this4 = this;
+
+      this.justSearched = false;
+      this.search = {
+        query: null
+      };
+      this.tableTitle = "All Families";
+      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies().then(function (resp) {
+        _this4.families = resp.data.data;
+        _this4.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      })["catch"](function (err) {
+        return _this4.$helpers.handleError(err, "Cannot fetch families");
+      });
     }
   },
   props: {
@@ -2993,8 +3051,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      families: []
+      families: [],
+      justSearched: false,
+      tableTitle: "All Families",
+      search: {
+        query: null
+      }
     };
+  },
+  watch: {
+    "search.query": function searchQuery() {
+      this.pagination.current_page = 1;
+    }
   },
   created: function created() {
     this.families = this.familiesProp;
@@ -3358,6 +3426,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3389,6 +3482,39 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return _this2.$helpers.handleError(err, "Cannot delete genus");
       });
+    },
+    searchGenera: function searchGenera() {
+      var _this3 = this;
+
+      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].searchGenera(this.search, this.pagination.current_page).then(function (resp) {
+        if (!resp.data.data.length) _this3.tableTitle = "No Genera found for: ".concat(_this3.search.query);else _this3.tableTitle = "Search results for: ".concat(_this3.search.query);
+        _this3.justSearched = true;
+        _this3.genera = resp.data.data;
+        _this3.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      })["catch"](function (err) {
+        return _this3.$helpers.handleError(err, "Cannot fetch search results");
+      });
+    },
+    clearSearch: function clearSearch() {
+      var _this4 = this;
+
+      this.justSearched = false;
+      this.search = {
+        query: null
+      };
+      this.tableTitle = "All Genera";
+      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera().then(function (resp) {
+        _this4.genera = resp.data.data;
+        _this4.pagination = {
+          current_page: resp.data.current_page,
+          last_page: resp.data.last_page
+        };
+      })["catch"](function (err) {
+        return _this4.$helpers.handleError(err, "Cannot fetch genera");
+      });
     }
   },
   props: {
@@ -3403,8 +3529,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      genera: []
+      genera: [],
+      justSearched: false,
+      tableTitle: "All Families",
+      search: {
+        query: null
+      }
     };
+  },
+  watch: {
+    "search.query": function searchQuery() {
+      this.pagination.current_page = 1;
+    }
   },
   created: function created() {
     this.genera = this.generaProp;
@@ -43842,10 +43978,93 @@ var render = function() {
               "div",
               { staticClass: "col-12" },
               [
+                _c("h5", [_vm._v("Search")]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "search-form",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.searchFamilies()
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group d-flex justify-content-between"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.search.query,
+                              expression: "search.query"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Search Families"
+                          },
+                          domProps: { value: _vm.search.query },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.search, "query", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h5", [
+                  _vm._v(
+                    "\n            " + _vm._s(_vm.tableTitle) + "\n            "
+                  ),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.justSearched,
+                          expression: "justSearched"
+                        }
+                      ],
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.clearSearch()
+                        }
+                      }
+                    },
+                    [_vm._v("Clear Search")]
+                  )
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "table-responsive" }, [
                   _c(
                     "table",
                     {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.families.length,
+                          expression: "families.length"
+                        }
+                      ],
                       staticClass: "table table-striped table-bordered",
                       attrs: { id: "zero_config" }
                     },
@@ -43931,7 +44150,11 @@ var render = function() {
                       attrs: { pagination: _vm.pagination, offset: 5 },
                       on: {
                         paginate: function($event) {
-                          return _vm.fetchFamilies()
+                          {
+                            _vm.justSearched
+                              ? _vm.searchFamilies()
+                              : _vm.fetchFamilies()
+                          }
                         }
                       }
                     })
@@ -44332,10 +44555,90 @@ var render = function() {
               "div",
               { staticClass: "col-12" },
               [
+                _c("h5", [_vm._v("Search")]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "search-form",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.searchGenera()
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group d-flex justify-content-between"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.search.query,
+                              expression: "search.query"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Search Genera" },
+                          domProps: { value: _vm.search.query },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.search, "query", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("h5", [
+                  _vm._v(
+                    "\n            " + _vm._s(_vm.tableTitle) + "\n            "
+                  ),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.justSearched,
+                          expression: "justSearched"
+                        }
+                      ],
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.clearSearch()
+                        }
+                      }
+                    },
+                    [_vm._v("Clear Search")]
+                  )
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "table-responsive" }, [
                   _c(
                     "table",
                     {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.genera.length,
+                          expression: "genera.length"
+                        }
+                      ],
                       staticClass: "table table-striped table-bordered",
                       attrs: { id: "zero_config" }
                     },
@@ -44443,7 +44746,11 @@ var render = function() {
                       attrs: { pagination: _vm.pagination, offset: 5 },
                       on: {
                         paginate: function($event) {
-                          return _vm.fetchGenera()
+                          {
+                            _vm.justSearched
+                              ? _vm.searchGenera()
+                              : _vm.fetchGenera()
+                          }
                         }
                       }
                     })
@@ -63783,6 +64090,10 @@ var familyService = {
   },
   getGeneraOfFamily: function getGeneraOfFamily(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/families/".concat(id, "/genera"));
+  },
+  searchFamilies: function searchFamilies(query) {
+    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/families/search?page=".concat(page), query);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (familyService);
@@ -63819,6 +64130,10 @@ var generaService = {
   },
   getSpeciesOfGenera: function getSpeciesOfGenera(id) {
     return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("/genera/".concat(id, "/species"));
+  },
+  searchGenera: function searchGenera(query) {
+    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/genera/search?page=".concat(page), query);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (generaService);
@@ -63892,7 +64207,7 @@ var speciesService = {
   },
   searchSpecies: function searchSpecies(queryObject) {
     var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/search?page=".concat(page), queryObject);
+    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].post("/species/search?page=".concat(page), queryObject);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (speciesService);

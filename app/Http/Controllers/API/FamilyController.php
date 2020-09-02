@@ -18,6 +18,14 @@ class FamilyController extends Controller
         return Family::with('soil')->withCount('genera')->paginate(20);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+
+        $families = Family::with('soil')->withCount('genera')->where('name', 'like', "%{$query}%")->paginate(20);
+        return $families;
+    }
+
     public function allFamilies()
     {
         return Family::get()->toJson();
