@@ -3699,147 +3699,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeView",
-  methods: {
-    callapi: function callapi() {
-      console.log("call api!!!!");
-      _services_Api__WEBPACK_IMPORTED_MODULE_0__["default"].get("families").then(function (data) {
-        return console.log(data);
-      });
-    }
-  },
   props: {
     stats: {
       required: true,
-      type: Object
+      type: Array
     }
   },
-  data: function data() {
-    return {
-      token: "" // stats: {}
-
-    };
-  },
   created: function created() {
-    console.log("token!!!");
     this.token = JSON.parse(localStorage.getItem("user")).access_token;
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    if (!!_store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats) {
+    if (_store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats.length) {
       to.params.stats = _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getStats;
       next();
     } else {
@@ -44833,20 +44708,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "content-wrapper" }, [
         _c("div", { staticClass: "container-fluid" }, [
-          _c("p", [_vm._v(_vm._s(_vm.token))]),
-          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-6 col-lg-2 col-xlg-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "card card-hover",
-                  attrs: { to: { name: "home" } }
-                },
-                [_vm._m(0)]
-              )
-            ]),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
@@ -44884,7 +44746,7 @@ var render = function() {
                     attrs: { to: { name: "genera.index" } }
                   },
                   [
-                    _c("div", { staticClass: "box bg-warning text-center" }, [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
                       _c("h1", { staticClass: "font-light text-white" }, [
                         _c("i", { staticClass: "far fa-list-alt" })
                       ]),
@@ -44910,13 +44772,39 @@ var render = function() {
                     attrs: { to: { name: "species.index" } }
                   },
                   [
-                    _c("div", { staticClass: "box bg-danger text-center" }, [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
                       _c("h1", { staticClass: "font-light text-white" }, [
                         _c("i", { staticClass: "fas fa-leaf" })
                       ]),
                       _vm._v(" "),
                       _c("h6", { staticClass: "text-white" }, [
                         _vm._v("Species")
+                      ])
+                    ])
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "card card-hover",
+                    attrs: { to: { name: "albanian.index" } }
+                  },
+                  [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
+                      _c("h1", { staticClass: "font-light text-white" }, [
+                        _c("i", { staticClass: "fas fa-map-marker-alt" })
+                      ]),
+                      _vm._v(" "),
+                      _c("h6", { staticClass: "text-white" }, [
+                        _vm._v("Albanian Species")
                       ])
                     ])
                   ]
@@ -44936,7 +44824,7 @@ var render = function() {
                     attrs: { to: { name: "favourites.index" } }
                   },
                   [
-                    _c("div", { staticClass: "box bg-info text-center" }, [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
                       _c("h1", { staticClass: "font-light text-white" }, [
                         _c("i", { staticClass: "far fa-star" })
                       ]),
@@ -44953,21 +44841,21 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
+              { staticClass: "col-md-6 col-lg-4 col-xlg-3" },
               [
                 _c(
                   "router-link",
                   {
                     staticClass: "card card-hover",
-                    attrs: { to: { name: "users.index" } }
+                    attrs: { to: { name: "maps.index" } }
                   },
                   [
-                    _c("div", { staticClass: "box bg-danger text-center" }, [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
                       _c("h1", { staticClass: "font-light text-white" }, [
-                        _c("i", { staticClass: "fas fa-user" })
+                        _c("i", { staticClass: "fas fa-map" })
                       ]),
                       _vm._v(" "),
-                      _c("h6", { staticClass: "text-white" }, [_vm._v("Users")])
+                      _c("h6", { staticClass: "text-white" }, [_vm._v("Map")])
                     ])
                   ]
                 )
@@ -44983,43 +44871,15 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "card card-hover",
-                    attrs: { to: { name: "albanian.index" } }
+                    attrs: { to: { name: "users.index" } }
                   },
                   [
-                    _c("div", { staticClass: "box bg-info text-center" }, [
+                    _c("div", { staticClass: "box bg-success text-center" }, [
                       _c("h1", { staticClass: "font-light text-white" }, [
-                        _c("i", { staticClass: "fas fa-map-marker-alt" })
+                        _c("i", { staticClass: "fas fa-user" })
                       ]),
                       _vm._v(" "),
-                      _c("h6", { staticClass: "text-white" }, [
-                        _vm._v("Albanian Species")
-                      ])
-                    ])
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-6 col-lg-2 col-xlg-3" },
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "card card-hover",
-                    attrs: { to: { name: "filter.index" } }
-                  },
-                  [
-                    _c("div", { staticClass: "box bg-cyan text-center" }, [
-                      _c("h1", { staticClass: "font-light text-white" }, [
-                        _c("i", { staticClass: "fas fa-search" })
-                      ]),
-                      _vm._v(" "),
-                      _c("h6", { staticClass: "text-white" }, [
-                        _vm._v("Filter")
-                      ])
+                      _c("h6", { staticClass: "text-white" }, [_vm._v("Users")])
                     ])
                   ]
                 )
@@ -45028,249 +44888,54 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.family_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
+          _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.stats, function(stat, i) {
+              return _c("div", { key: i, staticClass: "col-md-4" }, [
+                _c("div", { staticClass: "card m-t-0" }, [
+                  _c("div", { staticClass: "row py-2 align-items-center" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-md-6 d-flex align-items-center justify-content-center text-center"
+                      },
+                      [
+                        _c("h3", { staticClass: "mb-0" }, [
+                          _vm._v(_vm._s(stat.text))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-6 border-left text-center p-t-10"
+                      },
+                      [
+                        _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(stat.count) +
+                              "\n                "
+                          )
+                        ])
+                      ]
+                    )
+                  ])
                 ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.genera_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.species_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.albanian_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.user_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("div", { staticClass: "card m-t-0" }, [
-                _c("div", { staticClass: "row py-2 align-items-center" }, [
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-6 border-left text-center p-t-10" },
-                    [
-                      _c("h3", { staticClass: "mb-0 font-weight-bold" }, [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(_vm.stats.favourites_count) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(7)
+            }),
+            0
+          )
         ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box bg-cyan text-center" }, [
-      _c("h1", { staticClass: "font-light text-white" }, [
-        _c("i", { staticClass: "mdi mdi-view-dashboard" })
-      ]),
-      _vm._v(" "),
-      _c("h6", { staticClass: "text-white" }, [_vm._v("Home")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Families")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Genera")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Species")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Albanian")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Users")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-md-6 d-flex align-items-center justify-content-center"
-      },
-      [_c("h3", { staticClass: "mb-0" }, [_vm._v("Favourites")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("h5", { staticClass: "card-title" }, [
-          _vm._v(
-            "\n            Families with most species in Albania\n          "
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "pie", staticStyle: { height: "800px" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -63975,14 +63640,14 @@ var routes = [{
     name: "maps.index",
     path: "/maps",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(10), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsIndex.vue */ "./resources/js/src/views/Maps/MapsIndex.vue"));
     },
     props: true
   }, {
     name: "maps.create",
-    path: '/maps/create',
+    path: "/maps/create",
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(9), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ../views/Maps/MapsCreate.vue */ "./resources/js/src/views/Maps/MapsCreate.vue"));
     },
     props: true
   }]
@@ -64236,7 +63901,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   state: {
     user: null,
-    stats: null,
+    stats: [],
     soilPolygons: [],
     areas: {},
     areasArray: [],
@@ -64283,9 +63948,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     SET_STATS: function SET_STATS(state, stats) {
       return state.stats = stats;
     },
-    SET_STAT: function SET_STAT(state, stat, value) {
-      return state.stats[stat] = value;
-    },
     SET_SOIL_POLYGONS: function SET_SOIL_POLYGONS(state, soilPolygons) {
       return state.soilPolygons = soilPolygons;
     },
@@ -64330,38 +63992,33 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
       var commit = _ref3.commit;
       commit('SET_STATS', stats);
     },
-    setStat: function setStat(_ref4, stat, value) {
+    setSoilPolygons: function setSoilPolygons(_ref4, soilPolygons) {
       var commit = _ref4.commit;
-      console.log('u vune!');
-      commit('SET_STAT', stat, value);
-    },
-    setSoilPolygons: function setSoilPolygons(_ref5, soilPolygons) {
-      var commit = _ref5.commit;
       commit('SET_SOIL_POLYGONS', soilPolygons);
     },
-    setAreas: function setAreas(_ref6, areas) {
-      var commit = _ref6.commit;
+    setAreas: function setAreas(_ref5, areas) {
+      var commit = _ref5.commit;
       commit('SET_AREAS', areas);
     },
-    setAreasArray: function setAreasArray(_ref7, areasArray) {
-      var commit = _ref7.commit;
+    setAreasArray: function setAreasArray(_ref6, areasArray) {
+      var commit = _ref6.commit;
       commit('SET_AREAS_ARRAY', areasArray);
     },
-    addSoilPolygon: function addSoilPolygon(_ref8, soilPolygon) {
-      var commit = _ref8.commit;
+    addSoilPolygon: function addSoilPolygon(_ref7, soilPolygon) {
+      var commit = _ref7.commit;
       commit('ADD_SOIL_POLYGON', soilPolygon);
     },
-    removeSoilPolygon: function removeSoilPolygon(_ref9, id) {
-      var commit = _ref9.commit;
+    removeSoilPolygon: function removeSoilPolygon(_ref8, id) {
+      var commit = _ref8.commit;
       commit('REMOVE_SOIL_POLYGON', id);
     },
-    setDistricts: function setDistricts(_ref10, districts) {
-      var commit = _ref10.commit;
+    setDistricts: function setDistricts(_ref9, districts) {
+      var commit = _ref9.commit;
       commit('SET_DISTRICTS', districts);
     },
-    createAlert: function createAlert(_ref11, alert) {
-      var commit = _ref11.commit,
-          state = _ref11.state;
+    createAlert: function createAlert(_ref10, alert) {
+      var commit = _ref10.commit,
+          state = _ref10.state;
       var alert_id = state.alert_id;
       alert.id = alert_id;
       commit('ADD_ALERT', alert);
@@ -64391,18 +64048,26 @@ __webpack_require__.r(__webpack_exports__);
   handleError: function handleError(err, message) {
     console.log('HANDLING ERROR!');
 
-    if (Object.keys(err).length) {
-      console.log("Error: ".concat(message, " (").concat(err.response, ")"));
+    if (err.response) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('createAlert', {
-        message: "Error: ".concat(message, " (").concat(err.response, ")"),
+        message: "Response error: ".concat(message, " (").concat(err.response.data.error, ")"),
         type: 'danger'
       });
+      console.log("Response error: ".concat(message, " (").concat(err.response.data.error, ")"));
+    } else if (err.request) {
+      _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('createAlert', {
+        message: "Request error: ".concat(message, " (").concat(err.request, ")"),
+        type: 'danger'
+      });
+      console.log("Request error: ".concat(message, " (").concat(err.request, ")"));
+      console.log(err.request);
+      console.log(err);
     } else {
-      console.log('Error: ', message);
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('createAlert', {
         message: "Error: ".concat(message),
         type: 'danger'
       });
+      console.log("Error: ".concat(message));
     }
   },
   handleSuccess: function handleSuccess(message) {

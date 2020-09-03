@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Area;
 use App\Family;
 use App\Genera;
 use App\Http\Controllers\Controller;
+use App\Photo;
+use App\Polygon;
 use App\Specie;
 use App\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class HomeController extends Controller
 {
@@ -22,16 +26,58 @@ class HomeController extends Controller
         $favourites_count = User::withCount(['favourites' => function ($query) {
             return $query->where('user_id', Auth::id());
         }])->find(Auth::id())->favourites_count;
+        $photos_count = Photo::all()->count();
+        $polygons_count = Polygon::all()->count();
+        $layers_count = Area::all()->count();
+
+        $family = new stdClass();
+        $family->count = $family_count;
+        $family->text = 'Families';
+
+        $genera = new stdClass();
+        $genera->count = $genera_count;
+        $genera->text = 'Genera';
+
+        $specie = new stdClass();
+        $specie->count = $species_count;
+        $specie->text = 'Species';
+
+        $albanian = new stdClass();
+        $albanian->count = $albanian_count;
+        $albanian->text = 'Albanian';
+
+        $favourites = new stdClass();
+        $favourites->count = $favourites_count;
+        $favourites->text = 'Favourites';
+
+        $users = new stdClass();
+        $users->count = $user_count;
+        $users->text = 'Users';
+
+        $photos = new stdClass();
+        $photos->count = $photos_count;
+        $photos->text = 'Photos Uploaded';
+
+        $polygons = new stdClass();
+        $polygons->count = $polygons_count;
+        $polygons->text = 'Polygons Created';
+
+        $layers = new stdClass();
+        $layers->count = $layers_count;
+        $layers->text = 'Layers Available';
 
         $stats = new Collection([
-            'family_count' => $family_count,
-            'genera_count' => $genera_count,
-            'species_count' => $species_count,
-            'albanian_count' => $albanian_count,
-            'user_count' => $user_count,
-            'favourites_count' => $favourites_count,
+            $family,
+            $genera,
+            $specie,
+            $albanian,
+            $favourites,
+            $users,
+            $photos,
+            $polygons,
+            $layers
         ]);
 
-        return $stats->toJson();
+        return $stats->toArray();
     }
 }

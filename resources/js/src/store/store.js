@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         user: null,
-        stats: null,
+        stats: [],
         soilPolygons: [],
         areas: {},
         areasArray: [],
@@ -40,7 +40,6 @@ const store = new Vuex.Store({
             localStorage.removeItem('user')
         },
         SET_STATS: (state, stats) => state.stats = stats,
-        SET_STAT: (state, stat, value) => state.stats[stat] = value,
         SET_SOIL_POLYGONS: (state, soilPolygons) => state.soilPolygons = soilPolygons,
         SET_AREAS: (state, areas) => state.areas = areas,
         SET_AREAS_ARRAY: (state, areasArray) => state.areasArray = areasArray,
@@ -67,12 +66,6 @@ const store = new Vuex.Store({
             commit
         }, stats) => {
             commit('SET_STATS', stats)
-        },
-        setStat: ({
-            commit
-        }, stat, value) => {
-            console.log('u vune!')
-            commit('SET_STAT', stat, value)
         },
         setSoilPolygons: ({
             commit

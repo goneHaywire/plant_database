@@ -1,29 +1,31 @@
 import VueRouter from "vue-router";
 import Vue from "vue";
 import NProgress from "nprogress";
-import 'nprogress/nprogress.css';
+import "nprogress/nprogress.css";
 
-import DashboardPage from '../pages/DashboardPage.vue'
-import HomeView from '../views/HomeView.vue'
-import FamiliesIndex from '../views/Families/FamiliesIndex.vue'
-import GeneraIndex from '../views/Genera/GeneraIndex.vue'
-import SpeciesIndex from '../views/Species/SpeciesIndex.vue'
-import SpeciesForm from '../views/Species/SpeciesForm.vue'
-import AlbanianIndex from '../views/AlbanianIndex.vue'
-import FavouritesIndex from '../views/FavouritesView.vue'
-import LoginPage from '../pages/LoginPage.vue'
+import DashboardPage from "../pages/DashboardPage.vue";
+import HomeView from "../views/HomeView.vue";
+import FamiliesIndex from "../views/Families/FamiliesIndex.vue";
+import GeneraIndex from "../views/Genera/GeneraIndex.vue";
+import SpeciesIndex from "../views/Species/SpeciesIndex.vue";
+import SpeciesForm from "../views/Species/SpeciesForm.vue";
+import AlbanianIndex from "../views/AlbanianIndex.vue";
+import FavouritesIndex from "../views/FavouritesView.vue";
+import LoginPage from "../pages/LoginPage.vue";
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+    {
         path: "/login",
         name: "login",
-        component: LoginPage,
+        component: LoginPage
     },
     {
         path: "/dashboard",
         component: DashboardPage,
-        children: [{
+        children: [
+            {
                 name: "home",
                 path: "/",
                 component: HomeView,
@@ -33,7 +35,7 @@ const routes = [{
                 name: "families.index",
                 path: "families",
                 component: FamiliesIndex,
-                props: true,
+                props: true
             },
             {
                 name: "families.form",
@@ -51,7 +53,7 @@ const routes = [{
                 name: "genera.index",
                 path: "genera",
                 component: GeneraIndex,
-                props: true,
+                props: true
             },
             {
                 name: "genera.form",
@@ -69,7 +71,7 @@ const routes = [{
                 name: "species.index",
                 path: "species",
                 component: SpeciesIndex,
-                props: true,
+                props: true
             },
             {
                 name: "species.form",
@@ -104,18 +106,18 @@ const routes = [{
             {
                 name: "users.create",
                 path: "users/create",
-                component: () => import("../views/Users/UsersIndex.vue"),
+                component: () => import("../views/Users/UsersIndex.vue")
             },
             {
                 name: "maps.index",
                 path: "/maps",
-                component: () => import('../views/Maps/MapsIndex.vue'),
+                component: () => import("../views/Maps/MapsIndex.vue"),
                 props: true
             },
             {
                 name: "maps.create",
-                path: '/maps/create',
-                component: () => import('../views/Maps/MapsCreate.vue'),
+                path: "/maps/create",
+                component: () => import("../views/Maps/MapsCreate.vue"),
                 props: true
             }
         ]

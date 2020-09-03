@@ -6,23 +6,7 @@
 
     <div class="content-wrapper">
       <div class="container-fluid">
-        <p>{{ token }}</p>
-        <!-- ============================================================== -->
-        <!-- Sales Cards  -->
-        <!-- ============================================================== -->
         <div class="row">
-          <!-- Column -->
-          <div class="col-md-6 col-lg-2 col-xlg-3">
-            <a class="card card-hover" :to="{ name: 'home' }">
-              <div class="box bg-cyan text-center">
-                <h1 class="font-light text-white">
-                  <i class="mdi mdi-view-dashboard"></i>
-                </h1>
-                <h6 class="text-white">Home</h6>
-              </div>
-            </a>
-          </div>
-          <!-- Column -->
           <div class="col-md-6 col-lg-4 col-xlg-3">
             <router-link
               :to="{ name: 'families.index' }"
@@ -36,10 +20,10 @@
               </div>
             </router-link>
           </div>
-          <!-- Column -->
+
           <div class="col-md-6 col-lg-2 col-xlg-3">
             <router-link class="card card-hover" :to="{ name: 'genera.index' }">
-              <div class="box bg-warning text-center">
+              <div class="box bg-success text-center">
                 <h1 class="font-light text-white">
                   <i class="far fa-list-alt"></i>
                 </h1>
@@ -53,11 +37,25 @@
               class="card card-hover"
               :to="{ name: 'species.index' }"
             >
-              <div class="box bg-danger text-center">
+              <div class="box bg-success text-center">
                 <h1 class="font-light text-white">
                   <i class="fas fa-leaf"></i>
                 </h1>
                 <h6 class="text-white">Species</h6>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="col-md-6 col-lg-2 col-xlg-3">
+            <router-link
+              class="card card-hover"
+              :to="{ name: 'albanian.index' }"
+            >
+              <div class="box bg-success text-center">
+                <h1 class="font-light text-white">
+                  <i class="fas fa-map-marker-alt"></i>
+                </h1>
+                <h6 class="text-white">Albanian Species</h6>
               </div>
             </router-link>
           </div>
@@ -67,7 +65,7 @@
               class="card card-hover"
               :to="{ name: 'favourites.index' }"
             >
-              <div class="box bg-info text-center">
+              <div class="box bg-success text-center">
                 <h1 class="font-light text-white">
                   <i class="far fa-star"></i>
                 </h1>
@@ -76,9 +74,20 @@
             </router-link>
           </div>
 
-          <div class="col-md-6 col-lg-2 col-xlg-3">
+          <div class="col-md-6 col-lg-4 col-xlg-3">
+            <router-link class="card card-hover" :to="{ name: 'maps.index' }">
+              <div class="box bg-success text-center">
+                <h1 class="font-light text-white">
+                  <i class="fas fa-map"></i>
+                </h1>
+                <h6 class="text-white">Map</h6>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="col-md-6 col-lg-4 col-xlg-3">
             <router-link class="card card-hover" :to="{ name: 'users.index' }">
-              <div class="box bg-danger text-center">
+              <div class="box bg-success text-center">
                 <h1 class="font-light text-white">
                   <i class="fas fa-user"></i>
                 </h1>
@@ -86,143 +95,24 @@
               </div>
             </router-link>
           </div>
-          <!-- Column -->
-          <div class="col-md-6 col-lg-4 col-xlg-3">
-            <router-link
-              class="card card-hover"
-              :to="{ name: 'albanian.index' }"
-            >
-              <div class="box bg-info text-center">
-                <h1 class="font-light text-white">
-                  <i class="fas fa-map-marker-alt"></i>
-                </h1>
-                <h6 class="text-white">Albanian Species</h6>
-              </div>
-            </router-link>
-          </div>
-          <!-- Column -->
-          <div class="col-md-6 col-lg-2 col-xlg-3">
-            <router-link class="card card-hover" :to="{ name: 'filter.index' }">
-              <div class="box bg-cyan text-center">
-                <h1 class="font-light text-white">
-                  <i class="fas fa-search"></i>
-                </h1>
-                <h6 class="text-white">Filter</h6>
-              </div>
-            </router-link>
-          </div>
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4" v-for="(stat, i) in stats" :key="i">
             <div class="card m-t-0">
               <div class="row py-2 align-items-center">
                 <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
+                  class="col-md-6 d-flex align-items-center justify-content-center text-center"
                 >
-                  <h3 class="mb-0">Families</h3>
+                  <h3 class="mb-0">{{ stat.text }}</h3>
                 </div>
                 <div class="col-md-6 border-left text-center p-t-10">
                   <h3 class="mb-0 font-weight-bold">
-                    {{ stats.family_count }}
+                    {{ stat.count }}
                   </h3>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card m-t-0">
-              <div class="row py-2 align-items-center">
-                <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="mb-0">Genera</h3>
-                </div>
-                <div class="col-md-6 border-left text-center p-t-10">
-                  <h3 class="mb-0 font-weight-bold">
-                    {{ stats.genera_count }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card m-t-0">
-              <div class="row py-2 align-items-center">
-                <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="mb-0">Species</h3>
-                </div>
-                <div class="col-md-6 border-left text-center p-t-10">
-                  <h3 class="mb-0 font-weight-bold">
-                    {{ stats.species_count }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card m-t-0">
-              <div class="row py-2 align-items-center">
-                <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="mb-0">Albanian</h3>
-                </div>
-                <div class="col-md-6 border-left text-center p-t-10">
-                  <h3 class="mb-0 font-weight-bold">
-                    {{ stats.albanian_count }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card m-t-0">
-              <div class="row py-2 align-items-center">
-                <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="mb-0">Users</h3>
-                </div>
-                <div class="col-md-6 border-left text-center p-t-10">
-                  <h3 class="mb-0 font-weight-bold">
-                    {{ stats.user_count }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card m-t-0">
-              <div class="row py-2 align-items-center">
-                <div
-                  class="col-md-6 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="mb-0">Favourites</h3>
-                </div>
-                <div class="col-md-6 border-left text-center p-t-10">
-                  <h3 class="mb-0 font-weight-bold">
-                    {{ stats.favourites_count }}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <h5 class="card-title">
-              Families with most species in Albania
-            </h5>
-            <div class="pie" style="height: 800px;"></div>
           </div>
         </div>
       </div>
@@ -237,30 +127,17 @@ import Vue from "vue";
 
 export default {
   name: "HomeView",
-  methods: {
-    callapi() {
-      console.log("call api!!!!");
-      clientApi.get("families").then((data) => console.log(data));
-    },
-  },
   props: {
     stats: {
       required: true,
-      type: Object,
+      type: Array,
     },
   },
-  data() {
-    return {
-      token: "",
-      // stats: {}
-    };
-  },
   created() {
-    console.log("token!!!");
     this.token = JSON.parse(localStorage.getItem("user")).access_token;
   },
   beforeRouteEnter: (to, from, next) => {
-    if (!!store.getters.getStats) {
+    if (store.getters.getStats.length) {
       to.params.stats = store.getters.getStats;
       next();
     } else {

@@ -10934,6 +10934,14 @@ a:hover {
   text-decoration: none;
 }
 
+.bg-success,
+.sidebar-nav ul .sidebar-item.selected > .sidebar-link,
+.btn-success {
+  background: #51c172 !important;
+  background-color: #51c172 !important;
+  border-color: #51c172 !important;
+}
+
 #main-wrapper {
   width: 100%;
   display: grid;

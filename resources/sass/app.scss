@@ -16,6 +16,14 @@ a:hover {
     text-decoration: none;
 }
 
+.bg-success,
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link,
+.btn-success {
+    background: $main-color !important;
+    background-color: $main-color !important;
+    border-color: $main-color !important;
+}
+
 #main-wrapper {
     width: 100%;
     display: grid;
