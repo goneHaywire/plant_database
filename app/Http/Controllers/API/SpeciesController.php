@@ -158,7 +158,6 @@ class SpeciesController extends Controller
      */
     public function update(Request $request)
     {
-        // return $request->get('common_name');
         $specie = Specie::find($request->get('id'));
 
         $specie->name = $request->get('name', '');

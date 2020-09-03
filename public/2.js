@@ -339,6 +339,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -480,7 +483,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.layers = Object.assign({}, _store_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters.getAreasArray);
 
       if (newValue) {
-        // shtohene layerat e species se re
+        // shtohen layerat e species se re
         _services_MapService__WEBPACK_IMPORTED_MODULE_1__["default"].getSpecieStatusPolygons(newValue.id).then(function (resp) {
           _this4.polygons = _this4.polygons.concat(resp.data);
         })["catch"](function (err) {
@@ -1212,61 +1215,6 @@ var render = function() {
                       "div",
                       { staticClass: "col-6 col-md-4" },
                       [
-                        _c("h4", [_vm._v("Soil Types")]),
-                        _vm._v(" "),
-                        _c("hr"),
-                        _vm._v(" "),
-                        _vm._l(_vm.areas.soils, function(soil) {
-                          return [
-                            _c(
-                              "div",
-                              {
-                                key: soil.name,
-                                staticClass:
-                                  "d-flex align-items-center justify-content-start mb-2"
-                              },
-                              [
-                                _c("inline-svg", {
-                                  staticClass: "icon icon-checkbox eye-icon",
-                                  attrs: {
-                                    name: "eye",
-                                    width: "20",
-                                    height: "20",
-                                    src: _vm.layers[soil.name]
-                                      ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
-                                      : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
-                                    id: soil.name
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.layers[soil.name] = !_vm.layers[
-                                        soil.name
-                                      ]
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "mb-0",
-                                    attrs: { for: soil.name }
-                                  },
-                                  [_vm._v(_vm._s(soil.name))]
-                                )
-                              ],
-                              1
-                            )
-                          ]
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-6 col-md-4" },
-                      [
                         _c("h4", [_vm._v("Specie Status")]),
                         _vm._v(" "),
                         _c("hr"),
@@ -1327,7 +1275,7 @@ var render = function() {
                       2
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-12 col-md-4" }, [
+                    _c("div", { staticClass: "col-6 col-md-4" }, [
                       _c("h4", [_vm._v("Districts")]),
                       _vm._v(" "),
                       _c("hr"),
@@ -1384,14 +1332,71 @@ var render = function() {
                         ],
                         2
                       )
-                    ]),
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-12 col-md-4" },
+                      [
+                        _c("h4", [_vm._v("Soil Types")]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _vm._l(_vm.areas.soils, function(soil) {
+                          return [
+                            _c(
+                              "div",
+                              {
+                                key: soil.name,
+                                staticClass:
+                                  "d-flex align-items-center justify-content-start mb-2"
+                              },
+                              [
+                                _c("inline-svg", {
+                                  staticClass: "icon icon-checkbox eye-icon",
+                                  attrs: {
+                                    name: "eye",
+                                    width: "20",
+                                    height: "20",
+                                    src: _vm.layers[soil.name]
+                                      ? __webpack_require__(/*! ../../../../svgs/eye-closed.svg */ "./resources/svgs/eye-closed.svg")
+                                      : __webpack_require__(/*! ../../../../svgs/eye-open.svg */ "./resources/svgs/eye-open.svg"),
+                                    id: soil.name
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.layers[soil.name] = !_vm.layers[
+                                        soil.name
+                                      ]
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0",
+                                    attrs: { for: soil.name }
+                                  },
+                                  [_vm._v(_vm._s(soil.name))]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        })
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-12" },
+                      { staticClass: "col-12 col-md-8" },
                       [
-                        _c("hr"),
-                        _vm._v(" "),
                         _vm.available_families.length
                           ? [
                               _c("h3", [

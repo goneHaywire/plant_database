@@ -159,33 +159,6 @@
                     <hr />
                   </div>
                   <div class="col-6 col-md-4">
-                    <h4>Soil Types</h4>
-                    <hr />
-                    <template v-for="soil in areas.soils">
-                      <div
-                        :key="soil.name"
-                        class="d-flex align-items-center justify-content-start mb-2"
-                      >
-                        <inline-svg
-                          class="icon icon-checkbox eye-icon"
-                          name="eye"
-                          width="20"
-                          height="20"
-                          :src="
-                            layers[soil.name]
-                              ? require('../../../../svgs/eye-closed.svg')
-                              : require('../../../../svgs/eye-open.svg')
-                          "
-                          :id="soil.name"
-                          @click="layers[soil.name] = !layers[soil.name]"
-                        ></inline-svg>
-                        <label :for="soil.name" class="mb-0">{{
-                          soil.name
-                        }}</label>
-                      </div>
-                    </template>
-                  </div>
-                  <div class="col-6 col-md-4">
                     <h4>Specie Status</h4>
                     <hr />
                     <template v-for="specie_status in areas.specie_status">
@@ -226,7 +199,7 @@
                       </div>
                     </template>
                   </div>
-                  <div class="col-12 col-md-4">
+                  <div class="col-6 col-md-4">
                     <h4>Districts</h4>
                     <hr />
                     <label for="district">Select Polygon District</label>
@@ -244,8 +217,38 @@
                       >
                     </select>
                   </div>
-                  <div class="col-12">
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-12 col-md-4">
+                    <h4>Soil Types</h4>
                     <hr />
+                    <template v-for="soil in areas.soils">
+                      <div
+                        :key="soil.name"
+                        class="d-flex align-items-center justify-content-start mb-2"
+                      >
+                        <inline-svg
+                          class="icon icon-checkbox eye-icon"
+                          name="eye"
+                          width="20"
+                          height="20"
+                          :src="
+                            layers[soil.name]
+                              ? require('../../../../svgs/eye-closed.svg')
+                              : require('../../../../svgs/eye-open.svg')
+                          "
+                          :id="soil.name"
+                          @click="layers[soil.name] = !layers[soil.name]"
+                        ></inline-svg>
+                        <label :for="soil.name" class="mb-0">{{
+                          soil.name
+                        }}</label>
+                      </div>
+                    </template>
+                  </div>
+
+                  <div class="col-12 col-md-8">
                     <template v-if="available_families.length">
                       <h3>
                         Families eligible for growing in selected soils.
@@ -444,7 +447,7 @@ export default {
       this.layers = Object.assign({}, store.getters.getAreasArray);
 
       if (newValue) {
-        // shtohene layerat e species se re
+        // shtohen layerat e species se re
         mapService
           .getSpecieStatusPolygons(newValue.id)
           .then((resp) => {

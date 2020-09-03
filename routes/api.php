@@ -21,15 +21,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/families/all', 'API\FamilyController@allFamilies');
     Route::get('/families/{family}/genera', 'API\FamilyController@generaOfFamily');
     Route::get('/genera/{genera}/species', 'API\GeneraController@speciesOfGenera');
-    Route::apiResources([
-        'families' => 'API\FamilyController',
-        'genera' => 'API\GeneraController',
-        'species' => 'API\SpeciesController',
-        'users' => 'API\UserController',
-    ]);
-    Route::apiResource('polygons', 'API\MapController')->only(['store', 'destroy']);
-    Route::apiResource('photos', 'API\PhotoController')->only(['destroy', 'store']);
-    Route::post('/species/{id}', 'API\SpeciesController@update');
     // Route::delete('/photos/{id}', 'API\PhotoController@destroy');
     Route::get('/stats', 'API\HomeController@stats');
     Route::get('/favourites', 'API\UserController@favouritesIndex');
@@ -43,8 +34,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/species/search', 'API\SpeciesController@search');
     Route::post('/genera/search', 'API\GeneraController@search');
     Route::post('/families/search', 'API\FamilyController@search');
-    // Route::get('/search', 'API\SpeciesController@search');
+    // Route::get('/species/search', 'API\SpeciesController@search');
     Route::get('/species/{specie}/photos', 'API\SpeciesController@photos');
+    Route::post('/species/{id}', 'API\SpeciesController@update');
+    Route::apiResources([
+        'families' => 'API\FamilyController',
+        'genera' => 'API\GeneraController',
+        'species' => 'API\SpeciesController',
+        'users' => 'API\UserController',
+    ]);
+    Route::apiResource('polygons', 'API\MapController')->only(['store', 'destroy']);
+    Route::apiResource('photos', 'API\PhotoController')->only(['destroy', 'store']);
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
