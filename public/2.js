@@ -342,6 +342,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -752,7 +753,7 @@ var render = function() {
                 _c("div", { staticClass: "col-md-5" }, [
                   _c(
                     "div",
-                    { attrs: { id: "map" } },
+                    { staticClass: "mb-2", attrs: { id: "map" } },
                     [
                       _c(
                         "l-map",
@@ -932,7 +933,11 @@ var render = function() {
                                               attrs: { selected: "" },
                                               domProps: { value: null }
                                             },
-                                            [_vm._v("Select Family")]
+                                            [
+                                              _vm._v(
+                                                "\n                                Select Family\n                              "
+                                              )
+                                            ]
                                           ),
                                           _vm._v(" "),
                                           _vm._l(_vm.families, function(
@@ -944,7 +949,13 @@ var render = function() {
                                                 key: family.id,
                                                 domProps: { value: family.id }
                                               },
-                                              [_vm._v(_vm._s(family.name))]
+                                              [
+                                                _vm._v(
+                                                  "\n                                " +
+                                                    _vm._s(family.name) +
+                                                    "\n                              "
+                                                )
+                                              ]
                                             )
                                           })
                                         ],
@@ -1001,7 +1012,11 @@ var render = function() {
                                               attrs: { selected: "" },
                                               domProps: { value: null }
                                             },
-                                            [_vm._v("Select Genus")]
+                                            [
+                                              _vm._v(
+                                                "\n                                Select Genus\n                              "
+                                              )
+                                            ]
                                           ),
                                           _vm._v(" "),
                                           _vm._l(_vm.genera, function(genus) {
@@ -1011,7 +1026,13 @@ var render = function() {
                                                 key: genus.id,
                                                 domProps: { value: genus.id }
                                               },
-                                              [_vm._v(_vm._s(genus.name))]
+                                              [
+                                                _vm._v(
+                                                  "\n                                " +
+                                                    _vm._s(genus.name) +
+                                                    "\n                              "
+                                                )
+                                              ]
                                             )
                                           })
                                         ],
@@ -1326,7 +1347,13 @@ var render = function() {
                                 key: district.id,
                                 domProps: { value: district.id }
                               },
-                              [_vm._v(_vm._s(district.name))]
+                              [
+                                _vm._v(
+                                  "\n                      " +
+                                    _vm._s(district.name) +
+                                    "\n                    "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -1401,7 +1428,7 @@ var render = function() {
                           ? [
                               _c("h3", [
                                 _vm._v(
-                                  "\n                      Families eligible for growing in selected soils.\n                    "
+                                  "Families eligible for growing in selected soils."
                                 )
                               ]),
                               _vm._v(" "),

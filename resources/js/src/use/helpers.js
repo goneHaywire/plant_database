@@ -4,12 +4,12 @@ export default {
     handleError: (err, message) => {
         console.log('HANDLING ERROR!')
         if (err.response) {
-            store.dispatch('createAlert', { message: `Response error: ${message} (${err.response.data.error})`, type: 'danger' })
-            console.log(`Response error: ${message} (${err.response.data.error})`)
+            store.dispatch('createAlert', { message: `Response error: ${message}`, type: 'danger' })
+            console.log(`Response error: ${message}`)
         }
         else if (err.request) {
-            store.dispatch('createAlert', { message: `Request error: ${message} (${err.request})`, type: 'danger' })
-            console.log(`Request error: ${message} (${err.request})`)
+            store.dispatch('createAlert', { message: `Request error: ${message}`, type: 'danger' })
+            console.log(`Request error: ${message}`)
             console.log(err.request)
             console.log(err)
         }

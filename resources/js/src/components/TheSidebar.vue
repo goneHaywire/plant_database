@@ -1,11 +1,9 @@
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container" @click="toggleSidebar()">
     <aside class="left-sidebar" data-sidebarbg="skin5">
       <router-link class="logo-container" tag="div" :to="{ name: 'home' }">
         <img src="images/logo.png" alt="Logo" width="15%" />
-        <span class="title">
-          Herbarium
-        </span>
+        <span class="title"> Herbarium </span>
       </router-link>
 
       <div class="scroll-sidebar">
@@ -54,6 +52,12 @@ export default {
   name: "TheSidebar",
   components: {
     SidebarLink,
+  },
+  methods: {
+    toggleSidebar() {
+      document.querySelector(".sidebar-container").classList.remove("show");
+      document.body.classList.remove("overflow-hidden");
+    },
   },
 };
 </script>

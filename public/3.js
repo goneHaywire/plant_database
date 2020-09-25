@@ -186,6 +186,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -254,19 +255,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     deletePolygon: function deletePolygon(id) {
-      var _this2 = this;
-
-      _services_MapService__WEBPACK_IMPORTED_MODULE_0__["default"].deletePolygon(id).then(function (resp) {
-        _this2.$store.dispatch("removeSoilPolygon", id);
-
-        _this2.polygons = _this2.polygons.filter(function (polygon) {
-          return polygon.id !== id;
-        });
-
-        _this2.$helpers.handleSuccess("Polygon deleted successfully");
-      })["catch"](function (err) {
-        return _this2.$helpers.handleError(err, "Cannot delete polygon");
-      });
+      this.$helpers.handleError({}, "Polygon deletion disabled during demonstration"); // MapService.deletePolygon(id)
+      //   .then((resp) => {
+      //     this.$store.dispatch("removeSoilPolygon", id);
+      //     this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
+      //     this.$helpers.handleSuccess("Polygon deleted successfully");
+      //   })
+      //   .catch((err) =>
+      //     this.$helpers.handleError(err, "Cannot delete polygon")
+      //   );
     },
     zoomUpdate: function zoomUpdate(zoom) {
       this.currentZoom = zoom;
@@ -276,10 +273,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this2 = this;
 
     this.$nextTick(function () {
-      var map = _this3.$refs.map.mapObject;
+      var map = _this2.$refs.map.mapObject;
       var drawControl = new window.L.Control.Draw({
         position: "topright",
         draw: {
@@ -292,19 +289,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       map.addControl(drawControl);
       var editableLayers = new window.L.FeatureGroup().addTo(map);
-      _this3.editableLayers = editableLayers;
-      console.log("map: ", _this3.$refs.map.mapObject);
-      window.map = _this3.$refs.map.mapObject; //   console.log();
+      _this2.editableLayers = editableLayers;
+      console.log("map: ", _this2.$refs.map.mapObject);
+      window.map = _this2.$refs.map.mapObject; //   console.log();
 
       map.on(window.L.Draw.Event.CREATED, function (e) {
         console.log("drawing complete");
         var layer = e.layer;
         console.log("layer:", layer); // this.$set(this);
 
-        _this3.activePolygon.coordinates = layer._latlngs[0];
+        _this2.activePolygon.coordinates = layer._latlngs[0];
         editableLayers.addLayer(layer);
         window.editable = editableLayers;
-        console.log("current val: ", _this3.activePolygon.coordinates);
+        console.log("current val: ", _this2.activePolygon.coordinates);
       });
       map.on(window.L.Draw.Event.DRAWSTART, function (e) {
         console.log("started drawing");
@@ -313,8 +310,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (all_layers.length) {
           console.log("all_layers,", all_layers);
           editableLayers.removeLayer(editableLayers._layers[all_layers[0]]);
-          _this3.activePolygon.coordinates = [];
-          console.log("current val after drawstart: ", _this3.activePolygon.coordinates);
+          _this2.activePolygon.coordinates = [];
+          console.log("current val after drawstart: ", _this2.activePolygon.coordinates);
         }
       });
     });
@@ -325,12 +322,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this3 = this;
 
     if (this.specieProp) this.activePolygon.specie_id = this.specieProp.id || null;
     this.polygons = this.polygonsProp;
     this.polygons.forEach(function (polygon) {
-      return _this4.$set(polygon, "visible", false);
+      return _this3.$set(polygon, "visible", false);
     });
   },
   components: {
@@ -605,7 +602,11 @@ var render = function() {
                                   attrs: { selected: "", disabled: "" },
                                   domProps: { value: null }
                                 },
-                                [_vm._v("Select district")]
+                                [
+                                  _vm._v(
+                                    "\n                        Select district\n                      "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _vm._l(_vm.districts, function(district) {
@@ -615,7 +616,13 @@ var render = function() {
                                     key: district.id,
                                     domProps: { value: district.id }
                                   },
-                                  [_vm._v(_vm._s(district.name))]
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(district.name) +
+                                        "\n                      "
+                                    )
+                                  ]
                                 )
                               })
                             ],

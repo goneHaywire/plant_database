@@ -84,6 +84,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $id = $user->id;
         $user->delete();
+        return $id;
     }
 }

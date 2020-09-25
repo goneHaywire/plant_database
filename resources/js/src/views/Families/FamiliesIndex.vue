@@ -18,12 +18,19 @@
           <div class="col-12">
             <h5>Search</h5>
             <form class="search-form" @submit.prevent="searchFamilies()">
-              <div class="form-group d-flex justify-content-between">
+              <div
+                class="form-group d-flex justify-content-between align-items-center"
+              >
                 <input
                   type="text"
                   v-model="search.query"
                   placeholder="Search Families"
                   class="form-control"
+                />
+                <input
+                  type="submit"
+                  value="Search"
+                  class="btn btn-sm btn-success ml-3"
                 />
               </div>
             </form>
@@ -133,15 +140,19 @@ export default {
         );
     },
     deleteFamily(id) {
-      familyService
-        .deleteFamily(id)
-        .then((resp) => {
-          this.families = this.families.filter(
-            (family) => family.id !== parseInt(resp.data)
-          );
-          this.$helpers.handleSuccess("Family deleted successfully");
-        })
-        .catch((err) => this.$helpers.handleError(err, "Cannot delete family"));
+      this.$helpers.handleError(
+        {},
+        "Family deletion disabled during demonstration"
+      );
+      // familyService
+      //   .deleteFamily(id)
+      //   .then((resp) => {
+      //     this.families = this.families.filter(
+      //       (family) => family.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Family deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete family"));
     },
     searchFamilies() {
       familyService

@@ -27,6 +27,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,16 @@
                     <td class="icon-col">{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
+                    <td class="icon-col">
+                      <inline-svg
+                        @click="deleteUser(user.id)"
+                        v-if="currentUser.id !== user.id"
+                        width="25"
+                        class="trash-icon icon"
+                        height="25"
+                        :src="require('../../../../svgs/trash.svg')"
+                      ></inline-svg>
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -41,6 +52,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Actions</th>
                   </tr>
                 </tfoot>
               </table>
@@ -63,9 +75,16 @@
 import pagination from "../../components/Pagination";
 import userService from "../../services/UserService";
 import Vue from "vue";
+import { mapGetters } from "vuex";
+import UsersCreateVue from "./UsersCreate.vue";
 
 export default {
   name: "users-index",
+  computed: {
+    ...mapGetters({
+      currentUser: "getUser",
+    }),
+  },
   methods: {
     fetchUsers() {
       userService
@@ -79,6 +98,14 @@ export default {
         })
         .catch((err) => this.$helpers.handleError(err, "Cannot fetch users"));
     },
+    deleteUser(id) {
+      userService
+        .deleteUser(id)
+        .then((resp) => {
+          this.users = this.users.filter((user) => user.id !== resp.data);
+        })
+        .catch((err) => this.$helpers.handleError(err, "Cannot delete user"));
+    },
   },
   props: {
     users: {
@@ -86,7 +113,7 @@ export default {
       required: true,
     },
     pagination: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },

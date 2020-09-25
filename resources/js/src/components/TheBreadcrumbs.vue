@@ -1,10 +1,10 @@
 <template>
-  <div class="breadcrumb-container">
+  <nav class="breadcrumb-container navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <div class="page-breadcrumb">
         <h4 class="page-title">{{ title ? title : current.name }}</h4>
 
-        <slot name="createBtn" class="ml-3"></slot>
+        <slot name="createBtn" class="ml-4"></slot>
 
         <div class="ml-auto text-right">
           <nav aria-label="breadcrumb" class="breadcrumbs">
@@ -28,10 +28,19 @@
               </li>
             </ol>
           </nav>
+
+          <button
+            @click="toggleSidebar"
+            class="navbar-toggler ml-3"
+            type="button"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -52,6 +61,12 @@ export default {
   computed: {
     current() {
       return this.paths[this.length - 1];
+    },
+  },
+  methods: {
+    toggleSidebar() {
+      document.querySelector(".sidebar-container").classList.add("show");
+      document.body.classList.add("overflow-hidden");
     },
   },
 };

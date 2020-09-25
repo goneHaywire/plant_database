@@ -5,9 +5,7 @@
     <div class="auth-box bg-dark border-top border-secondary">
       <div class="login-header">
         <img src="images/logo.png" alt="Logo" width="15%" />
-        <span class="title">
-          Herbarium
-        </span>
+        <span class="title"> Herbarium </span>
       </div>
       <div id="loginform">
         <form

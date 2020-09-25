@@ -2342,6 +2342,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheBreadcrumbs",
   props: {
@@ -2359,6 +2368,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     current: function current() {
       return this.paths[this.length - 1];
+    }
+  },
+  methods: {
+    toggleSidebar: function toggleSidebar() {
+      document.querySelector(".sidebar-container").classList.add("show");
+      document.body.classList.add("overflow-hidden");
     }
   }
 });
@@ -2422,13 +2437,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TheSidebar",
   components: {
     SidebarLink: _SidebarLink__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    toggleSidebar: function toggleSidebar() {
+      document.querySelector(".sidebar-container").classList.remove("show");
+      document.body.classList.remove("overflow-hidden");
+    }
   }
 });
 
@@ -2508,8 +2527,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2972,6 +2989,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2993,35 +3017,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteFamily: function deleteFamily(id) {
-      var _this2 = this;
-
-      _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].deleteFamily(id).then(function (resp) {
-        _this2.families = _this2.families.filter(function (family) {
-          return family.id !== parseInt(resp.data);
-        });
-
-        _this2.$helpers.handleSuccess("Family deleted successfully");
-      })["catch"](function (err) {
-        return _this2.$helpers.handleError(err, "Cannot delete family");
-      });
+      this.$helpers.handleError({}, "Family deletion disabled during demonstration"); // familyService
+      //   .deleteFamily(id)
+      //   .then((resp) => {
+      //     this.families = this.families.filter(
+      //       (family) => family.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Family deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete family"));
     },
     searchFamilies: function searchFamilies() {
-      var _this3 = this;
+      var _this2 = this;
 
       _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].searchFamilies(this.search, this.pagination.current_page).then(function (resp) {
-        if (!resp.data.data.length) _this3.tableTitle = "No Families found for: ".concat(_this3.search.query);else _this3.tableTitle = "Search results for: ".concat(_this3.search.query);
-        _this3.justSearched = true;
-        _this3.families = resp.data.data;
-        _this3.pagination = {
+        if (!resp.data.data.length) _this2.tableTitle = "No Families found for: ".concat(_this2.search.query);else _this2.tableTitle = "Search results for: ".concat(_this2.search.query);
+        _this2.justSearched = true;
+        _this2.families = resp.data.data;
+        _this2.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this3.$helpers.handleError(err, "Cannot fetch search results");
+        return _this2.$helpers.handleError(err, "Cannot fetch search results");
       });
     },
     clearSearch: function clearSearch() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.justSearched = false;
       this.search = {
@@ -3029,13 +3051,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.tableTitle = "All Families";
       _services_FamilyService_js__WEBPACK_IMPORTED_MODULE_1__["default"].fetchFamilies().then(function (resp) {
-        _this4.families = resp.data.data;
-        _this4.pagination = {
+        _this3.families = resp.data.data;
+        _this3.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this4.$helpers.handleError(err, "Cannot fetch families");
+        return _this3.$helpers.handleError(err, "Cannot fetch families");
       });
     }
   },
@@ -3451,6 +3473,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3471,35 +3500,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteGenera: function deleteGenera(id) {
-      var _this2 = this;
-
-      _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteGenre(id).then(function (resp) {
-        _this2.genera = _this2.genera.filter(function (genre) {
-          return genre.id !== parseInt(resp.data);
-        });
-
-        _this2.$helpers.handleSuccess("Genus deleted successfully");
-      })["catch"](function (err) {
-        return _this2.$helpers.handleError(err, "Cannot delete genus");
-      });
+      this.$helpers.handleError({}, "Genus deletion disabled during demonstration"); // generaService
+      //   .deleteGenre(id)
+      //   .then((resp) => {
+      //     this.genera = this.genera.filter(
+      //       (genre) => genre.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Genus deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete genus"));
     },
     searchGenera: function searchGenera() {
-      var _this3 = this;
+      var _this2 = this;
 
       _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].searchGenera(this.search, this.pagination.current_page).then(function (resp) {
-        if (!resp.data.data.length) _this3.tableTitle = "No Genera found for: ".concat(_this3.search.query);else _this3.tableTitle = "Search results for: ".concat(_this3.search.query);
-        _this3.justSearched = true;
-        _this3.genera = resp.data.data;
-        _this3.pagination = {
+        if (!resp.data.data.length) _this2.tableTitle = "No Genera found for: ".concat(_this2.search.query);else _this2.tableTitle = "Search results for: ".concat(_this2.search.query);
+        _this2.justSearched = true;
+        _this2.genera = resp.data.data;
+        _this2.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this3.$helpers.handleError(err, "Cannot fetch search results");
+        return _this2.$helpers.handleError(err, "Cannot fetch search results");
       });
     },
     clearSearch: function clearSearch() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.justSearched = false;
       this.search = {
@@ -3507,13 +3534,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.tableTitle = "All Genera";
       _services_GeneraService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchGenera().then(function (resp) {
-        _this4.genera = resp.data.data;
-        _this4.pagination = {
+        _this3.genera = resp.data.data;
+        _this3.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this4.$helpers.handleError(err, "Cannot fetch genera");
+        return _this3.$helpers.handleError(err, "Cannot fetch genera");
       });
     }
   },
@@ -3531,7 +3558,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       genera: [],
       justSearched: false,
-      tableTitle: "All Families",
+      tableTitle: "All Genera",
       search: {
         query: null
       }
@@ -4406,6 +4433,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4442,35 +4478,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteSpecie: function deleteSpecie(id) {
-      var _this3 = this;
-
-      _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteSpecie(id).then(function (resp) {
-        _this3.species = _this3.species.filter(function (specie) {
-          return specie.id !== parseInt(resp.data);
-        });
-
-        _this3.$helpers.handleSuccess("Specie deleted successfully");
-      })["catch"](function (err) {
-        return _this3.$helpers.handleError(err, "Cannot delete specie");
-      });
+      this.$helpers.handleError({}, "Specie deletion disabled during demonstration"); // speciesService
+      //   .deleteSpecie(id)
+      //   .then((resp) => {
+      //     this.species = this.species.filter(
+      //       (specie) => specie.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Specie deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete specie"));
     },
     searchSpecies: function searchSpecies() {
-      var _this4 = this;
+      var _this3 = this;
 
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].searchSpecies(this.search, this.pagination.current_page).then(function (resp) {
-        if (!resp.data.data.length) _this4.tableTitle = "No Species found for: ".concat(_this4.search.query);else _this4.tableTitle = "Search results for: ".concat(_this4.search.query);
-        _this4.justSearched = true;
-        _this4.species = resp.data.data;
-        _this4.pagination = {
+        if (!resp.data.data.length) _this3.tableTitle = "No Species found for: ".concat(_this3.search.query);else _this3.tableTitle = "Search results for: ".concat(_this3.search.query);
+        _this3.justSearched = true;
+        _this3.species = resp.data.data;
+        _this3.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this4.$helpers.handleError(err, "Cannot fetch search results");
+        return _this3.$helpers.handleError(err, "Cannot fetch search results");
       });
     },
     clearSearch: function clearSearch() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.justSearched = false;
       this.search = {
@@ -4484,13 +4518,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.tableTitle = "All Species";
       _services_SpeciesService__WEBPACK_IMPORTED_MODULE_1__["default"].fetchSpecies().then(function (resp) {
-        _this5.species = resp.data.data;
-        _this5.pagination = {
+        _this4.species = resp.data.data;
+        _this4.pagination = {
           current_page: resp.data.current_page,
           last_page: resp.data.last_page
         };
       })["catch"](function (err) {
-        return _this5.$helpers.handleError(err, "Cannot fetch species");
+        return _this4.$helpers.handleError(err, "Cannot fetch species");
       });
     }
   },
@@ -4525,24 +4559,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     "search.searchFilters": function searchSearchFilters(newValue, oldValue) {
-      var _this6 = this;
+      var _this5 = this;
 
       if (!this.families.length) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getAllFamilies().then(function (resp) {
-          return _this6.families = resp.data;
+          return _this5.families = resp.data;
         })["catch"](function (err) {
-          return _this6.$helpers.handleError(err, "Cannot fetch all families");
+          return _this5.$helpers.handleError(err, "Cannot fetch all families");
         });
       }
     },
     "search.family_id": function searchFamily_id(newValue, oldValue) {
-      var _this7 = this;
+      var _this6 = this;
 
       if (newValue) {
         _services_FamilyService__WEBPACK_IMPORTED_MODULE_2__["default"].getGeneraOfFamily(newValue).then(function (resp) {
-          _this7.genera = resp.data;
+          _this6.genera = resp.data;
         })["catch"](function (err) {
-          return _this7.$helpers.handleError(err, "Cannot fetch family's genera");
+          return _this6.$helpers.handleError(err, "Cannot fetch family's genera");
         });
       }
     },
@@ -43078,75 +43112,89 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "breadcrumb-container" }, [
-    _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "div",
-        { staticClass: "page-breadcrumb" },
-        [
-          _c("h4", { staticClass: "page-title" }, [
-            _vm._v(_vm._s(_vm.title ? _vm.title : _vm.current.name))
-          ]),
-          _vm._v(" "),
-          _vm._t("createBtn"),
-          _vm._v(" "),
-          _c("div", { staticClass: "ml-auto text-right" }, [
-            _c(
-              "nav",
-              {
-                staticClass: "breadcrumbs",
-                attrs: { "aria-label": "breadcrumb" }
-              },
-              [
-                _c(
-                  "ol",
-                  { staticClass: "breadcrumb" },
-                  _vm._l(_vm.paths, function(path) {
-                    return _c(
-                      "li",
-                      {
-                        key: path.route,
-                        staticClass: "breadcrumb-item",
-                        class: {
-                          active: path.route === _vm.current.route
-                        }
-                      },
-                      [
-                        path.route === _vm.current.route
-                          ? [
-                              _vm._v(
-                                "\n                " +
-                                  _vm._s(path.name) +
-                                  "\n              "
-                              )
-                            ]
-                          : [
-                              _c(
-                                "router-link",
-                                { attrs: { to: { name: path.route } } },
-                                [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(path.name) +
-                                      "\n                "
-                                  )
-                                ]
-                              )
-                            ]
-                      ],
-                      2
-                    )
-                  }),
-                  0
-                )
-              ]
-            )
-          ])
-        ],
-        2
-      )
-    ])
-  ])
+  return _c(
+    "nav",
+    { staticClass: "breadcrumb-container navbar-expand-lg navbar-dark" },
+    [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c(
+          "div",
+          { staticClass: "page-breadcrumb" },
+          [
+            _c("h4", { staticClass: "page-title" }, [
+              _vm._v(_vm._s(_vm.title ? _vm.title : _vm.current.name))
+            ]),
+            _vm._v(" "),
+            _vm._t("createBtn"),
+            _vm._v(" "),
+            _c("div", { staticClass: "ml-auto text-right" }, [
+              _c(
+                "nav",
+                {
+                  staticClass: "breadcrumbs",
+                  attrs: { "aria-label": "breadcrumb" }
+                },
+                [
+                  _c(
+                    "ol",
+                    { staticClass: "breadcrumb" },
+                    _vm._l(_vm.paths, function(path) {
+                      return _c(
+                        "li",
+                        {
+                          key: path.route,
+                          staticClass: "breadcrumb-item",
+                          class: {
+                            active: path.route === _vm.current.route
+                          }
+                        },
+                        [
+                          path.route === _vm.current.route
+                            ? [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(path.name) +
+                                    "\n              "
+                                )
+                              ]
+                            : [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: path.route } } },
+                                  [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(path.name) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                              ]
+                        ],
+                        2
+                      )
+                    }),
+                    0
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "navbar-toggler ml-3",
+                  attrs: { type: "button", "aria-label": "Toggle navigation" },
+                  on: { click: _vm.toggleSidebar }
+                },
+                [_c("span", { staticClass: "navbar-toggler-icon" })]
+              )
+            ])
+          ],
+          2
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43170,95 +43218,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sidebar-container" }, [
-    _c(
-      "aside",
-      { staticClass: "left-sidebar", attrs: { "data-sidebarbg": "skin5" } },
-      [
-        _c(
-          "router-link",
-          {
-            staticClass: "logo-container",
-            attrs: { tag: "div", to: { name: "home" } }
-          },
-          [
-            _c("img", {
-              attrs: { src: "images/logo.png", alt: "Logo", width: "15%" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "title" }, [
-              _vm._v("\n        Herbarium\n      ")
+  return _c(
+    "div",
+    {
+      staticClass: "sidebar-container",
+      on: {
+        click: function($event) {
+          return _vm.toggleSidebar()
+        }
+      }
+    },
+    [
+      _c(
+        "aside",
+        { staticClass: "left-sidebar", attrs: { "data-sidebarbg": "skin5" } },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "logo-container",
+              attrs: { tag: "div", to: { name: "home" } }
+            },
+            [
+              _c("img", {
+                attrs: { src: "images/logo.png", alt: "Logo", width: "15%" }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "title" }, [_vm._v(" Herbarium ")])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "scroll-sidebar" }, [
+            _c("nav", { staticClass: "sidebar-nav" }, [
+              _c(
+                "ul",
+                { staticClass: "p-t-30", attrs: { id: "sidebarnav" } },
+                [
+                  _c(
+                    "sidebar-link",
+                    { attrs: { "route-name": "home", icon: "home" } },
+                    [_vm._v("Home")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    { attrs: { "route-name": "families.index", icon: "tree" } },
+                    [_vm._v("Families")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    {
+                      attrs: { "route-name": "genera.index", icon: "list-alt" }
+                    },
+                    [_vm._v("Genera")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    { attrs: { "route-name": "species.index", icon: "leaf" } },
+                    [_vm._v("Species")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    {
+                      attrs: {
+                        "route-name": "albanian.index",
+                        icon: "map-marker-alt"
+                      }
+                    },
+                    [_vm._v("Albanian Species")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    {
+                      attrs: { "route-name": "favourites.index", icon: "star" }
+                    },
+                    [_vm._v("Favourites")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    { attrs: { "route-name": "maps.index", icon: "map" } },
+                    [_vm._v("\n            Map\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "sidebar-link",
+                    { attrs: { "route-name": "users.index", icon: "user" } },
+                    [_vm._v("Users")]
+                  )
+                ],
+                1
+              )
             ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "scroll-sidebar" }, [
-          _c("nav", { staticClass: "sidebar-nav" }, [
-            _c(
-              "ul",
-              { staticClass: "p-t-30", attrs: { id: "sidebarnav" } },
-              [
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "home", icon: "home" } },
-                  [_vm._v("Home")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "families.index", icon: "tree" } },
-                  [_vm._v("Families")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "genera.index", icon: "list-alt" } },
-                  [_vm._v("Genera")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "species.index", icon: "leaf" } },
-                  [_vm._v("Species")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  {
-                    attrs: {
-                      "route-name": "albanian.index",
-                      icon: "map-marker-alt"
-                    }
-                  },
-                  [_vm._v("Albanian Species")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "favourites.index", icon: "star" } },
-                  [_vm._v("Favourites")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "maps.index", icon: "map" } },
-                  [_vm._v("\n            Map\n          ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "sidebar-link",
-                  { attrs: { "route-name": "users.index", icon: "user" } },
-                  [_vm._v("Users")]
-                )
-              ],
-              1
-            )
           ])
-        ])
-      ],
-      1
-    )
-  ])
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43471,9 +43532,7 @@ var staticRenderFns = [
         attrs: { src: "images/logo.png", alt: "Logo", width: "15%" }
       }),
       _vm._v(" "),
-      _c("span", { staticClass: "title" }, [
-        _vm._v("\n        Herbarium\n      ")
-      ])
+      _c("span", { staticClass: "title" }, [_vm._v(" Herbarium ")])
     ])
   },
   function() {
@@ -43870,7 +43929,8 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "form-group d-flex justify-content-between"
+                        staticClass:
+                          "form-group d-flex justify-content-between align-items-center"
                       },
                       [
                         _c("input", {
@@ -43896,6 +43956,11 @@ var render = function() {
                               _vm.$set(_vm.search, "query", $event.target.value)
                             }
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "btn btn-sm btn-success ml-3",
+                          attrs: { type: "submit", value: "Search" }
                         })
                       ]
                     )
@@ -44447,7 +44512,8 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "form-group d-flex justify-content-between"
+                        staticClass:
+                          "form-group d-flex justify-content-between align-items-center"
                       },
                       [
                         _c("input", {
@@ -44470,6 +44536,11 @@ var render = function() {
                               _vm.$set(_vm.search, "query", $event.target.value)
                             }
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "btn btn-sm btn-success ml-3",
+                          attrs: { type: "submit", value: "Search" }
                         })
                       ]
                     )
@@ -45548,7 +45619,8 @@ var render = function() {
                     _c(
                       "div",
                       {
-                        staticClass: "form-group d-flex justify-content-between"
+                        staticClass:
+                          "form-group d-flex justify-content-between align-items-center"
                       },
                       [
                         _c(
@@ -45597,6 +45669,11 @@ var render = function() {
                               _vm.$set(_vm.search, "query", $event.target.value)
                             }
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "btn btn-sm btn-success ml-3",
+                          attrs: { type: "submit", value: "Search" }
                         })
                       ]
                     ),
@@ -45671,7 +45748,13 @@ var render = function() {
                                         key: family.id,
                                         domProps: { value: family.id }
                                       },
-                                      [_vm._v(_vm._s(family.name))]
+                                      [
+                                        _vm._v(
+                                          "\n                        " +
+                                            _vm._s(family.name) +
+                                            "\n                      "
+                                        )
+                                      ]
                                     )
                                   })
                                 ],
@@ -45735,7 +45818,13 @@ var render = function() {
                                         key: genus.id,
                                         domProps: { value: genus.id }
                                       },
-                                      [_vm._v(_vm._s(genus.name))]
+                                      [
+                                        _vm._v(
+                                          "\n                        " +
+                                            _vm._s(genus.name) +
+                                            "\n                      "
+                                        )
+                                      ]
                                     )
                                   })
                                 ],
@@ -45972,8 +46061,9 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          _vm._s(specie.genera.name) +
-                                            "\n                    "
+                                          _vm._s(
+                                            specie.genera.name || "No Genus"
+                                          ) + "\n                    "
                                         )
                                       ]
                                     )
@@ -46000,7 +46090,10 @@ var render = function() {
                                       [
                                         _vm._v(
                                           "\n                      " +
-                                            _vm._s(specie.genera.family.name) +
+                                            _vm._s(
+                                              specie.genera.family.name ||
+                                                "No Family"
+                                            ) +
                                             "\n                    "
                                         )
                                       ]
@@ -62748,7 +62841,7 @@ var app = new Vue({
                 _this.$store.dispatch("login", userData);
               })["catch"](function (error) {
                 if (error.response.status === 401) {
-                  _this.$helpers.handleError(error, 'Invalid token, logging out ');
+                  _this.$helpers.handleError(error, 'Invalid or expired token');
 
                   _this.$store.dispatch("logout");
                 }
@@ -63683,9 +63776,10 @@ var apiClient = axios.create({
   // baseURL: 'http://localhost:5000/api/',
   // baseURL: 'http://localhost:8000/api/',
   baseURL: 'http://192.168.0.107:5000/api/',
+  // baseURL: 'http://10.0.0.145:5000/api',
   timeout: 5000,
   headers: {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
 });
@@ -63919,14 +64013,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
     getSoilPolygons: function getSoilPolygons(state) {
       return state.soilPolygons;
     },
-    // getSoilPolygonsLength: (state) => state.soilPolygons.length,
     getAreas: function getAreas(state) {
       return state.areas;
     },
     getAreasArray: function getAreasArray(state) {
       return state.areasArray;
     },
-    // getAreasLength: state => state.areas.length,
     getDistricts: function getDistricts(state) {
       return state.districts;
     },
@@ -64050,16 +64142,16 @@ __webpack_require__.r(__webpack_exports__);
 
     if (err.response) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('createAlert', {
-        message: "Response error: ".concat(message, " (").concat(err.response.data.error, ")"),
+        message: "Response error: ".concat(message),
         type: 'danger'
       });
-      console.log("Response error: ".concat(message, " (").concat(err.response.data.error, ")"));
+      console.log("Response error: ".concat(message));
     } else if (err.request) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('createAlert', {
-        message: "Request error: ".concat(message, " (").concat(err.request, ")"),
+        message: "Request error: ".concat(message),
         type: 'danger'
       });
-      console.log("Request error: ".concat(message, " (").concat(err.request, ")"));
+      console.log("Request error: ".concat(message));
       console.log(err.request);
       console.log(err);
     } else {

@@ -18,7 +18,9 @@
           <div class="col-12">
             <h5>Search</h5>
             <form class="search-form" @submit.prevent="searchSpecies()">
-              <div class="form-group d-flex justify-content-between">
+              <div
+                class="form-group d-flex justify-content-between align-items-center"
+              >
                 <div
                   class="show-filters btn border"
                   @click="search.searchFilters = !search.searchFilters"
@@ -35,6 +37,11 @@
                   placeholder="Search Species"
                   class="form-control"
                 />
+                <input
+                  type="submit"
+                  value="Search"
+                  class="btn btn-sm btn-success ml-3"
+                />
               </div>
               <div class="filters" v-show="search.searchFilters">
                 <div class="row align-items-center">
@@ -50,8 +57,9 @@
                           v-for="family in families"
                           :key="family.id"
                           :value="family.id"
-                          >{{ family.name }}</option
                         >
+                          {{ family.name }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -67,8 +75,9 @@
                           v-for="genus in genera"
                           :key="genus.id"
                           :value="genus.id"
-                          >{{ genus.name }}</option
                         >
+                          {{ genus.name }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -153,7 +162,7 @@
                             id: specie.genera.id,
                           },
                         }"
-                        >{{ specie.genera.name }}
+                        >{{ specie.genera.name || "No Genus" }}
                       </router-link>
                     </td>
 
@@ -167,7 +176,7 @@
                           },
                         }"
                       >
-                        {{ specie.genera.family.name }}
+                        {{ specie.genera.family.name || "No Family" }}
                       </router-link>
                     </td>
 
@@ -295,15 +304,19 @@ export default {
         );
     },
     deleteSpecie(id) {
-      speciesService
-        .deleteSpecie(id)
-        .then((resp) => {
-          this.species = this.species.filter(
-            (specie) => specie.id !== parseInt(resp.data)
-          );
-          this.$helpers.handleSuccess("Specie deleted successfully");
-        })
-        .catch((err) => this.$helpers.handleError(err, "Cannot delete specie"));
+      this.$helpers.handleError(
+        {},
+        "Specie deletion disabled during demonstration"
+      );
+      // speciesService
+      //   .deleteSpecie(id)
+      //   .then((resp) => {
+      //     this.species = this.species.filter(
+      //       (specie) => specie.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Specie deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete specie"));
     },
     searchSpecies() {
       speciesService

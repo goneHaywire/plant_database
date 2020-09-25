@@ -68,7 +68,7 @@ const app = new Vue({
                 })
                 .catch(error => {
                     if (error.response.status === 401) {
-                        this.$helpers.handleError(error, 'Invalid token, logging out ')
+                        this.$helpers.handleError(error, 'Invalid or expired token')
                         this.$store.dispatch("logout");
                     }
                 });

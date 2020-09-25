@@ -90,15 +90,16 @@
                         id="district"
                         v-model="activePolygon.district_id"
                       >
-                        <option :value="null" selected disabled
-                          >Select district</option
-                        >
+                        <option :value="null" selected disabled>
+                          Select district
+                        </option>
                         <option
                           :value="district.id"
                           v-for="district in districts"
                           :key="district.id"
-                          >{{ district.name }}</option
                         >
+                          {{ district.name }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -243,15 +244,19 @@ export default {
         );
     },
     deletePolygon(id) {
-      MapService.deletePolygon(id)
-        .then((resp) => {
-          this.$store.dispatch("removeSoilPolygon", id);
-          this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
-          this.$helpers.handleSuccess("Polygon deleted successfully");
-        })
-        .catch((err) =>
-          this.$helpers.handleError(err, "Cannot delete polygon")
-        );
+      this.$helpers.handleError(
+        {},
+        "Polygon deletion disabled during demonstration"
+      );
+      // MapService.deletePolygon(id)
+      //   .then((resp) => {
+      //     this.$store.dispatch("removeSoilPolygon", id);
+      //     this.polygons = this.polygons.filter((polygon) => polygon.id !== id);
+      //     this.$helpers.handleSuccess("Polygon deleted successfully");
+      //   })
+      //   .catch((err) =>
+      //     this.$helpers.handleError(err, "Cannot delete polygon")
+      //   );
     },
     zoomUpdate(zoom) {
       this.currentZoom = zoom;

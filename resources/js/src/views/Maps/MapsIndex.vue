@@ -24,7 +24,7 @@
           <div class="col-12">
             <div class="row">
               <div class="col-md-5">
-                <div id="map">
+                <div id="map" class="mb-2">
                   <l-map
                     :zoom="zoom"
                     :center="center"
@@ -81,15 +81,16 @@
                                 class="form-control"
                                 v-model="search.family_id"
                               >
-                                <option selected :value="null"
-                                  >Select Family</option
-                                >
+                                <option selected :value="null">
+                                  Select Family
+                                </option>
                                 <option
                                   v-for="family in families"
                                   :key="family.id"
                                   :value="family.id"
-                                  >{{ family.name }}</option
                                 >
+                                  {{ family.name }}
+                                </option>
                               </select>
                             </div>
                           </div>
@@ -100,15 +101,16 @@
                                 class="form-control"
                                 v-model="search.genera_id"
                               >
-                                <option selected :value="null"
-                                  >Select Genus</option
-                                >
+                                <option selected :value="null">
+                                  Select Genus
+                                </option>
                                 <option
                                   v-for="genus in genera"
                                   :key="genus.id"
                                   :value="genus.id"
-                                  >{{ genus.name }}</option
                                 >
+                                  {{ genus.name }}
+                                </option>
                               </select>
                             </div>
                           </div>
@@ -146,7 +148,7 @@
                       <span
                         v-if="selectedSpecie"
                         class="ml-1"
-                        style="cursor: pointer;"
+                        style="cursor: pointer"
                       >
                         <inline-svg
                           :src="require('../../../../svgs/close.svg')"
@@ -213,8 +215,9 @@
                         :value="district.id"
                         v-for="district in districts"
                         :key="district.id"
-                        >{{ district.name }}</option
                       >
+                        {{ district.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -250,9 +253,7 @@
 
                   <div class="col-12 col-md-8">
                     <template v-if="available_families.length">
-                      <h3>
-                        Families eligible for growing in selected soils.
-                      </h3>
+                      <h3>Families eligible for growing in selected soils.</h3>
                       <table class="table table-striped table-bordered">
                         <thead>
                           <td>ID</td>

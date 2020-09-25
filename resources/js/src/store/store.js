@@ -20,10 +20,8 @@ const store = new Vuex.Store({
         getUser: (state) => state.user,
         getStats: (state) => state.stats,
         getSoilPolygons: (state) => state.soilPolygons,
-        // getSoilPolygonsLength: (state) => state.soilPolygons.length,
         getAreas: state => state.areas,
         getAreasArray: state => state.areasArray,
-        // getAreasLength: state => state.areas.length,
         getDistricts: state => state.districts,
         getAlerts: store => store.alerts,
 

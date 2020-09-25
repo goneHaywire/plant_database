@@ -18,12 +18,19 @@
           <div class="col-12">
             <h5>Search</h5>
             <form class="search-form" @submit.prevent="searchGenera()">
-              <div class="form-group d-flex justify-content-between">
+              <div
+                class="form-group d-flex justify-content-between align-items-center"
+              >
                 <input
                   type="text"
                   v-model="search.query"
                   placeholder="Search Genera"
                   class="form-control"
+                />
+                <input
+                  type="submit"
+                  value="Search"
+                  class="btn btn-sm btn-success ml-3"
                 />
               </div>
             </form>
@@ -143,15 +150,19 @@ export default {
         .catch((err) => this.$helpers.handleError(err, "Cannot fetch genera"));
     },
     deleteGenera(id) {
-      generaService
-        .deleteGenre(id)
-        .then((resp) => {
-          this.genera = this.genera.filter(
-            (genre) => genre.id !== parseInt(resp.data)
-          );
-          this.$helpers.handleSuccess("Genus deleted successfully");
-        })
-        .catch((err) => this.$helpers.handleError(err, "Cannot delete genus"));
+      this.$helpers.handleError(
+        {},
+        "Genus deletion disabled during demonstration"
+      );
+      // generaService
+      //   .deleteGenre(id)
+      //   .then((resp) => {
+      //     this.genera = this.genera.filter(
+      //       (genre) => genre.id !== parseInt(resp.data)
+      //     );
+      //     this.$helpers.handleSuccess("Genus deleted successfully");
+      //   })
+      //   .catch((err) => this.$helpers.handleError(err, "Cannot delete genus"));
     },
     searchGenera() {
       generaService
@@ -202,7 +213,7 @@ export default {
     return {
       genera: [],
       justSearched: false,
-      tableTitle: "All Families",
+      tableTitle: "All Genera",
       search: { query: null },
     };
   },
